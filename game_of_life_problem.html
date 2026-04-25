@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Bartlomiej Lukaszuk" />
-  <title>Pascal’s Triangle - Build SH*T with Julia</title>
+  <title>Problem - Build SH*T with Julia</title>
   <link rel="stylesheet" href="./style.css"/>
     <script src="./mousetrap.min.js"></script>
     <style>
@@ -181,17 +181,31 @@ Mousetrap.bind('l', click_next);
 </aside>
 
 <div class="books-content">
-<h1 data-number="11" id="sec:pascals_triangle"><span class="header-section-number">11</span> Pascal’s Triangle</h1>
-<p>In this chapter I did not use any external libraries. Still, once you read the problem description you may decide to do otherwise. In that case don’t let me stop you.</p>
-<p>I recommend you try to solve the task on your own first. Once you finish you may compare your own solution with the one in this chapter (with explanations) or with <a href="https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/pascals_triangle">the code snippets</a> (without explanations).</p>
-<p>A reminder of how to deal with packages and *.toml files can be found <a href="https://docs.julialang.org/en/v1/stdlib/Pkg/">here</a>.</p>
+<h2 data-number="41.1" id="sec:game_of_life_problem"><span class="header-section-number">41.1</span> Problem</h2>
+<p>Let’s finish with another classic. This time your job is to implement <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Conway’s Game of Life</a> with a finite two dimensional grid called the universe. Each cell on the grid got some initial probability of being alive. Per the Wikipedia’s description the next state of the universe is calculated as follows:</p>
+<blockquote>
+<ol type="1">
+<li>Any live cell with fewer than two live neighbours dies, as if by underpopulation.</li>
+<li>Any live cell with two or three live neighbours lives on to the next generation.</li>
+<li>Any live cell with more than three live neighbours dies, as if by overpopulation.</li>
+<li>Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.</li>
+</ol>
+</blockquote>
+<p>The game may look something like Figure <a href="#fig:gameOfLife">25</a>.</p>
+<figure id="fig:gameOfLife">
+<img src="./images/gameOfLife.png" alt="Figure 25: A frame from the Conway’s Game of Life." />
+<figcaption aria-hidden="true">Figure 25: A frame from the Conway’s Game of Life.</figcaption>
+</figure>
+<blockquote>
+<p><strong><em>WARNING:</em></strong> While running the program in terminal the screen may flicker. If that’s a problem (you may feel unwell) then you can skip this exercise. Remember that you should be able to abort the program (terminal application) at any time by pressing Ctrl-C.</p>
+</blockquote>
 
 
 <div class="bottom-nav">
     <p id="nav-prev" style="text-align: left;">
-        <a class="menu-level-2" href="./progress_bar_solution.html"><b>10.2</b> Solution</a> <kbd>←</kbd>
+        <a class="menu-level-1" href="./game_of_life.html"><b>41</b> Game of Life</a> <kbd>←</kbd>
         <span id="nav-next" style="float: right;">
-            <kbd>→</kbd> <a class="menu-level-2" href="./pascals_triangle_problem.html"><b>11.1</b> Problem</a>
+            <kbd>→</kbd> <a class="menu-level-2" href="./game_of_life_solution.html"><b>41.2</b> Solution</a>
         </span>
     </p>
 </div>

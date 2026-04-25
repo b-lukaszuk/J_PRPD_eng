@@ -173,7 +173,10 @@ Mousetrap.bind('l', click_next);
 <li><a class="menu-level-1" href="./vigenere.html"><b>40</b> Vigenere</a></li>
 <li><a class="menu-level-2" href="./vigenere_problem.html"><b>40.1</b> Problem</a></li>
 <li><a class="menu-level-2" href="./vigenere_solution.html"><b>40.2</b> Solution</a></li>
-<li><a class="menu-level-1" href="./the-end.html"><b>41</b> The end</a></li>
+<li><a class="menu-level-1" href="./game_of_life.html"><b>41</b> Game of Life</a></li>
+<li><a class="menu-level-2" href="./game_of_life_problem.html"><b>41.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./game_of_life_solution.html"><b>41.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./the-end.html"><b>42</b> The end</a></li>
 </div>
 </aside>
 
@@ -279,12 +282,12 @@ end</code></pre>
 <pre class="language-julia"><code>Rnd.seed!(401) # needed to make it reproducible
 playGame([naive, unforgiving, paybacker, unfriendly, abusive, egoist])</code></pre>
 <pre class="output"><code>Dict{Player, Int64} with 6 entries:
+  unforgiving =&gt; 490
   paybacker =&gt; 464
   egoist =&gt; 323
   unfriendly =&gt; -26
   naive =&gt; 68
-  abusive =&gt; 2
-  unforgiving =&gt; 490</code></pre>
+  abusive =&gt; 2</code></pre>
 <p>First three competitors (monkeys) are: <code>unforgiving</code> followed by <code>paybacker</code> and <code>egoist</code>. Run the simulation a couple of times (with different <code>seed</code>s) and see the results. In general the good players (monkeys) win the podium with the evil ones in 2:1 ratio.</p>
 <p>Interestingly, if we replace the <code>unforgiving</code> with <code>gullible</code> (it cooperates at random 90% of the times) we get something entirely different.</p>
 <pre class="language-julia"><code>Rnd.seed!(401) # needed to make it reproducible

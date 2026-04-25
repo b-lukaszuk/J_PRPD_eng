@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Bartlomiej Lukaszuk" />
-  <title>Pascal’s Triangle - Build SH*T with Julia</title>
+  <title>Solution - Build SH*T with Julia</title>
   <link rel="stylesheet" href="./style.css"/>
     <script src="./mousetrap.min.js"></script>
     <style>
@@ -181,17 +181,131 @@ Mousetrap.bind('l', click_next);
 </aside>
 
 <div class="books-content">
-<h1 data-number="11" id="sec:pascals_triangle"><span class="header-section-number">11</span> Pascal’s Triangle</h1>
-<p>In this chapter I did not use any external libraries. Still, once you read the problem description you may decide to do otherwise. In that case don’t let me stop you.</p>
-<p>I recommend you try to solve the task on your own first. Once you finish you may compare your own solution with the one in this chapter (with explanations) or with <a href="https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/pascals_triangle">the code snippets</a> (without explanations).</p>
-<p>A reminder of how to deal with packages and *.toml files can be found <a href="https://docs.julialang.org/en/v1/stdlib/Pkg/">here</a>.</p>
+<h2 data-number="41.2" id="sec:game_of_life_solution"><span class="header-section-number">41.2</span> Solution</h2>
+<p>Let’s start with our universe.</p>
+<pre class="language-julia"><code>const N_COLS = 80
+const N_ROWS = 40
+const PROB_ALIVE = 0.25
+
+const Universe = Matrix{Bool}
+
+function getEmptyUniverse()::Universe
+    return zeros(Bool, N_ROWS, N_COLS)
+end
+
+function getRandUniverse()::Universe
+    # rand gives val [0-1) and not [0-1] like prob, but it will do
+    return rand(Float64, N_ROWS, N_COLS) .&lt;= PROB_ALIVE
+end</code></pre>
+<p>For that we defined a few <code>const</code>ants and functions. The <code>Universe</code> data type, is a synonym for a <code>Matrix</code> (<code>N_ROWS</code>x<code>N_COLS</code>) of <code>Bool</code>s. This is a natural choice since each cell can be either alive (with the probability of <code>0.25</code>) or dead.</p>
+<p>Next, time for printing.</p>
+<pre class="language-julia"><code>const ALIVE_SYMBOL = &#39;O&#39;
+const DEAD_SYMBOL = &#39;.&#39;
+const N_GENERATIONS = 50
+
+function getFieldSymbol(field::Bool)::Char
+    return field ? ALIVE_SYMBOL : DEAD_SYMBOL
+end
+
+function printUniverse(universe::Universe, nGeneration::Int)::Nothing
+    population::Int = sum(universe)
+    print(&quot;Generation: $nGeneration/$N_GENERATIONS, &quot;)
+    println(&quot;population: $population\n&quot;)
+    for r in 1:N_ROWS
+        println(map(getFieldSymbol, universe[r, :]) |&gt; join)
+    end
+    return nothing
+end
+
+# https://en.wikipedia.org/wiki/ANSI_escape_code
+function clearDisplay(nLinesUp::Int)::Nothing
+    @assert 0 &lt; nLinesUp &quot;nLinesUp must be a positive integer&quot;
+    # &quot;\033[xxxA&quot; - xxx moves cursor up xxx LINES
+    print(&quot;\033[&quot; * string(nLinesUp) * &quot;A&quot;)
+    # &quot;\033[0J&quot; - clears from cursor position till the end of the screen
+    print(&quot;\033[0J&quot;)
+    return nothing
+end
+
+function reprintUniverse(universe::Universe, nGeneration::Int)::Nothing
+    clearDisplay(N_ROWS+2) # +2 cause info line and newline
+    printUniverse(universe, nGeneration)
+    return nothing
+end</code></pre>
+<p>The above (printing and reprinting) is basically a modified code from Section <a href="./diffusion_solution.html#sec:diffusion_solution">32.2</a>. Of note, here we do not draw the borders, instead we use dead (<code>DEAD_SYMBOL</code>) and live (<code>ALIVE_SYMBOL</code>) cells.</p>
+<p>Time to determine the next state of our <code>universe</code>. But first we need to know the number of a cell’s neighbors that are alive.</p>
+<pre class="language-julia"><code>function isCellWithinRange(row::Int, col::Int)::Bool
+    return (1 &lt;= row &lt;= N_ROWS) &amp;&amp; (1 &lt;= col &lt;= N_COLS)
+end
+
+function getNumLiveNeighbors(universe::Universe, row::Int, col::Int)::Int
+    if !isCellWithinRange(row, col)
+        return 0
+    end
+    nAlive::Int = 0
+    neighborCol::Int, neighborRow::Int = 0, 0
+    for c in -1:1, r in -1:1
+        neighborRow, neighborCol = row+r, col+c
+        if !isCellWithinRange(neighborRow, neighborCol)
+            continue
+        end
+        if (neighborRow == row &amp;&amp; neighborCol == col)
+            continue
+        end
+        if universe[neighborRow, neighborCol]
+            nAlive += 1
+        end
+    end
+    return nAlive
+end</code></pre>
+<p>We assign this task to <code>getNumLiveNeighbors</code> that accepts our <code>universe</code> and the cell of interest coordinates (<code>row</code> and <code>col</code>) as its parameters. The neighbors of a cell are located in a row below, the same row as the cell, and a row above the cell’s own row (<code>r in -1:1</code>). Similarly, we look at a column to the left, the same column as the cell, and a column to the right of the cell’s own column (<code>c in -1:1</code>). Hence, a neighbor’s coordinates are calculated as <code>neighborRow = row+r</code> (<code>row</code> is the cell’s own row, <code>r</code> is the row shift) and <code>neighborCol = col+c</code> (<code>col</code> is the cell’s own column, <code>c</code> is the column shift). We examine all the possible neighbor locations with the <code>for</code> loop. If the coordinates fall outside the grid (<code>!isCellWithinRange</code> - the cell does not exist in our <code>universe</code>) then we <code>continue</code> to the next iteration (we examine next coordinates). The same goes for examining the coordinates of the cell itself (since both <code>r</code> and <code>c</code> may be equal 0). Otherwise, if a neighbor is alive (<code>if universe[neighborRow, neighborCol]</code>) we add 1 to the count (<code>nAlive += 1</code>), which we eventually <code>return</code> from the function.</p>
+<p>Now we are ready to calculate the next state of our <code>universe</code>.</p>
+<pre class="language-julia"><code>function shouldCellBeAlive(universe::Universe, row::Int, col::Int)::Bool
+    nLiveNeighbors::Int = getNumLiveNeighbors(universe, row, col)
+    if universe[row, col] &amp;&amp; nLiveNeighbors in 2:3
+        return true
+    end
+    return nLiveNeighbors == 3
+end
+
+function getUniverseNextState(universe::Universe)::Universe
+    newUniverse::Universe = getEmptyUniverse()
+    for c in 1:N_COLS, r in 1:N_ROWS
+        newUniverse[r, c] = shouldCellBeAlive(universe, r, c)
+    end
+    return newUniverse
+end</code></pre>
+<p>We start by figuring out if a cell should be alive in the next turn (<code>shouldCellBeAlive</code>). Per task specification, if a cell was previously alive (<code>if universe[row, col]</code>) and it got 2 or 3 live neighbors (<code>nLiveNeighbors in 2:3</code>) then it should be alive (<code>return true</code>). Otherwise, it should live if it was previously dead and got exactly three live neighbors (<code>nLiveNeighbors == 3</code>).</p>
+<p>All that’s left to do is to <code>getUniverseNextState</code> by examining each cell (<code>r</code> and <code>c</code>) in the <code>universe</code> and deciding its fate in the next turn (<code>shouldCellBeAlive(universe, r, c)</code>).</p>
+<p>And now for the final touch.</p>
+<pre class="language-julia"><code>const DELAY_SEC = 0.5
+
+# early stop
+function areAllCellsDead(universe::Universe)::Bool
+    return sum(universe) == 0
+end
+
+function runGameOfLife()
+    universe::Universe = getRandUniverse()
+    printUniverse(universe, 0)
+    for nGeneration in 1:N_GENERATIONS
+        universe = getUniverseNextState(universe)
+        reprintUniverse(universe, nGeneration)
+        sleep(DELAY_SEC)
+        if areAllCellsDead(universe)
+            println(&quot;All cells are dead.&quot;)
+            break
+        end
+    end
+end</code></pre>
+<p>Let the games begin (type <code>runGameOfLife()</code> and see what happens).</p>
 
 
 <div class="bottom-nav">
     <p id="nav-prev" style="text-align: left;">
-        <a class="menu-level-2" href="./progress_bar_solution.html"><b>10.2</b> Solution</a> <kbd>←</kbd>
+        <a class="menu-level-2" href="./game_of_life_problem.html"><b>41.1</b> Problem</a> <kbd>←</kbd>
         <span id="nav-next" style="float: right;">
-            <kbd>→</kbd> <a class="menu-level-2" href="./pascals_triangle_problem.html"><b>11.1</b> Problem</a>
+             
         </span>
     </p>
 </div>

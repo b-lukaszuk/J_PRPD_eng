@@ -173,24 +173,51 @@ Mousetrap.bind('l', click_next);
 <li><a class="menu-level-1" href="./vigenere.html"><b>40</b> Vigenere</a></li>
 <li><a class="menu-level-2" href="./vigenere_problem.html"><b>40.1</b> Problem</a></li>
 <li><a class="menu-level-2" href="./vigenere_solution.html"><b>40.2</b> Solution</a></li>
-<li><a class="menu-level-1" href="./the-end.html"><b>41</b> The end</a></li>
+<li><a class="menu-level-1" href="./game_of_life.html"><b>41</b> Game of Life</a></li>
+<li><a class="menu-level-2" href="./game_of_life_problem.html"><b>41.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./game_of_life_solution.html"><b>41.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./the-end.html"><b>42</b> The end</a></li>
 </div>
 </aside>
 
 <div class="books-content">
 <h1 data-number="1" id="sec:about"><span class="header-section-number">1</span> About</h1>
 <p>Hi, I’m Bart and this is my second open access book entitled:</p>
-<p>“Build SH*T with Julia”.</p>
+<p>“Build Super Helpful and Interesting Things with Julia”</p>
+<p>or</p>
+<p>“Build SH*T with Julia”</p>
+<p>for short.</p>
 <p>The book contains a set of challenges of varying level of complexity (most likely in the range of easy to moderate). The exercises are for the problems that, for whatever reason, I found interesting and/or suitable. The tasks are accompanied by exemplary solutions in <a href="https://julialang.org/">Julia</a> (with explanations). Still, I recommend you try to solve the tasks yourself. Alternatively you may read the solutions and try to recreate them as much as you can on your own. The key thing is, if you want to learn, write the da*n code.</p>
-<p>For practical reasons, I will assume this book to be read by curious readers of non-mathematical (i.e. resembling mine) background. Moreover, I expect that the readers have already mastered the language basics and now are on a lookout for a way to hone their newly acquired skills. To that end, I’ll imagine you have read <a href="https://b-lukaszuk.github.io/RJ_BS_eng/">my previous open access book</a>. I’ll do this not not because it is the best book in the world (which it is), but because <del>I’m lazy</del> of the <a href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself">DRY principle</a> (I’m going to apply similar conventions without delving too much into the previously mentioned topics).</p>
+<p>For practical reasons, I will assume this book is read by curious readers of non-mathematical (i.e. resembling mine) background. Moreover, I expect that the readers have already mastered the language basics and now are on a lookout for a way to hone their newly acquired skills. To that end, I’ll imagine you have read <a href="https://b-lukaszuk.github.io/RJ_BS_eng/">my previous open access book</a>. I’ll do this not not because it is the best book in the world (which it is), but because <del>I’m lazy</del> of the <a href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself">DRY principle</a> (I’m going to apply similar conventions without delving too much into the previously mentioned topics).</p>
 <p>For instance, just like in the previous book, here I will use the <a href="https://docs.julialang.org/en/v1/base/base/#Base.@assert">assert</a> macro to test a function’s assumptions and print error messages. The construct is not recommended in a serious program (see the warning in the docs), but for the purpose of this book it should do the trick.</p>
 <p>Additionally, henceforth I will define a few type aliases, like:</p>
 <pre class="language-julia"><code>const Flt = Float64
 const Str = String
 const Vec = Vector</code></pre>
-<p>This will allow for a shorter code when type declarations are used, e.g. <code>Vec{Flt}</code> instead <code>Vector{Float64}</code>. Notice, that the type synonyms are declared with <code>const</code> keyword, since they will not change for as long as a program runs. Nevertheless, the naming convention is similar to the name of a data type in Julia (first letter is uppercased, the rest of the characters are lowercased).</p>
-<p>If, for any reason, this book is not to your taste then feel free to visit, e.g. Adam Wysokinski’s the <a href="https://adamwysokinski.codeberg.page/bbj/">Big Book of Julia</a> and choose a learning resource of your liking. Alternatively you may visit <a href="https://rosettacode.org/wiki/Category:Solutions_by_Programming_Task">Rosetta Code web-page</a> that contains over 1’000 programming exercises with solutions in different programming languages. Chances are that many of the exercises presented here are to be found there (not that I copied them, it’s just that they’ve been around for quite some time).</p>
+<p>This will allow for a shorter code when type declarations are used, e.g. <code>Vec{Flt}</code> instead of <code>Vector{Float64}</code>. Notice, that the type synonyms are declared with <code>const</code> keyword, since they will not change for as long as a program runs. The naming convention for the custom types is similar to the name of built in data types in Julia (first letter is uppercased, the rest of the characters are lowercased).</p>
+<p>I wrote this book using Julia:</p>
+<pre class="language-julia"><code>VERSION</code></pre>
+<p>1.10.11</p>
+<p>so an <a href="https://en.wikipedia.org/wiki/Long-term_support">LTS</a> edition with the following internal (available to you after installment):</p>
+<ul>
+<li>Base</li>
+<li>Dates</li>
+<li>Random</li>
+<li>Statistics</li>
+<li>Test</li>
+</ul>
+<p>and external (downloaded from the internet separately) libraries:</p>
+<ul>
+<li>BenchmarkTools</li>
+<li>CairoMakie</li>
+<li>DataFrames</li>
+<li>Makie</li>
+<li>Symbolics</li>
+</ul>
+<p>Still, you should be able to solve the tasks with the functionality that comes with your installation (not necessarily the ones named above).</p>
+<p>If, for any reason, this book is not to your taste then feel free to visit, e.g. Adam Wysokinski’s the <a href="https://adamwysokinski.codeberg.page/bbj/">Big Book of Julia</a> and choose a learning resource of your liking. Alternatively you may visit <a href="https://rosettacode.org/wiki/Category:Solutions_by_Programming_Task">Rosetta Code web-page</a> that contains over 1’000 programming exercises with solutions in different programming languages. Chances are that many of the exercises presented here are to be found there (not that I copied them, it’s just that they’ve been around for quite some time and I don’t even know whom should I give credit for them).</p>
 <p>Finally, just like in the previous book, I’ll try to write in a possibly simple (clarity over cleverness and performance) and correct manner. Still, I’m only human, so watch out for possible errors and bugs. Anyway, I hope the book will satisfy your appetite, it is available freely under <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International</a> license.</p>
+<p>Let the games begin.</p>
 
 
 <div class="bottom-nav">

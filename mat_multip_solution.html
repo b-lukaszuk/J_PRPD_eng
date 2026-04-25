@@ -173,7 +173,10 @@ Mousetrap.bind('l', click_next);
 <li><a class="menu-level-1" href="./vigenere.html"><b>40</b> Vigenere</a></li>
 <li><a class="menu-level-2" href="./vigenere_problem.html"><b>40.1</b> Problem</a></li>
 <li><a class="menu-level-2" href="./vigenere_solution.html"><b>40.2</b> Solution</a></li>
-<li><a class="menu-level-1" href="./the-end.html"><b>41</b> The end</a></li>
+<li><a class="menu-level-1" href="./game_of_life.html"><b>41</b> Game of Life</a></li>
+<li><a class="menu-level-2" href="./game_of_life_problem.html"><b>41.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./game_of_life_solution.html"><b>41.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./the-end.html"><b>42</b> The end</a></li>
 </div>
 </aside>
 
@@ -185,7 +188,7 @@ Mousetrap.bind('l', click_next);
     return map(*, row, col) |&gt; sum
 end</code></pre>
 <blockquote>
-<p>Note. Thanks to the previously defined (Section <a href="./about.html#sec:about">1</a>) type synonyms we saved some typing and used <code>Vec{Int}</code> instead of <code>Vector{Int}</code>. We will use such small convenience(s) throughout the book. The type synonyms are defined in Section <a href="./about.html#sec:about">1</a> and in the code snippets for each chapter.</p>
+<p>Note. Thanks to the previously defined (Section <a href="./about.html#sec:about">1</a>) type synonyms we saved some typing and used <code>Vec{Int}</code> instead of <code>Vector{Int}</code>. We will use such small convenience(s) throughout the book. The type synonyms are defined in Section <a href="./about.html#sec:about">1</a> and/or in the code snippets for each chapter.</p>
 </blockquote>
 <p>First, we place a simple assumption check with the <a href="https://docs.julialang.org/en/v1/base/base/#Base.@assert">assert</a>. Then we multiply each element of <code>row</code> by each element of <code>col</code> with <code>map</code>. <code>Map</code> applies a function (its first argument) to every element of a collection (its second argument), like so:</p>
 <pre class="language-julia"><code># adds 10 to each element of a vector
@@ -200,8 +203,8 @@ map(x -&gt; x + 10, [1, 2, 3])</code></pre>
 <p>Since we calculate a dot product, then as an alternative (to live up to its name) we could also use the <a href="https://b-lukaszuk.github.io/RJ_BS_eng/julia_language_repetition.html#sec:julia_language_dot_functions">dot operator</a> syntax in our <code>getDotProduct</code> function like so:</p>
 <pre class="language-julia"><code>[1, 2, 3] .* [10, 100, 1000]</code></pre>
 <pre class="output"><code>[10, 200, 3000]</code></pre>
-<p>Anyway, once we got the products vector we send it (<code>|&gt;</code>) as an input to <code>sum</code>.</p>
-<p>OK, time for multiplication itself.</p>
+<p>Anyway, once we got the vector of products we send it (<a href="https://docs.julialang.org/en/v1/base/base/#Base.:%7C%3E">|&gt;</a>) as an input to <code>sum</code>.</p>
+<p>OK, time for the multiplication itself.</p>
 <pre class="language-julia"><code>function multiply(m1::Matrix{Int}, m2::Matrix{Int})::Matrix{Int}
     nRowsMat1, nColsMat1 = size(m1)
     nRowsMat2, nColsMat2 = size(m2)
@@ -214,7 +217,7 @@ map(x -&gt; x + 10, [1, 2, 3])</code></pre>
     end
     return result
 end</code></pre>
-<p>The above is a translation of the algorithm from the links provided in the task description earlier on. First we get our matrices dimensions and perform a compatibility check with <code>@assert</code>. Then we initialize an empty matrix (<code>result</code>) with the appropriate dimensions (we use <code>zeros</code> so 0s are the placeholders stored in its cells). Finally, we get the dot products of every row (<code>for r</code>) in <code>m1</code> by every column (<code>for c</code>) in <code>m2</code> and place them to the appropriate cells in the <code>result</code> matrix.</p>
+<p>The above is a translation of the algorithm from the links provided in the task description (see Section <a href="./mat_multip_problem.html#sec:mat_multip_problem">2.1</a>). First we get our matrices dimensions and perform a compatibility check with <code>@assert</code>. Then we initialize an empty matrix (<code>result</code>) with the appropriate dimensions (we use <code>zeros</code>, so 0s are the placeholders stored in its cells). Finally, we get the dot products of every row (<code>for r</code>) in <code>m1</code> by every column (<code>for c</code>) in <code>m2</code> and place them to the appropriate cells in the <code>result</code> matrix.</p>
 <p>Alternatively, if you are not a fan of nesting, you may use Julia’s simplified nested for loop syntax. It works the same as the previous code snippet.</p>
 <pre class="language-julia"><code>function multiply(m1::Matrix{Int}, m2::Matrix{Int})::Matrix{Int}
     nRowsMat1, nColsMat1 = size(m1)
