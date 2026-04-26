@@ -139,11 +139,11 @@ function getPatternsInTxt(pattern::Regex, txt::Str)::Vec{Str}
 end
 
 function getAtomsAndNumbers(simpleFormula::Str)::Vec{Str}
-    return getPatternsInTxt(r"[A-Z][a-z]{0,1}[0-9]{0,}", simpleFormula)
+    return getPatternsInTxt(r"[A-Z][a-z]{0,}[0-9]{0,}", simpleFormula)
 end
 
 function getAtom(atomAndNumber::Str)::Str
-    return getPatternsInTxt(r"[A-Z][a-z]{0,1}", atomAndNumber)[1]
+    return getPatternsInTxt(r"[A-Z][a-z]{0,}", atomAndNumber)[1]
 end
 
 function getNumberAtEnd(txt::Str)::Str

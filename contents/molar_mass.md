@@ -5,8 +5,8 @@ problem description you may decide to do otherwise. In that case don't let me
 stop you.
 
 I recommend you try to solve the task on your own first. Once you finish you may
-compare your own solution with the one in this chapter (with explanations) or
-with [the code
+compare your solution with the one in this chapter (with explanations) or with
+[the code
 snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/molar_mass)
 (without explanations).
 
@@ -105,6 +105,14 @@ ELTS_MASS_TBL = Dict{Str, Flt}(
 """
 replace(sc(s), "ELTS_MASS_TBL" => "const ELTS_MASS_TBL")
 ```
+
+> Note. Using `const` with mutable containers like vectors or dictionaries
+> allows to change their contents later on, e.g., with `push!`. So the `const`
+> used here is more like a convention, a signal that we do not plan to change
+> the containers in the future. If we really wanted an immutable container then
+> we should consider a(n) (immutable) tuple. Anyway, some programming languages
+> suggest that `const` names should be declared using all uppercase characters
+> to make them stand out. Here, I follow this convention.
 
 All right, now we may write a simple formula solver, but first some helper
 functions.
@@ -316,11 +324,11 @@ and their numbers from a simple formula.
 ```jl
 s = """
 function getAtomsAndNumbers(simpleFormula::Str)::Vec{Str}
-    return getPatternsInTxt(r"[A-Z][a-z]{0,1}[0-9]{0,}", simpleFormula)
+    return getPatternsInTxt(r"[A-Z][a-z]{0,}[0-9]{0,}", simpleFormula)
 end
 
 function getAtom(atomAndNumber::Str)::Str
-    return getPatternsInTxt(r"[A-Z][a-z]{0,1}", atomAndNumber)[1]
+    return getPatternsInTxt(r"[A-Z][a-z]{0,}", atomAndNumber)[1]
 end
 
 function getNumberAtEnd(txt::Str)::Str
@@ -333,10 +341,10 @@ sc(s)
 
 Here, the functions do what their names promise. While the regexes say:
 
-- `[A-Z][a-z]{0,1}[0-9]{0,}` - match exactly one capital letter, followed by
-  none or one small letter, followed by zero or more digits.
-- `[A-Z][a-z]{0,1}` - match exactly one capital letter, followed by
-  none or one small letter
+- `[A-Z][a-z]{0,}[0-9]{0,}` - match exactly one capital letter, followed by
+  none or more small letters, followed by zero or more digits.
+- `[A-Z][a-z]{0,}` - match exactly one capital letter, followed by
+  none or more small letters
 - `[0-9]{1,}$` - match one or more digits that are at the end of the subject
   (here a string)
 
@@ -420,12 +428,12 @@ sc(s)
 
 The regex in `getBracketedGroups` is `\(.+?\)\d{0,}` which states:
 
-- match any character (`.`) repeated one or more times (`+`), but as few as
-  possible (`?`) that is inside the literal brackets (`\(` and `\)`).  The
-  closing bracket is followed by zero or more digits (`\d{0,}`). Notice that
-  inside a regex `(sth)` - is a capture and remember command (usually used with
-  [replace](https://docs.julialang.org/en/v1/base/collections/#Base.replace-Tuple%7BAny,%20Vararg%7BPair%7D%7D)),
-  so we strip the special meaning by using `\` before `(` and `)`.
+Match any character (`.`) repeated one or more times (`+`), but as few as
+possible (`?`) that is inside the literal brackets (`\(` and `\)`).  The closing
+bracket is followed by zero or more digits (`\d{0,}`). Notice that inside a
+regex `(sth)` - is a capture and remember command (usually used with
+[replace](https://docs.julialang.org/en/v1/base/collections/#Base.replace-Tuple%7BAny,%20Vararg%7BPair%7D%7D)),
+so we strip the special meaning by using `\` before `(` and `)`.
 
 As for `getInsideOfBrackets` we just `replace` the opening brackets with nothing
 (`"(" => ""`), and closing bracket followed by optional digits
@@ -433,7 +441,7 @@ As for `getInsideOfBrackets` we just `replace` the opening brackets with nothing
 brackets and their outer surroundings. BTW, did you notice the difference in
 "`(`" and "`\)`" when used in normal string and in the regex?
 
-Let's see how can we use it.
+Let's see how we can use it.
 
 ```jl
 s = """
@@ -498,8 +506,8 @@ Inside `getmolmass` we:
 7) add the mass (`getmolmasssimple(formula)`) of the remaining simple part to
 the result
 
-Notice, that strings are immutable so `remAll` does not change the `formula`
-sent as an argument to `getmolmass` (in `formula = remAll(formula,
+Notice, that strings are immutable so `remAll` does not actually change the
+`formula` sent as an argument to `getmolmass` (in `formula = remAll(formula,
 groupFormulas)`).
 
 Time for testing.
@@ -516,7 +524,7 @@ Appears to be working as intended.
 We may compare our functions (`getMolMass` and `getmolmass`) with
 [\@time](https://docs.julialang.org/en/v1/base/base/#Base.@time) macro (just
 make sure that both the functions are run at least once beforehand, since
-functions are compiled at their first run).
+functions are compiled at their first usage).
 
 ```
 @time map(isSameMass, getMolMass.(formulas), masses)
@@ -524,7 +532,7 @@ functions are compiled at their first run).
 @time map(isSameMass, getmolmass.(formulas), masses)
 ```
 
-Which will return (except for the results) a printout simplar to:
+Which will return (except for the results) a printout similar to:
 
 ```
 0.001191 seconds (451 allocations: 14.984 KiB)
@@ -532,13 +540,8 @@ Which will return (except for the results) a printout simplar to:
 0.000589 seconds (1.37 k allocations: 86.281 KiB)
 ```
 
-The above indicates that our regex version is roughly 2 times faster than its
-counterpart, but it uses up more memory. Moreover, I suspect `getmolmass` is
-likely to be less
-[robust](https://en.wikipedia.org/wiki/Robustness_(computer_science)). If you're
-still not tired you may test `getMolMass` and `getmolmass` with weird, made up
-formulas and see which one is easier to fall for it without telling you there's
-something wrong. So as you can see there are always some trade-offs.
+The above indicates that our regex version is faster than its counterpart, but
+it uses up more memory. So as you can see there are always some trade-offs.
 
 Anyway, for more serious benchmarking we should probably use
 [BenchmarkTools.jl](https://github.com/juliaci/benchmarktools.jl) as indicated
