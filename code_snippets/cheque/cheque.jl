@@ -19,7 +19,7 @@ const TENS = Dict(2 => "twenty", 3 => "thrity",
                   7 => "seventy", 8 => "eigthy", 9 => "ninety")
 
 function getEngNumeralUpto99(n::Int)::Str
-    @assert 0 <= n <= 99 "n must be in range [0-99]"
+    @assert 1 <= n <= 99 "n must be in range [1-99]"
     if n < 20
         return UNITS_AND_TEENS[n]
     end
@@ -35,7 +35,7 @@ getEngNumeralUpto99.([5, 9, 11, 13, 20, 21, 25, 32, 40, 45,
                       58, 64, 66, 79, 83, 95, 99])
 
 function getEngNumeralUpto999(n::Int)::Str
-    @assert 0 <= n <= 999 "n must be in range [0-999]"
+    @assert 1 <= n <= 999 "n must be in range [1-999]"
     if n < 100
         return getEngNumeralUpto99(n)
     end
@@ -52,7 +52,7 @@ getEngNumeralUpto999.([5, 9, 11, 13, 20, 21, 25, 32, 40, 45,
 getEngNumeralUpto999.([101, 109, 110, 117, 120, 152, 200, 208, 394, 400, 999])
 
 function getEngNumeralBelow1M(n::Int)::Str
-    @assert 0 <= n <= 999_999 "n must be in range [0-999,999]"
+    @assert 1 <= n <= 999_999 "n must be in range [1-999,999]"
     if n < 1000
         return getEngNumeralUpto999(n)
     end

@@ -5,8 +5,8 @@ problem description you may decide to do otherwise. In that case don't let me
 stop you.
 
 I recommend you try to solve the task on your own first. Once you finish you may
-compare your own solution with the one in this chapter (with explanations) or
-with [the code
+compare your solution with the one in this chapter (with explanations) or with
+[the code
 snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/cheque)
 (without explanations).
 
@@ -54,13 +54,13 @@ replace(sc(s), r"\bUNITS" => "const UNITS", r"\bTENS " => "const TENS ")
 > to make them stand out. Here, I follow this convention.
 
 The above are just mappings between the necessary basic key ingredients of our
-number soup. Let's use them to get the transcript for numbers in the range of 0
+number soup. Let's use them to get the transcript for numbers in the range of 1
 to 99.
 
 ```jl
 s = """
 function getEngNumeralUpto99(n::Int)::Str
-    @assert 0 <= n <= 99 "n must be in range [0-99]"
+    @assert 1 <= n <= 99 "n must be in range [1-99]"
     if n < 20
         return UNITS_AND_TEENS[n]
     end
@@ -104,7 +104,7 @@ bigger.
 ```jl
 s = """
 function getEngNumeralUpto999(n::Int)::Str
-    @assert 0 <= n <= 999 "n must be in range [0-999]"
+    @assert 1 <= n <= 999 "n must be in range [1-999]"
     if n < 100
         return getEngNumeralUpto99(n)
     end
@@ -149,7 +149,7 @@ final leap.
 ```jl
 s = """
 function getEngNumeralBelow1M(n::Int)::Str
-    @assert 0 <= n <= 999_999 "n must be in range [0-999,999]"
+    @assert 1 <= n <= 999_999 "n must be in range [1-999,999]"
     if n < 1000
         return getEngNumeralUpto999(n)
     end
