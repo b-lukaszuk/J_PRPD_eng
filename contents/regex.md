@@ -12,8 +12,8 @@ sc(s2)
 Still, once you read the problem description you may decide to do otherwise.
 
 I recommend you try to solve the task on your own first. Once you finish you may
-compare your own solution with the one in this chapter (with explanations) or
-with [the code
+compare your solution with the one in this chapter (with explanations) or with
+[the code
 snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/regex)
 (without explanations).
 
@@ -57,9 +57,9 @@ This could be done, e.g. by replacing his last name with its first letter, but
 it's kind of tedious and boring to do this manually while reading the text. It
 may be sped up with a [word processing
 program](https://en.wikipedia.org/wiki/List_of_word_processor_programs) in which
-`Ctrl+F` is a shortcut for a `find` command. In Julia this could be done with
-[eachmatch](https://docs.julialang.org/en/v1/base/strings/#Base.eachmatch) like
-so:
+`Ctrl+F` is usually a shortcut for a `find` command. In Julia this could be done
+with [eachmatch](https://docs.julialang.org/en/v1/base/strings/#Base.eachmatch)
+like so:
 
 ```jl
 s = """
@@ -81,7 +81,7 @@ expression](https://en.wikipedia.org/wiki/Regular_expression) (or regex). It may
 not seem like much right now, but we'll see its potential in a moment.
 
 Once we confirmed the phrase existence we may wish to obfuscate it. Again, in a
-word processing program this would be likely done with `Ctrl+H` that stands for
+word processing program this could be done with `Ctrl+H` that usually stands for
 `find and replace` command. In Julia, we would do it with something like:
 
 ```
@@ -96,13 +96,13 @@ String[]
 ```
 
 There, we did our job, the identity of an accused person is protected. We may
-now write the file on a disk and send the press report. I imagine now you're
+write the file on a disk and send the press report. I imagine now you're
 wondering what's the big deal with those regexes anyway. For a person with basic
 computer literacy what we've done doesn't seem particularly advanced. Well,
 you're right. It it not. That's because in order **to have a regex we need to
 use some meta-characters, i.e. special symbols that are interpreted beyond their
 literal meaning. On the other hand, as a general rule, any letter or digit in
-regex (like `r"JohnSmith"`) stands for itself**. Overall, the list of
+regex (like `r"John Smith"`) stands for itself**. Overall, the list of
 meta-characters is rather long, but as stated in [the
 docs](https://docs.julialang.org/en/v1/manual/strings/#man-regex-literals) it
 may be found at [the PCRE2 syntax
@@ -216,9 +216,9 @@ Here `\d` means a digit, `.` is any character (except for newline), and `+`
 stands for one or more of the preceding tokens (so match a digit followed by one
 or more characters, followed by a digit). There is a small problem though, we
 caught more than we wanted. That's because by default, regexes are greedy
-(usually they match as much as they can until a line ends) if we want to make it
-more temperate we need to follow `.+` with `?` (one or more characters, but as
-few as you can to fulfill the condition).
+(usually they match as much as they can until a line ends). If we want to make
+it more temperate we need to follow `.+` with `?` (one or more characters, but
+as few as you can to fulfill the condition).
 
 ```
 eachmatch(r"\d.+?\d", txt) |> getAllMatches
@@ -328,7 +328,7 @@ sum
 
 And voila, we're done. Notice, however, that the regex isn't perfect. For
 example, it doesn't handle correctly the amounts of money that contain floating
-point values (or negative quotas). If that were a requirement, we would would
+point values (or negative quotas). If that were the requirement, we would would
 have to improve upon it.
 
 #### Example 3
@@ -343,7 +343,7 @@ telNums = [join(Rnd.rand(string.(0:9), 9)) for _ in 1:3]
 sco(s)
 ```
 
-Our task is to convert them into more readable form, i.e. xxx-xxx-xxx.
+Our task is to convert them into a more readable form, e.g. xxx-xxx-xxx.
 
 ```
 replace.(telNums, r"(\d{3})(\d{3})(\d{3})" => s"\1-\2-\3")
@@ -357,10 +357,10 @@ replace.(telNums, r"(\d{3})(\d{3})(\d{3})" => s"\1-\2-\3")
 ]
 ```
 
-The new elements here are `()` and `\number` which are capture groups and
-back-references, respectively. Therefore, `(\d{3})` in a regex (`r""`) means
-capture any three digits in a row and remember them, whereas `\1` in
-the substitution (`s""` - denotes a substitution string that may use
+The new elements here are `()` and `\1`, `\2`, `\3`. Those are capture groups
+and back-references, respectively. Therefore, `(\d{3})` in a regex (`r""`) means
+capture any three digits in a row and remember them, whereas `\1` in the
+substitution (`s""` - denotes a substitution string that may use
 meta-characters) means: use the first captured and remembered group (by analogy
 `\2` is for the second captured group and `\3` is for the third).
 
@@ -403,7 +403,8 @@ No, biggie. Julia allows the second argument of `replace` to be a
 advantage:
 
 ```
-replace.(camelCasedWords, r"([A-Z])" => lowercase)
+# no need for (), since we don't use backreferences anyway
+replace.(camelCasedWords, r"[A-Z]" => lowercase)
 ```
 
 ```
@@ -415,10 +416,10 @@ replace.(camelCasedWords, r"([A-Z])" => lowercase)
 ```
 
 Almost there, we just need to precede the lower-cased letter with `_`. This
-could be done with an anonymous function, e.g. like this:
+could be done by using an anonymous function, e.g. like this:
 
 ```
-replace.(camelCasedWords, r"([A-Z])" => AtoZ -> "_" * lowercase(AtoZ))
+replace.(camelCasedWords, r"[A-Z]" => AtoZ -> "_" * lowercase(AtoZ))
 ```
 
 ```
@@ -433,7 +434,7 @@ or like that (here we use a template string):
 
 
 ```
-replace.(camelCasedWords, r"([A-Z])" => AtoZ -> "_$(lowercase(AtoZ))")
+replace.(camelCasedWords, r"[A-Z]" => AtoZ -> "_$(lowercase(AtoZ))")
 ```
 
 ```
@@ -492,7 +493,7 @@ Here's a quick reminder of what we learned about regexes and meta-characters:
    symbol);
 5. `(sth)` inside of `r""` stands for capture and remember, whereas `\1` in
    `s""` denotes back-reference to the first capture;
-6. the second argument of replace is usually a
+6. the second argument of replace is a
    [pair](https://docs.julialang.org/en/v1/base/collections/#Core.Pair) of the
    form: `r"" => ""` (regex => regular string), `r"" => s""` (regex =>
    substitution string), `r"" => function` (regex => function that accepts a
@@ -507,7 +508,7 @@ may try e.g. [regex101](https://regex101.com/).
 
 #### Regex Task 1 {#sec:regex_problem_task1}
 
-You got a series of dates in the US format "MMDDYYYY":
+You got a series of dates in the US format "MM.DD.YYYY":
 
 ```
 datesMMDDYYYY = ["01.04.2025", "11.01.2018", "12.31.1999", "03.20.2026"]
@@ -596,7 +597,7 @@ a literal dot, `\.`) and the years (last four digits, `(\d{4})`). In the
 substitution string we reference them back in the appropriate order (`\3`, `\1`,
 and `\2`) separated by hyphens (`-`). So, we replaced the whole match
 (`(\d{2})\.(\d{2})\.(\d{4})`) with the remembered digits in the right order and
-with the right separators (`\3-\1-\2`). And that's it. Finito.
+with the right separators (`-`). And that's it. Finito.
 
 ### Regex Solution 2 {#sec:regex_problem_solution2}
 
@@ -615,8 +616,7 @@ Still, we can go a far way with a much simpler one, which in our particular case
 should do the trick:
 
 ```
-getAllMatches(eachmatch(r"[A-z0-9._\-]+@[A-z0-9._\-]+", txt)) |>
-unique
+eachmatch(r"[A-z0-9._\-]+@[A-z0-9._\-]+", txt) |> getAllMatches |> unique
 ```
 
 ```
@@ -643,7 +643,7 @@ in general inside a regex it stands for any character except for newline), or
 5) a literal hyphen (`\-`, likely we didn't have to precede it with `\` since it
 wasn't between other 2 characters).
 
-This positive, character class must be repeated at least one time (`+`) before
+This positive character class must be repeated at least one time (`+`) before
 the `@`, symbol. On the other hand, the `@` symbol must be followed by at least
 one (`+`) character class that we already discussed (`[A-z0-9._\-]`). Notice,
 that there is no need to add `?`, after the `+` to make a non-greedy match. That
@@ -672,7 +672,7 @@ replace.(names, r"([A-z]+) ([A-z]+)" => s"\2, \1")
 ]
 ```
 
-Once we got the names formatted, sorting them shouldn't be a problem either:
+Once we got them formatted sorting shouldn't be a problem either:
 
 ```
 replace.(names, r"([A-z]+) ([A-z]+)" => s"\2, \1") |> sort
@@ -812,11 +812,11 @@ replace.(string.(nums), r"(\d{3})" => s"\1,")
 ]
 ```
 
-Overall, we did pretty good. First, we changed the integers (`nums`) into
+Overall, we did a pretty good job. First, we changed the integers (`nums`) into
 strings (by using `string` function). Next, we said: while moving left to right
 (default direction for a regex engine) match exactly three digits (`\d{3}`) and
 remember them (`(...)`). Finally, insert the remembered digits followed by a
-comma (`"\1,"`). There is a small problem, though. The triplets are matched
+comma (`"\1,"`). There is a small problem though. The triplets are matched
 starting from left side instead of the right (which we would prefer). Not a
 problem, we'll just reverse the string before transformation (putting commas).
 
@@ -847,7 +847,7 @@ order):
 
 ```
 replace.(reverse.(string.(nums)), r"(\d{3})" => s"\1,") |>
-reversedNums -> reverse.(replace.(reversedNums, r",$" => ""))
+reversedNums -> replace.(reversedNums, r",$" => "") .|> reverse
 ```
 
 ```

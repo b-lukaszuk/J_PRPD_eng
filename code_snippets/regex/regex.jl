@@ -72,9 +72,9 @@ eachmatch.(r"([A-Z])", camelCasedWords) .|> getAllMatches
 
 # the following line throws an error
 # replace.(camelCasedWords, r"([A-Z])" => s"\l\1")
-replace.(camelCasedWords, r"([A-Z])" => lowercase)
-replace.(camelCasedWords, r"([A-Z])" => AtoZ -> "_" * lowercase(AtoZ))
-replace.(camelCasedWords, r"([A-Z])" => AtoZ -> "_$(lowercase(AtoZ))")
+replace.(camelCasedWords, r"[A-Z]" => lowercase)
+replace.(camelCasedWords, r"[A-Z]" => AtoZ -> "_" * lowercase(AtoZ))
+replace.(camelCasedWords, r"[A-Z]" => AtoZ -> "_$(lowercase(AtoZ))")
 
 
 snakeCasedWords = ["hello_world", "nice_to_meet_you", "translate_to_english"]
@@ -93,7 +93,7 @@ replace.(datesMMDDYYYY, r"(\d{2})\.(\d{2})\.(\d{4})" => s"\3-\1-\2")
 txt = getTxtFromFile("./loremMail.txt");
 println(txt)
 
-getAllMatches(eachmatch(r"[A-z0-9._\-]+@[A-z0-9._\-]+", txt)) |> unique
+eachmatch(r"[A-z0-9._\-]+@[A-z0-9._\-]+", txt) |> getAllMatches |> unique
 
 ## Task 3
 # random names
@@ -129,7 +129,7 @@ replace.(string.(nums), r"(\d{3})" => s"\1,")
 replace.(reverse.(string.(nums)), r"(\d{3})" => s"\1,")
 
 replace.(reverse.(string.(nums)), r"(\d{3})" => s"\1,") |>
-reversedNums -> reverse.(replace.(reversedNums, r",$" => ""))
+reversedNums -> replace.(reversedNums, r",$" => "") .|> reverse
 
 function fmtMoney(n::Int)::Str
     @assert n >= 0 "n must be >= 0"

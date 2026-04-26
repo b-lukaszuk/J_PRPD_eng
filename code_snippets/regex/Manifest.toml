@@ -1,8 +1,8 @@
 # This file is machine-generated - editing it directly is not advised
 
-julia_version = "1.10.10"
+julia_version = "1.10.11"
 manifest_format = "2.0"
-project_hash = "5b29fb9f0deeb3a88bba4001ab07b80e28031206"
+project_hash = "13e482d8ea200f66619a3623933b1be3ba233a1f"
 
 [[deps.Random]]
 deps = ["SHA"]
