@@ -9,6 +9,8 @@ const MAX_BASE = 16
 const ADD_TBL = Dict{Int, Dict{Tuple{Char, Char}, Tuple{Char, Char}}}()
 const MULT_TBL = Dict{Int, Dict{Tuple{Char, Char}, Tuple{Char, Char}}}()
 
+# unfortunately, we need to fill our `const`s, but we'll do this only once
+# and not touch (modify) ADD_TBL and MULT_TBL later on
 for base in MIN_BASE:MAX_BASE
     ADD_TBL[base] = Dict()
     MULT_TBL[base] = Dict()
@@ -38,7 +40,7 @@ function isBaseN(num::Str, n::Int)::Bool
     return isBaseN.(collect(num), n) |> all
 end
 
-# returns (crried num, running num)
+# returns (carried num, running num)
 function add(num1::Char, num2::Char, base::Int)::Tuple{Char, Char}
     @assert isBaseN(num1, base) "$num1 is not a num of base $base"
     @assert isBaseN(num2, base) "$num2 is not a num of base $base"
@@ -135,4 +137,9 @@ end
 # alternatively you could just do the lookup in MULT_TBL
 for base in 10:MAX_BASE # 9 can be coded with 1 digit in base 10:16
     println("base $base: 6 * 9 = $(multiply('6', '9', base) |> join)")
+end
+
+# for a change let's multiply 42 * 42 in different base systems
+for base in 5:MAX_BASE # 4 can be coded with 1 digit in base 5:16
+    println("base $base: 42 * 42 = $(multiply("42", "42", base) |> join)")
 end

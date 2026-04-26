@@ -5,8 +5,8 @@ problem description you may decide to do otherwise. In that case don't let me
 stop you.
 
 I recommend you try to solve the task on your own first. Once you finish you may
-compare your own solution with the one in this chapter (with explanations) or
-with [the code
+compare your solution with the one in this chapter (with explanations) or with
+[the code
 snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/the_answer)
 (without explanations).
 
@@ -142,7 +142,7 @@ So it seems that by multiplying the above two single digit numbers in bases: 7,
 criteria of both the question and the answer.
 
 If you feel that doing the multiplication in decimal and translating it to
-`product` in the desired base system was like cheating then you may try to
+`product` in the desired base system was like cheating, then you may try to
 re-implement `add` and `multiply` functions from @sec:binary_solution. A natural
 way to do that would be to create an addition table for `add(num1::Char,
 num2::Char, base::Int)::Tuple{Char, Char}` and a multiplication table for
