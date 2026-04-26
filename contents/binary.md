@@ -5,8 +5,8 @@ problem description you may decide to do otherwise. In that case don't let me
 stop you.
 
 I recommend you try to solve the task on your own first. Once you finish you may
-compare your own solution with the one in this chapter (with explanations) or
-with [the code
+compare your solution with the one in this chapter (with explanations) or with
+[the code
 snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/binary)
 (without explanations).
 
@@ -16,22 +16,24 @@ A reminder of how to deal with packages and \*.toml files can be found
 ## Problem {#sec:binary_problem}
 
 Numbers, or information in general, can be written down in different forms. The
-most basic one, and the only one that is actually understood by a computer, is
-a binary. Usually, it is depicted by a sequence of 1s and 0s, but it could be
+most basic one, and the only one that is actually understood by a computer, is a
+binary. Usually, it is depicted by a sequence of 1s and 0s, but it could be
 anything really. Anything, that can take two separate states. The once common
 [CDs](https://en.wikipedia.org/wiki/Compact_disc) or
 [DVDs](https://en.wikipedia.org/wiki/DVD) are a sequence of laser burns (tiny
 pits) in a spiral track (burn - 1, no burn - 0). The [hard disk
 drives](https://en.wikipedia.org/wiki/Hard_disk_drive) store data as magnetized
 spots, whereas [SSD drives](https://en.wikipedia.org/wiki/Solid-state_drive)
-cash it as electrons trapped in tiny transistors. The data can be read into
-memory (RAM) and send to a processor for calculations.
+cash it as electrons trapped in tiny transistors. The data on a hard drive can
+be interpreted as decimal digits, which in turn can be interpreted as characters
+from an alphabet (like [ASCII](https://en.wikipedia.org/wiki/ASCII)). Moreover,
+the data can be read into memory (RAM) and send to a processor for calculations.
 
 This time you task is to read about the [binary
-numbers](https://en.wikipedia.org/wiki/Binary_number), or watch some online
-videos (e.g. from [Khan
-Academy](https://www.youtube.com/watch?v=ku4KOFQ-bB4&list=PLS---sZ5WJJvsjaAQZKwTwxl910xUdO98)),
-on the topic. Next, to get a better grasp of the subject, write:
+numbers](https://en.wikipedia.org/wiki/Binary_number). Alternatively, you may
+watch some online videos (e.g. from [Khan
+Academy](https://www.youtube.com/watch?v=ku4KOFQ-bB4&list=PLS---sZ5WJJvsjaAQZKwTwxl910xUdO98))
+on the topic. Next, to get a better grasp of the subject write:
 
 - a function that transforms a binary number to its decimal counterpart
 - a function that transforms a decimal number to its binary counterpart
@@ -61,8 +63,7 @@ solution](https://b-lukaszuk.github.io/RJ_BS_eng/statistics_intro_exercises_solu
 The number 123 is actually a sum of one hundred, two tens, and three units
 ($1*100 + 2*10 + 3*1$ = `sum([1*100, 2*10, 3*1])` = `jl sum([1*100, 2*10, 3*1])`).
 Equivalently, this can be written with the consecutive powers of ten
-($10^x$ = `10^x` in Julia's code, where x starts from the right and at 0), i.e.
-$1*10^2 + 2*10^1 + 3*10^0$ =
+($10^x$ = `10^x` in Julia's code), i.e. $1*10^2 + 2*10^1 + 3*10^0$ =
 `sum([1*10^2, 2*10^1, 3*10^0])` = `jl sum([1*10^2, 2*10^1, 3*10^0])`. Pause for
 a moment and make sure you got that.
 
@@ -145,8 +146,8 @@ Time for a benchmark against the built-in `string` function.
 
 ```jl
 s = """
-all([dec2bin(i) == string(i, base=2) for i in 0:1024]) # python like
-# or simply, more julia style
+all([dec2bin(i) == string(i, base=2) for i in 0:1024]) # Python like
+# or simply, more Julia style
 dec2bin.(0:1024) == string.(0:1024, base=2)
 """
 sco(s)
@@ -262,7 +263,7 @@ overflow](https://en.wikipedia.org/wiki/Stack_overflow) error in some cases
 (test yourself and explain why it will happen for `getEqlLenBins("01",
 "10")`). Secondly, the recursive call `getEqlLenBins(bin2, bin1)` effectively
 swaps the numbers. This is a neat trick and makes no difference here (since
-addition and multiplication are
+both addition and multiplication are
 [commutative](https://en.wikipedia.org/wiki/Commutative_property)), but may
 cause troubles otherwise. Anyway, time for `add(bin1::Str, bin2::Str)`.
 
@@ -299,7 +300,7 @@ sc(s)
 ```
 
 The key function is rather simple. First, we align the binaries to contain the
-same number of bits/slots (`getEqlLenBins`) and declare (+ initialize) a few
+same number of bits/slots (`getEqlLenBins`) and declare (and initialize) a few
 helper variables. Next, we move from right to left (`reverse` functions) by the
 corresponding bits (`b1`, `b2`) of our binary numbers (`bin1` and `bin2`). We
 add the bits together (`add(b1, b2)`) and prepend (`*` - glues `Char`s and
@@ -342,8 +343,7 @@ arguments (`binFn` binaries, and `decFn` decimals) and perform the same
 operation on them. Notice, that inside of `doesBinFnWork` both `dec1` and `dec2`
 are converted to binaries and send to `binFn`, whereas the result of
 `decFn(dec1, dec2)` is converted to binary. In the end `bin1` and `bin2` are
-compared to make sure that they are mathematically equal. All set, time for a
-test.
+compared to make sure that they are equal. All set, time for a test.
 
 ```jl
 s = """
@@ -354,7 +354,8 @@ all(tests)
 replace(sco(s), "52" => "512")
 ```
 
-Another day, another dollar. Time for the multiplication.
+Another day, another dollar. Am I the greatest creature or what? Time for the
+multiplication.
 
 ```jl
 s = """
@@ -385,7 +386,7 @@ sc(s)
 
 Again, we begin by defining how to multiply two individual bits, and again it
 resembles the multiplication in the decimal system. Once we got it, we move to
-multiply the whole numbers (`mulitply(bin1::Str, bin2::Str`)). Just like in the
+multiply the whole numbers (`multiply(bin1::Str, bin2::Str`)). Just like in the
 decimal system we multiply all the bits (from right to left) from the second
 number (`for b in reverse(bin2)`) by the bits in the first number
 (`multiply.(b, collect(bin1)) |> join`). After each multiplication the product

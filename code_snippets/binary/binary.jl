@@ -37,8 +37,8 @@ function dec2bin(dec::Int)::Str
     return join(result)
 end
 
-all([dec2bin(i) == string(i, base=2) for i in 0:1024]) # python like
-# or simply, more julia style
+all([dec2bin(i) == string(i, base=2) for i in 0:1024]) # Python like
+# or simply, more Julia style
 dec2bin.(0:1024) == string.(0:1024, base=2)
 
 function isBin(bin::Char)::Bool
@@ -78,7 +78,7 @@ function getEqlLenBins(bin1::Str, bin2::Str)::Tuple{Str, Str}
     if length(bin1) >= length(bin2)
         return (bin1, lpad(bin2, length(bin1), '0'))
     else
-        return getEqlLenBins(bin2, bin1)
+        return getEqlLenBins(bin2, bin1) # OK, for addition and multiplication
     end
 end
 
