@@ -47,6 +47,7 @@ end
 
 # 1 - Sunday, 7 - Saturday
 function getPaddedDays(nDays::Int, fstDay::Int)::Vec{Int}
+    @assert 0 < fstDay < 8 "fstDay must be in range [1-7]"
     daysFront::Int = fstDay - 1
     days::Vec{Int} = zeros(getMultOfYGtEqX(nDays+daysFront, DAYS_PER_WEEK))
     days[fstDay:(fstDay+nDays-1)] = 1:nDays
@@ -122,7 +123,8 @@ function getShiftedDay(curDay::Int, by::Int)::Int
     move::Int = by < 0 ? -1 : 1
     for _ in 1:shift
         newDay += move
-        newDay = newDay < 1 ? 7 : (newDay > 7 ? 1 : newDay)
+        newDay = newDay < 1 ? 7 :
+            (newDay > 7 ? 1 : newDay)
     end
     return newDay
 end
@@ -156,7 +158,7 @@ end
 function getMonthData(yr::Int, month::Int)::Tuple{Int, Int}
     @assert 1 <= yr <= 4000 "yr not in range [1-4000]"
     @assert 1 <= month <= 12 "month not in range [1-12]"
-    curDay::Int = 4 # 1st Jan 2025 was Wednesday
+    curDay::Int = 4 # 1st Jan 2025 (reference point) was Wednesday
     start::Int = yr <= 2025 ? 2025-1 : 2025+1
     step::Int = yr <= 2025 ? -1 : 1
     yrShift::Int = 0

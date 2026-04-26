@@ -12,8 +12,8 @@ sc(s2)
 Still, once you read the problem description you may decide to do otherwise.
 
 I recommend you try to solve the task on your own first. Once you finish you may
-compare your own solution with the one in this chapter (with explanations) or
-with [the code
+compare your solution with the one in this chapter (with explanations) or with
+[the code
 snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/calendar)
 (without explanations).
 
@@ -71,7 +71,7 @@ BTW. You may use the above day as a reference point.
 
 ## Solution {#sec:calendar_solution}
 
-First let's begin by defining a few rather self explanatory constants (`const`)
+First, let's begin by defining a few rather self explanatory constants (`const`)
 that we will use throughout our program.
 
 ```jl
@@ -93,7 +93,15 @@ MONTHS_NAME_2_NUM = Dict(
     "Aug" => 8, "Sep" => 9, "Oct" => 10,
     "Nov" => 11, "Dec" => 12)
 """
-replace(sc(s), r"\bDA" => "const DA", r"\bSH" => "const SH", r"\bM" => "const M", r"\bWEEK" => "const WEEK")
+replace(sc(s), "DAYS_PER_WEEK =" => "const DAYS_PER_WEEK =",
+	"DAYS_PER_MONTH =" => "const DAYS_PER_MONTH =",
+	"DAYS_PER_MONTH_LEAP =" => "const DAYS_PER_MONTH_LEAP =",
+	"SHIFT_YR =" => "const SHIFT_YR =",
+	"SHIFT_YR_LEAP =" => "const SHIFT_YR_LEAP =",
+	"WEEKDAYS_NAMES =" => "const WEEKDAYS_NAMES =",
+	"MONTHS_NUM_2_NAME =" => "const MONTHS_NUM_2_NAME =",
+	"MONTHS_NAME_2_NUM =" => "const MONTHS_NAME_2_NUM ="
+)
 ```
 
 > Note. Using `const` with mutable containers like vectors or dictionaries
@@ -136,6 +144,7 @@ zeros.
 s = """
 # 1 - Sunday, 7 - Saturday
 function getPaddedDays(nDays::Int, fstDay::Int)::Vec{Int}
+    @assert 0 < fstDay < 8 "fstDay must be in range [1-7]"
     daysFront::Int = fstDay - 1
     days::Vec{Int} = zeros(getMultOfYGtEqX(nDays+daysFront, DAYS_PER_WEEK))
     days[fstDay:(fstDay+nDays-1)] = 1:nDays
@@ -288,12 +297,13 @@ function getShiftedDay(curDay::Int, by::Int)::Int
     move::Int = by < 0 ? -1 : 1
     for _ in 1:shift
         newDay += move
-        newDay = newDay < 1 ? 7 : (newDay > 7 ? 1 : newDay)
+        newDay = newDay < 1 ? 7 :
+            (newDay > 7 ? 1 : newDay)
     end
     return newDay
 end
 """
-sco(s)
+sc(s)
 ```
 
 The function accepts the current day (`curDay`) and a shift (`by`). That last
@@ -305,11 +315,11 @@ ignore) and 1 day (`abs(15) % 7` is 1). Next, we make as many moves (day before
 is `-1`, day after is `1`) as indicated by `shift`
 (`for _ in 1:shift`). However, if we stepped out of the range to the left
 (`newDay < 1 ?`), we begin from the other side (`7`th day of the
-week). Alternatively (`: (`), if we stepped out of range to the right
-(`newDay > 7 ?`), we begin from the start (`1`). Otherwise, we leave `newDay`
-as it was (`: newDay`). Notice, however, that if `shift` is equal to 0 then the
-code in the `for` loop will not be executed and `newDay` equal to `curDay` will
-be returned (which is what we want, e.g. for `by = 0` or `by = 14`).
+week). Alternatively (`:`), if we stepped out of range to the right (`newDay > 7
+?`), we begin from the start (`1`). Otherwise, we leave `newDay` as it was (`:
+newDay`). Notice, however, that if `shift` is equal to 0 then the code in the
+`for` loop will not be executed and `newDay` equal to `curDay` will be returned
+(which is what we want, e.g. for `by = 0` or `by = 14`).
 
 Now, `getFmtMonth` and `getPaddedDays` require a day of the week with
 which a month starts plus the number of days in that month. Let's use our
@@ -351,7 +361,7 @@ s2 = """
 function getMonthData(yr::Int, month::Int)::Tuple{Int, Int}
     @assert 1 <= yr <= 4000 "yr not in range [1-4000]"
     @assert 1 <= month <= 12 "month not in range [1-12]"
-    curDay::Int = 4 # 1st Jan 2025 was Wednesday
+    curDay::Int = 4 # 1st Jan 2025 (reference point) was Wednesday
     start::Int = yr <= 2025 ? 2025-1 : 2025+1
     step::Int = yr <= 2025 ? -1 : 1
     yrShift::Int = 0
