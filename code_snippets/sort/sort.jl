@@ -6,6 +6,7 @@ const Vec = Vector
 # it may not act correctly
 
 # https://en.wikipedia.org/wiki/Bubble_sort
+# sorts in ascending order
 # uncomment the commented lines to sneak peek how the algorithm works
 function bs(v::Vec{A})::Vec{A} where A<:Union{Flt, Int}
     result::Vec{A} = copy(v)
@@ -31,6 +32,7 @@ end
 
 # https://en.wikipedia.org/wiki/Quicksort
 # Haskell-ic version (biased towards functional programming)
+# sorts in ascending order
 function qs(v::Vec{Int})::Vec{Int}
     if isempty(v)
         return []

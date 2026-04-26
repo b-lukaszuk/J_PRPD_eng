@@ -5,8 +5,8 @@ problem description you may decide to do otherwise. In that case don't let me
 stop you.
 
 I recommend you try to solve the task on your own first. Once you finish you may
-compare your own solution with the one in this chapter (with explanations) or
-with [the code
+compare your solution with the one in this chapter (with explanations) or with
+[the code
 snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/sort)
 (without explanations).
 
@@ -56,6 +56,7 @@ sort](https://en.wikipedia.org/wiki/Bubble_sort) algorithm.
 
 ```jl
 s = """
+# sorts in ascending order
 function bs(v::Vec{A})::Vec{A} where A<:Union{Flt, Int}
     result::Vec{A} = copy(v)
     swapped::Bool = true
@@ -76,12 +77,12 @@ sc(s)
 
 Here, we implemented the algorithm for a vector that contains the elements of
 type `A`. In this case it is just a sub-type (`<:`) of `Flt` (an alias for
-`Float64`) or `Int` (`Union{Flt, Int}`). We started by copying the original
+`Float64`) or `Int` (`Union{Flt, Int}`). We started by `copy`ing the original
 vector to `result` and setting a variable named `swapped`. We will stop our
-sorting algorithm once there was no swap (`swapped` in `while` is `false`)
-during the previous traversal of the whole vector (traversal in the `for`
-loop). We search through the vector starting from its second element (`i in
-eachindex(result)[2:end]`). Every time we compare the two nearby elements
+sorting algorithm once there was no swap during the previous traversal of the
+whole vector (`swapped` in `while` is `false` but may be reset to `true` in the
+`for` loop). We search through the vector starting from its second element (`i
+in eachindex(result)[2:end]`). Every time we compare the two nearby elements
 (`result[i-1]` vs. `result[i]`). If the elements aren't in a desired order (`if
 result[i-1] > result[i]`) we just swap them with each other (`result[i-1],
 result[i] = result[i], result[i-1]`) and set the `swapped` flag to `true`. Once
@@ -144,11 +145,13 @@ Julia syntax.
 
 ```jl
 s = """
+# sorts in ascending order
 function qs(v::Vec{Int})::Vec{Int}
     if isempty(v)
         return []
     else
         head, tail... = v
+		# or: head::Int, tail::Vec{Int}... = v
         smallerElts::Vec{Int} = filter((<)(head), tail)
         greaterEqElts::Vec{Int} = filter((>=)(head), tail)
         return [qs(smallerElts); head; qs(greaterEqElts)]
@@ -206,8 +209,9 @@ Once again, we choose a so called pivot element (`firstElt`) that for simplicity
 is always the first element of a vector. Next, we take the remaining elements
 (`otherElts`) and separate them into the elements that are smaller
 (`smallerElts`) and greater than or equal to (`greaterEqElts`) our pivot element
-(`firstElt`). The above is done with `filter` and an anonymous function. Once we
-got it we use recursion (e.g. `qs(unsorted_smaller_elts)` in `return`) and
+(`firstElt`). The above is done with `filter` and an [anonymous
+function](https://docs.julialang.org/en/v1/manual/functions/#man-anonymous-functions). Once
+we got it we use recursion (e.g. `qs(unsorted_smaller_elts)` in `return`) and
 vector concatenation (`[vector_or_elt; vector_or_elt; vector_or_elt]`).
 
 Just a small test to make sure it still works as intended.
@@ -267,7 +271,7 @@ default function for `by` is
 its argument unchanged) and the default function for `lt` is
 [Base.:<](https://docs.julialang.org/en/v1/base/math/#Base.:%3C).
 
-Let's see how it does:
+Let's see how we did:
 
 ```jl
 s = """
