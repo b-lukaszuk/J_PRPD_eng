@@ -5,8 +5,8 @@ problem description you may decide to do otherwise. In that case don't let me
 stop you.
 
 I recommend you try to solve the task on your own first. Once you finish you may
-compare your own solution with the one in this chapter (with explanations) or
-with [the code
+compare your solution with the one in this chapter (with explanations) or with
+[the code
 snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/tic_tac_toe)
 (without explanations).
 
@@ -113,7 +113,7 @@ stop and get some help). Anyway, a field not taken by one of the players
 (`isFree2Take`) will be colored by `colorFieldNumbers`.
 
 Personally, I would also opt to add the function for the triplets detection
-(`isTriplet`). which we will use to color them (first one we find based on
+(`isTriplet`), which we will use to color them (first one we find based on
 `LINES`) with `colorFirstTriplet`. This should allow us for easier visual
 determination when the game is over (later on we will also use it in
 `isGameWon`).
