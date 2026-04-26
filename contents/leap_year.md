@@ -5,8 +5,8 @@ problem description you may decide to do otherwise. In that case don't let me
 stop you.
 
 I recommend you try to solve the task on your own first. Once you finish you may
-compare your own solution with the one in this chapter (with explanations) or
-with [the code
+compare your solution with the one in this chapter (with explanations) or with
+[the code
 snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/leap_year)
 (without explanations).
 
@@ -15,10 +15,11 @@ A reminder of how to deal with packages and \*.toml files can be found
 
 ## Problem {#sec:leap_year_problem}
 
-As you probably know an astronomical year is slightly less than 365 days
+As you probably know an astronomical year is slightly more than 365 days
 (roughly 365.2425 days). For that reason [the Gregorian
 calendar](https://en.wikipedia.org/wiki/Gregorian_calendar) got common years
-(365 days each) and [leap years](https://en.wikipedia.org/wiki/Leap_year).
+(365 days each) and [leap years](https://en.wikipedia.org/wiki/Leap_year) (366
+days each).
 
 You task is to write a function that detects whether a given year is a leap year
 (according to the Gregorian calendar). Feel free to test it, e.g. on the
@@ -52,11 +53,11 @@ end
 sc(s)
 ```
 
-The powerhouse of our function is is `%` (modulo operator) that returns the
-reminder of the division. If a number `x` is evenly divided by a number `y`
-(`x % y`) the reminder is equal to zero (`==`). Otherwise (when `x % y != 0`)
-the `x` cannot be evenly divided by `y`. Although not strictly necessary, we
-added a mnemonic names for the tested conditions (`divisibleBy4` and
+The powerhouse of our function is `%` (modulo operator) that returns the
+reminder of the division. If a number `x` is evenly divided by a number `y` (`x
+% y`) the reminder is equal to zero (`== 0`). Otherwise (when `x % y != 0`) the
+`x` cannot be evenly divided by `y`. Although not strictly necessary, we added a
+mnemonic names for the tested conditions (`divisibleBy4` and
 `gregorianException`), which should make the code more readable. Anyway, if a
 year (`yr`) is not divisible by 4 (`!divisibleBy4`) then it is a common year.
 Otherwise (`else`) if the the year fulfills the exception rule
@@ -83,8 +84,7 @@ sc(s1)
 When `divisibleBy4` is `false` the and operator (`&&`) skips the evaluation of
 its second argument (short circuiting) and returns `false`. Otherwise,
 (`divisibleBy4` is `true`) `!gregorianException` is evaluated and it becomes the
-result of the function. For explanation of `!gregorianException` see the
-explanation a few paragraphs above.
+result of the function. 
 
 Time for a simple test.
 
@@ -119,7 +119,7 @@ function runTestSet()::Int
             return 1
         end
     end
-    return 0
+    return 0 # C-like return value
 end
 
 runTestSet()
@@ -133,8 +133,8 @@ in the range [1 - 4000] and `length(3600:4000)` is actually equal
 to 401. Anyway, for each of the periods, we counted the number of leap years
 (`numLeapYrs`) with `filter` and `length`. If `numLearpYrs` differs from `97`,
 we return `1` right away (and skip other checks). Otherwise (once all the
-periods passed the tests) we return `0`. The above is a convention met in C/C++
-programming languages (see their `main` function). It is sufficient for our
+periods passed the tests) we return `0`. The above is a convention met in C
+programming language (in the `main` function). It is sufficient for our
 simplistic case, however, for more serious applications you should follow the
 testing advice contained in [the
 docs](https://docs.julialang.org/en/v1/stdlib/Test/).

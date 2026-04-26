@@ -13,7 +13,6 @@ function isLeap(yr::Int)::Bool
     return divisibleBy4 && !gregorianException
 end
 
-
 # in the Gregorian calendar in every 400 years time span
 # there are 303 regular years and 97 leap years
 # very simplistic unit testing
@@ -29,11 +28,10 @@ function runTestSet()::Int
             return 1
         end
     end
-    return 0
+    return 0 # C-like return value
 end
 
 runTestSet()
-
 
 # slightly more correct testing
 # but not quite, see: https://discourse.julialang.org/t/best-practices-for-julia-unit-testing/30858
