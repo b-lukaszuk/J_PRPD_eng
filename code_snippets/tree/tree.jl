@@ -4,7 +4,7 @@ const Str = String
 # it may not act correctly
 
 function printCatalogTree!(path::Str, pad::Str, count::Dict{Str, Int})::Nothing
-    newPad::Str = pad * "---"
+    newPad::Str = pad * "--- "
     for name in readdir(path)
         newPath::Str = joinpath(path, name)
         if isfile(newPath)
@@ -13,7 +13,7 @@ function printCatalogTree!(path::Str, pad::Str, count::Dict{Str, Int})::Nothing
         else
             println(newPad, name, "/")
             count["nDirs"] += 1
-            printCatalogTree!(newPath, pad * "   |", count)
+            printCatalogTree!(newPath, pad * "    |", count)
         end
     end
     return nothing
@@ -35,6 +35,3 @@ end
 printCatalogTree(joinpath(homedir(), "Desktop", "catalog_x"))
 printCatalogTree(joinpath(homedir(), "Desktop", "catalog_a"))
 printCatalogTree(joinpath(homedir(), "Desktop", "catalog_zzz"))
-
-
-printCatalogTree(joinpath(homedir(), "Desktop", "BS_wJ_eng", "code_snippets"))

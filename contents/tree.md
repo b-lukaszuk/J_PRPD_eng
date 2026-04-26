@@ -25,11 +25,11 @@ directory like so (the output doesn't have to be exact):
 
 ```
 ~/Desktop/catalog_x/
-|---catalog_y/
-|   |---catalog_z/
-|   |   |---file_z.txt
-|   |---file_y.txt
-|---file_x.txt
+|--- catalog_y/
+|    |--- catalog_z/
+|    |    |--- file_z.txt
+|    |--- file_y.txt
+|--- file_x.txt
 
 2 directories, 3 files
 ```
@@ -44,10 +44,9 @@ Hint: If you are stuck now, start by reading about Julia's
 
 Let's start small with an initial definition of `printCatalogTree`.
 
-```jl
-s1 = """
+```
 function printCatalogTree(path::Str, pad::Str)::Nothing
-    newPad::Str = pad * "   "
+    newPad::Str = pad * "    "
     for name in readdir(path)
         newPath::Str = joinpath(path, name)
         if isfile(newPath)
@@ -61,24 +60,30 @@ function printCatalogTree(path::Str, pad::Str)::Nothing
 end
 
 function printCatalogTree(path::Str)::Nothing
+    if !isdir(path)
+        println("The path $path does not exist.")
+        return nothing
+    end
     println(path, "/")
     printCatalogTree(path, "")
     return nothing
 end
-"""
-sc(s1)
 ```
 
 The function is rather simple. We walk through every entry (`for name`) in the
 examined directory (`path`). As we go `name` is converted to `newPath` which
 will be examined in a moment. If `newPath` is a file (`isfile`) we just print
-it, otherwise (`else`) it is a directory and we print it with `"/"` to
-make it stand out. Moreover, we go inside of it with `printCatalogTree`
-(recursive call) to print its contents. For every nesting of `printCatalogTree`
-we update the padding `newPad` by increasing the indentation with `* " "`. We
-conclude with another version of `printCatalogTree`, the method will make the
-function's invocation slightly easier and will add a header line for us
-(`println(path, "/")`) that will display the root directory (`path`).
+it, otherwise (`else`) it is a directory and we print it with `"/"` to make it
+stand out. Moreover, we go inside of it with `printCatalogTree` (recursive call)
+to print its contents. For every nesting of `printCatalogTree` we update the
+padding `newPad` by increasing the indentation with `* " "`.
+
+We conclude with another version of `printCatalogTree`. The method will make the
+function's invocation slightly easier (it requires only one argument so the user
+does not have to think what the `pad` should be). Moreover, it handles the
+possibility that the `path` may not exist (`if !isdir(path)`). Additionally, it
+will add a header line for us (`println(path, "/")`) in order to display the
+root directory.
 
 Let's see how it works (remember to create `catalog_x` with its contents first).
 
@@ -88,39 +93,40 @@ printCatalogTree(joinpath(homedir(), "Desktop", "catalog_x"))
 
 ```
 /home/user_name/Desktop/catalog_x/
-   catalog_y/
-      catalog_z/
-         file_z.txt
-      file_y.txt
-   file_x.txt
+    catalog_y/
+        catalog_z/
+            file_z.txt
+        file_y.txt
+    file_x.txt
 ```
 
 It looks quite alright. Time to replace the spaces on the left with some
 guideways that we may follow with our eyes.
 
-```jl
-s2 = """
+```
 function printCatalogTree(path::Str, pad::Str)::Nothing
-    newPad::Str = pad * "---"
+    newPad::Str = pad * "--- "
     for name in readdir(path)
         newPath::Str = joinpath(path, name)
         if isfile(newPath)
             println(newPad, name)
         else
             println(newPad, name, "/")
-            printCatalogTree(newPath, pad * "   |")
+            printCatalogTree(newPath, pad * "    |")
         end
     end
     return nothing
 end
 
 function printCatalogTree(path::Str)::Nothing
+    if !isdir(path)
+        println("The path $path does not exist.")
+        return nothing
+    end
     println(path, "/")
     printCatalogTree(path, "|")
     return nothing
 end
-"""
-sc(s2)
 ```
 
 To that end we changed the `pad`s. We begin with the first column on the left
@@ -136,20 +142,19 @@ printCatalogTree(joinpath(homedir(), "Desktop", "catalog_x"))
 
 ```
 /home/user_name/Desktop/catalog_x/
-|---catalog_y/
-|   |---catalog_z/
-|   |   |---file_z.txt
-|   |---file_y.txt
-|---file_x.txt
+|--- catalog_y/
+|    |--- catalog_z/
+|    |    |--- file_z.txt
+|    |--- file_y.txt
+|--- file_x.txt
 ```
 
 Not bad at all. Time to add a summary line.
 
-```jl
-s3 = """
+```
 function printCatalogTree!(path::Str, pad::Str,
                            count::Dict{Str, Int})::Nothing
-    newPad::Str = pad * "---"
+    newPad::Str = pad * "--- "
     for name in readdir(path)
         newPath::Str = joinpath(path, name)
         if isfile(newPath)
@@ -158,21 +163,23 @@ function printCatalogTree!(path::Str, pad::Str,
         else
             println(newPad, name, "/")
             count["nDirs"] += 1
-            printCatalogTree!(newPath, pad * "   |", count)
+            printCatalogTree!(newPath, pad * "    |", count)
         end
     end
     return nothing
 end
 
 function printCatalogTree(path::Str)::Nothing
+    if !isdir(path)
+        println("The path $path does not exist.")
+        return nothing
+    end
     println(path, "/")
     count::Dict{Str, Int}= Dict("nDirs" => 0, "nFiles" => 0)
     printCatalogTree!(path, "|", count)
-    print("\\n", count["nDirs"], " directories, ", count["nFiles"], " files")
+    print("\n", count["nDirs"], " directories, ", count["nFiles"], " files")
     return nothing
 end
-"""
-sc(s3)
 ```
 
 The necessary data will be collected in a dictionary (`count`). It has two keys:
@@ -196,11 +203,11 @@ printCatalogTree(joinpath(homedir(), "Desktop", "catalog_x"))
 
 ```
 /home/user_name/Desktop/catalog_x/
-|---catalog_y/
-|   |---catalog_z/
-|   |   |---file_z.txt
-|   |---file_y.txt
-|---file_x.txt
+|--- catalog_y/
+|    |--- catalog_z/
+|    |    |--- file_z.txt
+|    |--- file_y.txt
+|--- file_x.txt
 
 2 directories, 3 files
 ```
@@ -213,20 +220,20 @@ printCatalogTree(joinpath(homedir(), "Desktop", "catalog_a"))
 
 ```
 /home/user_name/Desktop/catalog_a/
-|---catalog_b/
-|   |---catalog_d/
-|   |   |---file_d.txt
-|   |---file_b1.txt
-|   |---file_b2.txt
-|---catalog_c/
-|   |---catalog_e/
-|   |   |---file_e.txt
-|   |---catalog_f/
-|   |   |---file_f1.txt
-|   |   |---file_f2.txt
-|   |   |---file_f3.txt
-|   |   |---file_f4.txt
-|---file_a.txt
+|--- catalog_b/
+|    |--- catalog_d/
+|    |    |--- file_d.txt
+|    |--- file_b1.txt
+|    |--- file_b2.txt
+|--- catalog_c/
+|    |--- catalog_e/
+|    |    |--- file_e.txt
+|    |--- catalog_f/
+|    |    |--- file_f1.txt
+|    |    |--- file_f2.txt
+|    |    |--- file_f3.txt
+|    |    |--- file_f4.txt
+|--- file_a.txt
 
 5 directories, 9 files
 ```
