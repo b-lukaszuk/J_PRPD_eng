@@ -12,8 +12,8 @@ sc(s2)
 Still, once you read the problem description you may decide to do otherwise.
 
 I recommend you try to solve the task on your own first. Once you finish you may
-compare your own solution with the one in this chapter (with explanations) or
-with [the code
+compare your solution with the one in this chapter (with explanations) or with
+[the code
 snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/format_text)
 (without explanations).
 
@@ -24,8 +24,8 @@ A reminder of how to deal with packages and \*.toml files can be found
 
 [Word processing
 programs](https://en.wikipedia.org/wiki/List_of_word_processor_programs) offer
-many text editing capacities. In a pre-digital era, those tasks had to be done
-manually. Anyway, let's try to do some typesetting with Julia.
+many text editing functionalities. In a pre-digital era, those tasks had to be
+done manually. Anyway, let's try to do some typesetting with Julia.
 
 Choose an exemplary text, like `text2beFormatted.txt` from [the code
 snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/format_text)
@@ -172,10 +172,10 @@ Now, for left-, right- and center alignment, each line will have to be padded
 with space characters (`PAD`) placed on the right, left, and both sides,
 respectively. For that we need to know the difference between the number of
 characters in our line and its target length. Moreover, we need a padding
-function that we will name `padLine`. Here, we went with the `*` operator that
-glues two strings together and the `^` symbol that repeats the string on its
-left the number of times on its right (remember about the operator precedence
-from mathematics). Alternatively, we could have used the built in
+function that we will name creatively as `padLine`. Here, we went with the `*`
+operator that glues two strings together and the `^` symbol that repeats the
+string on its left the number of times on its right (remember about the operator
+precedence from mathematics). Alternatively, we could have used the built in
 [\@sprintf](https://docs.julialang.org/en/v1/stdlib/Printf/#Printf.@sprintf)
 (e.g. `@sprintf("%60s", "xxx")`/`@sprintf("%-60s", "xxx")` to get the `"xxx"`
 right/left justified for
