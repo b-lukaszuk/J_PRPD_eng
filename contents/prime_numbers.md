@@ -5,8 +5,8 @@ problem description you may decide to do otherwise. In that case don't let me
 stop you.
 
 I recommend you try to solve the task on your own first. Once you finish you may
-compare your own solution with the one in this chapter (with explanations) or
-with [the code
+compare your solution with the one in this chapter (with explanations) or with
+[the code
 snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/prime_numbers)
 (without explanations).
 
@@ -48,13 +48,13 @@ function isPrime(n::Int)::Bool
     return true
 end
 """
-sco(s)
+sc(s)
 ```
 
 The function is pretty straightforward. The first two prime numbers are 2
 and 3. Hence, the if `n < 4` block that uses a [ternary
 expression](https://b-lukaszuk.github.io/RJ_BS_eng/julia_language_decision_making.html#sec:ternary_expression). Next,
-per algorithm we establish the maximum value of the divisor (`upto`). To that
+per algorithm we establish the maximum value of the divisor (`upTo`). To that
 end we calculate `sqrt(n)`, round it to up to the next whole number (`ceil`) and
 convert it to integer (`Int`). Then, we test if the divisors in the range
 `2:upTo` divide our number `n` evenly (`n % i == 0`), if so we `return false`
@@ -69,7 +69,7 @@ function getPrimesV1(upTo::Int)::Vec{Int}
     return filter(isPrime, 2:upTo)
 end
 """
-sco(s)
+sc(s)
 ```
 
 All we had to do was to `filter` out primes from the sequence of numbers within
@@ -119,7 +119,7 @@ function getPrimesV2(upTo::Int)::Vec{Int}
     return nums[isPrimeTests]
 end
 """
-sco(s)
+sc(s)
 ```
 
 This time we begin by defining two vectors `nums` which contains all the
