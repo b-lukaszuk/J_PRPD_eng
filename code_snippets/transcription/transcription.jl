@@ -28,7 +28,7 @@ dna2mrna = Dict(
 
 function transcribe(nucleotideBase::Char,
     complementarityMap::Dict{Char, Char} = dna2mrna)::Char
-    return get(complementarityMap, nucleotideBase, nucleotideBase)
+    return get(complementarityMap, nucleotideBase, '?')
 end
 
 (
@@ -53,3 +53,6 @@ mRna = map(base -> get(dna2mrna, base, base), dnaExonsOnly)
     dnaExonsOnly[1:10],
     mRna[1:10]
 )
+
+# are there any unknown bases '?'' (artifacts)
+findfirst(base -> base == '?', mRna) |> isnothing

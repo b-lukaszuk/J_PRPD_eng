@@ -5,8 +5,8 @@ problem description you may decide to do otherwise. In that case don't let me
 stop you.
 
 I recommend you try to solve the task on your own first. Once you finish you may
-compare your own solution with the one in this chapter (with explanations) or
-with [the code
+compare your solution with the one in this chapter (with explanations) or with
+[the code
 snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/transcription)
 (without explanations).
 
@@ -53,7 +53,7 @@ presented in the table above.
 ## Solution {#sec:transcription_solution}
 
 The file `dna_seq_template_strand.txt` is quite small as you can see by using
-your file manager or Julia
+your file manager or Julia:
 
 ```jl
 s = """
@@ -100,7 +100,7 @@ s = """
 dna = replace(dna, " " => "", "\n" => "")
 dna[1:75]
 """
-replace(sco(s), Regex("\n\" => ") => "\\n\" => \"")
+replace(sco(s), Regex("\n\" => ") => "\\n\" => ")
 ```
 
 This couldn't be simpler, we just use `replace` and `itIs => shouldBe` syntax.
@@ -108,8 +108,9 @@ The spaces (`" "`) are replaced with nothing (`""`, empty string) and newlines
 (`"\n"`) with nothing (`""`, empty string) as well. Effectively this removed
 them from our `dna` string.
 
-String splicing is easily done with indexing and string concatenation operator
-(`*`) like so.
+String splicing is easily done with indexing (if we got only
+[ASCII](https://en.wikipedia.org/wiki/ASCII) characters) and string
+concatenation operator (`*`) like so.
 
 ```jl
 s = """
@@ -140,8 +141,8 @@ And now the transcription itself.
 ```jl
 s = """
 function transcribe(nucleotideBase::Char,
-    complementarityMap::Dict{Char, Char} = dna2mrna)::Char
-    return get(complementarityMap, nucleotideBase, nucleotideBase)
+    complementarityMap::Dict{Char, Char}=dna2mrna)::Char
+    return get(complementarityMap, nucleotideBase, '?')
 end
 
 (
@@ -157,7 +158,7 @@ Our transcribe function takes a character (`Char`, `String` is build of
 individual characters) called `nucleotideBase` and a default
 `complementarityMap` set to `dna2mrna`. It uses `get` to return a complementary
 base to `nucleotideBase` (its second argument) or a default (its third argument,
-in this case just return `nucleotideBase`) if a match was not found.
+in this case just return `'?'`) if a match was not found.
 
 All that's left to do is to write a `transcribe` function for the whole string
 (`dnaExonsOnly`).
@@ -194,3 +195,15 @@ replace(sco(s), Regex(", \"") => "\n \"")
 ```
 
 with the same result, but I felt that the longer version was clearer.
+
+Finally, let's just check if the transcription produced no artifacts (`'?'`
+defined before).
+
+```jl
+s = """
+findfirst(base -> base == '?', mRna) |> isnothing
+"""
+sco(s)
+```
+
+Everything seems to be in order.
