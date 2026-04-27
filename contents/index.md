@@ -6,7 +6,7 @@ This file is not included in the PDF.
 
 Start date: Wed, 2024-09-11
 
-Book writing status: Work in Progress (I'm in no hurry though)
+Book writing status: Completed (2026-04-28, small changes possible)
 
 Latest update (local time):
 
@@ -25,7 +25,7 @@ all about.
 This book was generated using [Books.jl](https://github.com/JuliaBooks/Books.jl)
 starting with [BookTemplate](https://github.com/JuliaBooks/BookTemplate).
 
-The book is also available as [**PDF**](/BS_wJ_eng_25_04_2026.pdf).
+The book is also available as [**PDF**](/BS_wJ_eng_28_04_2026.pdf).
 
 The template for this book can be found
 [here](https://github.com/b-lukaszuk/BS_wJ_eng) and the code snippets for the
