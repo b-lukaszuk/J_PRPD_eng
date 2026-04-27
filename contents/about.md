@@ -50,7 +50,7 @@ This will allow for a shorter code when type declarations are used,
 e.g. `Vec{Flt}` instead of `Vector{Float64}`. Notice, that the type synonyms are
 declared with `const` keyword, since they will not change for as long as a
 program runs. The naming convention for the custom types is similar to the name
-of built in data types in Julia (first letter is uppercased, the rest of the
+of the built in data types in Julia (first letter is uppercased, the rest of the
 characters are lowercased).
 
 I wrote this book using Julia:
