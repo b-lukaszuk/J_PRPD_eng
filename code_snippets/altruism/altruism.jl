@@ -99,7 +99,6 @@ playGame([naive, unforgiving, paybacker, unfriendly, abusive, egoist])
 # 1 - unforgiving, 2 - paybacker, 3 - egoist
 # good/bad = 2/1
 
-
 ###
 # replace unforgiving with gullible (prob of cooperate ~90%)
 # and observe how the results change

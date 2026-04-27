@@ -12,8 +12,8 @@ sc(s2)
 Still, once you read the problem description you may decide to do otherwise.
 
 I recommend you try to solve the task on your own first. Once you finish you may
-compare your own solution with the one in this chapter (with explanations) or
-with [the code
+compare your solution with the one in this chapter (with explanations) or with
+[the code
 snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/altruism)
 (without explanations).
 
@@ -30,8 +30,8 @@ if I mess things up, the fault is mine.
 Anyway, there is this interesting game theory problem called [the prisoner's
 dilemma](https://en.wikipedia.org/wiki/Prisoner%27s_dilemma). Imagine two
 accomplices being interrogated by the police for the crime they committed. The
-investigators separate them and try to convince them to testify against each
-other (good cop, bad cop isn't it):
+investigators separate the suspects and try to convince them to testify against
+each other (good cop, bad cop, isn't it?):
 
 - if both of them remain silent, there is enough evidence to sentence them for
   one year each
