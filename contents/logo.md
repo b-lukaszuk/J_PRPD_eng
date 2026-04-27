@@ -13,8 +13,8 @@ sc(s2)
 Still, once you read the problem description you may decide to do otherwise.
 
 I recommend you try to solve the task on your own first. Once you finish you may
-compare your own solution with the one in this chapter (with explanations) or
-with [the code
+compare your solution with the one in this chapter (with explanations) or with
+[the code
 snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/logo)
 (without explanations).
 
@@ -57,9 +57,9 @@ sc(s)
 > is to be found
 > [here](https://juliagraphics.github.io/Colors.jl/stable/namedcolors/).
 
-The function is pretty simple. First, we defined the locations (based on guess
-and later try and error) of the points with respect to the x- (`centersXs`) and
-y-axis (`centersYs`), as well as their colors. Next we added the points
+The function is pretty simple. First, we defined the locations (based on a guess
+and subsequent try and error) of the points with respect to the x- (`centersXs`)
+and y-axis (`centersYs`), as well as their colors. Next we added the points
 (`scatter!`) to the axis object (`ax`) attached to the figure object (`fig`).
 
 Time to take a look.

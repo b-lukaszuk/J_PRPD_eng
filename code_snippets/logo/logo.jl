@@ -1,14 +1,14 @@
-# taks replicate JuliaStats logo as seen here
+# task: replicate JuliaStats logo as seen here
 # https://juliastats.org/images/logo.png
 import CairoMakie as Cmk
 import Random as Rnd
 
+# the code in this file is meant to serve as a programming exercise only
+# it may not act correctly
+
 const Flt = Float64
 const Str = String
 const Vec = Vector
-
-# the code in this file is meant to serve as a programming exercise only
-# it may not act correctly
 
 # attempt 1
 function drawLogo()::Cmk.Figure
