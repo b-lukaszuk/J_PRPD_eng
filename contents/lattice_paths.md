@@ -12,8 +12,8 @@ sc(s24)
 Still, once you read the problem description you may decide to do otherwise.
 
 I recommend you try to solve the task on your own first. Once you finish you may
-compare your own solution with the one in this chapter (with explanations) or
-with [the code
+compare your solution with the one in this chapter (with explanations) or with
+[the code
 snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/lattice_paths)
 (without explanations).
 
@@ -28,7 +28,7 @@ problem](https://projecteuler.net/problem=15), but it was modified by me.
 Take a look at @fig:latticePaths2x2 below. You will find a big square build of
 2x2 smaller squares. Your task is to start at the top left corner of the big
 square and go to the bottom right corner of it using only right and down arrows
-(as few as possible) that span a small square side length.
+that span a small square side length.
 
 ![Lattice paths on a 2x2 grid.](./images/latticePaths2x2.png){#fig:latticePaths2x2}
 
@@ -71,11 +71,11 @@ A few points of notice (make sure they agree on both
 coordinate system](https://en.wikipedia.org/wiki/Cartesian_coordinate_system)
 with the location (0, 0);
 2) the bottom right corner could be located within that system at the position
-(nRows, -nCols) or (nRows, -nRows) of our grid (each small square in
+(nRows, -nRows) or (nCols, -nCols) of our grid (each small square in
 @fig:latticePaths1x1wCoordinates and @fig:latticePaths2x2wCoordinates got the
 side length = 1 and builds rows and columns of a large square);
 3) The number of arrows used to reach the destination (the bottom right corner)
-is always the same for each path and it is equal to nRows+nCols (or nRows*2);
+is always the same for each path and it is equal to nRows+nCols (or nRows\*2 or nCols\*2);
 
 Equipped with this knowledge, we can finally do something useful.
 
@@ -107,7 +107,7 @@ We begin by defining a few constants. The type synonyms: `Pos` (shortcut for
 position), `Mov` (shortcut for move) will save us some typing later on.
 Whereas, `RIGHT` (shift by 1 unit along X-axis) and `DOWN` (shift by 1 unit
 along Y-axis) are the arrow coordinates in the Cartesian coordinate system (it
-starts at the top left corner, (0,0), of a big square), which together form a
+starts at the top left corner, `(0, 0)`, of a big square), which together form a
 vector of available `MOVES`.
 
 Next, we define the `add` function. Its first version, aka method, allows to add
@@ -127,7 +127,7 @@ Let's put the above functions to good use.
 function getFinalPositions(nRows::Int)::Vec{Pos}
     @assert 0 < nRows < 5 "nRows must be in the range [1-4]"
     finalPositions::Vec{Pos} = [STARTPOINT] # top left corner
-    for _ in 1:(nRows*2) # - *2 - because of columns
+    for _ in 1:(nRows*2) # *2 - because of columns
         finalPositions = add(finalPositions, MOVES)
     end
     return finalPositions
@@ -150,14 +150,13 @@ getNumOfPaths(3) # the same result as: binomial(6, 3)
 `getFinalPositions` accepts `nRows` which is the number of small squares in a
 column of, e.g. @fig:latticePaths2x2wCoordinates. Next, it starts at the top
 left corner (`finalPositions::Vec{Pos} = [STARTPOINT]`) and `moves` away from
-it. The number of moves is equal to `nRows*2` (see point 3 in the points of
-notice above), and we always go in each of both the directions (`RIGHT` and
-`DOWN` which are in `moves`) thanks to the previously defined `add`
-function. Finally, we `return` the `finalPositions` that we get after we made
-all the possible moves. Next, in `getNumOfPaths`, we choose only those
-`positions` that land us in the bottom right corner (`target`, see point 2 in
-the points of notice above) by using `filter`. The `length` of our vector is the
-number of paths we were looking for.
+it. The number of moves is equal to `nRows*2` and we always go in each of both
+the directions (`RIGHT` and `DOWN` which are in `moves`) thanks to the
+previously defined `add` function. Finally, we `return` the `finalPositions`
+that we get after we made all the possible moves. Next, in `getNumOfPaths`, we
+choose only those `positions` that land us in the bottom right corner (`target`)
+by using `filter`. The `length` of our vector is the number of paths we were
+looking for.
 
 OK, now let's think how to draw it. For once, we could reuse the already written
 functions (`add` and `getFinalPositions`) like so (we will modify the functions
@@ -178,7 +177,7 @@ function getPaths(nRows::Int)::Vec{Path}
     @assert 0 < nRows < 5 "nRows must be in the range [1-4]"
     target::Pos = (nRows, -nRows) # bottom right corner
     result::Vec{Path} = [[STARTPOINT]] # top left corner
-    for _ in 1:(nRows*2) # - *2 - because of columns
+    for _ in 1:(nRows*2) # *2 - because of columns
         result = makeOneStep(result, MOVES)
     end
     return filter(path -> path[end] == target, result)
@@ -192,16 +191,16 @@ off. Without them `Vec{Mov}` would be `Vector{Tuple{Int, Int}}` (it isn't all
 that bad), but `Vec{Path}` would grow to `Vector{Vector{Tuple{Int, Int}}}`,
 which is a little monster. Anyway, thanks to the double `for` loop we `add`
 every possible `move` (here `RIGHT` or `DOWN`) to the last know location of a
-`path` (`path[end]`, which is a `Pos`)) and append it (`push!`) to the `result`
+`path` (`path[end]`, which is a `Pos`) and append it (`push!`) to the `result`
 (`path...` copies the previous vector, so `[path..., add(path[end], move)]`
 yields the previous `path` with a position after that `move`, e.g. `[(0, 0)]`
 becomes `[(0, 0), (1, 0)]`).
 
 Once we know how to `makeOneStep` (remember we test both directions/`moves` at
 once, so we branch our paths into two separate paths at each step we take) time
-to take `nRows*2` steps (with `for`) and can see which ones will eventually
-create the paths that will lead us to our final position (`path[end] ==
-target`). As you have guessed this is exactly what `getPaths` does.
+to take `nRows*2` steps (with `for`) so that we can see which ones will
+eventually create the paths that will lead us to our final position (`path[end]
+== target`). As you have guessed this is exactly what `getPaths` does.
 
 Let's see how we did so far (simple minimal test, locate the points depicted
 with tuples on @fig:latticePaths1x1wCoordinates).
@@ -224,7 +223,7 @@ This could be done with, e.g. CairoMakie's
 function. However, there's a small problem here, one look at the documentation
 and we see that the function requires two arguments, namely `points` (start
 points) and `directions` (like `RIGHT` and `DOWN`) and not a `path` which is
-starting point, pit stop, pit stop, end point. No biggie, we can get the
+starting point, pit stop, pit stop, [...], end point. No biggie, we can get the
 directions in no time.
 
 ```
@@ -234,8 +233,8 @@ end
 
 function getDirections(path::Path)::Vec{Mov}
     directions::Vec{Mov} = []
-    for i in eachindex(path)[1:end-1]
-        push!(directions, getDirection(path[i], path[i+1]))
+    for i in eachindex(path)[2:end]
+        push!(directions, getDirection(path[i-1], path[i]))
     end
     return directions
 end
@@ -271,7 +270,7 @@ end
 function drawPaths(paths::Vec{Path}, nCols::Int)::Cmk.Figure
     @assert length(paths) % nCols == 0 "length(paths) % nCols is not 0"
     r::Int, c::Int = 1, 1 # r - row, c - column of subFig on Figure
-    sp::Flt = 0.5 # extra space on X/Y axis for better outlook
+    sp::Flt = 0.5 # extra space on X/Y axis for better look
     xmin::Int, xmax::Int = paths[1][1][1], paths[1][end][1]
     ymax::Int, ymin::Int = paths[1][1][2], paths[1][end][2]
     fig::Cmk.Figure = Cmk.Figure()

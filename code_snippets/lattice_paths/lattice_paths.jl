@@ -105,7 +105,7 @@ end
 function drawPaths(paths::Vec{Path}, nCols::Int)::Cmk.Figure
     @assert length(paths) % nCols == 0 "length(paths) % nCols is not 0"
     r::Int, c::Int = 1, 1 # r - row, c - column of subFig on Figure
-    sp::Flt = 0.5 # extra space on X/Y axis for better outlook
+    sp::Flt = 0.5 # extra space on X/Y axis for better look
     xmin::Int, xmax::Int = paths[1][1][1], paths[1][end][1]
     ymax::Int, ymin::Int = paths[1][1][2], paths[1][end][2]
     fig::Cmk.Figure = Cmk.Figure()
@@ -142,6 +142,7 @@ paths = getPaths(3)
 # drawPaths(paths, 4)
 drawPaths(paths, 5)
 
+# may take a dozen of seconds to execute
 paths = getPaths(4)
 # drawPaths(paths, 7)
 drawPaths(paths, 10)
