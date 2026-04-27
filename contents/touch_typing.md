@@ -5,8 +5,8 @@ problem description you may decide to do otherwise. In that case don't let me
 stop you.
 
 I recommend you try to solve the task on your own first. Once you finish you may
-compare your own solution with the one in this chapter (with explanations) or
-with [the code
+compare your solution with the one in this chapter (with explanations) or with
+[the code
 snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/touch_typing)
 (without explanations).
 
@@ -137,9 +137,9 @@ remember to set the cursor in the appropriate column (`"\x1b[", cursorCol,
 it is a variable defined by
 [Base](https://docs.julialang.org/en/v1/base/base/#Base)). Afterwords, we append
 the character (`c`) to the `typedTxt` and move the cursor by one column. Once we
-finish, we cleanup. We reprint the whole typed text and reset the terminal to
-its default values with `run`. We return `typedTxt` for further usage (by a
-summary function that will be defined soon).
+finish, we do some cleanup. We reprint the whole typed text and reset the
+terminal to its default values with `run`. We return `typedTxt` for further
+usage (by a summary function that will be defined soon).
 
 The above is a reasonable approach, but there is a small problem with our
 `playTypingGame`. The raw mode that we use will turn off special treatments of
