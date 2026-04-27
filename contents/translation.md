@@ -4,7 +4,7 @@ In this chapter I used the following external libraries.
 
 ```jl
 s6 = """
-import Base.Iterators.takewhile as takewhile
+import Base.Iterators.takewhile as takewhile # internal library
 import BenchmarkTools as Bt # external library
 """
 sc(s6)
@@ -14,8 +14,8 @@ Those were used only for the chapter's extras and are not strictly necessary to
 solve the task.
 
 Anyway, I recommend you try to solve the task on your own first. Once you finish
-you may compare your own solution with the one in this chapter (with
-explanations) or with [the code
+you may compare your solution with the one in this chapter (with explanations)
+or with [the code
 snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/translation)
 (without explanations).
 
@@ -110,7 +110,7 @@ Let's start as we did before by checking the file size.
 ```jl
 s = """
 #in 'code_snippets' folder use "./translation/mrna_seq.txt"
-#in 'transcription' folder use "./dna_seq_template_strand.txt"
+#in 'translation' folder use "./mrna_seq.txt"
 filePath = "./code_snippets/translation/mrna_seq.txt"
 filesize(filePath)
 """
@@ -153,7 +153,7 @@ s = """
 function getAA(codon::Str)::Str
     @assert length(codon) == 3 "codon must contain 3 nucleotide bases"
     aaAbbrev::Str = get(codon2aa, codon, "???")
-    aaIUPAC::Str = get(aa2iupac, aaAbbrev, "???")
+    aaIUPAC::Str = get(aa2iupac, aaAbbrev, "?")
     return aaIUPAC
 end
 """
@@ -164,7 +164,7 @@ The function is rather simple. It accepts a codon (like `"AUG"`), next it
 translates a codon to an amino acid (abbreviated with 3 letters) using
 previously defined `codon2aa` dictionary. Then the 3-letter abbreviation is
 coded with a single letter recommended by IUPAC (using `aa2iupac` dictionary).
-If at any point no translation was found `"???"` is returned.
+If at any point no translation was found `"?"` is returned.
 
 Now, time for translation.
 
@@ -172,14 +172,14 @@ Now, time for translation.
 s = """
 function translate(mRnaSeq::Str)::Str
     len::Int = length(mRnaSeq)
-    @assert len % 3 == 0 "the number of bases must be multiple of 3"
+    @assert len % 3 == 0 "the number of bases must be a multiple of 3"
     aas::Vec{Str} = fill("", Int(len/3))
     aaInd::Int = 0
 	codon::Str, aa::Str = "", ""
     for i in 1:3:len
         aaInd += 1
-        codon = mRnaSeq[i:(i+2)] # variable local to for loop
-        aa = getAA(codon) # variable local to for loop
+        codon = mRnaSeq[i:(i+2)]
+        aa = getAA(codon)
         if aa == "Stop"
             break
         end
@@ -235,7 +235,7 @@ import Base.Iterators.takewhile as takewhile
 
 function translate2(mRnaSeq::Str)::Str
     len::Int = length(mRnaSeq)
-    @assert len % 3 == 0 "the number of bases is not multiple of 3"
+    @assert len % 3 == 0 "the number of bases is not a multiple of 3"
     ranges::Vec{UnitRange{Int}} = map(:, 1:3:len, 3:3:len)
     codons::Vec{Str} = map(r -> mRnaSeq[r], ranges)
     aas::Vec{Str} = map(getAA, codons)

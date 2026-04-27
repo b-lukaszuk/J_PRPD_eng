@@ -65,13 +65,13 @@ mRna[1:5]
 # translates codon/triplet to amino acid IUPAC
 function getAA(codon::Str)::Str
     aaAbbrev::Str = get(codon2aa, codon, "???")
-    aaIUPAC::Str = get(aa2iupac, aaAbbrev, "???")
+    aaIUPAC::Str = get(aa2iupac, aaAbbrev, "?")
     return aaIUPAC
 end
 
 function translate(mRnaSeq::Str)::Str
     len::Int = length(mRnaSeq)
-    @assert len % 3 == 0 "the number of bases must be multiple of 3"
+    @assert len % 3 == 0 "the number of bases must be a multiple of 3"
     aas::Vec{Str} = fill("", Int(len/3))
     aaInd::Int = 0
     codon::Str, aa::Str = "", ""
@@ -94,7 +94,7 @@ expectedAAseq == protein
 # functional programming solution
 function translate2(mRnaSeq::Str)::Str
     len::Int = length(mRnaSeq)
-    @assert len % 3 == 0 "the number of bases is not multiple of 3"
+    @assert len % 3 == 0 "the number of bases is not a multiple of 3"
     ranges::Vec{UnitRange{Int}} = map(:, 1:3:len, 3:3:len)
     codons::Vec{Str} = map(r -> mRnaSeq[r], ranges)
     aas::Vec{Str} = map(getAA, codons)
