@@ -12,8 +12,8 @@ sc(s2)
 Still, once you read the problem description you may decide to do otherwise.
 
 I recommend you try to solve the task on your own first. Once you finish you may
-compare your own solution with the one in this chapter (with explanations) or
-with [the code
+compare your solution with the one in this chapter (with explanations) or with
+[the code
 snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/mortgage)
 (without explanations).
 
@@ -54,7 +54,7 @@ the same page).
 - interest - the money you pay extra (except for the money you borrowed)
 - interest rate - a percentage of principal which you will pay as interest
 - installment - fixed monthly payment to the bank in order to cover you debt,
-  part of it goes to pay off the principal and part to pay the interest
+  part of it goes to pay off the principal and part to pay off the interest
 
 Next, let's use the formatting function from @sec:compound_interest_solution.
 
@@ -125,11 +125,12 @@ end
 sc(s)
 ```
 
-All the formulas are based on [this Wikipedia's
+All the formulas are based on [this Wikipedia
 page](https://en.wikipedia.org/wiki/Mortgage_calculator#). Notice that the
-function's arguments (and `Mortgage` fields) contain longer (more descriptive)
-names, whereas inside the functions we use the abbreviations (case insensitive)
-found in the above-mentioned formulas .
+function's arguments (`Mortgage` fields in `getInstallment` and the arguments to
+`getPrincipalAfterMonth` below) contain longer (more descriptive) names, whereas
+inside the functions we use the abbreviations (case insensitive) found in the
+above-mentioned formulas .
 
 With that done, we can answer how much money we will have to pay to the bank
 every month for the duration of our mortgage.
@@ -224,7 +225,7 @@ sco(s)
 ```
 
 Hmm, quite a lot (remember we borrowed \$200,000 for 20 and 30 years). And when
-will this value drop to $\le$ 100,000 USD ($\le$ half of what we borrowed)?
+will this value drop $\le$ 100,000 USD ($\le$ half of what we borrowed)?
 
 ```jl
 s = """
@@ -282,7 +283,7 @@ We also used [string
 interpolation](https://docs.julialang.org/en/v1/manual/strings/#string-interpolation)
 where a simple interpolated value is placed after the dollar character (`$`) or
 in a more complicated case (a structure field, a calculation) it is put after
-the dollar character and within parenthesis (e.g. `$(2*3)`).
+the dollar character and within parenthesis (e.g. `"$(2*3)"`).
 
 Time to draw a comparison
 

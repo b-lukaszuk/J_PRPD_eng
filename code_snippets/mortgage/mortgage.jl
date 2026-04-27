@@ -19,7 +19,7 @@ end
 mortgage1 = Mortgage(200_000, 6.49, 20*12)
 mortgage2 = Mortgage(200_000, 4.99, 30*12)
 
-# getFormattedMoney from compound_interest, modified
+# getFormattedMoney from ../compound_interest/, modified
 function fmt(money::Real, sep::Char=',',)::Str
     @assert money >= 0 "money must be >= 0"
     amount::Str = round(Int, money) |> string
@@ -131,7 +131,7 @@ function drawPrincipalOwedEachYr(m::Mortgage)::Cmk.Figure
     return fig
 end
 
-drawPrincipalOwedEachYr(mortgage1) # Figure 2
+drawPrincipalOwedEachYr(mortgage1) # first figure in the chapter
 drawPrincipalOwedEachYr(mortgage2)
 
 function addPieChart!(m::Mortgage, fig::Cmk.Figure,
