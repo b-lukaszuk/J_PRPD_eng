@@ -5,8 +5,8 @@ problem description you may decide to do otherwise. In that case don't let me
 stop you.
 
 I recommend you try to solve the task on your own first. Once you finish you may
-compare your own solution with the one in this chapter (with explanations) or
-with [the code
+compare your solution with the one in this chapter (with explanations) or with
+[the code
 snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/compound_interest)
 (without explanations).
 
@@ -41,18 +41,19 @@ the same amount of goods like in 2019?
 ### Question 3 {#sec:compound_interest_problem_q3}
 
 Imagine that on January 1, 2020 I opened a bank deposit for 5 years with a
-yearly interest rate of 6%. Given the inflation rates from the question 2 would
-I make any real profit on January 1, 2025?
+yearly interest rate of 6%. Given the inflation rates from the question 2
+(@sec:compound_interest_problem_q2) would I make any real profit on January 1,
+2025?
 
 ### Question 4 {#sec:compound_interest_problem_q4}
 
-An average Polish male, aka Jan Kowalski, retires at the age of 65, while his
-life expectancy at birth is 75 years. Jan starts his first job at the age of 20
-and earns $3,000 a month. However, since he had heard that the pension a person
-receives is equal to 50% of their last salary, he decided to save $200 monthly
-(a bit less than 7% of his earnings). Once, he retires he'll take the missing
-50% from the pile of money that he saved so that quality of his life will not
-change.
+Let's say that an average Polish male, aka Jan Kowalski, retires at the age of
+65, while his life expectancy at birth is 75 years. Jan starts his first job at
+the age of 20 and earns $3,000 a month. However, since he had heard that the
+pension a person receives is equal to 50% of their last salary, he decided to
+save $200 monthly (a bit less than 7% of his earnings). Once he retires he'll
+take the missing 50% from the pile of money that he saved so that quality of his
+life will not change.
 
 Assume that: 1) there is no inflation; 2) Jan's salary is constant throughout
 his lifetime; 3) he pays $2,400 into his savings account at the beginning of
@@ -98,9 +99,9 @@ Since in English a decimal separator is `.` (dot) and a thousand separator is
 (`round(Int, money)`) and convert it to `string`. Next we traverse all the
 digits (`for digit`) in the opposite direction (from right to left) thanks to
 the `reverse(amount)`. Every third digit (`if counter == 3`) we place our `sep`
-to the `result` and count to three a new (`counter = 0`). Besides, we prepend
-our `digit` to the `result` (`digit * result`) and increase the counter
-(`counter +=1`). In the end we return the formatted number (`result * " USD"`).
+to the `result` and reset the counter (`counter = 0`). Besides, we prepend our
+`digit` to the `result` (`digit * result`) and increase the counter (`counter
++=1`). In the end we return the formatted number (`result * " USD"`).
 
 > **_Note:_** For another way to format a number to currency see
 > @sec:regex_problem_solution4.
@@ -199,20 +200,20 @@ people frozen in 1960s' are not preserved today. Therefore, the profit seems to
 be purely theoretical.
 
 Anyway, as said the function could be used to estimate the nominal value that
-you will get from your deposit (with a stable yearly interest rate). You could
+you would get from your deposit (with a stable yearly interest rate). You could
 also look at it from the other end and estimate how much you would have to earn
 to cover up for an average inflation rate over a few years. Keep that in mind as
 we go to the solution for Question 2 (see @sec:compound_interest_problem_q2).
 
 ### Answer 2 {#sec:compound_interest_problem_a2}
 
-What about Question 2. If on December 31, 2019 my monthly salary was
-$10,000 then how much I would have to earn in January 2025 to maintain my
-purchasing power given that the inflation rates for years 2020-2024 were equal:
-3.4%, 5.1%, 14.4%, 11.4%, and 3.6%. To answer that we will use the same
-reasoning as in the previous section (@sec:compound_interest_problem_a1), but
-since the percentages differ from year to year we will use a `for` loop to
-cover for that.
+What about Question 2 (@sec:compound_interest_problem_q2). If on December 31,
+2019 my monthly salary was $10,000 then how much I would have to earn in January
+2025 to maintain my purchasing power given that the inflation rates for years
+2020-2024 were equal: 3.4%, 5.1%, 14.4%, 11.4%, and 3.6%. To answer that we will
+use the same reasoning as in the previous section
+(@sec:compound_interest_problem_a1), but since the percentages differ from year
+to year we will use a `for` loop to cover for that.
 
 ```jl
 s = """
@@ -259,12 +260,13 @@ value of money due to the inflation rate. In other words, we might want to
 calculate the real percentage change in money value given the two factors
 combined. For that we should either implement a suitable formula obtained from a
 reliable source or come up with the one ourselves. In order to learn we will try
-the latter approach (no pain, no gain).
+the latter approach (no pain, no gain). Still, we may make a mistake so, take it
+with a grain of salt.
 
-To that end we will use proportions (I believe they taught me that in the high
-school in chemistry, so bear with me, you can do it) and some simple imaginable
-example. To make sure we are on the same page let's talk briefly about the
-proportions.
+Anyway, I think we will use proportions (I believe they taught me that in the
+high school in chemistry, so bear with me, you can do it) and some simple
+imaginable example. To make sure we are on the same page let's talk briefly
+about the proportions.
 
 Imagine that for $10 (`usd` below) we can buy 2 bread loafs (`bl` below). If so,
 then how much bread can we buy for $5? That's easy, one bread loaf. You can
@@ -294,11 +296,12 @@ or
 $\frac{2}{10} = \frac{x}{5}$
 
 The above is basically just finding an equivalent fraction that we learned in
-our primary schools. Still, I like and remember the proportions example better.
+our primary schools (how many 5ths is $\frac{2}{10}$?). Still, I like and
+remember the proportions example better.
 
-With that under our belt let's follow with a simple example. Imagine that in
+With that under our belts let's follow with a simple example. Imagine that in
 this year for $100 (`usd` below) we can buy 100 chocolate bars (`cb` below). Due
-to the yearly inflation that is 2% the same 100 chocolate bars will
+to the yearly inflation that is 2%, the same 100 chocolate bars will
 cost $102 after a year. Luckily, thanks to the 5% yearly interest
 rate we will have $105 in banknotes from our deposit. So how many
 chocolate bars will we be able to buy after a year?
@@ -325,7 +328,7 @@ evaluate the real gain/loss of our nominal money to be:
 abstraction needed as a reference point, something that does not change its
 value over time, hence a constant). When we put it all together (starting from
 @eq:prop3) in a formula, we get (notice that the 100 below is a constant that we
-refered to in the sentence before):
+referred to in the sentence before):
 
 $$real\ percentage = \frac{105\ usd\ *\ 100}{102\ usd} - 100$$ {#eq:prop5}
 
@@ -368,8 +371,8 @@ function getValue(principal::Real,
                   interestPercs::Vec{<:Real},
                   inflationPercs::Vec{<:Real})::Flt
     @assert principal > 0 "principal must be greater than 0"
-    @assert length(interestPercs) == length(inflationPercs)
-		"interestPercs and inflationPercs must be of equal lenghts"
+    @assert(length(interestPercs) == length(inflationPercs),
+            "interestPercs and inflationPercs must be of equal lenghts")
     for (intr, infl) in zip(interestPercs, inflationPercs)
         principal = getValue(principal, getRealPercChange(intr, infl), 1)
     end
@@ -386,16 +389,16 @@ s = """
 interestDeposit = 6 # yrs: 2020-2025
 numYrs = length(inflPoland)
 money2025deposit = getValue(money2019,
-	interestDeposit, numYrs) # Jan 1, 2025
+	interestDeposit, numYrs)
 money2025depositInflation = getValue(
     money2019,
-	repeat([interestDeposit], numYrs), inflPoland) # Jan 1, 2025
+	repeat([interestDeposit], numYrs), inflPoland)
 
 
 (
-    getFormattedMoney(money2019),
-    getFormattedMoney(money2025deposit),
-    getFormattedMoney(money2025depositInflation)
+    getFormattedMoney(money2019), # Dec 31, 2019 or Jan 1, 2020
+    getFormattedMoney(money2025deposit), # Jan 1, 2025
+    getFormattedMoney(money2025depositInflation) # Jan 1, 2025
 )
 """
 sco(s)
@@ -408,7 +411,7 @@ could for $9,327 on January 1, 2020. So despite more money in my wallet
 (nominal increase) I actually lost some real value. Eh.
 
 OK, let's try to be optimists here. The glass is half full. By putting the money
-on the deposit (5% yearly) we lost some value. Still, if we left it on an
+on the deposit (6% yearly) we lost some value. Still, if we left it on an
 ordinary account with a lousy 0.5% interest rate the financial outcome would be
 even more unsatisfactory.
 
@@ -434,7 +437,9 @@ think before you leap.
 Time for the last question.
 
 Jan Kowalski saves $2,400 per year with constant 2% interest rate over his
-working life. If so, then how much will he get and for how long will it last?
+working life. If so, then how much will he get in the end and for how long will
+it last?
+
 First, the savings.
 
 ```jl
@@ -462,20 +467,19 @@ moneyPerYr`) of which we get our interest (`savings *= mulitplier`) based on the
 formulas discussed in (@sec:compound_interest_problem_a1 and
 @sec:compound_interest_problem_a2). Once we are done, we return what we saved.
 
-
 ```jl
 s = """
 savingsPerYr = 2_400 # or 200 * 12
 savingsPercentageYr = 2
 yrsWorking = 65 - 20
 
+moneyPutAside = savingsPerYr * yrsWorking
 savings = getRetirementSavings(
 	savingsPerYr, savingsPercentageYr, yrsWorking)
-moneyPutAside = savingsPerYr * yrsWorking
 
 (
-	savings |> getFormattedMoney,
-	moneyPutAside |> getFormattedMoney
+	moneyPutAside |> getFormattedMoney,
+	savings |> getFormattedMoney
 )
 """
 sco(s)
@@ -498,7 +502,8 @@ sco(s)
 ```
 
 He should be able to maintain his standard of living for roughly 10 years, which
-is his expected life expectancy on retirement (retires and 65, lives up to
+is his expected life expectancy on retirement (retires at 65, lives up to
 75). So, I guess that if Jan intends to beat the averages and spend more time on
-the retirement, then he must save some more cash. Anyway, it seems that to have
+the retirement, then he must save some more cash. The same seems to be true if
+the pension is less than 50% of his last salary. Anyway, it seems that to have
 some spare money on your retirement might be a prudent idea.

@@ -71,14 +71,14 @@ end
 
 interestDeposit = 6 # yrs: 2020-2025
 numYrs = length(inflPoland)
-money2025deposit = getValue(money2019, interestDeposit, numYrs) # Jan 1, 2025
+money2025deposit = getValue(money2019, interestDeposit, numYrs)
 money2025depositInflation = getValue(
-    money2019, repeat([interestDeposit], numYrs), inflPoland) # Jan 1, 2025
+    money2019, repeat([interestDeposit], numYrs), inflPoland)
 
 (
-    getFormattedMoney(money2019),
-    getFormattedMoney(money2025deposit),
-    getFormattedMoney(money2025depositInflation)
+    getFormattedMoney(money2019), # Dec 31, 2019
+    getFormattedMoney(money2025deposit), # Jan 1, 2025
+    getFormattedMoney(money2025depositInflation) # Jan 1, 2025
 )
 
 # an oridinary bank account, 0.5% interest rate
@@ -110,11 +110,11 @@ savingsPerYr = 2_400 # or 200 * 12
 savingsPercentageYr = 2
 yrsWorking = 65 - 20
 
-savings = getRetirementSavings(savingsPerYr, savingsPercentageYr, yrsWorking)
 moneyPutAside = savingsPerYr * yrsWorking
+savings = getRetirementSavings(savingsPerYr, savingsPercentageYr, yrsWorking)
 
-savings |> getFormattedMoney
 moneyPutAside |> getFormattedMoney
+savings |> getFormattedMoney
 
 # for how long it lasts on retirement
 # 1,500 usd a month, 12 months per year
