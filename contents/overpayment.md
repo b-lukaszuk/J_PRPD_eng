@@ -5,8 +5,8 @@ problem description you may decide to do otherwise. In that case don't let me
 stop you.
 
 I recommend you try to solve the task on your own first. Once you finish you may
-compare your own solution with the one in this chapter (with explanations) or
-with [the code
+compare your solution with the one in this chapter (with explanations) or with
+[the code
 snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/overpayment)
 (without explanations).
 
@@ -15,10 +15,9 @@ A reminder of how to deal with packages and \*.toml files can be found
 
 ## Problem {#sec:overpayment_problem}
 
-We finished the previous chapter (@sec:mortgage) with the discussion about
-paying off a mortgage. In general, banks allow their clients to overpay their
-mortgages, which should be beneficial to the borrowers. So here is a task for
-you.
+We finished the previous chapter (@sec:mortgage) with the discussion on a topic
+of a mortgage. In general, banks allow their clients to overpay their mortgages,
+which should be beneficial to the borrowers. So here is a task for you.
 
 Write a computer program, that will estimate the savings you make by overpaying
 a mortgage (assume the whole overpayment goes to pay off the principal and
@@ -66,8 +65,8 @@ sc(s)
 The function accepts (among others) `curPrincipal`, `installment` and
 `overpayment` and does a payment for a single month. To that end, first we
 calculate the monthly interest rate as a decimal (`interestDecimalMonth`) and
-use it to calculate the interest principal paid this month (`interestPaid` and
-`principalPaid`). Afterwards we calculate our the new, lower, principal
+use it to calculate the interest and principal paid this month (`interestPaid`
+and `principalPaid`). Afterwards we calculate our the new, lower principal
 (`newPrincipal`). Finally, we return a tuple with 3 values: 1) the remaining
 principal (after a month), 2) principal paid in a given month (from
 `installment` and `overpayment`), and 3) interest paid (from `installment`). The
@@ -268,7 +267,7 @@ sco(s)
 Interesting, the above output indicates that we would be able to save more, with
 an early (month 13) over-payment of a vast sum of money (\$20,000, 10% of our
 initial principal) than just by regularly overpaying the mortgage with small
-sums of it (\$200, 1% of our initial principal).
+sums of it (\$200, 0.1% of our initial principal).
 
 Out of pure curiosity, let's see how much we could save when we combine the two
 (we overpay \$200 every month, except for month 13, where we overpay \$20,000)

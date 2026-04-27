@@ -19,7 +19,7 @@ end
 mortgage1 = Mortgage(200_000, 6.49, 20*12)
 mortgage2 = Mortgage(200_000, 4.99, 30*12)
 
-# getFormattedMoney from compound_interest, modified
+# getFormattedMoney from ../compound_interest/, modified
 function fmt(money::Real, sep::Char=',',)::Str
     @assert money >= 0 "money must be >= 0"
     amount::Str = round(Int, money) |> string
@@ -189,7 +189,7 @@ function drawComparison(m::Mortgage,
     return fig
 end
 
-# Figure 4
+# 1st figure in the chapter
 drawComparison(mortgage1, Dict(i => 200 for i in 1:mortgage1.numMonths))
-# Figure 5
+# 2nd figure in the chapter
 drawComparison(mortgage2, Dict(i => 200 for i in 1:mortgage2.numMonths))
