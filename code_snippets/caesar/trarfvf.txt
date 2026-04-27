@@ -71,7 +71,7 @@ Hagb gur jbzna ur fnvq, V jvyy terngyl zhygvcyl gul fbeebj naq gul pbaprcgvba; v
 Naq hagb Nqnz ur fnvq, Orpnhfr gubh unfg urnexrarq hagb gur ibvpr bs gul jvsr, naq unfg rngra bs gur gerr, bs juvpu V pbzznaqrq gurr, fnlvat, Gubh funyg abg rng bs vg: phefrq vf gur tebhaq sbe gul fnxr; va fbeebj funyg gubh rng bs vg nyy gur qnlf bs gul yvsr;
 Gubeaf nyfb naq guvfgyrf funyy vg oevat sbegu gb gurr; naq gubh funyg rng gur ureo bs gur svryq;
 Va gur fjrng bs gul snpr funyg gubh rng oernq, gvyy gubh erghea hagb gur tebhaq; sbe bhg bs vg jnfg gubh gnxra: sbe qhfg gubh neg, naq hagb qhfg funyg gubh erghea.
-Naq Nqnz pnyyrq uvf jvsr’f anzr Rir; orpnhfr fur jnf gur zbgure bs nyy yvivat.
+Naq Nqnz pnyyrq uvf jvsr'f anzr Rir; orpnhfr fur jnf gur zbgure bs nyy yvivat.
 Hagb Nqnz nyfb naq gb uvf jvsr qvq gur YBEQ Tbq znxr pbngf bs fxvaf, naq pybgurq gurz.
 Naq gur YBEQ Tbq fnvq, Orubyq, gur zna vf orpbzr nf bar bs hf, gb xabj tbbq naq rivy: naq abj, yrfg ur chg sbegu uvf unaq, naq gnxr nyfb bs gur gerr bs yvsr, naq rng, naq yvir sbe rire:
 Gurersber gur YBEQ Tbq frag uvz sbegu sebz gur tneqra bs Rqra, gb gvyy gur tebhaq sebz jurapr ur jnf gnxra.
@@ -84,9 +84,9 @@ Ohg hagb Pnva naq gb uvf bssrevat ur unq abg erfcrpg. Naq Pnva jnf irel jebgu, n
 Naq gur YBEQ fnvq hagb Pnva, Jul neg gubh jebgu? naq jul vf gul pbhagranapr snyyra?
 Vs gubh qbrfg jryy, funyg gubh abg or npprcgrq? naq vs gubh qbrfg abg jryy, fva yvrgu ng gur qbbe. Naq hagb gurr funyy or uvf qrfver, naq gubh funyg ehyr bire uvz.
 Naq Pnva gnyxrq jvgu Nory uvf oebgure: naq vg pnzr gb cnff, jura gurl jrer va gur svryq, gung Pnva ebfr hc ntnvafg Nory uvf oebgure, naq fyrj uvz.
-Naq gur YBEQ fnvq hagb Pnva, Jurer vf Nory gul oebgure? Naq ur fnvq, V xabj abg: Nz V zl oebgure’f xrrcre?
-Naq ur fnvq, Jung unfg gubh qbar? gur ibvpr bs gul oebgure’f oybbq pevrgu hagb zr sebz gur tebhaq.
-Naq abj neg gubh phefrq sebz gur rnegu, juvpu ungu bcrarq ure zbhgu gb erprvir gul oebgure’f oybbq sebz gul unaq;
+Naq gur YBEQ fnvq hagb Pnva, Jurer vf Nory gul oebgure? Naq ur fnvq, V xabj abg: Nz V zl oebgure'f xrrcre?
+Naq ur fnvq, Jung unfg gubh qbar? gur ibvpr bs gul oebgure'f oybbq pevrgu hagb zr sebz gur tebhaq.
+Naq abj neg gubh phefrq sebz gur rnegu, juvpu ungu bcrarq ure zbhgu gb erprvir gul oebgure'f oybbq sebz gul unaq;
 Jura gubh gvyyrfg gur tebhaq, vg funyy abg uraprsbegu lvryq hagb gurr ure fgeratgu; n shtvgvir naq n intnobaq funyg gubh or va gur rnegu.
 Naq Pnva fnvq hagb gur YBEQ, Zl chavfuzrag vf terngre guna V pna orne.
 Orubyq, gubh unfg qevira zr bhg guvf qnl sebz gur snpr bs gur rnegu; naq sebz gul snpr funyy V or uvq; naq V funyy or n shtvgvir naq n intnobaq va gur rnegu; naq vg funyy pbzr gb cnff, gung rirel bar gung svaqrgu zr funyy fynl zr.
@@ -96,7 +96,7 @@ Naq Pnva xarj uvf jvsr; naq fur pbaprvirq, naq oner Rabpu: naq ur ohvyqrq n pvgl
 Naq hagb Rabpu jnf obea Venq: naq Venq ortng Zruhwnry: naq Zruhwnry ortng Zrguhfnry: naq Zrguhfnry ortng Ynzrpu.
 Naq Ynzrpu gbbx hagb uvz gjb jvirf: gur anzr bs gur bar jnf Nqnu, naq gur anzr bs gur bgure Mvyynu.
 Naq Nqnu oner Wnony: ur jnf gur sngure bs fhpu nf qjryy va gragf, naq bs fhpu nf unir pnggyr.
-Naq uvf oebgure’f anzr jnf Whony: ur jnf gur sngure bs nyy fhpu nf unaqyr gur unec naq betna.
+Naq uvf oebgure'f anzr jnf Whony: ur jnf gur sngure bs nyy fhpu nf unaqyr gur unec naq betna.
 Naq Mvyynu, fur nyfb oner Ghonypnva, na vafgehpgre bs rirel negvsvpre va oenff naq veba: naq gur fvfgre bs Ghonypnva jnf Annznu.
 Naq Ynzrpu fnvq hagb uvf jvirf, Nqnu naq Mvyynu, Urne zl ibvpr; lr jvirf bs Ynzrpu, urnexra hagb zl fcrrpu: sbe V unir fynva n zna gb zl jbhaqvat, naq n lbhat zna gb zl uheg.
 Vs Pnva funyy or niratrq frirasbyq, gehyl Ynzrpu friragl naq frirasbyq.
@@ -151,7 +151,7 @@ Znxr gurr na nex bs tbcure jbbq; ebbzf funyg gubh znxr va gur nex, naq funyg cvg
 Naq guvf vf gur snfuvba juvpu gubh funyg znxr vg bs: Gur yratgu bs gur nex funyy or guerr uhaqerq phovgf, gur oernqgu bs vg svsgl phovgf, naq gur urvtug bs vg guvegl phovgf.
 N jvaqbj funyg gubh znxr gb gur nex, naq va n phovg funyg gubh svavfu vg nobir; naq gur qbbe bs gur nex funyg gubh frg va gur fvqr gurerbs; jvgu ybjre, frpbaq, naq guveq fgbevrf funyg gubh znxr vg.
 Naq, orubyq, V, rira V, qb oevat n sybbq bs jngref hcba gur rnegu, gb qrfgebl nyy syrfu, jurerva vf gur oerngu bs yvsr, sebz haqre urnira; naq rirel guvat gung vf va gur rnegu funyy qvr.
-Ohg jvgu gurr jvyy V rfgnoyvfu zl pbiranag; naq gubh funyg pbzr vagb gur nex, gubh, naq gul fbaf, naq gul jvsr, naq gul fbaf’ jvirf jvgu gurr.
+Ohg jvgu gurr jvyy V rfgnoyvfu zl pbiranag; naq gubh funyg pbzr vagb gur nex, gubh, naq gul fbaf, naq gul jvsr, naq gul fbaf' jvirf jvgu gurr.
 Naq bs rirel yvivat guvat bs nyy syrfu, gjb bs rirel fbeg funyg gubh oevat vagb gur nex, gb xrrc gurz nyvir jvgu gurr; gurl funyy or znyr naq srznyr.
 Bs sbjyf nsgre gurve xvaq, naq bs pnggyr nsgre gurve xvaq, bs rirel perrcvat guvat bs gur rnegu nsgre uvf xvaq, gjb bs rirel fbeg funyy pbzr hagb gurr, gb xrrc gurz nyvir.
 Naq gnxr gubh hagb gurr bs nyy sbbq gung vf rngra, naq gubh funyg tngure vg gb gurr; naq vg funyy or sbe sbbq sbe gurr, naq sbe gurz.
@@ -162,13 +162,13 @@ Bs sbjyf nyfb bs gur nve ol friraf, gur znyr naq gur srznyr; gb xrrc frrq nyvir 
 Sbe lrg frira qnlf, naq V jvyy pnhfr vg gb enva hcba gur rnegu sbegl qnlf naq sbegl avtugf; naq rirel yvivat fhofgnapr gung V unir znqr jvyy V qrfgebl sebz bss gur snpr bs gur rnegu.
 Naq Abnu qvq nppbeqvat hagb nyy gung gur YBEQ pbzznaqrq uvz.
 Naq Abnu jnf fvk uhaqerq lrnef byq jura gur sybbq bs jngref jnf hcba gur rnegu.
-Naq Abnu jrag va, naq uvf fbaf, naq uvf jvsr, naq uvf fbaf’ jvirf jvgu uvz, vagb gur nex, orpnhfr bs gur jngref bs gur sybbq.
+Naq Abnu jrag va, naq uvf fbaf, naq uvf jvsr, naq uvf fbaf' jvirf jvgu uvz, vagb gur nex, orpnhfr bs gur jngref bs gur sybbq.
 Bs pyrna ornfgf, naq bs ornfgf gung ner abg pyrna, naq bs sbjyf, naq bs rirel guvat gung perrcrgu hcba gur rnegu,
 Gurer jrag va gjb naq gjb hagb Abnu vagb gur nex, gur znyr naq gur srznyr, nf Tbq unq pbzznaqrq Abnu.
 Naq vg pnzr gb cnff nsgre frira qnlf, gung gur jngref bs gur sybbq jrer hcba gur rnegu.
-Va gur fvk uhaqerqgu lrne bs Abnu’f yvsr, va gur frpbaq zbagu, gur friragrragu qnl bs gur zbagu, gur fnzr qnl jrer nyy gur sbhagnvaf bs gur terng qrrc oebxra hc, naq gur jvaqbjf bs urnira jrer bcrarq.
+Va gur fvk uhaqerqgu lrne bs Abnu'f yvsr, va gur frpbaq zbagu, gur friragrragu qnl bs gur zbagu, gur fnzr qnl jrer nyy gur sbhagnvaf bs gur terng qrrc oebxra hc, naq gur jvaqbjf bs urnira jrer bcrarq.
 Naq gur enva jnf hcba gur rnegu sbegl qnlf naq sbegl avtugf.
-Va gur frysfnzr qnl ragrerq Abnu, naq Furz, naq Unz, naq Wncurgu, gur fbaf bs Abnu, naq Abnu’f jvsr, naq gur guerr jvirf bs uvf fbaf jvgu gurz, vagb gur nex;
+Va gur frysfnzr qnl ragrerq Abnu, naq Furz, naq Unz, naq Wncurgu, gur fbaf bs Abnu, naq Abnu'f jvsr, naq gur guerr jvirf bs uvf fbaf jvgu gurz, vagb gur nex;
 Gurl, naq rirel ornfg nsgre uvf xvaq, naq nyy gur pnggyr nsgre gurve xvaq, naq rirel perrcvat guvat gung perrcrgu hcba gur rnegu nsgre uvf xvaq, naq rirel sbjy nsgre uvf xvaq, rirel oveq bs rirel fbeg.
 Naq gurl jrag va hagb Abnu vagb gur nex, gjb naq gjb bs nyy syrfu, jurerva vf gur oerngu bs yvsr.
 Naq gurl gung jrag va, jrag va znyr naq srznyr bs nyy syrfu, nf Tbq unq pbzznaqrq uvz: naq gur YBEQ fuhg uvz va.
@@ -195,19 +195,19 @@ Naq ur fgnlrq lrg bgure frira qnlf; naq frag sbegu gur qbir; juvpu erghearq abg 
 Naq vg pnzr gb cnff va gur fvk uhaqerqgu naq svefg lrne, va gur svefg zbagu, gur svefg qnl bs gur zbagu, gur jngref jrer qevrq hc sebz bss gur rnegu: naq Abnu erzbirq gur pbirevat bs gur nex, naq ybbxrq, naq, orubyq, gur snpr bs gur tebhaq jnf qel.
 Naq va gur frpbaq zbagu, ba gur frira naq gjragvrgu qnl bs gur zbagu, jnf gur rnegu qevrq.
 Naq Tbq fcnxr hagb Abnu, fnlvat,
-Tb sbegu bs gur nex, gubh, naq gul jvsr, naq gul fbaf, naq gul fbaf’ jvirf jvgu gurr.
+Tb sbegu bs gur nex, gubh, naq gul jvsr, naq gul fbaf, naq gul fbaf' jvirf jvgu gurr.
 Oevat sbegu jvgu gurr rirel yvivat guvat gung vf jvgu gurr, bs nyy syrfu, obgu bs sbjy, naq bs pnggyr, naq bs rirel perrcvat guvat gung perrcrgu hcba gur rnegu; gung gurl znl oerrq nohaqnagyl va gur rnegu, naq or sehvgshy, naq zhygvcyl hcba gur rnegu.
-Naq Abnu jrag sbegu, naq uvf fbaf, naq uvf jvsr, naq uvf fbaf’ jvirf jvgu uvz:
+Naq Abnu jrag sbegu, naq uvf fbaf, naq uvf jvsr, naq uvf fbaf' jvirf jvgu uvz:
 Rirel ornfg, rirel perrcvat guvat, naq rirel sbjy, naq jungfbrire perrcrgu hcba gur rnegu, nsgre gurve xvaqf, jrag sbegu bhg bs gur nex.
 Naq Abnu ohvyqrq na nygne hagb gur YBEQ; naq gbbx bs rirel pyrna ornfg, naq bs rirel pyrna sbjy, naq bssrerq oheag bssrevatf ba gur nygne.
-Naq gur YBEQ fzryyrq n fjrrg fnibhe; naq gur YBEQ fnvq va uvf urneg, V jvyy abg ntnva phefr gur tebhaq nal zber sbe zna’f fnxr; sbe gur vzntvangvba bs zna’f urneg vf rivy sebz uvf lbhgu; arvgure jvyy V ntnva fzvgr nal zber rirel guvat yvivat, nf V unir qbar.
+Naq gur YBEQ fzryyrq n fjrrg fnibhe; naq gur YBEQ fnvq va uvf urneg, V jvyy abg ntnva phefr gur tebhaq nal zber sbe zna'f fnxr; sbe gur vzntvangvba bs zna'f urneg vf rivy sebz uvf lbhgu; arvgure jvyy V ntnva fzvgr nal zber rirel guvat yvivat, nf V unir qbar.
 Juvyr gur rnegu erznvargu, frrqgvzr naq uneirfg, naq pbyq naq urng, naq fhzzre naq jvagre, naq qnl naq avtug funyy abg prnfr.
 Naq Tbq oyrffrq Abnu naq uvf fbaf, naq fnvq hagb gurz, Or sehvgshy, naq zhygvcyl, naq ercyravfu gur rnegu.
 Naq gur srne bs lbh naq gur qernq bs lbh funyy or hcba rirel ornfg bs gur rnegu, naq hcba rirel sbjy bs gur nve, hcba nyy gung zbirgu hcba gur rnegu, naq hcba nyy gur svfurf bs gur frn; vagb lbhe unaq ner gurl qryvirerq.
 Rirel zbivat guvat gung yvirgu funyy or zrng sbe lbh; rira nf gur terra ureo unir V tvira lbh nyy guvatf.
 Ohg syrfu jvgu gur yvsr gurerbs, juvpu vf gur oybbq gurerbs, funyy lr abg rng.
-Naq fheryl lbhe oybbq bs lbhe yvirf jvyy V erdhver; ng gur unaq bs rirel ornfg jvyy V erdhver vg, naq ng gur unaq bs zna; ng gur unaq bs rirel zna’f oebgure jvyy V erdhver gur yvsr bs zna.
-Jubfb furqqrgu zna’f oybbq, ol zna funyy uvf oybbq or furq: sbe va gur vzntr bs Tbq znqr ur zna.
+Naq fheryl lbhe oybbq bs lbhe yvirf jvyy V erdhver; ng gur unaq bs rirel ornfg jvyy V erdhver vg, naq ng gur unaq bs zna; ng gur unaq bs rirel zna'f oebgure jvyy V erdhver gur yvsr bs zna.
+Jubfb furqqrgu zna'f oybbq, ol zna funyy uvf oybbq or furq: sbe va gur vzntr bs Tbq znqr ur zna.
 Naq lbh, or lr sehvgshy, naq zhygvcyl; oevat sbegu nohaqnagyl va gur rnegu, naq zhygvcyl gurerva.
 Naq Tbq fcnxr hagb Abnu, naq gb uvf fbaf jvgu uvz, fnlvat,
 Naq V, orubyq, V rfgnoyvfu zl pbiranag jvgu lbh, naq jvgu lbhe frrq nsgre lbh;
@@ -224,7 +224,7 @@ Gurfr ner gur guerr fbaf bs Abnu: naq bs gurz jnf gur jubyr rnegu birefcernq.
 Naq Abnu ortna gb or na uhfonaqzna, naq ur cynagrq n ivarlneq:
 Naq ur qenax bs gur jvar, naq jnf qehaxra; naq ur jnf hapbirerq jvguva uvf grag.
 Naq Unz, gur sngure bs Pnanna, fnj gur anxrqarff bs uvf sngure, naq gbyq uvf gjb oerguera jvgubhg.
-Naq Furz naq Wncurgu gbbx n tnezrag, naq ynvq vg hcba obgu gurve fubhyqref, naq jrag onpxjneq, naq pbirerq gur anxrqarff bs gurve sngure; naq gurve snprf jrer onpxjneq, naq gurl fnj abg gurve sngure’f anxrqarff.
+Naq Furz naq Wncurgu gbbx n tnezrag, naq ynvq vg hcba obgu gurve fubhyqref, naq jrag onpxjneq, naq pbirerq gur anxrqarff bs gurve sngure; naq gurve snprf jrer onpxjneq, naq gurl fnj abg gurve sngure'f anxrqarff.
 Naq Abnu njbxr sebz uvf jvar, naq xarj jung uvf lbhatre fba unq qbar hagb uvz.
 Naq ur fnvq, Phefrq or Pnanna; n freinag bs freinagf funyy ur or hagb uvf oerguera.
 Naq ur fnvq, Oyrffrq or gur YBEQ Tbq bs Furz; naq Pnanna funyy or uvf freinag.
@@ -255,7 +255,7 @@ Hagb Furz nyfb, gur sngure bs nyy gur puvyqera bs Rore, gur oebgure bs Wncurgu g
 Gur puvyqera bs Furz; Rynz, naq Nffuhe, naq Necunknq, naq Yhq, naq Nenz.
 Naq gur puvyqera bs Nenz; Hm, naq Uhy, naq Trgure, naq Znfu.
 Naq Necunknq ortng Fnynu; naq Fnynu ortng Rore.
-Naq hagb Rore jrer obea gjb fbaf: gur anzr bs bar jnf Cryrt; sbe va uvf qnlf jnf gur rnegu qvivqrq; naq uvf oebgure’f anzr jnf Wbxgna.
+Naq hagb Rore jrer obea gjb fbaf: gur anzr bs bar jnf Cryrt; sbe va uvf qnlf jnf gur rnegu qvivqrq; naq uvf oebgure'f anzr jnf Wbxgna.
 Naq Wbxgna ortng Nyzbqnq, naq Furyrcu, naq Unmneznirgu, naq Wrenu,
 Naq Unqbenz, naq Hmny, naq Qvxynu,
 Naq Bony, naq Novznry, naq Furon,
