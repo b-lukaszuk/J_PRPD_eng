@@ -5,8 +5,8 @@ problem description you may decide to do otherwise. In that case don't let me
 stop you.
 
 I recommend you try to solve the task on your own first. Once you finish you may
-compare your own solution with the one in this chapter (with explanations) or
-with [the code
+compare your solution with the one in this chapter (with explanations) or with
+[the code
 snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/caesar)
 (without explanations).
 
@@ -61,7 +61,7 @@ fields)]. Then we create the rotated alphabet (`rotAlphabet`) starting at
 if `rotBy` is negative (`rotBy < 0`, decrypting the message) we return
 `rotAlphabet` and `alphabet` to be used as outer and inner disc in
 @fig:codingDiscs2, respectively. Otherwise `alphabet` lands in the outer ring
-and 'rotAlphabet' in the inner one.
+and 'rotAlphabet' in the inner one (encrypting a message).
 
 Time for a simple test.
 
@@ -85,7 +85,7 @@ function codeChar(c::Char, rotBy::Int)::Char
 	return isnothing(ind) ? c : innerDisc[ind]
 end
 """
-sco(s)
+sc(s)
 ```
 
 We begin by obtaining `outerDisc` and `innerDisc` with `getAlphabets` that we

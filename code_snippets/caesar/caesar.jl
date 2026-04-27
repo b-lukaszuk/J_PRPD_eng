@@ -74,6 +74,6 @@ function code(msg::Str, rotBy::Int)::Str
     return map(coderFn, msg)
 end
 
-# benchmark
+# benchmark (may take some time)
 Bt.@benchmark(codeMsg($codedTxt, -13))
 Bt.@benchmark(code($codedTxt, -13))
