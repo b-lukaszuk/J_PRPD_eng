@@ -13,8 +13,8 @@ sc(s2)
 Still, once you read the problem description you may decide to do otherwise.
 
 I recommend you try to solve the task on your own first. Once you finish you may
-compare your own solution with the one in this chapter (with explanations) or
-with [the code
+compare your solution with the one in this chapter (with explanations) or with
+[the code
 snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/birthday)
 (without explanations).
 
@@ -43,11 +43,11 @@ let's say, in the range [4-30].
 The following solution is based on a computer simulation and relies on a few
 assumptions, namely:
 
-1) there are always exactly 365 days in a year (no country for leap years)
+1) there are always exactly 365 days in a year (no leap years)
 2) a person is equally likely to have been born on any day of a year (no
 seasonal, yearly and other patterns, etc.)
 3) the birth date of one person does not influence the birth date of another
-person (not twins, siblings, etc.)
+person (not in twins, siblings, etc.)
 
 None of the above is exactly true, still, those are some reasonable assumptions
 that will allow us to knack the problem.
@@ -59,7 +59,7 @@ s = """
 import Random as Rnd
 
 function getBdaysAtParty(nPeople::Int)::Vec{Int}
-    @assert 3 < nPeople < 366 "nPeople must be in range [4-365]"
+    @assert 4 <= nPeople <= 365 "nPeople must be in range [4-365]"
     return Rnd.rand(1:365, nPeople)
 end
 
@@ -83,18 +83,18 @@ It does what it promises, i.e. it returns a summary statistics (`counts`) that
 tells us how many times a given day in the birthdays (result of
 `getBdaysAtParty`) appears.
 
-Time to find a way to determine does the event that we are looking for occured
+Time to find a way to determine does the event that we are looking for occurred
 during the party.
 
 ```jl
 s = """
 function nSameBdays(counts::Dict{Int, Int}, n::Int=2)::Bool
-    @assert 1 < n < 366 "n must be in range [2-365]"
+    @assert 2 <= n <= 365 "n must be in range [2-365]"
     return isnothing(findfirst((>=)(n), counts)) ? false : true
 end
 
 function anyMyBday(counts::Dict{Int, Int}, myBday::Int=1)::Bool
-    @assert 0 < myBday < 366 "myBDay must be in range [1-365]"
+    @assert 1 <= myBday <= 365 "myBDay must be in range [1-365]"
     return haskey(counts, myBday)
 end
 """
@@ -143,7 +143,7 @@ s = """
 # isEventFn(Dict{Int, Int}) -> Bool
 function getProbSuccess(nPeople::Int, isEventFn::Function,
                         nSimulations::Int=100_000)::Flt
-    @assert 3 < nPeople < 366 "nPeople must be in range [4-365]"
+    @assert 4 <= nPeople <= 366 "nPeople must be in range [4-365]"
     @assert 1e4 <= nSimulations <= 1e6 "nSimulations not in range [1e4-1e6]"
     successes::Vec{Bool} = Vec{Bool}(undef, nSimulations)
     for i in 1:nSimulations
@@ -161,14 +161,14 @@ sc(s)
 First, we initialize the vector that will hold the results of our simulations
 (`successes`). The `Vec{Bool}(undef, nSimulations)` creates a vector of size
 specified in `nSimulations` that is currently occupied by some unspecified
-(`undef` like undefined) values (basically garbage that is currently in a
-specific place of our computer's memory). We will fill the `successes` with the
-values of interest in the for loop. For each simulation, we throw a party and
-get the guests' birthdays (`peopleBdays`). We obtain `count`s for them and test
-did the event that we consider a success occurred that time (with
-`isEventFn`). We place the occurrence into the proper spot (`[i]`) of our vector
-of `successes`. Notice, that here `peopleBdays`, `counts`, and `eventOccured`
-are local (helper) variables that are visible only in the for loop. Anyway, all
+(`undef` - undefined) values (basically garbage that is currently in a specific
+place of our computer's memory). We will fill the `successes` with the values of
+interest in the for loop. For each simulation, we throw a party and get the
+guests' birthdays (`peopleBdays`). We obtain `count`s for them and test did the
+event that we consider a success occurred that time (with `isEventFn`). We place
+the occurrence into the proper spot (`[i]`) of our vector of
+`successes`. Notice, that here `peopleBdays`, `counts`, and `eventOccured` are
+local (helper) variables that are visible only in the for loop. Anyway, all
 that's left to do is to calculate the probability. The `sum` function treats any
 `true` as `1` and `false` as 0, hence it returns the number of successes, which
 we divide by the number of simulations.
@@ -206,7 +206,7 @@ probsMyBdayTheor = (1/365) .* peopleAtParty
 sco(s)
 ```
 
-which isn't all that bad (we differ by a tenth part of a percent).
+which isn't all that bad.
 
 As a mini-exercise you may tweak the code a little and estimate the probability
 that any 3 people at a party were born on the same day.
