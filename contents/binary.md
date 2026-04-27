@@ -354,8 +354,7 @@ all(tests)
 replace(sco(s), "52" => "512")
 ```
 
-Another day, another dollar. Am I the greatest creature or what? Time for the
-multiplication.
+Another day, another dollar. Time for the multiplication.
 
 ```jl
 s = """
