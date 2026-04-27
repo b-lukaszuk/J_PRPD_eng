@@ -12,8 +12,8 @@ sc(s4)
 Still, once you read the problem description you may decide to do otherwise.
 
 I recommend you try to solve the task on your own first. Once you finish you may
-compare your own solution with the one in this chapter (with explanations) or
-with [the code
+compare your solution with the one in this chapter (with explanations) or with
+[the code
 snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/vigenere)
 (without explanations).
 
@@ -70,6 +70,9 @@ function isAsciiLetter(c::Char)::Bool
 end
 
 function codeMsg(msg::Str, passphrase::Str, decode::Bool=false)::Str
+    @assert isascii(msg) "msg must contain only ASCII characters"
+    @assert(isascii(passphrase),
+            "passphrase must contain only ASCII characters")
     pass::Str = filter(isAsciiLetter, lowercase(passphrase))
     pwr::Int = ceil(length(msg) / length(pass))
     pass = pass ^ pwr

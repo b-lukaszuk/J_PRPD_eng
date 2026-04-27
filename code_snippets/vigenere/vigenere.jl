@@ -27,6 +27,9 @@ function isAsciiLetter(c::Char)::Bool
 end
 
 function codeMsg(msg::Str, passphrase::Str, decode::Bool=false)::Str
+    @assert isascii(msg) "msg must contain only ASCII characters"
+    @assert(isascii(passphrase),
+            "passphrase must contain only ASCII characters")
     pass::Str = filter(isAsciiLetter, lowercase(passphrase))
     pwr::Int = ceil(length(msg) / length(pass))
     pass = pass ^ pwr
