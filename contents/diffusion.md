@@ -5,8 +5,8 @@ problem description you may decide to do otherwise. In that case don't let me
 stop you.
 
 I recommend you try to solve the task on your own first. Once you finish you may
-compare your own solution with the one in this chapter (with explanations) or
-with [the code
+compare your solution with the one in this chapter (with explanations) or with
+[the code
 snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/diffusion)
 (without explanations).
 
@@ -17,7 +17,7 @@ A reminder of how to deal with packages and \*.toml files can be found
 
 This time your job is to write a simplified
 [diffusion](https://en.wikipedia.org/wiki/Diffusion) simulator. It may or may
-not be a terminal app (mine runs in terminal).
+not be a terminal app (mine runs in a terminal).
 
 For that purpose create a container (let's say 40x80) and fill its left half
 with let's say 150 molecules (like in @fig:diffusionFirstFrame) that are sped by
@@ -27,7 +27,7 @@ distribution after a few thousand cycles. To make it simpler you don't have to
 handle the collisions between the molecules (assume they pass each other in the
 third dimension), but make sure they won't go out of the container.
 
-> **_WARNING:_** While running the program in terminal the screen may
+> **_WARNING:_** While running the program in a terminal the screen may
 > flicker. If that's a problem (you may feel unwell) then you can skip this
 > exercise. Remember that you should be able to abort the program (terminal
 > application) at any time by pressing Ctrl-C.
@@ -135,18 +135,18 @@ sc(s)
 ```
 
 Using `rowMin`/`rowMax`, `colMin`/`colMax` allows to place the molecules only in
-some part of the matrix (per task specification it will be the left
-side). Notice `!` character in `addMolecules2container!`. Per Julia's convention
-it was added to the name of the function that modifies its contents. However,
-both `molecules` (`Vec{Pos}`) and `container` (`Matrix{Char}`) are passed by
-reference. So a question may arise which one of the two (or maybe both) will get
-modified. To help with the answer the second parameter was named `container!` to
-emphasize that only it will be modified by the function. On the other hand,
-`placeMoleculesRandomly!` may modify at most one of its arguments (`molecules`)
-so there is no need for an extra `!` which might be confusing at first
-glance. Anyway, the key thing is that based on the positions (`molecules`) we
-placed a marker `MOLECULE = '.'` in our `container` which later on will be
-displayed to the user.
+some part of the matrix (per task specification it will be the left side of
+`container`). Notice `!` character in `addMolecules2container!`. Per Julia's
+convention it was added to the name of the function that modifies its
+contents. However, both `molecules` (`Vec{Pos}`) and `container`
+(`Matrix{Char}`) are passed by reference. So a question may arise which one of
+the two (or maybe both) will get modified. To help with the answer the second
+parameter was named `container!` to emphasize that only it will be modified by
+the function. On the other hand, `placeMoleculesRandomly!` may modify at most
+one of its arguments (`molecules`) so there is no need for an extra `!` which
+might be confusing at first glance. Anyway, the key thing is that based on the
+positions (`molecules`) we placed a marker `MOLECULE = '.'` in our `container`
+which later on will be displayed to the user.
 
 Time to implement [Brownian
 motion](https://en.wikipedia.org/wiki/Brownian_motion) or:
@@ -272,7 +272,7 @@ replace(sc(s), "DELAY_SEC =" => "const DELAY_SEC =")
 
 Nothing special here, we just declare `container`/`molecules` and initialize
 them with the appropriate values. Then, `for` each cycle `1:nCycles` we
-`make1BrownianCycleShift`, remove the old molecules symbols from the `container`
+`make1BrownianCycleShift`, remove the old molecule symbols from the `container`
 (`emptyContainer`), add the symbols of new, shifted molecules
 (`addMolecules2container`), pause for a moment (`sleep`) and redraw everything
 (`redrawDisplay`).
