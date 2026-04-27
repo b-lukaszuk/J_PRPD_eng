@@ -9,7 +9,7 @@ const Vec = Vector
 # the code in this file is meant to serve as a programming exercise only
 # it may not act correctly
 
-# code for Figure 5
+# code for 1st figure in the chapter
 function getPtCoordinatesOnDisk(angleDeg::Flt,
                                 radius::Flt=0.5)::Tuple{Flt, Flt}
     newX = radius * sin(deg2rad(angleDeg))
@@ -70,6 +70,7 @@ function drawCodingDiscs()::Cmk.Figure
     return fig
 end
 
+# 1st figure in the chapter
 drawCodingDiscs()
 
 # Solution
@@ -113,7 +114,6 @@ codedLetFreqs = getFreqs(codedTxt)
 # most frequent in codedTxt is 'R' ~0.134 or ~13.4%
 'R' - 'E' # shift, ASCII: 82 - 69
 
-# code for Figure 6
 function drawFreqComparison(
     freq2compare::Dict{Char, Flt},
     ylab::Str)::Cmk.Figure
@@ -157,4 +157,5 @@ function drawFreqComparison(
     return fig
 end
 
+# 2nd figure in the chapter
 drawFreqComparison(codedLetFreqs, "encrypted Message")

@@ -5,8 +5,8 @@ problem description you may decide to do otherwise. In that case don't let me
 stop you.
 
 I recommend you try to solve the task on your own first. Once you finish you may
-compare your own solution with the one in this chapter (with explanations) or
-with [the code
+compare your solution with the one in this chapter (with explanations) or with
+[the code
 snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/shift)
 (without explanations).
 
@@ -89,12 +89,12 @@ function getCounts(s::Str)::Dict{Char,Int}
     return counts
 end
 
-function getFreqs(counts::Dict{Char, Int})::Dict{Char,Float64}
+function getFreqs(counts::Dict{Char, Int})::Dict{Char, Flt}
     total::Int = sum(values(counts))
     return Dict(k => v/total for (k, v) in counts)
 end
 
-function getFreqs(s::Str)::Dict{Char,Float64}
+function getFreqs(s::Str)::Dict{Char, Flt}
     return s |> getCounts |> getFreqs
 end
 """
@@ -104,7 +104,7 @@ sc(s)
 The code is rather simple. Moreover it is quite similar to `getCounts` and
 `getProbs` that I discussed it in detail [in my previous
 book](https://b-lukaszuk.github.io/RJ_BS_eng/statistics_prob_theor_practice.html)
-so give it a sneak peak if you need a more thorough explanation (I apply DRY
+so give it a sneak peak if you need a more thorough explanation (I apply the DRY
 principle here).
 
 According to [this Wikipedia's
@@ -122,9 +122,9 @@ sco(s)
 ```
 
 And the winner is `R`. Interestingly, in the metal insides of a computer letters
-are represented as numbers (see,
-[e.g. here](https://en.wikipedia.org/wiki/ASCII)). We can use this to our
-advantage and quickly obtain the shift.
+are represented as numbers (see @sec:binary_problem and
+[ASCII](https://en.wikipedia.org/wiki/ASCII)). We can use this to our advantage
+and quickly obtain the shift.
 
 ```jl
 s = """
@@ -133,7 +133,7 @@ s = """
 sco(s)
 ```
 
-And so it turns out, that our encrypted message was coded with a shift cipher
+And so it turns out, that our encrypted message was coded using a shift cipher
 with the rotation of 13 (we will verify this finding in @sec:caesar). If we were
 even more stubborn, we could display both the frequencies on a graph like
 @fig:letterFrequency (we do not expect the fit to be perfect).
