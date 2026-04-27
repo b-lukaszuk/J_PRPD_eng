@@ -25,7 +25,7 @@ A reminder of how to deal with packages and \*.toml files can be found
 
 Random numbers are the numbers that occur, well, at random. Anyway, they are
 quite useful for programming. Chances are you will use them to solve some
-problems like those in @sec:the_doors_problem or @sec:logo_problem.
+problems like those in @sec:birthday_problem or @sec:logo_problem.
 
 But how do computers generate them. Surprise, they don't. But then how could a
 Julia's `Random.jl` (part of the standard library) generate one. Hmm, it's
