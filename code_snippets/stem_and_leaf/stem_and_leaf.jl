@@ -93,5 +93,4 @@ getStemLeafPlot(stemLeafTest3) |> print
 # more testing
 -10:1:10 |> collect |> getStemLeafPlot |> print
 # compare with Fig12 from: https://b-lukaszuk.github.io/RJ_BS_eng/compare_contin_data_one_samp_ttest.html
-[504, 477, 484, 476, 519, 481, 453, 485, 487, 501] |>
-    getStemLeafPlot |> print
+[504, 477, 484, 476, 519, 481, 453, 485, 487, 501] |> getStemLeafPlot |> print

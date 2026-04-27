@@ -5,8 +5,8 @@ problem description you may decide to do otherwise. In that case don't let me
 stop you.
 
 I recommend you try to solve the task on your own first. Once you finish you may
-compare your own solution with the one in this chapter (with explanations) or
-with [the code
+compare your solution with the one in this chapter (with explanations) or with
+[the code
 snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/stem_and_leaf)
 (without explanations).
 
@@ -15,7 +15,7 @@ A reminder of how to deal with packages and \*.toml files can be found
 
 ## Problem {#sec:stem_and_leaf_problem}
 
-In statistics a useful technique used to visualize the distribution of data is
+In statistics a useful technique used to visualize the distribution of data is a
 [histogram](https://en.wikipedia.org/wiki/Histogram). A bit less popular,
 although easier to implement with text display is [stem and leaf
 plot](https://en.wikipedia.org/wiki/Stem-and-leaf_display).
@@ -108,7 +108,7 @@ sending (`|>`) the lengths to `maximum`. Notice, that the function doesn't
 return the expected `maxLen`. This is because in a moment, we will write
 `getStemAndLeaf(num::Int, maxLenOfNum::Int)` that brakes a number into two
 parts: stem and leaf. It will require `maxLenOfNum` to be at least 2 (so that at
-least one digit serves as a stem and one as a leaf), hence return `max(2,
+least one digit serves as a stem and one as a leaf), hence we `return max(2,
 maxLen)`.
 
 ```jl
@@ -180,8 +180,8 @@ sc(s)
 
 First, we initialize an empty `Dict` (`counts`) that will hold our result. Next,
 we brake each number (`for num in nums`) into `stem` and `leaf` parts. If the
-`counts` the already contains such a `stem` (`haskey(counts, stem)`), then we
-add the `leaf` to the vector of already existing leaves (`push!(counts[stem],
+`counts` already contains such a `stem` (`haskey(counts, stem)`), then we add
+the `leaf` to the vector of already existing leaves (`push!(counts[stem],
 leaf)`). Otherwise (`else`), we add a `leaf` as a 1-element vector (`[leaf`])
 for a given `stem`. Finally, we return the `counts`.
 
