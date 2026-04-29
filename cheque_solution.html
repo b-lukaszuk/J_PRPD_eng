@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Bartlomiej Lukaszuk" />
+  <title>Solution - Julia. Projects from a Recreational Programmer’s Drawer</title>
+  <link rel="stylesheet" href="./style.css"/>
+    <script src="./mousetrap.min.js"></script>
+    <style>
+  @font-face {
+    font-family: JuliaMono-Regular;
+    src: url("./JuliaMono-Regular.woff2");
+  }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="./github.min.css">
+<script src="./highlight.min.js"></script>
+<script src="./julia.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+    document.querySelectorAll('pre').forEach((el) => {
+        if (!el.classList.contains('output')) {
+            hljs.highlightElement(el);
+        }
+    });
+});
+</script>
+ 
+</head>
+<body>
+<script>
+function click_next() {
+  var next = document.getElementById('nav-next');
+  next.firstElementChild.nextElementSibling.click();
+}
+function click_prev() {
+  var prev = document.getElementById('nav-prev');
+  prev.firstElementChild.click();
+}
+Mousetrap.bind('right', click_next);
+Mousetrap.bind('h', click_prev);
+Mousetrap.bind('left', click_prev);
+Mousetrap.bind('l', click_next);
+</script>
+
+<div class="books-container">
+<aside class="books-menu">
+<input type="checkbox" id="menu">
+<label for="menu">☰</label>
+<div class="books-title">
+<a href="./">Julia. Projects from a Recreational Programmer's Drawer</a>
+</div><br />
+<span class="books-subtitle">
+
+</span>
+<div class="books-menu-content">
+<li><a class="menu-level-1" href="./about.html"><b>1</b> About</a></li>
+<li><a class="menu-level-1" href="./mat_multip.html"><b>2</b> Matrix Multiplication</a></li>
+<li><a class="menu-level-2" href="./mat_multip_problem.html"><b>2.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./mat_multip_solution.html"><b>2.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./bat_and_ball.html"><b>3</b> Bat and Ball</a></li>
+<li><a class="menu-level-2" href="./bat_and_ball_problem.html"><b>3.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./bat_and_ball_solution.html"><b>3.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./camel_case.html"><b>4</b> Camel Case</a></li>
+<li><a class="menu-level-2" href="./camel_case_problem.html"><b>4.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./camel_case_solution.html"><b>4.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./toothpaste.html"><b>5</b> Toothpaste</a></li>
+<li><a class="menu-level-2" href="./toothpaste_problem.html"><b>5.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./toothpaste_solution.html"><b>5.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./bile.html"><b>6</b> Bile</a></li>
+<li><a class="menu-level-2" href="./bile_problem.html"><b>6.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./bile_solution.html"><b>6.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./leap_year.html"><b>7</b> Leap Year</a></li>
+<li><a class="menu-level-2" href="./leap_year_problem.html"><b>7.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./leap_year_solution.html"><b>7.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./calendar.html"><b>8</b> Calendar</a></li>
+<li><a class="menu-level-2" href="./calendar_problem.html"><b>8.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./calendar_solution.html"><b>8.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./prime_numbers.html"><b>9</b> Prime Numbers</a></li>
+<li><a class="menu-level-2" href="./prime_numbers_problem.html"><b>9.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./prime_numbers_solution.html"><b>9.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./recursion.html"><b>10</b> Recursion</a></li>
+<li><a class="menu-level-2" href="./recursion_problem.html"><b>10.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./recursion_solution.html"><b>10.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./randomness.html"><b>11</b> Randomness</a></li>
+<li><a class="menu-level-2" href="./randomness_problem.html"><b>11.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./randomness_solution.html"><b>11.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./birthday.html"><b>12</b> Birthday</a></li>
+<li><a class="menu-level-2" href="./birthday_problem.html"><b>12.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./birthday_solution.html"><b>12.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./logo.html"><b>13</b> Logo</a></li>
+<li><a class="menu-level-2" href="./logo_problem.html"><b>13.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./logo_solution.html"><b>13.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./binary.html"><b>14</b> Binary</a></li>
+<li><a class="menu-level-2" href="./binary_problem.html"><b>14.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./binary_solution.html"><b>14.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./the_answer.html"><b>15</b> The Answer</a></li>
+<li><a class="menu-level-2" href="./the_answer_problem.html"><b>15.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./the_answer_solution.html"><b>15.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./the_doors.html"><b>16</b> The Doors</a></li>
+<li><a class="menu-level-2" href="./the_doors_problem.html"><b>16.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./the_doors_solution.html"><b>16.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./progress_bar.html"><b>17</b> Progress Bar</a></li>
+<li><a class="menu-level-2" href="./progress_bar_problem.html"><b>17.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./progress_bar_solution.html"><b>17.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./pascals_triangle.html"><b>18</b> Pascal’s Triangle</a></li>
+<li><a class="menu-level-2" href="./pascals_triangle_problem.html"><b>18.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./pascals_triangle_solution.html"><b>18.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./lattice_paths.html"><b>19</b> Lattice Paths</a></li>
+<li><a class="menu-level-2" href="./lattice_paths_problem.html"><b>19.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./lattice_paths_solution.html"><b>19.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./stem_and_leaf.html"><b>20</b> Stem and Leaf Plot</a></li>
+<li><a class="menu-level-2" href="./stem_and_leaf_problem.html"><b>20.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./stem_and_leaf_solution.html"><b>20.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./canvas.html"><b>21</b> Canvas</a></li>
+<li><a class="menu-level-2" href="./canvas_problem.html"><b>21.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./canvas_solution.html"><b>21.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./tree.html"><b>22</b> Tree</a></li>
+<li><a class="menu-level-2" href="./tree_problem.html"><b>22.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./tree_solution.html"><b>22.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./format_text.html"><b>23</b> Format Text</a></li>
+<li><a class="menu-level-2" href="./format_text_problem.html"><b>23.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./format_text_solution.html"><b>23.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./roman_numerals.html"><b>24</b> Roman Numerals</a></li>
+<li><a class="menu-level-2" href="./roman_numerals_problem.html"><b>24.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./roman_numerals_solution.html"><b>24.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./cheque.html"><b>25</b> Cheque</a></li>
+<li><a class="menu-level-2" href="./cheque_problem.html"><b>25.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./cheque_solution.html"><b>25.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./sort.html"><b>26</b> Sort</a></li>
+<li><a class="menu-level-2" href="./sort_problem.html"><b>26.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./sort_solution.html"><b>26.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./regex.html"><b>27</b> Regex</a></li>
+<li><a class="menu-level-2" href="./regex_problem.html"><b>27.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./regex_solution.html"><b>27.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./molar_mass.html"><b>28</b> Molar Mass</a></li>
+<li><a class="menu-level-2" href="./molar_mass_problem.html"><b>28.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./molar_mass_solution.html"><b>28.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./tic_tac_toe.html"><b>29</b> Tic-Tac-Toe</a></li>
+<li><a class="menu-level-2" href="./tic_tac_toe_problem.html"><b>29.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./tic_tac_toe_solution.html"><b>29.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./touch_typing.html"><b>30</b> Touch Typing</a></li>
+<li><a class="menu-level-2" href="./touch_typing_problem.html"><b>30.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./touch_typing_solution.html"><b>30.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./compound_interest.html"><b>31</b> Compound Interest</a></li>
+<li><a class="menu-level-2" href="./compound_interest_problem.html"><b>31.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./compound_interest_solution.html"><b>31.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./mortgage.html"><b>32</b> Mortgage</a></li>
+<li><a class="menu-level-2" href="./mortgage_problem.html"><b>32.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./mortgage_solution.html"><b>32.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./overpayment.html"><b>33</b> Overpayment</a></li>
+<li><a class="menu-level-2" href="./overpayment_problem.html"><b>33.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./overpayment_solution.html"><b>33.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./diffusion.html"><b>34</b> Diffusion</a></li>
+<li><a class="menu-level-2" href="./diffusion_problem.html"><b>34.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./diffusion_solution.html"><b>34.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./transcription.html"><b>35</b> Transcription</a></li>
+<li><a class="menu-level-2" href="./transcription_problem.html"><b>35.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./transcription_solution.html"><b>35.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./translation.html"><b>36</b> Translation</a></li>
+<li><a class="menu-level-2" href="./translation_problem.html"><b>36.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./translation_solution.html"><b>36.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./altruism.html"><b>37</b> Altruism</a></li>
+<li><a class="menu-level-2" href="./altruism_problem.html"><b>37.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./altruism_solution.html"><b>37.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./shift.html"><b>38</b> Shift</a></li>
+<li><a class="menu-level-2" href="./shift_problem.html"><b>38.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./shift_solution.html"><b>38.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./caesar.html"><b>39</b> Caesar</a></li>
+<li><a class="menu-level-2" href="./caesar_problem.html"><b>39.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./caesar_solution.html"><b>39.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./vigenere.html"><b>40</b> Vigenere</a></li>
+<li><a class="menu-level-2" href="./vigenere_problem.html"><b>40.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./vigenere_solution.html"><b>40.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./game_of_life.html"><b>41</b> Game of Life</a></li>
+<li><a class="menu-level-2" href="./game_of_life_problem.html"><b>41.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./game_of_life_solution.html"><b>41.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./the-end.html"><b>42</b> The end</a></li>
+</div>
+</aside>
+
+<div class="books-content">
+<h2 data-number="25.2" id="sec:cheque_solution"><span class="header-section-number">25.2</span> Solution</h2>
+<p>We begin by defining a few constants that will be useful later on.</p>
+<pre class="language-julia"><code>const UNITS_AND_TEENS = Dict(1 =&gt; &quot;one&quot;,
+                             2 =&gt; &quot;two&quot;, 3 =&gt; &quot;three&quot;, 4 =&gt; &quot;four&quot;,
+                             5 =&gt; &quot;five&quot;, 6 =&gt; &quot;six&quot;, 7 =&gt; &quot;seven&quot;,
+                             8 =&gt; &quot;eight&quot;, 9 =&gt; &quot;nine&quot;, 10 =&gt; &quot;ten&quot;,
+                             11 =&gt; &quot;eleven&quot;, 12 =&gt; &quot;twelve&quot;,
+                             13 =&gt; &quot;thirteen&quot;, 14 =&gt; &quot;fourteen&quot;,
+                             15 =&gt; &quot;fifteen&quot;, 16 =&gt; &quot;sixteen&quot;,
+                             17 =&gt; &quot;seventeen&quot;, 18 =&gt; &quot;eighteen&quot;,
+                             19 =&gt; &quot;nineteen&quot;)
+
+const TENS = Dict(2 =&gt; &quot;twenty&quot;, 3 =&gt; &quot;thrity&quot;,
+                  4 =&gt; &quot;forty&quot;, 5 =&gt; &quot;fifty&quot;, 6 =&gt; &quot;sixty&quot;,
+                  7 =&gt; &quot;seventy&quot;, 8 =&gt; &quot;eigthy&quot;, 9 =&gt; &quot;ninety&quot;)</code></pre>
+<blockquote>
+<p>Note. Using <code>const</code> with mutable containers like vectors or dictionaries allows to change their contents later on, e.g., with <code>push!</code>. So the <code>const</code> used here is more like a convention, a signal that we do not plan to change the containers in the future. If we really wanted an immutable container then we should consider a(n) (immutable) tuple. Anyway, some programming languages suggest that <code>const</code> names should be declared using all uppercase characters to make them stand out. Here, I follow this convention.</p>
+</blockquote>
+<p>The above are just mappings between the necessary basic key ingredients of our number soup. Let’s use them to get the transcript for numbers in the range of 1 to 99.</p>
+<pre class="language-julia"><code>function getEngNumeralUpto99(n::Int)::Str
+    @assert 1 &lt;= n &lt;= 99 &quot;n must be in range [1-99]&quot;
+    if n &lt; 20
+        return UNITS_AND_TEENS[n]
+    end
+    t::Int, u::Int = divrem(n, 10) # t - tens, u - units
+    result::Str = TENS[t]
+    if u != 0
+        result *= &quot;-&quot; * UNITS_AND_TEENS[u]
+    end
+    return result
+end</code></pre>
+<p>Whenever a number (<code>n</code>) is below 20 (<code>if n &lt; 20</code>) we just return its representation from the <code>UNITS_AND_TEENS</code> dictionary. Alternatively, for <code>n</code> in the <code>TENS</code>, first we obtain the tens (<code>t</code>) and units (<code>u</code>) part. <a href="https://docs.julialang.org/en/v1/base/math/#Base.divrem">divrem</a> is a combination of <code>div</code> (an integer division) and <code>rem</code> (a reminder after the division). We use it, to obtain the transcript for the TENS (<code>TENS[t]</code>). It becomes our <code>result</code> to which we attach the transcript for units separated by a hyphen (<code>"-" * UNITS_AND_TEENS[u]</code>), but only if the unit is different than zero (<code>if u != 0</code>).</p>
+<p>Time for a test ride.</p>
+<pre class="language-julia"><code>(
+    getEngNumeralUpto99.([5, 9, 11, 13, 20, 21]),
+    getEngNumeralUpto99.([25, 32, 58, 64, 66]),
+    getEngNumeralUpto99.([79, 83, 95, 99])
+)</code></pre>
+<pre class="output"><code>([&quot;five&quot;, &quot;nine&quot;, &quot;eleven&quot;, &quot;thirteen&quot;, &quot;twenty&quot;, &quot;twenty-one&quot;],
+[&quot;twenty-five&quot;, &quot;thrity-two&quot;, &quot;fifty-eight&quot;, &quot;sixty-four&quot;, &quot;sixty-six&quot;],
+[&quot;seventy-nine&quot;, &quot;eigthy-three&quot;, &quot;ninety-five&quot;, &quot;ninety-nine&quot;])</code></pre>
+<p>Good. It appears we got that one out of our way. Let’s move on to something bigger.</p>
+<pre class="language-julia"><code>function getEngNumeralUpto999(n::Int)::Str
+    @assert 1 &lt;= n &lt;= 999 &quot;n must be in range [1-999]&quot;
+    if n &lt; 100
+        return getEngNumeralUpto99(n)
+    end
+    h::Int, t::Int = divrem(n, 100) # h - hundreds, t - tens
+    result::Str = getEngNumeralUpto99(h) * &quot; hundred&quot;
+    if t != 0
+        result *= &quot; and &quot; * getEngNumeralUpto99(t)
+    end
+    return result
+end</code></pre>
+<p>This time we deal with all the integers below one thousand. The previously defined <code>getEngNumeralUpto99</code> is an important building block of that new function. If a number (<code>n</code>) is smaller than 100 (<code>if n &lt; 100</code>) we just transcribe it as we did in the previous code snippet (<code>return getEngNumeralUpto99(n)</code>). Otherwise we split it into hundreds (<code>h</code>) and TENS part (<code>t</code>, actually it may also contain units and teens). We start building our <code>result</code> by transcribing the hundreds part (<code>result::Str = getEngNumeralUpto99(n) * " hundred"</code>). When appropriate (<code>t != 0</code>) we append the transcript for the TENS separated with <code>"and"</code> (British English convention) to our <code>result</code>.</p>
+<p>Time for a test.</p>
+<pre class="language-julia"><code>(
+    getEngNumeralUpto999.([9, 13, 20, 66]),
+    getEngNumeralUpto999.([101, 109, 110]),
+    getEngNumeralUpto999.([320, 400, 500])
+)</code></pre>
+<pre class="output"><code>([&quot;nine&quot;, &quot;thirteen&quot;, &quot;twenty&quot;, &quot;sixty-six&quot;],
+[&quot;one hundred and one&quot;, &quot;one hundred and nine&quot;, &quot;one hundred and ten&quot;],
+[&quot;three hundred and twenty&quot;, &quot;four hundred&quot;, &quot;five hundred&quot;])</code></pre>
+<p>Since the previous part was so easy, there’s not reason to linger. Time for our final leap.</p>
+<pre class="language-julia"><code>function getEngNumeralBelow1M(n::Int)::Str
+    @assert 1 &lt;= n &lt;= 999_999 &quot;n must be in range [1-999,999]&quot;
+    if n &lt; 1000
+        return getEngNumeralUpto999(n)
+    end
+    t::Int, h::Int = divrem(n, 1000) # t - thousands, h - hundreds
+    result::Str = getEngNumeralUpto999(t) * &quot; thousand&quot;
+    if h == 0
+        return result
+    elseif h &lt; 100
+        result *= &quot; and &quot;
+    else
+        result *= &quot;, &quot;
+    end
+    result *= getEngNumeralUpto999(h)
+    return result
+end</code></pre>
+<p>This time we also use our previously defined function (<code>getEngNumeralUpto999</code>) as an integral part of the bigger, more general solution. When a number (<code>n</code>) is small (<code>if n &lt; 1000</code>) we write it down as we used to (<code>return getEngNumeralUpto999(n)</code>). Otherwise, we split it (<code>n</code>) to the thousands (<code>t</code>) and the hundreds (<code>h</code>) parts. Next, we build our <code>result</code> for the thousands (<code>getEngNumeralUpto999(t) * " thousand</code>). When the hundreds part is 0 (<code>if h == 0</code>) we just return our <code>result</code>. If the hundreds part is small (<code>h &lt; 100</code>) we add the conjunction <code>" and "</code>, otherwise (large hundreds part), we separate the following words with <code>", "</code>. Once again, we finish by using <code>getEngNumeralUpto999(h)</code> to transcribe the remaining part.</p>
+<p>Let’s see our creation at work.</p>
+<pre class="language-julia"><code>(
+    getEngNumeralBelow1M.([5, 9, 13, 21, 40, 95]),
+    getEngNumeralBelow1M.([101, 320, 500]),
+    getEngNumeralBelow1M.([1_800]),
+    getEngNumeralBelow1M.([96_779]),
+    getEngNumeralBelow1M.([180_000]),
+    getEngNumeralBelow1M.([889_308])
+)</code></pre>
+<pre class="output"><code>([&quot;five&quot;, &quot;nine&quot;, &quot;thirteen&quot;, &quot;twenty-one&quot;, &quot;forty&quot;, &quot;ninety-five&quot;],
+[&quot;one hundred and one&quot;, &quot;three hundred and twenty&quot;, &quot;five hundred&quot;],
+[&quot;one thousand, eight hundred&quot;],
+[&quot;ninety-six thousand, seven hundred and seventy-nine&quot;],
+[&quot;one hundred and eigthy thousand&quot;],
+[&quot;eight hundred and eigthy-nine thousand, three hundred and eight&quot;])</code></pre>
+<p>Mission, completed. We wrote three functions that allow us to write down any number we want in the range [1-999,999]. Still, you could argue that there is some code duplication. If that bothers you, you may try to shorten the solution to something like:</p>
+<pre class="language-julia"><code>function getEngNumeral(n::Int)::Str # uses recursion
+    @assert 0 &lt; n &lt; 1e6 &quot;n must be in range (0-1e6)&quot;
+    major::Int, minor::Int = 0, 0
+    if n &lt; 20
+        return UNITS_AND_TEENS[n]
+    elseif n &lt; 100
+        major, minor = divrem(n, 10)
+        return TENS[major] * (
+            minor == 0 ? &quot;&quot; : &quot;-&quot; * UNITS_AND_TEENS[minor]
+        )
+    elseif n &lt; 1000
+        major, minor = divrem(n, 100)
+        return getEngNumeral(major) * &quot; hundred&quot; * (
+            minor == 0 ? &quot;&quot; : &quot; and &quot; * getEngNumeral(minor)
+        )
+    else # &lt; 1e6 due to @assert above
+        major, minor = divrem(n, 1_000)
+        return getEngNumeral(major) * &quot; thousand&quot; * (
+            minor == 0 ? &quot;&quot; :
+            minor &lt; 100 ? &quot; and &quot; * getEngNumeral(minor) :
+            &quot;, &quot; * getEngNumeral(minor)
+        )
+    end
+end</code></pre>
+<pre class="output"><code>getEngNumeral (generic function with 1 method)</code></pre>
+<p>This allowed us to reduce the number of lines of code roughly by half, while maintaining the functionality.</p>
+<pre class="language-julia"><code>(
+    getEngNumeral.([5, 9, 13, 21, 40, 95]),
+    getEngNumeral.([101, 320, 500]),
+    getEngNumeral.([1_800]),
+    getEngNumeral.([96_779]),
+    getEngNumeral.([180_000]),
+    getEngNumeral.([889_308])
+)</code></pre>
+<pre class="output"><code>([&quot;five&quot;, &quot;nine&quot;, &quot;thirteen&quot;, &quot;twenty-one&quot;, &quot;forty&quot;, &quot;ninety-five&quot;],
+[&quot;one hundred and one&quot;, &quot;three hundred and twenty&quot;, &quot;five hundred&quot;],
+[&quot;one thousand, eight hundred&quot;],
+[&quot;ninety-six thousand, seven hundred and seventy-nine&quot;],
+[&quot;one hundred and eigthy thousand&quot;],
+[&quot;eight hundred and eigthy-nine thousand, three hundred and eight&quot;])</code></pre>
+
+
+<div class="bottom-nav">
+    <p id="nav-prev" style="text-align: left;">
+        <a class="menu-level-2" href="./cheque_problem.html"><b>25.1</b> Problem</a> <kbd>←</kbd>
+        <span id="nav-next" style="float: right;">
+            <kbd>→</kbd> <a class="menu-level-1" href="./sort.html"><b>26</b> Sort</a>
+        </span>
+    </p>
+</div>
+
+
+<div class="license">
+    <br/>
+  <br/>
+  <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+    Bartlomiej Lukaszuk
+</div>
+</div>
+</div>
+</body>
+</html>

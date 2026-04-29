@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Bartlomiej Lukaszuk" />
+  <title>Solution - Julia. Projects from a Recreational Programmer’s Drawer</title>
+  <link rel="stylesheet" href="./style.css"/>
+    <script src="./mousetrap.min.js"></script>
+    <style>
+  @font-face {
+    font-family: JuliaMono-Regular;
+    src: url("./JuliaMono-Regular.woff2");
+  }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="./github.min.css">
+<script src="./highlight.min.js"></script>
+<script src="./julia.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+    document.querySelectorAll('pre').forEach((el) => {
+        if (!el.classList.contains('output')) {
+            hljs.highlightElement(el);
+        }
+    });
+});
+</script>
+ 
+</head>
+<body>
+<script>
+function click_next() {
+  var next = document.getElementById('nav-next');
+  next.firstElementChild.nextElementSibling.click();
+}
+function click_prev() {
+  var prev = document.getElementById('nav-prev');
+  prev.firstElementChild.click();
+}
+Mousetrap.bind('right', click_next);
+Mousetrap.bind('h', click_prev);
+Mousetrap.bind('left', click_prev);
+Mousetrap.bind('l', click_next);
+</script>
+
+<div class="books-container">
+<aside class="books-menu">
+<input type="checkbox" id="menu">
+<label for="menu">☰</label>
+<div class="books-title">
+<a href="./">Julia. Projects from a Recreational Programmer's Drawer</a>
+</div><br />
+<span class="books-subtitle">
+
+</span>
+<div class="books-menu-content">
+<li><a class="menu-level-1" href="./about.html"><b>1</b> About</a></li>
+<li><a class="menu-level-1" href="./mat_multip.html"><b>2</b> Matrix Multiplication</a></li>
+<li><a class="menu-level-2" href="./mat_multip_problem.html"><b>2.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./mat_multip_solution.html"><b>2.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./bat_and_ball.html"><b>3</b> Bat and Ball</a></li>
+<li><a class="menu-level-2" href="./bat_and_ball_problem.html"><b>3.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./bat_and_ball_solution.html"><b>3.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./camel_case.html"><b>4</b> Camel Case</a></li>
+<li><a class="menu-level-2" href="./camel_case_problem.html"><b>4.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./camel_case_solution.html"><b>4.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./toothpaste.html"><b>5</b> Toothpaste</a></li>
+<li><a class="menu-level-2" href="./toothpaste_problem.html"><b>5.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./toothpaste_solution.html"><b>5.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./bile.html"><b>6</b> Bile</a></li>
+<li><a class="menu-level-2" href="./bile_problem.html"><b>6.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./bile_solution.html"><b>6.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./leap_year.html"><b>7</b> Leap Year</a></li>
+<li><a class="menu-level-2" href="./leap_year_problem.html"><b>7.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./leap_year_solution.html"><b>7.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./calendar.html"><b>8</b> Calendar</a></li>
+<li><a class="menu-level-2" href="./calendar_problem.html"><b>8.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./calendar_solution.html"><b>8.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./prime_numbers.html"><b>9</b> Prime Numbers</a></li>
+<li><a class="menu-level-2" href="./prime_numbers_problem.html"><b>9.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./prime_numbers_solution.html"><b>9.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./recursion.html"><b>10</b> Recursion</a></li>
+<li><a class="menu-level-2" href="./recursion_problem.html"><b>10.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./recursion_solution.html"><b>10.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./randomness.html"><b>11</b> Randomness</a></li>
+<li><a class="menu-level-2" href="./randomness_problem.html"><b>11.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./randomness_solution.html"><b>11.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./birthday.html"><b>12</b> Birthday</a></li>
+<li><a class="menu-level-2" href="./birthday_problem.html"><b>12.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./birthday_solution.html"><b>12.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./logo.html"><b>13</b> Logo</a></li>
+<li><a class="menu-level-2" href="./logo_problem.html"><b>13.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./logo_solution.html"><b>13.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./binary.html"><b>14</b> Binary</a></li>
+<li><a class="menu-level-2" href="./binary_problem.html"><b>14.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./binary_solution.html"><b>14.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./the_answer.html"><b>15</b> The Answer</a></li>
+<li><a class="menu-level-2" href="./the_answer_problem.html"><b>15.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./the_answer_solution.html"><b>15.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./the_doors.html"><b>16</b> The Doors</a></li>
+<li><a class="menu-level-2" href="./the_doors_problem.html"><b>16.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./the_doors_solution.html"><b>16.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./progress_bar.html"><b>17</b> Progress Bar</a></li>
+<li><a class="menu-level-2" href="./progress_bar_problem.html"><b>17.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./progress_bar_solution.html"><b>17.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./pascals_triangle.html"><b>18</b> Pascal’s Triangle</a></li>
+<li><a class="menu-level-2" href="./pascals_triangle_problem.html"><b>18.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./pascals_triangle_solution.html"><b>18.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./lattice_paths.html"><b>19</b> Lattice Paths</a></li>
+<li><a class="menu-level-2" href="./lattice_paths_problem.html"><b>19.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./lattice_paths_solution.html"><b>19.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./stem_and_leaf.html"><b>20</b> Stem and Leaf Plot</a></li>
+<li><a class="menu-level-2" href="./stem_and_leaf_problem.html"><b>20.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./stem_and_leaf_solution.html"><b>20.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./canvas.html"><b>21</b> Canvas</a></li>
+<li><a class="menu-level-2" href="./canvas_problem.html"><b>21.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./canvas_solution.html"><b>21.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./tree.html"><b>22</b> Tree</a></li>
+<li><a class="menu-level-2" href="./tree_problem.html"><b>22.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./tree_solution.html"><b>22.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./format_text.html"><b>23</b> Format Text</a></li>
+<li><a class="menu-level-2" href="./format_text_problem.html"><b>23.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./format_text_solution.html"><b>23.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./roman_numerals.html"><b>24</b> Roman Numerals</a></li>
+<li><a class="menu-level-2" href="./roman_numerals_problem.html"><b>24.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./roman_numerals_solution.html"><b>24.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./cheque.html"><b>25</b> Cheque</a></li>
+<li><a class="menu-level-2" href="./cheque_problem.html"><b>25.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./cheque_solution.html"><b>25.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./sort.html"><b>26</b> Sort</a></li>
+<li><a class="menu-level-2" href="./sort_problem.html"><b>26.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./sort_solution.html"><b>26.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./regex.html"><b>27</b> Regex</a></li>
+<li><a class="menu-level-2" href="./regex_problem.html"><b>27.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./regex_solution.html"><b>27.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./molar_mass.html"><b>28</b> Molar Mass</a></li>
+<li><a class="menu-level-2" href="./molar_mass_problem.html"><b>28.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./molar_mass_solution.html"><b>28.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./tic_tac_toe.html"><b>29</b> Tic-Tac-Toe</a></li>
+<li><a class="menu-level-2" href="./tic_tac_toe_problem.html"><b>29.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./tic_tac_toe_solution.html"><b>29.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./touch_typing.html"><b>30</b> Touch Typing</a></li>
+<li><a class="menu-level-2" href="./touch_typing_problem.html"><b>30.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./touch_typing_solution.html"><b>30.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./compound_interest.html"><b>31</b> Compound Interest</a></li>
+<li><a class="menu-level-2" href="./compound_interest_problem.html"><b>31.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./compound_interest_solution.html"><b>31.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./mortgage.html"><b>32</b> Mortgage</a></li>
+<li><a class="menu-level-2" href="./mortgage_problem.html"><b>32.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./mortgage_solution.html"><b>32.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./overpayment.html"><b>33</b> Overpayment</a></li>
+<li><a class="menu-level-2" href="./overpayment_problem.html"><b>33.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./overpayment_solution.html"><b>33.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./diffusion.html"><b>34</b> Diffusion</a></li>
+<li><a class="menu-level-2" href="./diffusion_problem.html"><b>34.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./diffusion_solution.html"><b>34.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./transcription.html"><b>35</b> Transcription</a></li>
+<li><a class="menu-level-2" href="./transcription_problem.html"><b>35.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./transcription_solution.html"><b>35.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./translation.html"><b>36</b> Translation</a></li>
+<li><a class="menu-level-2" href="./translation_problem.html"><b>36.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./translation_solution.html"><b>36.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./altruism.html"><b>37</b> Altruism</a></li>
+<li><a class="menu-level-2" href="./altruism_problem.html"><b>37.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./altruism_solution.html"><b>37.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./shift.html"><b>38</b> Shift</a></li>
+<li><a class="menu-level-2" href="./shift_problem.html"><b>38.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./shift_solution.html"><b>38.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./caesar.html"><b>39</b> Caesar</a></li>
+<li><a class="menu-level-2" href="./caesar_problem.html"><b>39.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./caesar_solution.html"><b>39.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./vigenere.html"><b>40</b> Vigenere</a></li>
+<li><a class="menu-level-2" href="./vigenere_problem.html"><b>40.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./vigenere_solution.html"><b>40.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./game_of_life.html"><b>41</b> Game of Life</a></li>
+<li><a class="menu-level-2" href="./game_of_life_problem.html"><b>41.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./game_of_life_solution.html"><b>41.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./the-end.html"><b>42</b> The end</a></li>
+</div>
+</aside>
+
+<div class="books-content">
+<h2 data-number="32.2" id="sec:mortgage_solution"><span class="header-section-number">32.2</span> Solution</h2>
+<p>Before we begin a few short definitions that we will use here (so that we are on the same page).</p>
+<ul>
+<li>principal - the money you borrow form a bank</li>
+<li>interest - the money you pay extra (except for the money you borrowed)</li>
+<li>interest rate - a percentage of principal which you will pay as interest</li>
+<li>installment - fixed monthly payment to the bank in order to cover you debt, part of it goes to pay off the principal and part to pay off the interest</li>
+</ul>
+<p>Next, let’s use the formatting function from Section <a href="./compound_interest_solution.html#sec:compound_interest_solution">31.2</a>.</p>
+<pre class="language-julia"><code># getFormattedMoney from chapter: compound interest, modified
+function fmt(money::Real, sep::Char=&#39;,&#39;,)::Str
+    @assert money &gt;= 0 &quot;money must be &gt;= 0&quot;
+    amount::Str = round(Int, money) |&gt; string
+    result::Str = &quot;&quot;
+    counter::Int = 0
+    for digit in reverse(amount) # digit is a single digit (type Char)
+        if counter == 3
+            result = sep * result
+            counter = 0
+        end
+        result = digit * result
+        counter += 1
+    end
+    return result * &quot; USD&quot;
+end</code></pre>
+<blockquote>
+<p><strong><em>Note:</em></strong> For another way to format a number to currency see Section <a href="./regex_solution.html#sec:regex_problem_solution4">27.2.4</a>.</p>
+</blockquote>
+<p>Time to define a <code>struct</code> that will contain the data necessary to perform calculations for a given mortgage.</p>
+<pre class="language-julia"><code>struct Mortgage
+    principal::Real
+    interestPercYr::Real
+    numMonths::Int
+
+    Mortgage(p::Real, i::Real, n::Int) = (
+        p &lt; 1 || i &lt; 0 || n &lt; 12 || n &gt; 480) ?
+        error(&quot;incorrect field values&quot;) : new(p, i, n)
+end
+
+mortgage1 = Mortgage(200_000, 6.49, 20*12)
+mortgage2 = Mortgage(200_000, 4.99, 30*12)</code></pre>
+<p>Finally, we are ready to calculate our monthly payment to the bank.</p>
+<pre class="language-julia"><code># calculate c - money paid to the bank every month
+function getInstallment(m::Mortgage)::Flt
+    p::Real = m.principal
+    r::Real = m.interestPercYr / 100 / 12
+    n::Int = m.numMonths
+    if r == 0
+        return p / n
+    else
+        numerator::Flt = r * p * (1+r)^n
+        denominator::Flt = ((1 + r)^n) - 1
+        return numerator / denominator
+    end
+end</code></pre>
+<p>All the formulas are based on <a href="https://en.wikipedia.org/wiki/Mortgage_calculator#">this Wikipedia page</a>. Notice that the function’s arguments (<code>Mortgage</code> fields in <code>getInstallment</code> and the arguments to <code>getPrincipalAfterMonth</code> below) contain longer (more descriptive) names, whereas inside the functions we use the abbreviations (case insensitive) found in the above-mentioned formulas .</p>
+<p>With that done, we can answer how much money we will have to pay to the bank every month for the duration of our mortgage.</p>
+<pre class="language-julia"><code>(
+    getInstallment(mortgage1) |&gt; fmt,
+    getInstallment(mortgage2) |&gt; fmt
+)</code></pre>
+<pre class="output"><code>(&quot;1,490 USD&quot;, &quot;1,072 USD&quot;)</code></pre>
+<p>The money we still owe to the bank (principal) will change month after month (because every month we pay off a fraction of it with our installment), so let’s calculate that.</p>
+<pre class="language-julia"><code># amount of money owed after every month
+function getPrincipalAfterMonth(prevPrincipal::Real,
+                                interestPercYr::Real,
+                                installment::Flt)::Flt
+    @assert((prevPrincipal &gt;= 0 &amp;&amp; interestPercYr &gt;= 0 &amp;&amp; installment &gt; 0),
+            &quot;incorrect argument values&quot;)
+    p::Real = prevPrincipal
+    r::Real = interestPercYr / 100 / 12
+    c::Flt = installment
+    return (1 + r) * p - c
+end</code></pre>
+<p>Not much to explain here, just a simple rewrite of the formula into Julia’s code (first we increase the principal by interest, then we subtract the installment from it). Now we can estimate the principal owed to the bank each year.</p>
+<pre class="language-julia"><code># paying off mortgage year by year
+# returns principal still owed every year
+function getPrincipalOwedEachYr(m::Mortgage)::Vec{Flt}
+    monthlyPayment::Flt = getInstallment(m)
+    curPrincipal::Real = m.principal
+    principalStillOwedYrs::Vec{Flt} = [curPrincipal]
+    for month in 1:m.numMonths
+        curPrincipal = getPrincipalAfterMonth(
+            curPrincipal, m.interestPercYr, monthlyPayment)
+        if month % 12 == 0
+            push!(principalStillOwedYrs, curPrincipal)
+        end
+    end
+    return principalStillOwedYrs
+end</code></pre>
+<p>Here we calculate the principal owed after every month, and once a year (<code>month % 12 == 0</code>) we push it to a vector tracking its yearly change (<code>principalStillOwedYrs</code>). Let’s see how it works, if we did it right then in the end the principal should drop to zero (small rounding errors possible).</p>
+<pre class="language-julia"><code>principals1 = getPrincipalOwedEachYr(mortgage1)
+principals2 = getPrincipalOwedEachYr(mortgage2)
+
+(
+    principals1[end],
+    principals2[end],
+    round(principals1[end], digits=2),
+    round(principals2[end], digits=2)
+)</code></pre>
+<pre class="output"><code>(-1.1685642675729468e-8, -1.4030092643224634e-8, -0.0, -0.0)</code></pre>
+<p>So how much principal we still owe to the bank at the beginning of year 15 in each scenario?</p>
+<pre class="language-julia"><code>(
+    principals1[15] |&gt; fmt,
+    principals2[15] |&gt; fmt
+)</code></pre>
+<pre class="output"><code>(&quot;88,661 USD&quot;, &quot;141,638 USD&quot;)</code></pre>
+<p>Hmm, quite a lot (remember we borrowed $200,000 for 20 and 30 years). And when will this value drop <span class="math inline">\(\le\)</span> 100,000 USD (<span class="math inline">\(\le\)</span> half of what we borrowed)?</p>
+<pre class="language-julia"><code>(
+    findfirst(p -&gt; p &lt;= 100_000, principals1),
+    findfirst(p -&gt; p &lt;= 100_000, principals2)
+)</code></pre>
+<pre class="output"><code>(15, 22)</code></pre>
+<p>In general, for quite some time the money we pay to the bank mostly pay off the interest and not the principal, so that it drops slowly at first (see Figure <a href="#fig:mortgagePrincipalsYrByYr">15</a>).</p>
+<figure id="fig:mortgagePrincipalsYrByYr">
+<img src="./images/mortgagePrincipalsYrByYr.png" alt="Figure 15: Principal still owed to the bank year by year. Mortgage: $200,000 at 6.49% yearly for 20 years. The estimation may not be accurate." />
+<figcaption aria-hidden="true">Figure 15: Principal still owed to the bank year by year. Mortgage: $200,000 at 6.49% yearly for 20 years. The estimation may not be accurate.</figcaption>
+</figure>
+<p>To answer the last question (which mortgage is more worth it for us in terms of total payment and total interest) we’ll use a <a href="https://docs.makie.org/v0.21/reference/plots/pie">pie chart</a>.</p>
+<pre><code>import CairoMakie as Cmk
+
+function addPieChart!(m::Mortgage, fig::Cmk.Figure,
+                      ax::Cmk.Axis, col::Int)::Nothing
+    installment::Flt = getInstallment(m)
+    totalInterest::Flt = installment * m.numMonths - m.principal
+    yrs::Flt = round.(m.numMonths / 12, digits=2)
+    colors::Vec{Str} = [&quot;coral1&quot;, &quot;turquoise2&quot;, &quot;white&quot;, &quot;white&quot;, &quot;white&quot;]
+    lebels::Vec{Str} = [&quot;interest = $(fmt(totalInterest))&quot;,
+                        &quot;principal = $(fmt(m.principal))&quot;,
+                        &quot;$(yrs) years, $(m.interestPercYr)% yearly&quot;,
+                        &quot;total cost = $(fmt(installment * m.numMonths))&quot;,
+                        &quot;monthly payment = $(fmt(installment))&quot;]
+    Cmk.pie!(ax, [totalInterest, m.principal], color=colors[1:2],
+             radius=4, strokecolor=:white, strokewidth=5)
+    Cmk.hidedecorations!(ax)
+    Cmk.hidespines!(ax)
+    Cmk.Legend(fig[3, col],
+               [Cmk.PolyElement(color=c) for c in colors],
+               lebels, valign=:bottom, halign=:center, fontsize=60,
+               framevisible=false)
+    return nothing
+end</code></pre>
+<p>The function is rather simple. It adds a pie chart to an existing figure and axis. A point of notice, the colors used are <code>["coral1", "turquoise2", "white", "white", "white"]</code>. The first two will be used to paint the circle. But all of them, will be used in the legend (<code>Cmk.Legend</code>). Hence, we used <code>"white"</code> for the values that are not in the circle (white color on a white background in the legend is basically invisible). We also used <a href="https://docs.julialang.org/en/v1/manual/strings/#string-interpolation">string interpolation</a> where a simple interpolated value is placed after the dollar character (<code>$</code>) or in a more complicated case (a structure field, a calculation) it is put after the dollar character and within parenthesis (e.g. <code>"$(2*3)"</code>).</p>
+<p>Time to draw a comparison</p>
+<pre><code>function drawComparison(m1::Mortgage, m2::Mortgage)::Cmk.Figure
+    fig::Cmk.Figure = Cmk.Figure(fontsize=18)
+    ax1::Cmk.Axis = Cmk.Axis(
+        fig[1:2, 1], title=&quot;Mortgage simulation\n(may not be accurate)&quot;,
+        limits=(-5, 5, -5, 5), aspect=1)
+    ax2::Cmk.Axis = Cmk.Axis(
+        fig[1:2, 2], title=&quot;Mortgage simulation\n(may not be accurate)&quot;,
+        limits=(-5, 5, -5, 5), aspect=1)
+    Cmk.linkxaxes!(ax1, ax2)
+    Cmk.linkyaxes!(ax1, ax2)
+    addPieChart!(m1, fig, ax1, 1)
+    addPieChart!(m2, fig, ax2, 2)
+    return fig
+end
+
+drawComparison(mortgage1, mortgage2)</code></pre>
+<figure id="fig:mortgageComparison">
+<img src="./images/mortgagesComparison.png" alt="Figure 16: Comparison of two mortgages (may not be accurate)." />
+<figcaption aria-hidden="true">Figure 16: Comparison of two mortgages (may not be accurate).</figcaption>
+</figure>
+<p>So it turns out that despite the higher interest rate of 6.49% overall we will pay less money to the bank for <code>mortgage1</code>. Therefore, if we are OK with the greater monthly payment (installment) then we may choose that one.</p>
+<p>Of course, all the above was just a programming exercise, not a financial advice. Moreover, the simulation is likely to be inaccurate (to a various extent) for many reasons. For instance, a bank may calculate the interest every day, and not every month, in that case you will pay more. Compare with the simple example below and the compound interest from Section <a href="./compound_interest_solution.html#sec:compound_interest_problem_a1">31.2.1</a>.</p>
+<pre class="language-julia"><code># 6% yearly, after 1 year
+(
+    200_000 * (1 + 0.06) |&gt; fmt, # capitalized yearly
+    200_000 * (1 + (0.06/12))^12 |&gt; fmt, # capitalized monthly
+    200_000 * (1 + (0.06/365))^365 |&gt; fmt, # capitalized daily
+)</code></pre>
+<pre class="output"><code>(&quot;212,000 USD&quot;, &quot;212,336 USD&quot;, &quot;212,366 USD&quot;)</code></pre>
+<p>Anyway, once you know what’s going on, it should be easier to modify the program to reflect a particular scenario more closely.</p>
+
+
+<div class="bottom-nav">
+    <p id="nav-prev" style="text-align: left;">
+        <a class="menu-level-2" href="./mortgage_problem.html"><b>32.1</b> Problem</a> <kbd>←</kbd>
+        <span id="nav-next" style="float: right;">
+            <kbd>→</kbd> <a class="menu-level-1" href="./overpayment.html"><b>33</b> Overpayment</a>
+        </span>
+    </p>
+</div>
+
+
+<div class="license">
+    <br/>
+  <br/>
+  <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+    Bartlomiej Lukaszuk
+</div>
+</div>
+</div>
+</body>
+</html>

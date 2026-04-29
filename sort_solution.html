@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Bartlomiej Lukaszuk" />
+  <title>Solution - Julia. Projects from a Recreational Programmer’s Drawer</title>
+  <link rel="stylesheet" href="./style.css"/>
+    <script src="./mousetrap.min.js"></script>
+    <style>
+  @font-face {
+    font-family: JuliaMono-Regular;
+    src: url("./JuliaMono-Regular.woff2");
+  }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="./github.min.css">
+<script src="./highlight.min.js"></script>
+<script src="./julia.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+    document.querySelectorAll('pre').forEach((el) => {
+        if (!el.classList.contains('output')) {
+            hljs.highlightElement(el);
+        }
+    });
+});
+</script>
+ 
+</head>
+<body>
+<script>
+function click_next() {
+  var next = document.getElementById('nav-next');
+  next.firstElementChild.nextElementSibling.click();
+}
+function click_prev() {
+  var prev = document.getElementById('nav-prev');
+  prev.firstElementChild.click();
+}
+Mousetrap.bind('right', click_next);
+Mousetrap.bind('h', click_prev);
+Mousetrap.bind('left', click_prev);
+Mousetrap.bind('l', click_next);
+</script>
+
+<div class="books-container">
+<aside class="books-menu">
+<input type="checkbox" id="menu">
+<label for="menu">☰</label>
+<div class="books-title">
+<a href="./">Julia. Projects from a Recreational Programmer's Drawer</a>
+</div><br />
+<span class="books-subtitle">
+
+</span>
+<div class="books-menu-content">
+<li><a class="menu-level-1" href="./about.html"><b>1</b> About</a></li>
+<li><a class="menu-level-1" href="./mat_multip.html"><b>2</b> Matrix Multiplication</a></li>
+<li><a class="menu-level-2" href="./mat_multip_problem.html"><b>2.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./mat_multip_solution.html"><b>2.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./bat_and_ball.html"><b>3</b> Bat and Ball</a></li>
+<li><a class="menu-level-2" href="./bat_and_ball_problem.html"><b>3.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./bat_and_ball_solution.html"><b>3.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./camel_case.html"><b>4</b> Camel Case</a></li>
+<li><a class="menu-level-2" href="./camel_case_problem.html"><b>4.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./camel_case_solution.html"><b>4.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./toothpaste.html"><b>5</b> Toothpaste</a></li>
+<li><a class="menu-level-2" href="./toothpaste_problem.html"><b>5.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./toothpaste_solution.html"><b>5.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./bile.html"><b>6</b> Bile</a></li>
+<li><a class="menu-level-2" href="./bile_problem.html"><b>6.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./bile_solution.html"><b>6.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./leap_year.html"><b>7</b> Leap Year</a></li>
+<li><a class="menu-level-2" href="./leap_year_problem.html"><b>7.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./leap_year_solution.html"><b>7.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./calendar.html"><b>8</b> Calendar</a></li>
+<li><a class="menu-level-2" href="./calendar_problem.html"><b>8.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./calendar_solution.html"><b>8.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./prime_numbers.html"><b>9</b> Prime Numbers</a></li>
+<li><a class="menu-level-2" href="./prime_numbers_problem.html"><b>9.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./prime_numbers_solution.html"><b>9.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./recursion.html"><b>10</b> Recursion</a></li>
+<li><a class="menu-level-2" href="./recursion_problem.html"><b>10.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./recursion_solution.html"><b>10.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./randomness.html"><b>11</b> Randomness</a></li>
+<li><a class="menu-level-2" href="./randomness_problem.html"><b>11.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./randomness_solution.html"><b>11.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./birthday.html"><b>12</b> Birthday</a></li>
+<li><a class="menu-level-2" href="./birthday_problem.html"><b>12.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./birthday_solution.html"><b>12.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./logo.html"><b>13</b> Logo</a></li>
+<li><a class="menu-level-2" href="./logo_problem.html"><b>13.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./logo_solution.html"><b>13.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./binary.html"><b>14</b> Binary</a></li>
+<li><a class="menu-level-2" href="./binary_problem.html"><b>14.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./binary_solution.html"><b>14.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./the_answer.html"><b>15</b> The Answer</a></li>
+<li><a class="menu-level-2" href="./the_answer_problem.html"><b>15.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./the_answer_solution.html"><b>15.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./the_doors.html"><b>16</b> The Doors</a></li>
+<li><a class="menu-level-2" href="./the_doors_problem.html"><b>16.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./the_doors_solution.html"><b>16.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./progress_bar.html"><b>17</b> Progress Bar</a></li>
+<li><a class="menu-level-2" href="./progress_bar_problem.html"><b>17.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./progress_bar_solution.html"><b>17.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./pascals_triangle.html"><b>18</b> Pascal’s Triangle</a></li>
+<li><a class="menu-level-2" href="./pascals_triangle_problem.html"><b>18.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./pascals_triangle_solution.html"><b>18.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./lattice_paths.html"><b>19</b> Lattice Paths</a></li>
+<li><a class="menu-level-2" href="./lattice_paths_problem.html"><b>19.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./lattice_paths_solution.html"><b>19.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./stem_and_leaf.html"><b>20</b> Stem and Leaf Plot</a></li>
+<li><a class="menu-level-2" href="./stem_and_leaf_problem.html"><b>20.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./stem_and_leaf_solution.html"><b>20.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./canvas.html"><b>21</b> Canvas</a></li>
+<li><a class="menu-level-2" href="./canvas_problem.html"><b>21.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./canvas_solution.html"><b>21.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./tree.html"><b>22</b> Tree</a></li>
+<li><a class="menu-level-2" href="./tree_problem.html"><b>22.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./tree_solution.html"><b>22.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./format_text.html"><b>23</b> Format Text</a></li>
+<li><a class="menu-level-2" href="./format_text_problem.html"><b>23.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./format_text_solution.html"><b>23.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./roman_numerals.html"><b>24</b> Roman Numerals</a></li>
+<li><a class="menu-level-2" href="./roman_numerals_problem.html"><b>24.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./roman_numerals_solution.html"><b>24.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./cheque.html"><b>25</b> Cheque</a></li>
+<li><a class="menu-level-2" href="./cheque_problem.html"><b>25.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./cheque_solution.html"><b>25.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./sort.html"><b>26</b> Sort</a></li>
+<li><a class="menu-level-2" href="./sort_problem.html"><b>26.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./sort_solution.html"><b>26.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./regex.html"><b>27</b> Regex</a></li>
+<li><a class="menu-level-2" href="./regex_problem.html"><b>27.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./regex_solution.html"><b>27.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./molar_mass.html"><b>28</b> Molar Mass</a></li>
+<li><a class="menu-level-2" href="./molar_mass_problem.html"><b>28.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./molar_mass_solution.html"><b>28.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./tic_tac_toe.html"><b>29</b> Tic-Tac-Toe</a></li>
+<li><a class="menu-level-2" href="./tic_tac_toe_problem.html"><b>29.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./tic_tac_toe_solution.html"><b>29.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./touch_typing.html"><b>30</b> Touch Typing</a></li>
+<li><a class="menu-level-2" href="./touch_typing_problem.html"><b>30.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./touch_typing_solution.html"><b>30.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./compound_interest.html"><b>31</b> Compound Interest</a></li>
+<li><a class="menu-level-2" href="./compound_interest_problem.html"><b>31.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./compound_interest_solution.html"><b>31.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./mortgage.html"><b>32</b> Mortgage</a></li>
+<li><a class="menu-level-2" href="./mortgage_problem.html"><b>32.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./mortgage_solution.html"><b>32.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./overpayment.html"><b>33</b> Overpayment</a></li>
+<li><a class="menu-level-2" href="./overpayment_problem.html"><b>33.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./overpayment_solution.html"><b>33.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./diffusion.html"><b>34</b> Diffusion</a></li>
+<li><a class="menu-level-2" href="./diffusion_problem.html"><b>34.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./diffusion_solution.html"><b>34.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./transcription.html"><b>35</b> Transcription</a></li>
+<li><a class="menu-level-2" href="./transcription_problem.html"><b>35.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./transcription_solution.html"><b>35.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./translation.html"><b>36</b> Translation</a></li>
+<li><a class="menu-level-2" href="./translation_problem.html"><b>36.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./translation_solution.html"><b>36.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./altruism.html"><b>37</b> Altruism</a></li>
+<li><a class="menu-level-2" href="./altruism_problem.html"><b>37.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./altruism_solution.html"><b>37.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./shift.html"><b>38</b> Shift</a></li>
+<li><a class="menu-level-2" href="./shift_problem.html"><b>38.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./shift_solution.html"><b>38.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./caesar.html"><b>39</b> Caesar</a></li>
+<li><a class="menu-level-2" href="./caesar_problem.html"><b>39.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./caesar_solution.html"><b>39.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./vigenere.html"><b>40</b> Vigenere</a></li>
+<li><a class="menu-level-2" href="./vigenere_problem.html"><b>40.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./vigenere_solution.html"><b>40.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./game_of_life.html"><b>41</b> Game of Life</a></li>
+<li><a class="menu-level-2" href="./game_of_life_problem.html"><b>41.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./game_of_life_solution.html"><b>41.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./the-end.html"><b>42</b> The end</a></li>
+</div>
+</aside>
+
+<div class="books-content">
+<h2 data-number="26.2" id="sec:sort_solution"><span class="header-section-number">26.2</span> Solution</h2>
+<p>For our first attempt we’ll go with something simple like the <a href="https://en.wikipedia.org/wiki/Bubble_sort">bubble sort</a> algorithm.</p>
+<pre class="language-julia"><code># sorts in ascending order
+function bs(v::Vec{A})::Vec{A} where A&lt;:Union{Flt, Int}
+    result::Vec{A} = copy(v)
+    swapped::Bool = true
+    while swapped
+        swapped = false
+        for i in eachindex(result)[2:end]
+            if result[i-1] &gt; result[i]
+                result[i-1], result[i] = result[i], result[i-1]
+                swapped = true
+            end
+        end
+    end
+    return result
+end</code></pre>
+<p>Here, we implemented the algorithm for a vector that contains the elements of type <code>A</code>. In this case it is just a sub-type (<code>&lt;:</code>) of <code>Flt</code> (an alias for <code>Float64</code>) or <code>Int</code> (<code>Union{Flt, Int}</code>). We started by <code>copy</code>ing the original vector to <code>result</code> and setting a variable named <code>swapped</code>. We will stop our sorting algorithm once there was no swap during the previous traversal of the whole vector (<code>swapped</code> in <code>while</code> is <code>false</code> but may be reset to <code>true</code> in the <code>for</code> loop). We search through the vector starting from its second element (<code>i in eachindex(result)[2:end]</code>). Every time we compare the two nearby elements (<code>result[i-1]</code> vs. <code>result[i]</code>). If the elements aren’t in a desired order (<code>if result[i-1] &gt; result[i]</code>) we just swap them with each other (<code>result[i-1], result[i] = result[i], result[i-1]</code>) and set the <code>swapped</code> flag to <code>true</code>. Once we finish we return the result.</p>
+<p>Let’s see how we did.</p>
+<pre class="language-julia"><code>[47, 15, 23, 99, 4] |&gt; bs,
+[47.3, 23.2, 47.2] |&gt; bs</code></pre>
+<pre class="output"><code>([4, 15, 23, 47, 99], [23.2, 47.2, 47.3])</code></pre>
+<p>If you want to better visualize how the algorithm works, you may place <code>println</code> or <a href="https://docs.julialang.org/en/v1/base/base/#Base.@show">@show</a> constructs in a few places inside the function, e.g.</p>
+<pre><code>function bs(v::Vec{A})::Vec{A} where A&lt;:Union{Flt, Int}
+    result::Vec{A} = copy(v)
+    swapped::Bool = true
+    i::Int = 0
+    while swapped
+        i += 1
+        @show i
+        swapped = false
+        for i in eachindex(result)[2:end]
+            if result[i-1] &gt; result[i]
+                result[i-1], result[i] = result[i], result[i-1]
+                swapped = true
+            end
+            @show result, swapped
+        end
+    end
+    return result
+end</code></pre>
+<p>Which prints:</p>
+<pre><code>[0.75, 0.25, 0.5] |&gt; bs
+
+# printout
+i = 1
+(result, swapped) = ([0.25, 0.75, 0.5], true)
+(result, swapped) = ([0.25, 0.5, 0.75], true)
+i = 2
+(result, swapped) = ([0.25, 0.5, 0.75], false)
+(result, swapped) = ([0.25, 0.5, 0.75], false)</code></pre>
+<p>For our next try we will go with the <a href="https://en.wikipedia.org/wiki/Quicksort">quicksort</a> algorithm. Here, I’ll try to implement it from memory based on the algorithm I once saw in “Learn You a Haskell for Great Good!” by Miran Lipovača. Of course, I’ll try to adjust it for Julia syntax.</p>
+<pre class="language-julia"><code># sorts in ascending order
+function qs(v::Vec{Int})::Vec{Int}
+    if isempty(v)
+        return []
+    else
+        head, tail... = v
+        # or: head::Int, tail::Vec{Int}... = v
+        smallerElts::Vec{Int} = filter((&lt;)(head), tail)
+        greaterEqElts::Vec{Int} = filter((&gt;=)(head), tail)
+        return [qs(smallerElts); head; qs(greaterEqElts)]
+    end
+end</code></pre>
+<p>To do so we choose a so called pivot element (<code>head</code>) that for simplicity is always the first element in the vector (<code>v</code>). Next, we take the remaining part of the vector (<code>tail</code>). The <code>head, tail... = v</code> is a <a href="https://docs.julialang.org/en/v1/manual/functions/#destructuring-assignment">destructuring assignment</a> that puts the first elt of <code>v</code> to <code>head</code> variable and all the remaining elements to <code>tail</code> (if <code>v</code> is made of one element, then <code>tail</code> is <code>[]</code>). Anyway, we separate <code>tail</code> elements into the ones that are smaller (<code>smallerElts</code>) and greater than or equal to (<code>greaterEqElts</code>) our pivot element (<code>head</code>). The above is done with <code>filter</code> and <a href="https://bkamins.github.io/julialang/2024/02/23/fix.html">partial function application</a>. Once we got it we use recursion (e.g. <code>qs(unsorted_smaller_elts)</code> in <code>return</code>) and vector concatenation (<code>[vector_or_elt; vector_or_elt; vector_or_elt]</code>).</p>
+<p>Let’s see how it works.</p>
+<pre class="language-julia"><code>[47, 15, 23, 99, 4] |&gt; qs</code></pre>
+<pre class="output"><code>[4, 15, 23, 47, 99]</code></pre>
+<p>Looks good. OK, in case the above was too great of a squeeze, let’s try to make it a bit less <a href="https://en.wikipedia.org/wiki/Functional_programming">functional</a> (Haskell is a purely functional programming language) and a bit more <a href="https://en.wikipedia.org/wiki/Imperative_programming">imperative</a>.</p>
+<pre class="language-julia"><code>function qs(v::Vec{Int})::Vec{Int}
+    if isempty(v)
+        return []
+    else
+        firstElt::Int = v[1]
+        otherElts::Vec{Int} = v[2:end]
+        smallerElts::Vec{Int} = filter(elt -&gt; elt &lt; firstElt, otherElts)
+        greaterEqElts::Vec{Int} = filter(elt -&gt; elt &gt;= firstElt, otherElts)
+        return [qs(smallerElts); firstElt; qs(greaterEqElts)]
+    end
+end</code></pre>
+<p>Once again, we choose a so called pivot element (<code>firstElt</code>) that for simplicity is always the first element of a vector. Next, we take the remaining elements (<code>otherElts</code>) and separate them into the elements that are smaller (<code>smallerElts</code>) and greater than or equal to (<code>greaterEqElts</code>) our pivot element (<code>firstElt</code>). The above is done with <code>filter</code> and an <a href="https://docs.julialang.org/en/v1/manual/functions/#man-anonymous-functions">anonymous function</a>. Once we got it we use recursion (e.g. <code>qs(unsorted_smaller_elts)</code> in <code>return</code>) and vector concatenation (<code>[vector_or_elt; vector_or_elt; vector_or_elt]</code>).</p>
+<p>Just a small test to make sure it still works as intended.</p>
+<pre class="language-julia"><code>[47, 15, 23, 99, 4] |&gt; qs</code></pre>
+<pre class="output"><code>[4, 15, 23, 47, 99]</code></pre>
+<p>Flawless victory, but we are still unable to sort the numbers in alphabetical order. Let’s fix that by modifying our <code>qs</code>.</p>
+<pre class="language-julia"><code># by - fn(A) -&gt; B; is applied to every elt of v before sorting
+# lt - fn(B, B) -&gt; Bool; compares pairs of elts after &#39;by&#39; was applied
+function qs(v::Vec{A},
+            by::Function=identity,
+            lt::Function=&lt;)::Vec{A} where A
+    if isempty(v)
+        return []
+    else
+        firstElt::A = v[1]
+        otherElts::Vec{A} = v[2:end]
+        smallerElts::Vec{A} = filter(
+            elt -&gt; lt(by(elt), by(firstElt)),
+            otherElts
+        )
+        greaterEqElts::Vec{A} = filter(
+            elt -&gt; !lt(by(elt), by(firstElt)),
+            otherElts
+        )
+        return [
+            qs(smallerElts, by, lt);
+            firstElt;
+            qs(greaterEqElts, by, lt)
+        ]
+    end
+end</code></pre>
+<p>Here, we added two more positional arguments to <code>qs</code>: 1) <code>by</code> which is a function applied to every element of the vector (<code>v</code>) before the sorting; 2) <code>lt</code> - a comparator function (<code>lt</code> - less than, <code>!lt</code> - negation of <code>lt</code>) that compares our pivot element (<code>firstElt</code>) with all the other elements (<code>otherElts</code>). The comparison occurs after <code>by</code> was applied to all the elements of <code>v</code> (<code>by(elt)</code> and <code>by(firstElt)</code> in <code>filter</code>). The names <code>by</code> and <code>lt</code> were inspired by the names of the <a href="https://docs.julialang.org/en/v1/devdocs/functions/#Keyword-arguments">keyword arguments</a> in <a href="https://docs.julialang.org/en/v1/base/sort/#Base.sort">Base.sort</a>. The default function for <code>by</code> is <a href="https://docs.julialang.org/en/v1/base/base/#Base.identity">identity</a> (returns its argument unchanged) and the default function for <code>lt</code> is <a href="https://docs.julialang.org/en/v1/base/math/#Base.:%3C">Base.:&lt;</a>.</p>
+<p>Let’s see how we did:</p>
+<pre class="language-julia"><code>[0.75, 0.25, 0.5] |&gt; qs,
+[&#39;c&#39;, &#39;b&#39;, &#39;a&#39;, &#39;d&#39;] |&gt; qs</code></pre>
+<pre class="output"><code>([0.25, 0.5, 0.75], [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;])</code></pre>
+<p>And now for the alphabetical sort (<code>getEngNumeral</code> was a solution for the problem in Section <a href="./cheque_problem.html#sec:cheque_problem">25.1</a>. Here, we passed it without <code>by=</code> because in <code>qs</code> it is a positional argument).</p>
+<pre class="language-julia"><code>qs(collect(1:10), getEngNumeral)</code></pre>
+<pre class="output"><code>[8, 5, 4, 9, 1, 7, 6, 10, 3, 2]</code></pre>
+<p>The above should work similar to the built-in <code>sort</code> (here we use <code>by=getEngNumeral</code> because that’s how you pass keyword arguments to a function).</p>
+<pre class="language-julia"><code>qs([0.75, 0.25, 0.5]) == sort([0.75, 0.25, 0.5]),
+qs([&#39;c&#39;, &#39;b&#39;, &#39;a&#39;, &#39;d&#39;]) == sort([&#39;c&#39;, &#39;b&#39;, &#39;a&#39;, &#39;d&#39;]),
+qs(collect(1:10), getEngNumeral) == sort(1:10, by=getEngNumeral)</code></pre>
+<pre class="output"><code>(true, true, true)</code></pre>
+
+
+<div class="bottom-nav">
+    <p id="nav-prev" style="text-align: left;">
+        <a class="menu-level-2" href="./sort_problem.html"><b>26.1</b> Problem</a> <kbd>←</kbd>
+        <span id="nav-next" style="float: right;">
+            <kbd>→</kbd> <a class="menu-level-1" href="./regex.html"><b>27</b> Regex</a>
+        </span>
+    </p>
+</div>
+
+
+<div class="license">
+    <br/>
+  <br/>
+  <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+    Bartlomiej Lukaszuk
+</div>
+</div>
+</div>
+</body>
+</html>

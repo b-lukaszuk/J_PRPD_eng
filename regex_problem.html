@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Bartlomiej Lukaszuk" />
+  <title>Problem - Julia. Projects from a Recreational Programmer’s Drawer</title>
+  <link rel="stylesheet" href="./style.css"/>
+    <script src="./mousetrap.min.js"></script>
+    <style>
+  @font-face {
+    font-family: JuliaMono-Regular;
+    src: url("./JuliaMono-Regular.woff2");
+  }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="./github.min.css">
+<script src="./highlight.min.js"></script>
+<script src="./julia.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+    document.querySelectorAll('pre').forEach((el) => {
+        if (!el.classList.contains('output')) {
+            hljs.highlightElement(el);
+        }
+    });
+});
+</script>
+ 
+</head>
+<body>
+<script>
+function click_next() {
+  var next = document.getElementById('nav-next');
+  next.firstElementChild.nextElementSibling.click();
+}
+function click_prev() {
+  var prev = document.getElementById('nav-prev');
+  prev.firstElementChild.click();
+}
+Mousetrap.bind('right', click_next);
+Mousetrap.bind('h', click_prev);
+Mousetrap.bind('left', click_prev);
+Mousetrap.bind('l', click_next);
+</script>
+
+<div class="books-container">
+<aside class="books-menu">
+<input type="checkbox" id="menu">
+<label for="menu">☰</label>
+<div class="books-title">
+<a href="./">Julia. Projects from a Recreational Programmer's Drawer</a>
+</div><br />
+<span class="books-subtitle">
+
+</span>
+<div class="books-menu-content">
+<li><a class="menu-level-1" href="./about.html"><b>1</b> About</a></li>
+<li><a class="menu-level-1" href="./mat_multip.html"><b>2</b> Matrix Multiplication</a></li>
+<li><a class="menu-level-2" href="./mat_multip_problem.html"><b>2.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./mat_multip_solution.html"><b>2.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./bat_and_ball.html"><b>3</b> Bat and Ball</a></li>
+<li><a class="menu-level-2" href="./bat_and_ball_problem.html"><b>3.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./bat_and_ball_solution.html"><b>3.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./camel_case.html"><b>4</b> Camel Case</a></li>
+<li><a class="menu-level-2" href="./camel_case_problem.html"><b>4.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./camel_case_solution.html"><b>4.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./toothpaste.html"><b>5</b> Toothpaste</a></li>
+<li><a class="menu-level-2" href="./toothpaste_problem.html"><b>5.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./toothpaste_solution.html"><b>5.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./bile.html"><b>6</b> Bile</a></li>
+<li><a class="menu-level-2" href="./bile_problem.html"><b>6.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./bile_solution.html"><b>6.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./leap_year.html"><b>7</b> Leap Year</a></li>
+<li><a class="menu-level-2" href="./leap_year_problem.html"><b>7.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./leap_year_solution.html"><b>7.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./calendar.html"><b>8</b> Calendar</a></li>
+<li><a class="menu-level-2" href="./calendar_problem.html"><b>8.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./calendar_solution.html"><b>8.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./prime_numbers.html"><b>9</b> Prime Numbers</a></li>
+<li><a class="menu-level-2" href="./prime_numbers_problem.html"><b>9.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./prime_numbers_solution.html"><b>9.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./recursion.html"><b>10</b> Recursion</a></li>
+<li><a class="menu-level-2" href="./recursion_problem.html"><b>10.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./recursion_solution.html"><b>10.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./randomness.html"><b>11</b> Randomness</a></li>
+<li><a class="menu-level-2" href="./randomness_problem.html"><b>11.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./randomness_solution.html"><b>11.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./birthday.html"><b>12</b> Birthday</a></li>
+<li><a class="menu-level-2" href="./birthday_problem.html"><b>12.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./birthday_solution.html"><b>12.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./logo.html"><b>13</b> Logo</a></li>
+<li><a class="menu-level-2" href="./logo_problem.html"><b>13.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./logo_solution.html"><b>13.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./binary.html"><b>14</b> Binary</a></li>
+<li><a class="menu-level-2" href="./binary_problem.html"><b>14.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./binary_solution.html"><b>14.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./the_answer.html"><b>15</b> The Answer</a></li>
+<li><a class="menu-level-2" href="./the_answer_problem.html"><b>15.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./the_answer_solution.html"><b>15.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./the_doors.html"><b>16</b> The Doors</a></li>
+<li><a class="menu-level-2" href="./the_doors_problem.html"><b>16.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./the_doors_solution.html"><b>16.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./progress_bar.html"><b>17</b> Progress Bar</a></li>
+<li><a class="menu-level-2" href="./progress_bar_problem.html"><b>17.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./progress_bar_solution.html"><b>17.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./pascals_triangle.html"><b>18</b> Pascal’s Triangle</a></li>
+<li><a class="menu-level-2" href="./pascals_triangle_problem.html"><b>18.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./pascals_triangle_solution.html"><b>18.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./lattice_paths.html"><b>19</b> Lattice Paths</a></li>
+<li><a class="menu-level-2" href="./lattice_paths_problem.html"><b>19.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./lattice_paths_solution.html"><b>19.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./stem_and_leaf.html"><b>20</b> Stem and Leaf Plot</a></li>
+<li><a class="menu-level-2" href="./stem_and_leaf_problem.html"><b>20.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./stem_and_leaf_solution.html"><b>20.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./canvas.html"><b>21</b> Canvas</a></li>
+<li><a class="menu-level-2" href="./canvas_problem.html"><b>21.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./canvas_solution.html"><b>21.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./tree.html"><b>22</b> Tree</a></li>
+<li><a class="menu-level-2" href="./tree_problem.html"><b>22.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./tree_solution.html"><b>22.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./format_text.html"><b>23</b> Format Text</a></li>
+<li><a class="menu-level-2" href="./format_text_problem.html"><b>23.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./format_text_solution.html"><b>23.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./roman_numerals.html"><b>24</b> Roman Numerals</a></li>
+<li><a class="menu-level-2" href="./roman_numerals_problem.html"><b>24.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./roman_numerals_solution.html"><b>24.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./cheque.html"><b>25</b> Cheque</a></li>
+<li><a class="menu-level-2" href="./cheque_problem.html"><b>25.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./cheque_solution.html"><b>25.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./sort.html"><b>26</b> Sort</a></li>
+<li><a class="menu-level-2" href="./sort_problem.html"><b>26.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./sort_solution.html"><b>26.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./regex.html"><b>27</b> Regex</a></li>
+<li><a class="menu-level-2" href="./regex_problem.html"><b>27.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./regex_solution.html"><b>27.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./molar_mass.html"><b>28</b> Molar Mass</a></li>
+<li><a class="menu-level-2" href="./molar_mass_problem.html"><b>28.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./molar_mass_solution.html"><b>28.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./tic_tac_toe.html"><b>29</b> Tic-Tac-Toe</a></li>
+<li><a class="menu-level-2" href="./tic_tac_toe_problem.html"><b>29.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./tic_tac_toe_solution.html"><b>29.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./touch_typing.html"><b>30</b> Touch Typing</a></li>
+<li><a class="menu-level-2" href="./touch_typing_problem.html"><b>30.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./touch_typing_solution.html"><b>30.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./compound_interest.html"><b>31</b> Compound Interest</a></li>
+<li><a class="menu-level-2" href="./compound_interest_problem.html"><b>31.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./compound_interest_solution.html"><b>31.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./mortgage.html"><b>32</b> Mortgage</a></li>
+<li><a class="menu-level-2" href="./mortgage_problem.html"><b>32.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./mortgage_solution.html"><b>32.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./overpayment.html"><b>33</b> Overpayment</a></li>
+<li><a class="menu-level-2" href="./overpayment_problem.html"><b>33.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./overpayment_solution.html"><b>33.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./diffusion.html"><b>34</b> Diffusion</a></li>
+<li><a class="menu-level-2" href="./diffusion_problem.html"><b>34.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./diffusion_solution.html"><b>34.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./transcription.html"><b>35</b> Transcription</a></li>
+<li><a class="menu-level-2" href="./transcription_problem.html"><b>35.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./transcription_solution.html"><b>35.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./translation.html"><b>36</b> Translation</a></li>
+<li><a class="menu-level-2" href="./translation_problem.html"><b>36.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./translation_solution.html"><b>36.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./altruism.html"><b>37</b> Altruism</a></li>
+<li><a class="menu-level-2" href="./altruism_problem.html"><b>37.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./altruism_solution.html"><b>37.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./shift.html"><b>38</b> Shift</a></li>
+<li><a class="menu-level-2" href="./shift_problem.html"><b>38.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./shift_solution.html"><b>38.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./caesar.html"><b>39</b> Caesar</a></li>
+<li><a class="menu-level-2" href="./caesar_problem.html"><b>39.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./caesar_solution.html"><b>39.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./vigenere.html"><b>40</b> Vigenere</a></li>
+<li><a class="menu-level-2" href="./vigenere_problem.html"><b>40.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./vigenere_solution.html"><b>40.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./game_of_life.html"><b>41</b> Game of Life</a></li>
+<li><a class="menu-level-2" href="./game_of_life_problem.html"><b>41.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./game_of_life_solution.html"><b>41.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./the-end.html"><b>42</b> The end</a></li>
+</div>
+</aside>
+
+<div class="books-content">
+<h2 data-number="27.1" id="sec:regex_problem"><span class="header-section-number">27.1</span> Problem</h2>
+<h3 data-number="27.1.1" id="sec:regex_problem_intro"><span class="header-section-number">27.1.1</span> Regex Intro</h3>
+<blockquote>
+<p><strong><em>Note:</em></strong> This subsection provides a short description of regular expressions. You may skip it if you know what a regex is. In that case go to the task specification right away (see Section <a href="./regex_problem.html#sec:regex_problem_tasks">27.1.2</a>).</p>
+</blockquote>
+<p>Imagine you work at a police station that happened to arrest a John Smith who is a suspect in a certain case. In your country the identity of an accused person is to be protected from public, so your job is to obfuscate any mention of him from the press release.</p>
+<pre class="language-julia"><code>function getTxtFromFile(filePath::Str)::Str
+    fileTxt::Str = &quot;&quot;
+    try
+        fileTxt = open(filePath) do file
+            read(file, Str)
+        end
+    catch
+        fileTxt = &quot;Can&#39;t read &#39;$filePath&#39;. Make sure it exists.&quot;
+    end
+    return fileTxt
+end
+
+txt = getTxtFromFile(&quot;./loremJohnSmith.txt&quot;)
+&quot;&lt;&lt;&lt; &quot; * txt[1:200] * &quot; ... &gt;&gt;&gt;&quot;</code></pre>
+<p>&lt;&lt;&lt; This is a lorem ipsum text from: https://en.wikipedia.org/wiki/Lorem_ipsum it contains a randomly placed name John Smith. It is used for educational purpose only.</p>
+<p>Lorem ipsum dolor sit John Smith ame … &gt;&gt;&gt;</p>
+<p>This could be done, e.g. by replacing his last name with its first letter, but it’s kind of tedious and boring to do this manually while reading the text. It may be sped up with a <a href="https://en.wikipedia.org/wiki/List_of_word_processor_programs">word processing program</a> in which <code>Ctrl+F</code> is usually a shortcut for a <code>find</code> command. In Julia this could be done with <a href="https://docs.julialang.org/en/v1/base/strings/#Base.eachmatch">eachmatch</a> like so:</p>
+<pre class="language-julia"><code>function getAllMatches(rmi::Base.RegexMatchIterator)::Vec{Str}
+    return [regMatch.match for regMatch in rmi]
+end
+
+getAllMatches(eachmatch(r&quot;John Smith&quot;, txt))[1:2]</code></pre>
+<pre class="output"><code>[&quot;John Smith&quot;, &quot;John Smith&quot;]</code></pre>
+<p>Here we defined a little function (<code>getAllMatches</code>), that will help us to extract the matches as a vector of strings, which is easier to read than the default structure returned by <code>eachmatch</code>. Notice, the <code>r"John Smith"</code> argument in <code>eachmatch</code>. The <code>r</code> indicates that the following characters compose no ordinary string, but a special one that is called a <a href="https://en.wikipedia.org/wiki/Regular_expression">regular expression</a> (or regex). It may not seem like much right now, but we’ll see its potential in a moment.</p>
+<p>Once we confirmed the phrase existence we may wish to obfuscate it. Again, in a word processing program this could be done with <code>Ctrl+H</code> that usually stands for <code>find and replace</code> command. In Julia, we would do it with something like:</p>
+<pre><code># in Julia strings are immutable
+# to make changes permament write it to `txt` and/or to a file
+txt = replace(txt, r&quot;John Smith&quot; =&gt; &quot;John S&quot;)
+eachmatch(r&quot;John Smith&quot;, txt) |&gt; getAllMatches</code></pre>
+<pre><code>String[]</code></pre>
+<p>There, we did our job, the identity of an accused person is protected. We may write the file on a disk and send the press report. I imagine now you’re wondering what’s the big deal with those regexes anyway. For a person with basic computer literacy what we’ve done doesn’t seem particularly advanced. Well, you’re right. It it not. That’s because in order <strong>to have a regex we need to use some meta-characters, i.e. special symbols that are interpreted beyond their literal meaning. On the other hand, as a general rule, any letter or digit in regex (like <code>r"John Smith"</code>) stands for itself</strong>. Overall, the list of meta-characters is rather long, but as stated in <a href="https://docs.julialang.org/en/v1/manual/strings/#man-regex-literals">the docs</a> it may be found at <a href="https://www.pcre.org/current/doc/html/pcre2syntax.html">the PCRE2 syntax manpage</a>.</p>
+<p>Instead of going through all the meta-characters (admittedly an impossible task for a short book chapter) let me just demonstrate a few of the more important ones with some illustrative examples.</p>
+<h4 data-number="27.1.1.1" id="example-1"><span class="header-section-number">27.1.1.1</span> Example 1</h4>
+<pre class="language-julia"><code>txt = getTxtFromFile(&quot;./loremDates.txt&quot;)
+&quot;&lt;&lt;&lt; &quot; * txt[1:200] * &quot; ... &gt;&gt;&gt;&quot;</code></pre>
+<p>&lt;&lt;&lt; This is a lorem ipsum text from: https://en.wikipedia.org/wiki/Lorem_ipsum it contains a randomly placed dates (years). It is used for educational purpose only.</p>
+<p>Lorem ipsum dolor sit 2000 amet consec … &gt;&gt;&gt;</p>
+<p>This time, since I study for an exam, my <code>txt</code> contains a passage from a history book. I would like to extract the dates from it to make sure I know them all. Let’s say that the dates cover years between 1000 AD and the present. Doing a standard string search is no good, after all I would have to check like a thousand numbers. But wait, a simple regex can save me a lot of work. Observe:</p>
+<pre class="language-julia"><code>eachmatch(r&quot;[0-9][0-9][0-9][0-9]&quot;, txt) |&gt; getAllMatches</code></pre>
+<pre class="output"><code>[&quot;2000&quot;, &quot;1989&quot;, &quot;1517&quot;, &quot;1492&quot;, &quot;1410&quot;, &quot;1918&quot;, &quot;1969&quot;, &quot;1776&quot;, &quot;2001&quot;]</code></pre>
+<p>This returned all 4-digit sets in the order they appear in the text (left to right, top to bottom).</p>
+<p>In the regex (<code>r"..."</code>), the <code>[...]</code> is a positive character class that matches any of the enclosed characters. Therefore, <code>[0123456789]</code> would mean match any character used to represent a digit (<code>0</code> or <code>1</code> or <code>2</code> or …). In general the contents of a positive character class are interpreted literally with the exception of <code>\</code>, <code>^</code> at the beginning, and <code>-</code> between two characters. In the last case, the hyphen (<code>-</code>) means any character within a range. Typically its used in the following configurations: <code>[0-9]</code>, <code>[a-z]</code>, <code>[A-Z]</code>, <code>[A-z]</code>, or <code>[A-z0-9]</code>. The range is likely determined based on the underlying codes (e.g. like <a href="https://en.wikipedia.org/wiki/ASCII">ASCII</a>). Therefore, if you want to match any letter (capital or small) the regex must be written as <code>[A-z]</code> and not <code>[a-Z]</code>. Anyway, in our case a regex of the form <code>r"[0-9][0-9][0-9][0-9]"</code>) means match a digit (<code>[0-9]</code>) followed by a digit (<code>[0-9]</code>), followed by a digit (<code>[0-9]</code>), followed by a digit (<code>[0-9]</code>) (exactly 4 digits in a row).</p>
+<p>Interestingly, we could save ourselves even more typing by using other meta-characters for this problem, i.e.</p>
+<pre class="language-julia"><code>eachmatch(r&quot;[0-9]{4}&quot;, txt) |&gt; getAllMatches</code></pre>
+<pre class="output"><code>[&quot;2000&quot;, &quot;1989&quot;, &quot;1517&quot;, &quot;1492&quot;, &quot;1410&quot;, &quot;1918&quot;, &quot;1969&quot;, &quot;1776&quot;, &quot;2001&quot;]</code></pre>
+<p>The <code>{4}</code> means exactly 4 repetitions of a preceding character class (which is <code>[0-9]</code>, so a digit).</p>
+<p>Some newer regex engines allow to shorten it even more:</p>
+<pre class="language-julia"><code>eachmatch(r&quot;\d{4}&quot;, txt) |&gt; getAllMatches</code></pre>
+<pre class="output"><code>[&quot;2000&quot;, &quot;1989&quot;, &quot;1517&quot;, &quot;1492&quot;, &quot;1410&quot;, &quot;1918&quot;, &quot;1969&quot;, &quot;1776&quot;, &quot;2001&quot;]</code></pre>
+<p>Where <code>\d</code> means any digit (in general <code>\</code> gives a special meaning to the following ordinary character) and <code>{4}</code> still designates exactly 4 repetitions of a previous token.</p>
+<h4 data-number="27.1.1.2" id="example-2"><span class="header-section-number">27.1.1.2</span> Example 2</h4>
+<pre class="language-julia"><code>txt = getTxtFromFile(&quot;./loremDollarsDates.txt&quot;)
+&quot;&lt;&lt;&lt; &quot; * txt[1:200] * &quot; ... &gt;&gt;&gt;&quot;</code></pre>
+<p>&lt;&lt;&lt; This is a lorem ipsum text from: https://en.wikipedia.org/wiki/Lorem_ipsum it contains a randomly placed amounts of money and years. It is used for educational purpose only.</p>
+<p>Lorem ipsum dolor sit $11 … &gt;&gt;&gt;</p>
+<p>This time, we got a text that contains both dollars quota (in <code>$123</code> format) and dates, but we’re interested only in the former. Let’s say we want to add them up to find out how much do we need to pay.</p>
+<p>First, we’ll try to get the numbers out. If we assume for a moment that the amount of money is at least 3 digits long then for our first try we might go with:</p>
+<pre><code>eachmatch(r&quot;\d.+\d&quot;, txt) |&gt; getAllMatches</code></pre>
+<pre><code>[
+&quot;112 amet consectetur 1234&quot;,
+&quot;200&quot;,
+&quot;173 exercitation ullamco 1492&quot;,
+&quot;1180 Duis aute irure dolor in $122&quot;,
+&quot;113 cillum dolore eu $3333&quot;,
+&quot;444 sint occaecat cupidatat non $212&quot;,
+&quot;534&quot;
+]</code></pre>
+<p>Here <code>\d</code> means a digit, <code>.</code> is any character (except for newline), and <code>+</code> stands for one or more of the preceding tokens (so match a digit followed by one or more characters, followed by a digit). There is a small problem though, we caught more than we wanted. That’s because by default, regexes are greedy (usually they match as much as they can until a line ends). If we want to make it more temperate we need to follow <code>.+</code> with <code>?</code> (one or more characters, but as few as you can to fulfill the condition).</p>
+<pre><code>eachmatch(r&quot;\d.+?\d&quot;, txt) |&gt; getAllMatches</code></pre>
+<pre><code>[
+&quot;112&quot;,
+&quot;123&quot;,
+&quot;200&quot;,
+&quot;173&quot;,
+&quot;149&quot;,
+&quot;118&quot;,
+&quot;0 Duis aute irure dolor in \$1&quot;,
+&quot;113&quot;,
+&quot;333&quot;,
+&quot;444&quot;,
+&quot;212&quot;,
+&quot;534&quot;
+]</code></pre>
+<p>An improvement, but we’re still not there. Let’s try again.</p>
+<pre><code>eachmatch(r&quot;\d{1,}&quot;, txt) |&gt; getAllMatches</code></pre>
+<pre><code>[
+&quot;112&quot;
+&quot;1234&quot;
+&quot;200&quot;
+&quot;173&quot;
+&quot;1492&quot;
+&quot;1180&quot;
+&quot;122&quot;
+&quot;113&quot;
+&quot;3333&quot;
+&quot;444&quot;
+&quot;212&quot;
+&quot;534&quot;
+]</code></pre>
+<p>Pretty good, here <code>{i,j}</code> means between <code>i</code> and <code>j</code> (inclusive - inclusive) occurrences of the previous token (<code>\d</code>). <code>{,j}</code> stands for 0 to <code>j</code> and <code>{i,}</code> stands for <code>i</code> or more. Therefore, we only match 1 or more digits in a row, so it seems that we are finally there. Well, not quite, right now we got no way to tell which digits denote money and which years (they’re from the file <code>loremDollarsDates.txt</code>).</p>
+<blockquote>
+<p><strong><em>Note:</em></strong> You need to be precise while typing the quantifiers. Typing <code>eachmatch(r"\d{1, }", txt) |&gt; getAllMatches</code> (it contains an extra space in <code>\d{1, }</code>) will give you no matches (empty vector).</p>
+</blockquote>
+<p>Let’s try to change our regex a bit to extract only dollars.</p>
+<pre><code>eachmatch(r&quot;$\d{1,}&quot;, txt) |&gt; getAllMatches</code></pre>
+<pre><code>String[]</code></pre>
+<p>Hmm, we wanted to extract a dollar symbol <code>$</code> with all the following digits. Oddly enough that seemed to have failed. That’s because <code>$</code> is a meta-character that denotes end of a subject (usually end of a line or end of a string). So, actually what we said with <code>$\d{1,}</code> was: find digits after the end of a string. An impossible task, hence the empty vector as a result. If we want <code>$</code> to be interpreted as a regular dollar symbol we need to proceed it with <code>\</code> (<code>\</code> gives a special meaning to an ordinary character, like in <code>\d,</code> and strips it away from a special character like <code>$</code>).</p>
+<pre><code>eachmatch(r&quot;\$\d{1,}&quot;, txt) |&gt; getAllMatches</code></pre>
+<pre><code>[
+&quot;$112&quot;,
+&quot;$200&quot;,
+&quot;$173&quot;,
+&quot;$1180&quot;,
+&quot;$122&quot;,
+&quot;$113&quot;,
+&quot;$3333&quot;,
+&quot;$444&quot;,
+&quot;$212&quot;,
+&quot;$534&quot;
+]</code></pre>
+<p>Finally, we can add it up using, e.g. this few liner:</p>
+<pre><code>eachmatch(r&quot;\$\d{1,}&quot;, txt) |&gt; getAllMatches |&gt;
+vecStrDollars -&gt; replace.(vecStrDollars, &quot;\$&quot; =&gt; &quot;&quot;) |&gt;
+vecStrNumbers -&gt; parse.(Int, vecStrNumbers) |&gt;
+sum</code></pre>
+<pre><code>6423</code></pre>
+<p>And voila, we’re done. Notice, however, that the regex isn’t perfect. For example, it doesn’t handle correctly the amounts of money that contain floating point values (or negative quotas). If that were the requirement, we would would have to improve upon it.</p>
+<h4 data-number="27.1.1.3" id="example-3"><span class="header-section-number">27.1.1.3</span> Example 3</h4>
+<p>This time we got a few random telephone numbers.</p>
+<pre class="language-julia"><code>Rnd.seed!(9)
+telNums = [join(Rnd.rand(string.(0:9), 9)) for _ in 1:3]</code></pre>
+<pre class="output"><code>[&quot;304039945&quot;, &quot;545946090&quot;, &quot;818309467&quot;]</code></pre>
+<p>Our task is to convert them into a more readable form, e.g. xxx-xxx-xxx.</p>
+<pre><code>replace.(telNums, r&quot;(\d{3})(\d{3})(\d{3})&quot; =&gt; s&quot;\1-\2-\3&quot;)</code></pre>
+<pre><code>[
+    &quot;304-039-945&quot;,
+    &quot;545-946-090&quot;,
+    &quot;818-309-467&quot;
+]</code></pre>
+<p>The new elements here are <code>()</code> and <code>\1</code>, <code>\2</code>, <code>\3</code>. Those are capture groups and back-references, respectively. Therefore, <code>(\d{3})</code> in a regex (<code>r""</code>) means capture any three digits in a row and remember them, whereas <code>\1</code> in the substitution (<code>s""</code> - denotes a substitution string that may use meta-characters) means: use the first captured and remembered group (by analogy <code>\2</code> is for the second captured group and <code>\3</code> is for the third).</p>
+<h4 data-number="27.1.1.4" id="example-4"><span class="header-section-number">27.1.1.4</span> Example 4</h4>
+<p>In Section <a href="./camel_case.html#sec:camel_case">4</a> we dealt with two-way text transformations between camelCase and snake_case.</p>
+<p>Let’s do this with regexes. We’ll start with <code>camelCasedWords</code>:</p>
+<pre><code>camelCasedWords = [
+    &quot;helloWorld&quot;, &quot;niceToMeetYou&quot;, &quot;translateToEnglish&quot;
+]
+
+eachmatch.(r&quot;([A-Z])&quot;, camelCasedWords) .|&gt; getAllMatches</code></pre>
+<pre><code>[
+    [&quot;W&quot;],
+    [&quot;T&quot;, &quot;M&quot;, &quot;Y&quot;],
+    [&quot;T&quot;, &quot;E&quot;]
+]</code></pre>
+<p>First, we capture (<code>()</code>) any capital letter (<code>[A-Z]</code>) in a string. Now we would like to lowercase it. Per <a href="https://www.pcre.org/current/doc/html/pcre2syntax.html#SEC32">pcre2 syntax manual</a> we should be able to do this using <code>\l</code> escape sequence (it means lowercase next character), but for whatever reason the following snippet throws an error:</p>
+<pre><code>replace.(camelCasedWords, r&quot;([A-Z])&quot; =&gt; s&quot;\l\1&quot;)</code></pre>
+<p>No, biggie. Julia allows the second argument of <code>replace</code> to be a <a href="https://docs.julialang.org/en/v1/base/collections/#Core.Pair">pair</a> of the form <code>regex =&gt; function that operates on a matched string</code>. We can use that to our advantage:</p>
+<pre><code># no need for (), since we don&#39;t use backreferences anyway
+replace.(camelCasedWords, r&quot;[A-Z]&quot; =&gt; lowercase)</code></pre>
+<pre><code>[
+&quot;helloworld&quot;,
+&quot;nicetomeetyou&quot;,
+&quot;translatetoenglish&quot;
+]</code></pre>
+<p>Almost there, we just need to precede the lower-cased letter with <code>_</code>. This could be done by using an anonymous function, e.g. like this:</p>
+<pre><code>replace.(camelCasedWords, r&quot;[A-Z]&quot; =&gt; AtoZ -&gt; &quot;_&quot; * lowercase(AtoZ))</code></pre>
+<pre><code>[
+&quot;hello_world&quot;,
+&quot;nice_to_meet_you&quot;,
+&quot;translate_to_english&quot;
+]</code></pre>
+<p>or like that (here we use a template string):</p>
+<pre><code>replace.(camelCasedWords, r&quot;[A-Z]&quot; =&gt; AtoZ -&gt; &quot;_$(lowercase(AtoZ))&quot;)</code></pre>
+<pre><code>[
+&quot;hello_world&quot;,
+&quot;nice_to_meet_you&quot;,
+&quot;translate_to_english&quot;
+]</code></pre>
+<p>Nice.</p>
+<p>Now, it’s time for the opposite transformation.</p>
+<pre><code>snakeCasedWords = [&quot;hello_world&quot;,
+    &quot;nice_to_meet_you&quot;, &quot;translate_to_english&quot;
+]
+
+replace.(snakeCasedWords, r&quot;_[a-z]&quot; =&gt; _atoz -&gt; uppercase(_atoz[2:end]))
+# or
+replace.(snakeCasedWords,
+    r&quot;_[a-z]&quot; =&gt; _atoz -&gt; uppercase(strip(_atoz, &#39;_&#39;)))</code></pre>
+<pre><code>[
+&quot;helloWorld&quot;,
+&quot;niceToMeetYou&quot;,
+&quot;translateToEnglish&quot;,
+]</code></pre>
+<p>Wow, that felt like a breeze.</p>
+<p>Overall, the two lines of code (<code>replace.(camelCasedWord, etc.)</code> and <code>replace.(snakeCasedWords, etc.)</code>) are the equivalent of roughly 20 lines of code in Section <a href="./camel_case_solution.html#sec:camel_case_solution">4.2</a>. And that’s how it usually is, regexes are more succinct than the traditional functions, although they’re not necessarily faster to write (especially if that is your first encounter with the subject).</p>
+<h4 data-number="27.1.1.5" id="summary"><span class="header-section-number">27.1.1.5</span> Summary</h4>
+<p>Here’s a quick reminder of what we learned about regexes and meta-characters:</p>
+<ol type="1">
+<li>in general any letter or digit that occurs in regex stands for itself;</li>
+<li>a positive character class is denoted by square brackets and is often used to capture a range of characters, like <code>[a-z]</code>, <code>[A-Z]</code>, <code>[0-9]</code>, <code>[A-z]</code>, or <code>[A-z0-9]</code>;</li>
+<li><code>{}</code> is a quantifier, it specifies a quantity of the previous token, where <code>{i}</code>, <code>{i,j}</code>, <code>{i,}</code>, and <code>{,j}</code> mean: exactly <code>i</code>, between <code>i</code> and <code>j</code>, at least <code>i</code> and up-to <code>j</code> previous tokens, respectively;</li>
+<li><code>\</code> bestows a special meaning on an ordinary character (<code>\d</code> denotes any digit), or strips it away from a special character (<code>$</code> - is end of a string, wheres <code>\$</code> is a dollar symbol);</li>
+<li><code>(sth)</code> inside of <code>r""</code> stands for capture and remember, whereas <code>\1</code> in <code>s""</code> denotes back-reference to the first capture;</li>
+<li>the second argument of replace is a <a href="https://docs.julialang.org/en/v1/base/collections/#Core.Pair">pair</a> of the form: <code>r"" =&gt; ""</code> (regex =&gt; regular string), <code>r"" =&gt; s""</code> (regex =&gt; substitution string), <code>r"" =&gt; function</code> (regex =&gt; function that accepts a string and returns a string possibly applying some transformations on the way).</li>
+</ol>
+<h3 data-number="27.1.2" id="sec:regex_problem_tasks"><span class="header-section-number">27.1.2</span> Regex Tasks</h3>
+<p>OK, time to put what you’ve learned to good use. If, while solving the tasks, you need a visual assistant that helps you with regular expressions, then you may try e.g. <a href="https://regex101.com/">regex101</a>.</p>
+<h4 data-number="27.1.2.1" id="sec:regex_problem_task1"><span class="header-section-number">27.1.2.1</span> Regex Task 1</h4>
+<p>You got a series of dates in the US format “MM.DD.YYYY”:</p>
+<pre><code>datesMMDDYYYY = [&quot;01.04.2025&quot;, &quot;11.01.2018&quot;, &quot;12.31.1999&quot;, &quot;03.20.2026&quot;]</code></pre>
+<p>The format is confusing to some (e.g. European) people. Change it to a less ambiguous “YYYY-MM-DD” configuration.</p>
+<h4 data-number="27.1.2.2" id="sec:regex_problem_task2"><span class="header-section-number">27.1.2.2</span> Regex Task 2</h4>
+<p>Read the contents of <code>loremMail.txt</code> that is to be found in <a href="https://github.com/b-lukaszuk/J_PRPD_eng/tree/main/code_snippets/regex">the code snippets</a>. It contains random e-mail addresses (with repetitions). Use Julia to list the unique e-mail addresses found in the text.</p>
+<h4 data-number="27.1.2.3" id="sec:regex_problem_task3"><span class="header-section-number">27.1.2.3</span> Regex Task 3</h4>
+<p>Here’s a vector of random names:</p>
+<pre><code># random names
+names = [&quot;Mary Johnson&quot;, &quot;Eve Smith&quot;, &quot;Tom Brown&quot;]</code></pre>
+<p>Swap the names order with a regex (“Adam Smith” should become “Smith, Adam”) and sort them alphabetically in ascending order.</p>
+<p>Can you do the same, but while accounting for possible middle names.</p>
+<pre><code># random names
+names = [&quot;Jane Johnson&quot;, &quot;Mary Jane Doe&quot;, &quot;Peter Smith&quot;, &quot;Adam Tom Brown&quot;]</code></pre>
+<p>To add a small tweak, I want you to swap the names, abbreviate the middle name (“John Daniel Smith” should become “Smith, John D.”, whereas “Adam Smith” should become “Smith, Adam”) and then sort them alphabetically in ascending order.</p>
+<h4 data-number="27.1.2.4" id="sec:regex_problem_task4"><span class="header-section-number">27.1.2.4</span> Regex Task 4</h4>
+<p>In Section <a href="./mortgage_solution.html#sec:mortgage_solution">32.2</a> we wrote a <code>fmt</code> function to format numbers to something like: “123,456 USD”.</p>
+<p>Write a program (possibly a regex or regexes + some extra code) that will convert those numbers to the desired form (place <code>,</code> after every three numbers from right).</p>
+<pre><code>nums = [0, 1, 12, 123, 1234, 12345,
+    123456, 1234567, 12345678, 123456789]</code></pre>
+<p>Can you modify your program so that it handles the following numbers correctly as well (e.g. <code>12345.678</code> should become “12,345.68 USD”):</p>
+<pre><code>nums = [0, 0.1, 1, 1.2, 12., 12.34, 123.456,
+    1234, 12345, 12345.67, 123456.7, 1234567.89]</code></pre>
+<p>Well, let’s find out. Good luck.</p>
+
+
+<div class="bottom-nav">
+    <p id="nav-prev" style="text-align: left;">
+        <a class="menu-level-1" href="./regex.html"><b>27</b> Regex</a> <kbd>←</kbd>
+        <span id="nav-next" style="float: right;">
+            <kbd>→</kbd> <a class="menu-level-2" href="./regex_solution.html"><b>27.2</b> Solution</a>
+        </span>
+    </p>
+</div>
+
+
+<div class="license">
+    <br/>
+  <br/>
+  <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+    Bartlomiej Lukaszuk
+</div>
+</div>
+</div>
+</body>
+</html>

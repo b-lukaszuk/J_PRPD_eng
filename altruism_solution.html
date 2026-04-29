@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Bartlomiej Lukaszuk" />
+  <title>Solution - Julia. Projects from a Recreational Programmer’s Drawer</title>
+  <link rel="stylesheet" href="./style.css"/>
+    <script src="./mousetrap.min.js"></script>
+    <style>
+  @font-face {
+    font-family: JuliaMono-Regular;
+    src: url("./JuliaMono-Regular.woff2");
+  }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="./github.min.css">
+<script src="./highlight.min.js"></script>
+<script src="./julia.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+    document.querySelectorAll('pre').forEach((el) => {
+        if (!el.classList.contains('output')) {
+            hljs.highlightElement(el);
+        }
+    });
+});
+</script>
+ 
+</head>
+<body>
+<script>
+function click_next() {
+  var next = document.getElementById('nav-next');
+  next.firstElementChild.nextElementSibling.click();
+}
+function click_prev() {
+  var prev = document.getElementById('nav-prev');
+  prev.firstElementChild.click();
+}
+Mousetrap.bind('right', click_next);
+Mousetrap.bind('h', click_prev);
+Mousetrap.bind('left', click_prev);
+Mousetrap.bind('l', click_next);
+</script>
+
+<div class="books-container">
+<aside class="books-menu">
+<input type="checkbox" id="menu">
+<label for="menu">☰</label>
+<div class="books-title">
+<a href="./">Julia. Projects from a Recreational Programmer's Drawer</a>
+</div><br />
+<span class="books-subtitle">
+
+</span>
+<div class="books-menu-content">
+<li><a class="menu-level-1" href="./about.html"><b>1</b> About</a></li>
+<li><a class="menu-level-1" href="./mat_multip.html"><b>2</b> Matrix Multiplication</a></li>
+<li><a class="menu-level-2" href="./mat_multip_problem.html"><b>2.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./mat_multip_solution.html"><b>2.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./bat_and_ball.html"><b>3</b> Bat and Ball</a></li>
+<li><a class="menu-level-2" href="./bat_and_ball_problem.html"><b>3.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./bat_and_ball_solution.html"><b>3.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./camel_case.html"><b>4</b> Camel Case</a></li>
+<li><a class="menu-level-2" href="./camel_case_problem.html"><b>4.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./camel_case_solution.html"><b>4.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./toothpaste.html"><b>5</b> Toothpaste</a></li>
+<li><a class="menu-level-2" href="./toothpaste_problem.html"><b>5.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./toothpaste_solution.html"><b>5.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./bile.html"><b>6</b> Bile</a></li>
+<li><a class="menu-level-2" href="./bile_problem.html"><b>6.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./bile_solution.html"><b>6.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./leap_year.html"><b>7</b> Leap Year</a></li>
+<li><a class="menu-level-2" href="./leap_year_problem.html"><b>7.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./leap_year_solution.html"><b>7.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./calendar.html"><b>8</b> Calendar</a></li>
+<li><a class="menu-level-2" href="./calendar_problem.html"><b>8.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./calendar_solution.html"><b>8.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./prime_numbers.html"><b>9</b> Prime Numbers</a></li>
+<li><a class="menu-level-2" href="./prime_numbers_problem.html"><b>9.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./prime_numbers_solution.html"><b>9.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./recursion.html"><b>10</b> Recursion</a></li>
+<li><a class="menu-level-2" href="./recursion_problem.html"><b>10.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./recursion_solution.html"><b>10.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./randomness.html"><b>11</b> Randomness</a></li>
+<li><a class="menu-level-2" href="./randomness_problem.html"><b>11.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./randomness_solution.html"><b>11.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./birthday.html"><b>12</b> Birthday</a></li>
+<li><a class="menu-level-2" href="./birthday_problem.html"><b>12.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./birthday_solution.html"><b>12.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./logo.html"><b>13</b> Logo</a></li>
+<li><a class="menu-level-2" href="./logo_problem.html"><b>13.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./logo_solution.html"><b>13.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./binary.html"><b>14</b> Binary</a></li>
+<li><a class="menu-level-2" href="./binary_problem.html"><b>14.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./binary_solution.html"><b>14.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./the_answer.html"><b>15</b> The Answer</a></li>
+<li><a class="menu-level-2" href="./the_answer_problem.html"><b>15.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./the_answer_solution.html"><b>15.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./the_doors.html"><b>16</b> The Doors</a></li>
+<li><a class="menu-level-2" href="./the_doors_problem.html"><b>16.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./the_doors_solution.html"><b>16.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./progress_bar.html"><b>17</b> Progress Bar</a></li>
+<li><a class="menu-level-2" href="./progress_bar_problem.html"><b>17.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./progress_bar_solution.html"><b>17.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./pascals_triangle.html"><b>18</b> Pascal’s Triangle</a></li>
+<li><a class="menu-level-2" href="./pascals_triangle_problem.html"><b>18.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./pascals_triangle_solution.html"><b>18.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./lattice_paths.html"><b>19</b> Lattice Paths</a></li>
+<li><a class="menu-level-2" href="./lattice_paths_problem.html"><b>19.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./lattice_paths_solution.html"><b>19.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./stem_and_leaf.html"><b>20</b> Stem and Leaf Plot</a></li>
+<li><a class="menu-level-2" href="./stem_and_leaf_problem.html"><b>20.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./stem_and_leaf_solution.html"><b>20.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./canvas.html"><b>21</b> Canvas</a></li>
+<li><a class="menu-level-2" href="./canvas_problem.html"><b>21.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./canvas_solution.html"><b>21.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./tree.html"><b>22</b> Tree</a></li>
+<li><a class="menu-level-2" href="./tree_problem.html"><b>22.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./tree_solution.html"><b>22.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./format_text.html"><b>23</b> Format Text</a></li>
+<li><a class="menu-level-2" href="./format_text_problem.html"><b>23.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./format_text_solution.html"><b>23.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./roman_numerals.html"><b>24</b> Roman Numerals</a></li>
+<li><a class="menu-level-2" href="./roman_numerals_problem.html"><b>24.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./roman_numerals_solution.html"><b>24.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./cheque.html"><b>25</b> Cheque</a></li>
+<li><a class="menu-level-2" href="./cheque_problem.html"><b>25.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./cheque_solution.html"><b>25.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./sort.html"><b>26</b> Sort</a></li>
+<li><a class="menu-level-2" href="./sort_problem.html"><b>26.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./sort_solution.html"><b>26.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./regex.html"><b>27</b> Regex</a></li>
+<li><a class="menu-level-2" href="./regex_problem.html"><b>27.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./regex_solution.html"><b>27.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./molar_mass.html"><b>28</b> Molar Mass</a></li>
+<li><a class="menu-level-2" href="./molar_mass_problem.html"><b>28.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./molar_mass_solution.html"><b>28.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./tic_tac_toe.html"><b>29</b> Tic-Tac-Toe</a></li>
+<li><a class="menu-level-2" href="./tic_tac_toe_problem.html"><b>29.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./tic_tac_toe_solution.html"><b>29.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./touch_typing.html"><b>30</b> Touch Typing</a></li>
+<li><a class="menu-level-2" href="./touch_typing_problem.html"><b>30.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./touch_typing_solution.html"><b>30.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./compound_interest.html"><b>31</b> Compound Interest</a></li>
+<li><a class="menu-level-2" href="./compound_interest_problem.html"><b>31.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./compound_interest_solution.html"><b>31.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./mortgage.html"><b>32</b> Mortgage</a></li>
+<li><a class="menu-level-2" href="./mortgage_problem.html"><b>32.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./mortgage_solution.html"><b>32.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./overpayment.html"><b>33</b> Overpayment</a></li>
+<li><a class="menu-level-2" href="./overpayment_problem.html"><b>33.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./overpayment_solution.html"><b>33.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./diffusion.html"><b>34</b> Diffusion</a></li>
+<li><a class="menu-level-2" href="./diffusion_problem.html"><b>34.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./diffusion_solution.html"><b>34.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./transcription.html"><b>35</b> Transcription</a></li>
+<li><a class="menu-level-2" href="./transcription_problem.html"><b>35.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./transcription_solution.html"><b>35.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./translation.html"><b>36</b> Translation</a></li>
+<li><a class="menu-level-2" href="./translation_problem.html"><b>36.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./translation_solution.html"><b>36.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./altruism.html"><b>37</b> Altruism</a></li>
+<li><a class="menu-level-2" href="./altruism_problem.html"><b>37.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./altruism_solution.html"><b>37.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./shift.html"><b>38</b> Shift</a></li>
+<li><a class="menu-level-2" href="./shift_problem.html"><b>38.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./shift_solution.html"><b>38.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./caesar.html"><b>39</b> Caesar</a></li>
+<li><a class="menu-level-2" href="./caesar_problem.html"><b>39.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./caesar_solution.html"><b>39.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./vigenere.html"><b>40</b> Vigenere</a></li>
+<li><a class="menu-level-2" href="./vigenere_problem.html"><b>40.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./vigenere_solution.html"><b>40.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./game_of_life.html"><b>41</b> Game of Life</a></li>
+<li><a class="menu-level-2" href="./game_of_life_problem.html"><b>41.1</b> Problem</a></li>
+<li><a class="menu-level-2" href="./game_of_life_solution.html"><b>41.2</b> Solution</a></li>
+<li><a class="menu-level-1" href="./the-end.html"><b>42</b> The end</a></li>
+</div>
+</aside>
+
+<div class="books-content">
+<h2 data-number="37.2" id="sec:altruism_solution"><span class="header-section-number">37.2</span> Solution</h2>
+<p>Since this is a game theory problem, then we’re going to use game terminology in the solution. Ready. Let the games begin.</p>
+<p>First, let’s define all the possible values for players (i.e. monkeys) and moves (i.e. choices) by using Julia’s <a href="https://docs.julialang.org/en/v1/base/base/#Base.Enums.Enum">enums</a>.</p>
+<pre class="language-julia"><code>@enum Player naive gullible unforgiving paybacker unfriendly abusive egoist
+@enum Choice cooperate=0 betray=1</code></pre>
+<p>Now, whenever we use <code>Player</code> in our code (as a variable type) we will be able to use one of the seven informative and mnemonic names (<code>naive gullible unforgiving paybacker unfriendly abusive egoist</code>). The same goes for <code>Choice</code> our players will make (<code>cooperate</code> and <code>betray</code>). Note, however, that in this last case the <code>Choices</code> are followed by the number code. We didn’t have to do that since by default the enums are internally stored as consecutive integers that start at 0. Still, we did it to emphasize our plan to use this property of our new type in the near future. Namely, per problem description <code>unforgiving</code> monkey always betrays its partner when it was itself betrayed more than three times in the past. To that end we will need to count the betrayals.</p>
+<pre class="language-julia"><code>import Base: +
+
+function +(c1::Choice, c2::Choice)::Int
+    return Int(c1) + Int(c2)
+end
+
+function +(n::Int, c::Choice)::Int
+    return n + Int(c)
+end</code></pre>
+<p>We start by importing the <code>+</code> function from <code>Base</code> package and make the versions of it (aka methods) that know how to handle our <code>Choice</code> enum. Simply, if we add two <code>Choices</code> (<code>c1</code> and <code>c2</code>) together, we add the underlying integers (<code>Int(c1) + Int(c2)</code>) and when we add an integer (<code>n</code>) to a <code>Choice</code> then again we add the integer to the <code>Choice</code>’s integer representation (<code>n + Int(c)</code>). Thanks to this little trick, we will be able to count the total of betrayals in a vector of <code>Choice</code>s with the built in <code>sum</code> function (it relies on <code>+</code>)</p>
+<blockquote>
+<p><strong><em>Note:</em></strong> Do not overuse this technique. In general, you should redefine the built in <code>Base</code> functions (like <code>+</code>) only on the types that you have defined yourself.</p>
+</blockquote>
+<p>Time to write a function that will return the Player’s move. According to the problem description all it needs know to do its job correctly is the <code>Player</code>’s type and its opponents previous moves.</p>
+<pre class="language-julia"><code>import Random as Rnd
+
+function getMove(p::Player, opponentMoves::Vec{Choice})::Choice
+    # random float in range [0.0-1.0), prob [0.0-1.0], so good enough
+    prob::Flt = Rnd.rand()
+    if p == naive
+        return cooperate
+    elseif p == unforgiving
+        return sum(opponentMoves, init=0) &gt; 3 ? betray : cooperate
+    elseif p == gullible
+        return prob &lt;= 0.9 ? cooperate : betray
+    elseif p == paybacker
+        return isempty(opponentMoves) ? cooperate : opponentMoves[end]
+    elseif p == unfriendly
+        return prob &lt;= 0.6 ? betray : cooperate
+    elseif p == abusive
+        return prob &lt;= 0.8 ? betray : cooperate
+    else # egoist player
+        return betray
+    end
+end</code></pre>
+<p>The function is a bit cumbersome to type because Julia does not have <a href="https://en.wikipedia.org/wiki/Switch_statement">a switch statement</a> known from other programming languages. If you really must have it, then consider using <a href="https://github.com/JuliaServices/Match.jl">Match.jl</a> as a replacement. Anyway, the code is pretty simple if you are familiar with <a href="https://b-lukaszuk.github.io/RJ_BS_eng/julia_language_decision_making.html">the decision making in Julia</a>. One point to notice is that here we used the <code>init=0</code> keyword argument in <code>sum</code>. This is a default value from which we start counting the total, and it makes sure that an empty vector (<code>opponentMoves</code>) returns <code>0</code> instead of an error when used with <code>sum</code>.</p>
+<p>Time to award our players with survival points per a round (interaction) and their choices.</p>
+<pre class="language-julia"><code>function getPts(c1::Choice, c2::Choice)::Tuple{Int, Int}
+    if c1 == c2 == cooperate
+        return (2, 2)
+    elseif c1 &gt; c2
+        return (3, -2)
+    elseif c1 &lt; c2
+        return (-2, 3)
+    else # both betray
+        return (-1, -1)
+    end
+end</code></pre>
+<p>Notice, that the <code>enum</code> defined by us (<code>Choice</code>) got a built in ordering that by default goes in an ascending order from left to right (<code>cooperate</code> &lt; <code>betray</code> per <code>@enum Choice cooperate betray</code>) which we used to our advantage here.</p>
+<p>Time to write a function that takes two players as an argument and runs a random number of games (50:300 interactions) between them. In the end it returns the survival points each player obtained.</p>
+<pre class="language-julia"><code>function playRoundsGetPts(p1::Player, p2::Player)::Tuple{Int, Int}
+    pts1::Int, pts2::Int = 0, 0 # total pts
+    pt1::Int, pt2::Int = 0, 0 # pts per round
+    mvs1::Vec{Choice}, mvs2::Vec{Choice} = [], [] # all moves
+    mv1::Choice, mv2::Choice = cooperate, cooperate # move per round
+    nRounds::Int = Rnd.rand(50:300)
+    for _ in 1:nRounds
+        mv1, mv2 = getMove(p1, mvs2), getMove(p2, mvs1)
+        pt1, pt2 = getPts(mv1, mv2)
+        push!(mvs1, mv1)
+        push!(mvs2, mv2)
+        pts1 += pt1
+        pts2 += pt2
+    end
+    return (pts1, pts2)
+end</code></pre>
+<p>We begin by defining and initializing variables to store:</p>
+<ol type="1">
+<li>total number of points obtained by each player (<code>pts1</code>, <code>pts2</code>)</li>
+<li>the number of points obtained by the players per single interaction (<code>pt1</code>, <code>pt2</code>)</li>
+<li>all the moves made by the players during their interactions (<code>mvs1</code>, <code>mvs2</code>)</li>
+<li>the moves made by each player per single interaction (<code>mv1</code>, <code>mv2</code>)</li>
+<li>the number of interactions (rounds) between the players (<code>nRounds</code>)</li>
+</ol>
+<p>We update the above mentioned variables after every round/interaction took place (in the <code>for</code> loop). Finally, we return the number of points obtained by each player.</p>
+<p>Time to set things into motion and make all the players play with each other.</p>
+<pre class="language-julia"><code>function playGame(players::Vec{Player})::Dict{Player, Int}
+    playersPts::Dict{Player, Int} = Dict(p =&gt; 0 for p in players)
+    alreadyPlayed::Dict{Player, Bool} = Dict()
+    for player1 in players, player2 in players
+        if player1 == player2 || haskey(alreadyPlayed, player2)
+            continue
+        end
+        pts1, pts2 = playRoundsGetPts(player1, player2)
+        playersPts[player1] += pts1
+        playersPts[player2] += pts2
+        alreadyPlayed[player1] = true
+    end
+    return playersPts
+end</code></pre>
+<p>Again, we start by initializing the necessary variables: the result (<code>playersPts</code>) and players that already played in our game (<code>alreadyPlayed</code>). Next, we use Julia’s simplified nested for loop syntax (that we met in Section <a href="./mat_multip_solution.html#sec:mat_multip_solution">2.2</a>) to make all players play with each other. We prevent the player playing with themselves (<code>player1 == player2</code>). We also stop the players from playing with each other two times. Without <code>haskey(alreadyPlayed, player2)</code>, e.g. <code>naive</code> would play with <code>egoist</code> twice [once as <code>player1</code> (<code>naive</code> vs <code>egoist</code>), the other time as <code>player2</code> (<code>egoist</code> vs <code>naive</code>)]. We update the points scored by each player after every pairing (<code>playerPts[player1] += pts1</code>, <code>playerPts[player2] += pts2</code>) and return them as a result (<code>return playersPts</code>).</p>
+<p>Let’s see how it works.</p>
+<pre class="language-julia"><code>Rnd.seed!(401) # needed to make it reproducible
+playGame([naive, unforgiving, paybacker, unfriendly, abusive, egoist])</code></pre>
+<pre class="output"><code>Dict{Player, Int64} with 6 entries:
+  unforgiving =&gt; 490
+  paybacker =&gt; 464
+  egoist =&gt; 323
+  unfriendly =&gt; -26
+  naive =&gt; 68
+  abusive =&gt; 2</code></pre>
+<p>First three competitors (monkeys) are: <code>unforgiving</code> followed by <code>paybacker</code> and <code>egoist</code>. Run the simulation a couple of times (with different <code>seed</code>s) and see the results. In general the good players (monkeys) win the podium with the evil ones in 2:1 ratio.</p>
+<p>Interestingly, if we replace the <code>unforgiving</code> with <code>gullible</code> (it cooperates at random 90% of the times) we get something entirely different.</p>
+<pre class="language-julia"><code>Rnd.seed!(401) # needed to make it reproducible
+playGame([naive, gullible, paybacker, unfriendly, abusive, egoist])</code></pre>
+<pre class="output"><code>Dict{Player, Int64} with 6 entries:
+  gullible =&gt; 79
+  paybacker =&gt; 395
+  egoist =&gt; 615
+  unfriendly =&gt; 758
+  naive =&gt; 36
+  abusive =&gt; 326</code></pre>
+<p>The situation seems to be reversed, The evil players (monkeys) win the podium with the good ones in 2:1 ratio. So I guess: “The only thing necessary for evil to triumph in the world is that <a href="https://en.wikipedia.org/?title=The_only_thing_necessary_for_evil_to_triumph_in_the_world_is_that_good_men_do_nothing&amp;redirect=no">good men do nothing</a>”</p>
+
+
+<div class="bottom-nav">
+    <p id="nav-prev" style="text-align: left;">
+        <a class="menu-level-2" href="./altruism_problem.html"><b>37.1</b> Problem</a> <kbd>←</kbd>
+        <span id="nav-next" style="float: right;">
+            <kbd>→</kbd> <a class="menu-level-1" href="./shift.html"><b>38</b> Shift</a>
+        </span>
+    </p>
+</div>
+
+
+<div class="license">
+    <br/>
+  <br/>
+  <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+    Bartlomiej Lukaszuk
+</div>
+</div>
+</div>
+</body>
+</html>
