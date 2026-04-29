@@ -19,8 +19,7 @@ Hello there. This is an open access book entitled: "Julia. Projects from a
 Recreational Programmer's Drawer". 
 
 > **_Note:_** The book was written by an amateur programmer (with all its
-> potential negative consequences). If you find this a problem, stop reading
-> now.
+> potential negative consequences). If this is as a problem, stop reading now.
 
 This book was generated using [Books.jl](https://github.com/JuliaBooks/Books.jl)
 starting with [BookTemplate](https://github.com/JuliaBooks/BookTemplate).
@@ -30,7 +29,7 @@ The book is also available as [**PDF**](/J_PRPD_eng_29_04_2026.pdf).
 The template for this book can be found
 [here](https://github.com/b-lukaszuk/J_PRPD_eng) and the code snippets for the
 chapters are available
-[there](https://github.com/b-lukaszuk/PRPD_eng/tree/main/code_snippets).
+[there](https://github.com/b-lukaszuk/J_PRPD_eng/tree/main/code_snippets).
 
 The book is available freely under [Creative Commons
 Attribution-NonCommercial-ShareAlike 4.0
