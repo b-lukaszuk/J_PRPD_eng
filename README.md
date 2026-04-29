@@ -14,7 +14,7 @@ Start date: Wed, 2024-09-11
 
 Book writing status: Completed (2026-04-28, small changes possible).
 
-Latest version available online [here](https://b-lukaszuk.github.io/BS_wJ_eng/).
+Latest version available online [here](https://b-lukaszuk.github.io/J_PRPD_eng/).
 
 ## Running book locally
 
