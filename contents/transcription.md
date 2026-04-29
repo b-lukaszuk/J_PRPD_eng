@@ -7,7 +7,7 @@ stop you.
 I recommend you try to solve the task on your own first. Once you finish you may
 compare your solution with the one in this chapter (with explanations) or with
 [the code
-snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/transcription)
+snippets](https://github.com/b-lukaszuk/J_PRPD_eng/tree/main/code_snippets/transcription)
 (without explanations).
 
 A reminder of how to deal with packages and \*.toml files can be found
@@ -42,7 +42,7 @@ the nucleic acids' molecular components (nucleotide bases) called `adenine`,
 
 This time your task is to read the data from the file:
 `dna_seq_template_strand.txt` (to be found in [the code snippets for this
-chapter](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/transcription)).
+chapter](https://github.com/b-lukaszuk/J_PRPD_eng/tree/main/code_snippets/transcription)).
 The file contains a sequence of nucleotide bases of some gene. Splice its coding
 parts (aka. [exons](https://en.wikipedia.org/wiki/Exon)), which encompass the
 molecules at positions 2424-2610 and 3397-3542. Transcribe the obtained strand

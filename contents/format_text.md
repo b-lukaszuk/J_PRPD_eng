@@ -14,7 +14,7 @@ Still, once you read the problem description you may decide to do otherwise.
 I recommend you try to solve the task on your own first. Once you finish you may
 compare your solution with the one in this chapter (with explanations) or with
 [the code
-snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/format_text)
+snippets](https://github.com/b-lukaszuk/J_PRPD_eng/tree/main/code_snippets/format_text)
 (without explanations).
 
 A reminder of how to deal with packages and \*.toml files can be found
@@ -28,7 +28,7 @@ many text editing functionalities. In a pre-digital era, those tasks had to be
 done manually. Anyway, let's try to do some typesetting with Julia.
 
 Choose an exemplary text, like `text2beFormatted.txt` from [the code
-snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/format_text)
+snippets](https://github.com/b-lukaszuk/J_PRPD_eng/tree/main/code_snippets/format_text)
 or [Lorem ipsum from this Wikipedia's
 page](https://en.wikipedia.org/wiki/Lorem_ipsum). Next, write a program (a
 series of functions) that will allow you to:
@@ -360,5 +360,5 @@ printLines `).
 
 For a final challenge (a cherry on the top) add borders to the printout (or use
 the function `addBorder` from [the code
-snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/format_text)). This
+snippets](https://github.com/b-lukaszuk/J_PRPD_eng/tree/main/code_snippets/format_text)). This
 will allow to better visualize the correctness of your padding.

@@ -7,7 +7,7 @@ stop you.
 I recommend you try to solve the task on your own first. Once you finish you may
 compare your solution with the one in this chapter (with explanations) or with
 [the code
-snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/shift)
+snippets](https://github.com/b-lukaszuk/J_PRPD_eng/tree/main/code_snippets/shift)
 (without explanations).
 
 A reminder of how to deal with packages and \*.toml files can be found
@@ -20,7 +20,7 @@ you thought it was a spam, but it just looks like a complete gibberish. Upon
 more detailed inspection it turned out that the text got some regularity to it.
 So it might be a coded message. Just in case you saved it as `trarfvf.txt` ([see
 the code
-snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/shift)),
+snippets](https://github.com/b-lukaszuk/J_PRPD_eng/tree/main/code_snippets/shift)),
 since `trarfvf` was the title of the message.
 
 Now, a simple method to code something is to use a shift cipher (see

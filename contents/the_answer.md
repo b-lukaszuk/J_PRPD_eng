@@ -7,7 +7,7 @@ stop you.
 I recommend you try to solve the task on your own first. Once you finish you may
 compare your solution with the one in this chapter (with explanations) or with
 [the code
-snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/the_answer)
+snippets](https://github.com/b-lukaszuk/J_PRPD_eng/tree/main/code_snippets/the_answer)
 (without explanations).
 
 A reminder of how to deal with packages and \*.toml files can be found
@@ -153,5 +153,5 @@ in numerical systems of other bases when we were in school. And so, again, the
 easiest way to create such tables would be to use conversion from decimals. For
 that reason, here I will stay with the solution presented above. Still, you may
 check [the code snippets for this
-chapter](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/the_answer)
+chapter](https://github.com/b-lukaszuk/J_PRPD_eng/tree/main/code_snippets/the_answer)
 as they contain the other method (or better try to implement it yourself).

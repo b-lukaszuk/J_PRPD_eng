@@ -14,7 +14,7 @@ Still, once you read the problem description you may decide to do otherwise.
 I recommend you try to solve the task on your own first. Once you finish you may
 compare your solution with the one in this chapter (with explanations) or with
 [the code
-snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/vigenere)
+snippets](https://github.com/b-lukaszuk/J_PRPD_eng/tree/main/code_snippets/vigenere)
 (without explanations).
 
 A reminder of how to deal with packages and \*.toml files can be found
@@ -30,7 +30,7 @@ minimal test to make sure it works correctly, i.e. "attacking tonight" coded
 with the key "oculorhinolaryngology" should return "ovnlqbpvt hznzeuz".
 
 Once you got it, use it to code the text in `genesis.txt` (to be found
-[here](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/vigenere))
+[here](https://github.com/b-lukaszuk/J_PRPD_eng/tree/main/code_snippets/vigenere))
 with a passphrase: "Julia rocks, believe in its magic." and compare the letters
 distribution in the text before and after coding.  Pause for a moment and think
 can the new cipher be easily broken by a frequency analysis we used in

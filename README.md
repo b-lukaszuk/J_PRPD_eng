@@ -6,7 +6,7 @@ It is intended to be an experiment. It is not gonna even be a real book (no ISBN
 
 ## Working title
 
-Build SH*T with Julia
+Julia. Projects from a Recreational Programmer's Drawer
 
 ## Book writing status
 

@@ -7,7 +7,7 @@ stop you.
 I recommend you try to solve the task on your own first. Once you finish you may
 compare your solution with the one in this chapter (with explanations) or with
 [the code
-snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/touch_typing)
+snippets](https://github.com/b-lukaszuk/J_PRPD_eng/tree/main/code_snippets/touch_typing)
 (without explanations).
 
 A reminder of how to deal with packages and \*.toml files can be found
@@ -268,4 +268,4 @@ speed.
 If you still haven't had enough then feel free to extend the program so that it
 can also handle a bit longer, multi-line texts. Alternatively, you may examine
 such a program in the [code
-snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/touch_typing).
+snippets](https://github.com/b-lukaszuk/J_PRPD_eng/tree/main/code_snippets/touch_typing).

@@ -14,7 +14,7 @@ Still, once you read the problem description you may decide to do otherwise.
 I recommend you try to solve the task on your own first. Once you finish you may
 compare your solution with the one in this chapter (with explanations) or with
 [the code
-snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/mortgage)
+snippets](https://github.com/b-lukaszuk/J_PRPD_eng/tree/main/code_snippets/mortgage)
 (without explanations).
 
 A reminder of how to deal with packages and \*.toml files can be found

@@ -1,5 +1,5 @@
 ---
-title: "Build SH*T with Julia"
+title: "Julia. Projects from a Recreational Programmer's Drawer"
 subtitle: ""
 author:
   - Bartlomiej Lukaszuk
@@ -15,7 +15,7 @@ titlepage-top: >
   \end{tabular}
 
 titlepage-bottom: >
-  \url{https://b-lukaszuk.github.io/BS_wJ_eng/}
+  \url{https://b-lukaszuk.github.io/J_PRPD_eng/}
 
 toc: true
 tocdepth: 1

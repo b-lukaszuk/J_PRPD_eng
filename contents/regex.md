@@ -14,7 +14,7 @@ Still, once you read the problem description you may decide to do otherwise.
 I recommend you try to solve the task on your own first. Once you finish you may
 compare your solution with the one in this chapter (with explanations) or with
 [the code
-snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/regex)
+snippets](https://github.com/b-lukaszuk/J_PRPD_eng/tree/main/code_snippets/regex)
 (without explanations).
 
 A reminder of how to deal with packages and \*.toml files can be found
@@ -520,7 +520,7 @@ a less ambiguous "YYYY-MM-DD" configuration.
 #### Regex Task 2 {#sec:regex_problem_task2}
 
 Read the contents of `loremMail.txt` that is to be found in [the code
-snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/regex).
+snippets](https://github.com/b-lukaszuk/J_PRPD_eng/tree/main/code_snippets/regex).
 It contains random e-mail addresses (with repetitions). Use Julia to list the
 unique e-mail addresses found in the text.
 

@@ -16,7 +16,7 @@ solve the task.
 Anyway, I recommend you try to solve the task on your own first. Once you finish
 you may compare your solution with the one in this chapter (with explanations)
 or with [the code
-snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/translation)
+snippets](https://github.com/b-lukaszuk/J_PRPD_eng/tree/main/code_snippets/translation)
 (without explanations).
 
 A reminder of how to deal with packages and \*.toml files can be found
@@ -26,7 +26,7 @@ A reminder of how to deal with packages and \*.toml files can be found
 
 Let's start from where we left. Read the data from the file: `mrna_seq.txt` (to
 be found in [the code snippets for this
-chapter](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/translation)). It
+chapter](https://github.com/b-lukaszuk/J_PRPD_eng/tree/main/code_snippets/translation)). It
 contains the mRNA sequence we obtained previously (see
 @sec:transcription_solution).
 

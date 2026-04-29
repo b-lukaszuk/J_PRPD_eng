@@ -7,7 +7,7 @@ stop you.
 I recommend you try to solve the task on your own first. Once you finish you may
 compare your solution with the one in this chapter (with explanations) or with
 [the code
-snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/tic_tac_toe)
+snippets](https://github.com/b-lukaszuk/J_PRPD_eng/tree/main/code_snippets/tic_tac_toe)
 (without explanations).
 
 A reminder of how to deal with packages and \*.toml files can be found
@@ -411,7 +411,7 @@ to read the message with move declaration (`println("Computer plays: ", move)`).
 Moreover, as for now the algorithm generating move in `getComputerMove` is great
 for testing, but gets boring pretty quickly, feel free to change it (or try to
 beat a slightly more challenging algorithm found in [the code
-snippets](https://github.com/b-lukaszuk/BS_wJ_eng/tree/main/code_snippets/tic_tac_toe)).
+snippets](https://github.com/b-lukaszuk/J_PRPD_eng/tree/main/code_snippets/tic_tac_toe)).
 
 Lastly, like in @sec:progress_bar_solution you could also add the functionality
 to run the game from a terminal (with `julia tic_tac_toe.jl`).
