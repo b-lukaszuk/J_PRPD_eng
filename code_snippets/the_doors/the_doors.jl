@@ -68,6 +68,7 @@ end
 function didTraderWin(doors::Vec{Door})::Bool
     indWinner::Union{Nothing, Int} = findfirst(
         d -> d.isChosen && d.isCar, doors)
+    # or: return !isnoting(indwinner)
     return isnothing(indWinner) ? false : true
 end
 
