@@ -5,7 +5,8 @@ Hi, I'm Bart and this is my second open access book entitled:
 "Julia. Projects from a Recreational Programmer's Drawer"
 
 > **_Note:_** The book was written by an amateur programmer (with all its
-> potential negative consequences). If this is as a problem, stop reading now.
+> potential negative consequences). If you find this a problem, stop reading
+> now.
 
 The book contains a set of challenges of varying level of complexity (most
 likely in the range of easy to moderate). The exercises are for the problems
