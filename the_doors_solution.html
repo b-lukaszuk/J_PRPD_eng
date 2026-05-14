@@ -349,6 +349,7 @@ end</code></pre>
 <pre class="language-julia"><code>function didTraderWin(doors::Vec{Door})::Bool
     indWinner::Union{Nothing, Int} = findfirst(
         d -&gt; d.isChosen &amp;&amp; d.isCar, doors)
+    # or: return !isnoting(indwinner)
     return isnothing(indWinner) ? false : true
 end
 
