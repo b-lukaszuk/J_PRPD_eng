@@ -80,13 +80,13 @@ type `A`. In this case it is just a sub-type (`<:`) of `Flt` (an alias for
 `Float64`) or `Int` (`Union{Flt, Int}`). We started by `copy`ing the original
 vector to `result` and setting a variable named `swapped`. We will stop our
 sorting algorithm once there was no swap during the previous traversal of the
-whole vector (`swapped` in `while` is `false` but may be reset to `true` in the
-`for` loop). We search through the vector starting from its second element (`i
-in eachindex(result)[2:end]`). Every time we compare the two nearby elements
-(`result[i-1]` vs. `result[i]`). If the elements aren't in a desired order (`if
-result[i-1] > result[i]`) we just swap them with each other (`result[i-1],
-result[i] = result[i], result[i-1]`) and set the `swapped` flag to `true`. Once
-we finish we return the result.
+whole vector (`swapped` in `while` is initially `false`, but notice that it may
+be reset to `true` in the `for` loop). We search through the vector starting
+from its second element (`i in eachindex(result)[2:end]`). Every time we compare
+the two nearby elements (`result[i-1]` vs. `result[i]`). If the elements aren't
+in a desired order (`if result[i-1] > result[i]`) we just swap them with each
+other (`result[i-1], result[i] = result[i], result[i-1]`) and set the `swapped`
+flag to `true`. Once we finish we return the result.
 
 Let's see how we did.
 
@@ -262,8 +262,12 @@ function applied to every element of the vector (`v`) before the sorting; 2)
 `lt` - a comparator function (`lt` - less than, `!lt` - negation of `lt`) that
 compares our pivot element (`firstElt`) with all the other elements
 (`otherElts`). The comparison occurs after `by` was applied to all the elements
-of `v` (`by(elt)` and `by(firstElt)` in `filter`). The names `by` and `lt` were
-inspired by the names of the [keyword
+of `v` (`by(elt)` and `by(firstElt)` in `filter`). Notice, that in Julia we can
+compare `x` and `y` (that contain, e.g. two numbers) like this `x < y` (operator
+between two arguments) or like that `<(x, y)` (function accepting two
+arguments). The latter form was applied in `lt(by(elt), by(firstElt))`
+above. Anyway, the names `by` and `lt` were inspired by the names of the
+[keyword
 arguments](https://docs.julialang.org/en/v1/devdocs/functions/#Keyword-arguments)
 in [Base.sort](https://docs.julialang.org/en/v1/base/sort/#Base.sort). The
 default function for `by` is
