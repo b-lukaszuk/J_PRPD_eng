@@ -356,12 +356,13 @@ sc(s)
 ```
 
 > **_Note:_** As a practical exercise you may further simplify the formula in
-> @eq:prop6 using a pen and paper. Compare your result with the output of
-> Symbolics.jl (that we met in @sec:bat_and_ball_solution), e.g.
-> `Sym.@variables realPerc interPerc inflPerc` and
-> `Sym.simplify(realPerc ~ ((100 + interPerc)*100)/(100 + inflPerc)-100)`.
-> Of course, if you think that's too much mathematics for one day, then
-> don`t. Julia won't mind computing the result of @eq:prop6 for you.
+> @eq:prop6 using a pen and paper. Of course, if you think that's too much
+> mathematics for one day, then don`t. Julia won't mind computing the result of
+> @eq:prop6 for you. Anyway, instead of relying on my formula you should
+> probably go with [real interest
+> rate](https://en.wikipedia.org/wiki/Real_interest_rate) expressed by [Fisher
+> equation](https://en.wikipedia.org/wiki/Fisher_equation) that was developed by
+> a professional.
 
 Now we can use it to write our final, third method, for `getValue`.
 
