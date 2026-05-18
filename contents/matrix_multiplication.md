@@ -242,6 +242,15 @@ s = """
 sco(s)
 ```
 
-We can't complain. It appears that we managed to solve this task in like 15
-lines of code and without over-engineering it too much. It's all thanks to the
-Julia's nice and terse syntax.
+We can't complain. Of course, our `multiply` works only for matrices of `Int`s.
+If you find that a problem, you may extend it by replacing `Int` with `<:Real`
+(sub-type of [Real](https://docs.julialang.org/en/v1/base/numbers/#Core.Real))
+or `<:Number` (sub-type of
+[Number](https://docs.julialang.org/en/v1/base/numbers/#Core.Number)) or even
+by removing the type declarations altogether. But then again, it was just a
+programming exercise and for a real work we will rely on the built in
+functionality.
+
+Anyway, it appears that we managed to solve this task in like 15 lines of code
+and without over-engineering it too much. It's all thanks to the Julia's nice
+and terse syntax.
