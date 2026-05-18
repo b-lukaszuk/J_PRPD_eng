@@ -250,7 +250,8 @@ multiply(c, d)</code></pre>
 <pre class="language-julia"><code>(a * b) == multiply(a, b)
 (c * d) == multiply(c, d)</code></pre>
 <p>true</p>
-<p>We can’t complain. It appears that we managed to solve this task in like 15 lines of code and without over-engineering it too much. It’s all thanks to the Julia’s nice and terse syntax.</p>
+<p>We can’t complain. Of course, our <code>multiply</code> works only for matrices of <code>Int</code>s. If you find that a problem, you may extend it by replacing <code>Int</code> with <code>&lt;:Real</code> (sub-type of <a href="https://docs.julialang.org/en/v1/base/numbers/#Core.Real">Real</a>) or <code>&lt;:Number</code> (sub-type of <a href="https://docs.julialang.org/en/v1/base/numbers/#Core.Number">Number</a>) or even by removing the type declarations altogether. But then again, it was just a programming exercise and for a real work we will rely on the built in functionality.</p>
+<p>Anyway, it appears that we managed to solve this task in like 15 lines of code and without over-engineering it too much. It’s all thanks to the Julia’s nice and terse syntax.</p>
 
 
 <div class="bottom-nav">

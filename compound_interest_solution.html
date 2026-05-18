@@ -290,7 +290,7 @@ money2025infl = getValue(money2019, inflPoland) # Jan 1, 2025
     return ((100 + interestPerc) * 100) / (100 + inflPerc) - 100
 end</code></pre>
 <blockquote>
-<p><strong><em>Note:</em></strong> As a practical exercise you may further simplify the formula in Equation <a href="#eq:prop6">15</a> using a pen and paper. Compare your result with the output of Symbolics.jl (that we met in Section <a href="./bat_and_ball_solution.html#sec:bat_and_ball_solution">3.2</a>), e.g. <code>Sym.@variables realPerc interPerc inflPerc</code> and <code>Sym.simplify(realPerc ~ ((100 + interPerc)*100)/(100 + inflPerc)-100)</code>. Of course, if you think that’s too much mathematics for one day, then don`t. Julia won’t mind computing the result of Equation <a href="#eq:prop6">15</a> for you.</p>
+<p><strong><em>Note:</em></strong> As a practical exercise you may further simplify the formula in Equation <a href="#eq:prop6">15</a> using a pen and paper. Of course, if you think that’s too much mathematics for one day, then don`t. Julia won’t mind computing the result of Equation <a href="#eq:prop6">15</a> for you. Anyway, instead of relying on my formula you should probably go with <a href="https://en.wikipedia.org/wiki/Real_interest_rate">real interest rate</a> expressed by <a href="https://en.wikipedia.org/wiki/Fisher_equation">Fisher equation</a> that was developed by a professional.</p>
 </blockquote>
 <p>Now we can use it to write our final, third method, for <code>getValue</code>.</p>
 <pre class="language-julia"><code>function getValue(principal::Real,
