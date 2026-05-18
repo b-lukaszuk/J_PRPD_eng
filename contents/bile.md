@@ -97,7 +97,7 @@ The multiplication is commutative (the order does not matter), i.e. 2 * 3 * 4 is
 the same as 4 * 3 * 2 or 2 * 4 * 3, therefore we can rearrange elements on the
 left side of @eq:sphere2 to:
 
-$$ R^3 * \frac{4}{3} * \pi = v $$ {#eq:sphere3}
+$$ r^3 * \frac{4}{3} * \pi = v $$ {#eq:sphere3}
 
 Now, one by one we can move \*$\frac{4}{3}$ and \*$\pi$ to the right side of
 @eq:sphere3. Of course, we change the mathematical operation to the opposite
