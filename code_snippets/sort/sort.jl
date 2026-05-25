@@ -11,10 +11,10 @@ const Vec = Vector
 function bs(v::Vec{A})::Vec{A} where A<:Union{Flt, Int}
     result::Vec{A} = copy(v)
     swapped::Bool = true
-    # i::Int = 0
+    # w::Int = 0
     while swapped
-        # i += 1
-        # @show i
+        # w += 1
+        # @show w
         swapped = false
         for i in eachindex(result)[2:end]
             if result[i-1] > result[i]

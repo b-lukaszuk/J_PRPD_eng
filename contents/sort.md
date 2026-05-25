@@ -106,10 +106,10 @@ in a few places inside the function, e.g.
 function bs(v::Vec{A})::Vec{A} where A<:Union{Flt, Int}
     result::Vec{A} = copy(v)
     swapped::Bool = true
-    i::Int = 0
+    w::Int = 0
     while swapped
-        i += 1
-        @show i
+        w += 1
+        @show w
         swapped = false
         for i in eachindex(result)[2:end]
             if result[i-1] > result[i]
@@ -129,10 +129,10 @@ Which prints:
 [0.75, 0.25, 0.5] |> bs
 
 # printout
-i = 1
+w = 1
 (result, swapped) = ([0.25, 0.75, 0.5], true)
 (result, swapped) = ([0.25, 0.5, 0.75], true)
-i = 2
+w = 2
 (result, swapped) = ([0.25, 0.5, 0.75], false)
 (result, swapped) = ([0.25, 0.5, 0.75], false)
 ```
