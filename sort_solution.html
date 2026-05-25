@@ -207,10 +207,10 @@ end</code></pre>
 <pre><code>function bs(v::Vec{A})::Vec{A} where A&lt;:Union{Flt, Int}
     result::Vec{A} = copy(v)
     swapped::Bool = true
-    i::Int = 0
+    w::Int = 0
     while swapped
-        i += 1
-        @show i
+        w += 1
+        @show w
         swapped = false
         for i in eachindex(result)[2:end]
             if result[i-1] &gt; result[i]
@@ -226,10 +226,10 @@ end</code></pre>
 <pre><code>[0.75, 0.25, 0.5] |&gt; bs
 
 # printout
-i = 1
+w = 1
 (result, swapped) = ([0.25, 0.75, 0.5], true)
 (result, swapped) = ([0.25, 0.5, 0.75], true)
-i = 2
+w = 2
 (result, swapped) = ([0.25, 0.5, 0.75], false)
 (result, swapped) = ([0.25, 0.5, 0.75], false)</code></pre>
 <p>For our next try we will go with the <a href="https://en.wikipedia.org/wiki/Quicksort">quicksort</a> algorithm. Here, I’ll try to implement it from memory based on the algorithm I once saw in “Learn You a Haskell for Great Good!” by Miran Lipovača. Of course, I’ll try to adjust it for Julia syntax.</p>
