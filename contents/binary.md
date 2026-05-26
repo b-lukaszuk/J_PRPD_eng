@@ -182,13 +182,13 @@ end
 sc(s)
 ```
 
-Once again, we we start our main function (`bin2dec`) with the definition of a
-few helper variables: `pwr` - which holds a power of the current bit which is in
-the range from `length(bin)-1` to `0` (from the leftmost to the rightmost bit),
-and `result` which is just a sum of all bits expressed in decimal system. We
-build the sum (`result +=`) bit by bit (`for b in bin`), but only for the bits
-equal `'1'` (`(b == `1`) ? 2^pwr`) while reducing the power for the next bit as
-we shift right (`pwr -= 1`). Finally, all that's left to do is to `return` the
+Once again, we start our main function (`bin2dec`) with the definition of a few
+helper variables: `pwr` - which holds a power of the current bit which is in the
+range from `length(bin)-1` to `0` (from the leftmost to the rightmost bit), and
+`result` which is just a sum of all bits expressed in decimal system. We build
+the sum (`result +=`) bit by bit (`for b in bin`), but only for the bits equal
+`'1'` (`(b == `1`) ? 2^pwr`) while reducing the power for the next bit as we
+shift right (`pwr -= 1`). Finally, all that's left to do is to `return` the
 `result`.
 
 Let's see how we did.
