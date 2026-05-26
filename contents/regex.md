@@ -99,7 +99,7 @@ There, we did our job, the identity of an accused person is protected. We may
 write the file on a disk and send the press report. I imagine now you're
 wondering what's the big deal with those regexes anyway. For a person with basic
 computer literacy what we've done doesn't seem particularly advanced. Well,
-you're right. It it not. That's because in order **to have a regex we need to
+you're right. It is not. That's because in order **to have a regex we need to
 use some meta-characters, i.e. special symbols that are interpreted beyond their
 literal meaning. On the other hand, as a general rule, any letter or digit in
 regex (like `r"John Smith"`) stands for itself**. Overall, the list of
@@ -328,8 +328,8 @@ sum
 
 And voila, we're done. Notice, however, that the regex isn't perfect. For
 example, it doesn't handle correctly the amounts of money that contain floating
-point values (or negative quotas). If that were the requirement, we would would
-have to improve upon it.
+point values (or negative quotas). If that were the requirement, we would have
+to improve upon it.
 
 #### Example 3
 
