@@ -60,11 +60,11 @@ reminder of the division. If a number `x` is evenly divided by a number `y` (`x
 mnemonic names for the tested conditions (`divisibleBy4` and
 `gregorianException`), which should make the code more readable. Anyway, if a
 year (`yr`) is not divisible by 4 (`!divisibleBy4`) then it is a common year.
-Otherwise (`else`) if the the year fulfills the exception rule
-(`gregorialException` is `true`) it is not a leap year (hence we negate `!`
-`gregorianException`, because `!true` is `false`). If a year (`yr`) does not
-meet the exception criteria (`gregorianException` is `false`) it is a common
-year (we negate `false`, so we get `true`).
+Otherwise (`else`) if the year fulfills the exception rule (`gregorialException`
+is `true`) it is not a leap year (hence we negate `!`  `gregorianException`,
+because `!true` is `false`). If a year (`yr`) does not meet the exception
+criteria (`gregorianException` is `false`) it is a common year (we negate
+`false`, so we get `true`).
 
 Actually, we can get rid of the `if`-`else` condition by using `&&` (logical
 and) and its short circuiting property.
