@@ -120,8 +120,8 @@ did their jobs right.
 
 ## Solution {#sec:randomness_solution}
 
-We start by defining a few global variables required by LCG as well as a a way
-to set our `seed` to a desired value.
+We start by defining a few global variables required by LCG as well as a way to
+set our `seed` to a desired value.
 
 ```jl
 s = """
@@ -178,8 +178,8 @@ for a human brain alone.
 
 Still, the numbers are unwieldy and look quite odd. How can we transform them
 into a function that returns `Float64` from the range `[0-1)`? The key is the
-modulo operator (`%` equivalent to `rem` function) in `getRandFromLCG`. All it
-is is just a reminder after a division. It has an interesting property, the
+modulo operator (`%` equivalent to `rem` function) in `getRandFromLCG`. It is
+just a reminder after a division and it has an interesting property. The
 remainder of `i` divided by `m` is always in the range 0 to `m-1`, see the
 example below.
 
