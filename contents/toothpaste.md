@@ -15,7 +15,7 @@ A reminder of how to deal with packages and \*.toml files can be found
 
 ## Problem {#sec:toothpaste_problem}
 
-There is a story (perhaps it's just an urban legend) that in the the 1960s a
+There is a story (perhaps it's just an urban legend) that in the 1960s a
 toothpaste manufacturer faced a financial crisis. They were desperate to make
 the sales go up, but nothing seemed to work. Finally, a guy came by and offered
 to increase their sales by at least 50% in exchange for $100,000. At first the
