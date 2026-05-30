@@ -27,7 +27,7 @@ Random numbers are the numbers that occur, well, at random. Anyway, they are
 quite useful for programming. Chances are you will use them to solve some
 problems like those in @sec:birthday_problem or @sec:logo_problem.
 
-But how do computers generate them. Surprise, they don't. But then how could a
+But how do computers generate them. Surprise, they don't. OK, then how could a
 Julia's `Random.jl` (part of the standard library) generate one. Hmm, it's
 complicated, but the basic idea could be explained with an example.
 
@@ -109,7 +109,7 @@ transform](https://en.wikipedia.org/wiki/Box%E2%80%93Muller_transform) and use
 it to define two `getRandn` methods, one that returns a value from a [standard
 normal
 distribution](https://en.wikipedia.org/wiki/Normal_distribution#Standard_normal_distribution)
-with the mean = 0 and the standard deviation = 1 (like `Base.randn` do). The
+with the mean = 0 and the standard deviation = 1 (like `Base.randn`). The
 other should return a normal distribution with a specified mean and standard
 deviation.
 
@@ -159,9 +159,9 @@ sc(s)
 > **_Note:_** In general a function should not rely on nor change global
 > variables. Instead it should only depend on the parameters that were send to
 > it as its arguments. Relying on global variables although convenient and
-> tempting could lead to bugs that are hard to pinpoint and eliminate. That's
+> tempting often leads to bugs that are hard to pinpoint and eliminate. That's
 > why in the rest of this book I will try to avoid this style with the exception
-> of global constant variables seen, e.g. in @sec:calendar_solution.
+> of global constants seen, e.g. in @sec:calendar_solution.
 
 Let's see how it works.
 
@@ -179,9 +179,9 @@ for a human brain alone.
 Still, the numbers are unwieldy and look quite odd. How can we transform them
 into a function that returns `Float64` from the range `[0-1)`? The key is the
 modulo operator (`%` equivalent to `rem` function) in `getRandFromLCG`. It is
-just a reminder after a division and it has an interesting property. The
-remainder of `i` divided by `m` is always in the range 0 to `m-1`, see the
-example below.
+just a remainder after a division and it has an interesting property. The
+remainder of `i` divided by `m` (`i % m`) is always in the range 0 to `m-1`, see
+the example below.
 
 ```jl
 s = """
@@ -316,6 +316,14 @@ end
 sc(s)
 ```
 
+> **_Note:_** Julia allows you to use Greek symbols in your code. For instance,
+> type: '\\theta' and press Tab to get θ, or '\\pi' and press Tab to get π (`pi`
+> and `π` are math constants built into the language). It's a really nice
+> feature, I'm sure it's loved by mathematicians (as you can write: `θ = 2 * π *
+> getRand()` or even `θ = 2π * getRand()`). However, non-technical people like
+> me (or programmers with background in a different programming language) may
+> find it arcane and off-putting. For that reason I don't use it in my code.
+
 And voila, the only difference is that instead of a vector we return a tuple
 with each element being a value from the normal distribution with the mean = 0
 and the standard deviation = 1. However, we would prefer a function that returns
@@ -371,10 +379,10 @@ I would say we did a pretty good job.
 
 Time for the last step, let's transform `getRandn` to a function that provides a
 normal distribution with a specified mean and standard deviation. That's fairly
-simple. Since the 'original' deviation is 1, then if we multiply the numbers by
-let's say 16, then we will get a distribution with the mean 0 and standard
-deviation equal to 16. So how do we make a mean equal, let's say 100? It's easy
-as well, we just add 100 to every number from a distribution.
+simple. Since the 'original' mean is 0 and the deviation is 1, then if we
+multiply the numbers by let's say 16, then we will get a distribution with the
+mean 0 and standard deviation equal to 16. So how do we make a mean equal, let's
+say 100? It's easy as well, we just add 100 to every number from a distribution.
 
 ```jl
 s = """

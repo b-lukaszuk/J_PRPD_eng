@@ -83,7 +83,7 @@ function getRandn()::Tuple{Flt, Flt}
     return (x, y)
 end
 
-# general flattener, not just for floats
+# general flattener, not just for floats (like in the chapter)
 function flatten(v::Vec{Tuple{A, A}})::Vec{A} where A
     len::Int = length(v) * 2
     result::Vec{A} = Vec{A}(undef, len)
