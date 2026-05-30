@@ -131,7 +131,8 @@ integer division (that drops the decimal part of the quotient). We use it
 because in the array of the powers of two: $2^4 = 16, 2^3 = 8, 2^2 = 4, 2^1 = 2,
 2^0 = 1$ each number gets two times smaller. The `div(bitDec, 2)` protects us
 from the case when the integer division by 2 with standard `bitDec/2` would not
-be possible (in the last turnover of the loop `bitDec` will be equal to `1`).
+be possible (in the last turnover of the loop `bitDec` will be equal to `1`, so
+`bitDec/2` is `1/2` so `0.5` and not `0`).
 
 Let's see how it works with a couple of numbers.
 
@@ -260,10 +261,10 @@ neutral digit in addition (in decimal adding 26+8 is the same as adding
 the first `if` statement otherwise you will end up with an infinite recursion
 (see @sec:recursion) and [stack
 overflow](https://en.wikipedia.org/wiki/Stack_overflow) error in some cases
-(test yourself and explain why it will happen for `getEqlLenBins("01",
+(test yourself and explain why it would happen for `getEqlLenBins("01",
 "10")`). Secondly, the recursive call `getEqlLenBins(bin2, bin1)` effectively
-swaps the numbers. This is a neat trick and makes no difference here (since
-both addition and multiplication are
+swaps the numbers. This is a neat trick and makes no difference here (since both
+addition and multiplication are
 [commutative](https://en.wikipedia.org/wiki/Commutative_property)), but may
 cause troubles otherwise. Anyway, time for `add(bin1::Str, bin2::Str)`.
 
