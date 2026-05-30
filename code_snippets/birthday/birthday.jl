@@ -10,7 +10,7 @@ const Vec = Vector
 # it may not act correctly
 
 function getBdaysAtParty(nPeople::Int)::Vec{Int}
-    @assert 4 <= nPeople <= 365 "nPeople must be in range [4-365]"
+    @assert 5 <= nPeople <= 365 "nPeople must be in range [5-365]"
     return Rnd.rand(1:365, nPeople)
 end
 
@@ -24,7 +24,9 @@ end
 
 function nSameBdays(counts::Dict{Int, Int}, n::Int=2)::Bool
     @assert 2 <= n <= 365 "n must be in range [2-365]"
-    return !isnothing(findfirst((>=)(n), counts))
+    return isnothing(findfirst((>=)(n), counts)) ? false : true
+    # or
+    # return !isnothing(findfirst((>=)(n), counts))
 end
 
 function anyMyBday(counts::Dict{Int, Int}, myBday::Int=1)::Bool
@@ -35,7 +37,7 @@ end
 # isEventFn(Dict{Int, Int}) -> Bool
 function getProbSuccess(nPeople::Int, isEventFn::Function,
                         nSimulations::Int=100_000)::Flt
-    @assert 4 <= nPeople <= 365 "nPeople must be in range [4-365]"
+    @assert 5 <= nPeople <= 365 "nPeople must be in range [5-365]"
     @assert 1e4 <= nSimulations <= 1e6 "nSimulations not in range [1e4-1e6]"
     successes::Vec{Bool} = Vec{Bool}(undef, nSimulations)
     for i in 1:nSimulations

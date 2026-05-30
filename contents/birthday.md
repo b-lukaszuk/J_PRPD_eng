@@ -36,7 +36,7 @@ two of your guests were born on the same day of a year?
 of your guests were born on the same day of a year that you were born on?
 
 Use Julia to answer the before-mentioned questions for the number of guests,
-let's say, in the range [4-30].
+let's say, in the range [5-30].
 
 ## Solution {#sec:birthday_solution}
 
@@ -47,7 +47,7 @@ assumptions, namely:
 2) a person is equally likely to have been born on any day of a year (no
 seasonal, yearly and other patterns, etc.)
 3) the birth date of one person does not influence the birth date of another
-person (not in twins, siblings, etc.)
+person (not in the case of twins, siblings, etc.)
 
 None of the above is exactly true, still, those are some reasonable assumptions
 that will allow us to knack the problem.
@@ -59,7 +59,7 @@ s = """
 import Random as Rnd
 
 function getBdaysAtParty(nPeople::Int)::Vec{Int}
-    @assert 4 <= nPeople <= 365 "nPeople must be in range [4-365]"
+    @assert 5 <= nPeople <= 365 "nPeople must be in range [5-365]"
     return Rnd.rand(1:365, nPeople)
 end
 
@@ -103,7 +103,7 @@ sc(s)
 
 First, we check for `nSameBdays` with the build in
 [findfirst](https://docs.julialang.org/en/v1/base/arrays/#Base.findfirst-Tuple%7BFunction,%20Any%7D). That
-last function accepts a predicate and a collection (like a vector or a
+function accepts a predicate and a collection (like a vector or a
 dictionary). The predicate is a function that takes an element of a collection
 (for a dictionary one of its values) as an input and returns a `Bool`.
 `findfirst` brings back the first index (for vectors) or the first key (for
@@ -143,7 +143,7 @@ s = """
 # isEventFn(Dict{Int, Int}) -> Bool
 function getProbSuccess(nPeople::Int, isEventFn::Function,
                         nSimulations::Int=100_000)::Flt
-    @assert 4 <= nPeople <= 366 "nPeople must be in range [4-365]"
+    @assert 5 <= nPeople <= 366 "nPeople must be in range [5-365]"
     @assert 1e4 <= nSimulations <= 1e6 "nSimulations not in range [1e4-1e6]"
     successes::Vec{Bool} = Vec{Bool}(undef, nSimulations)
     for i in 1:nSimulations
