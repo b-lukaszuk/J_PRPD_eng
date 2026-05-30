@@ -12,10 +12,10 @@ The book contains a set of challenges of varying level of complexity (most
 likely in the range of easy to moderate). The exercises are for the problems
 that, for whatever reason, I found interesting and/or suitable. The tasks are
 possibly self-contained and accompanied by exemplary solutions in
-[Julia](https://julialang.org/) (with explanations). Still, I recommend you try
-to solve the tasks yourself. Alternatively you may read the solutions and try to
-recreate them as much as you can on your own. The key thing is, if you want to
-learn, write the code.
+[Julia](https://julialang.org/) (with explanations). Despite that, I recommend
+you try to solve the tasks yourself. Alternatively you may read the solutions
+and try to recreate them as much as you can on your own. The key thing is, if
+you want to learn, write the code.
 
 For practical reasons, I will assume this book is read by curious readers of
 non-mathematical (i.e. resembling mine) background. Moreover, I expect that the
