@@ -44,30 +44,30 @@ function isLeap(yr::Int)::Bool
     divisibleBy4::Bool = yr % 4 == 0
     gregorianException::Bool = (yr % 100 == 0) && (yr % 400 != 0)
     if !divisibleBy4
-        return false
-    else
-        return !gregorianException
+        return false # a common year
+    else # evenly divisible by 4
+        return gregorianException ? false : true
     end
 end
 """
 sc(s)
 ```
 
-The powerhouse of our function is `%` (modulo operator) that returns the
+The powerhouse of our function is `%`
+([modulo](https://en.wikipedia.org/wiki/Modulo) operator) that returns the
 reminder of the division. If a number `x` is evenly divided by a number `y` (`x
 % y`) the reminder is equal to zero (`== 0`). Otherwise (when `x % y != 0`) the
 `x` cannot be evenly divided by `y`. Although not strictly necessary, we added a
 mnemonic names for the tested conditions (`divisibleBy4` and
 `gregorianException`), which should make the code more readable. Anyway, if a
-year (`yr`) is not divisible by 4 (`!divisibleBy4`) then it is a common year.
+year (`yr`) is not divisible by 4 (`!divisibleBy4`), then it is a common year.
 Otherwise (`else`) if the year fulfills the exception rule (`gregorialException`
-is `true`) it is not a leap year (hence we negate `!`  `gregorianException`,
-because `!true` is `false`). If a year (`yr`) does not meet the exception
-criteria (`gregorianException` is `false`) it is a common year (we negate
-`false`, so we get `true`).
+is `true`), then it is not a leap year (`false`). For the last checkup we used a
+[ternary
+expression](https://b-lukaszuk.github.io/RJ_BS_eng/julia_language_decision_making.html#sec:ternary_expression).
 
-Actually, we can get rid of the `if`-`else` condition by using `&&` (logical
-and) and its short circuiting property.
+Actually, we could get rid of the `if`-`else` condition and shorten our function
+quite a bit, e.g. by using `&&` (logical and) and its short circuiting property.
 
 ```jl
 s1 = """
@@ -84,7 +84,10 @@ sc(s1)
 When `divisibleBy4` is `false` the and operator (`&&`) skips the evaluation of
 its second argument (short circuiting) and returns `false`. Otherwise,
 (`divisibleBy4` is `true`) `!gregorianException` is evaluated and it becomes the
-result of the function. 
+result of the function. The functions should work the same, the latter version
+is shorter, but less straightforward to understand. Personally, I try to
+remember not to get too clever with my code and thank myself for that when I
+read it while I'm tired.
 
 Time for a simple test.
 

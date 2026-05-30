@@ -3,9 +3,25 @@ import Test
 # the code in this file is meant to serve as a programming exercise only
 # it may not act correctly
 
+# INFO
 # the Gregorian Calendar was introduced in 1582
 # that year: 4th October, was followed by 15th October
 # before there was the Julian calendar
+# however, we'll ignore that fact here
+
+# version 1
+function isLeap(yr::Int)::Bool
+    @assert 0 < yr < 4001 "yr must be in range [1-4000]"
+    divisibleBy4::Bool = yr % 4 == 0
+    gregorianException::Bool = (yr % 100 == 0) && (yr % 400 != 0)
+    if !divisibleBy4
+        return false # a common year
+    else # evenly divisible by 4
+        return gregorianException ? false : true
+    end
+end
+
+# version 2
 function isLeap(yr::Int)::Bool
     @assert 0 < yr < 4001 "yr must be in range [1-4000]"
     divisibleBy4::Bool = yr % 4 == 0
