@@ -1,5 +1,11 @@
 import Dates as Dt
 
+# INFO
+# the Gregorian Calendar was introduced in 1582
+# that year: 4th October, was followed by 15th October
+# before there was the Julian calendar
+# however, we'll ignore that fact here
+
 const Str = String
 const Vec = Vector
 
@@ -22,26 +28,28 @@ const MONTHS_NAME_2_NUM = Dict(
     "Apr" => 4, "May" => 5, "Jun" => 6, "Jul" => 7,
     "Aug" => 8, "Sep" => 9, "Oct" => 10,
     "Nov" => 11, "Dec" => 12)
+const REF_YEAR = 2025 # reference year (arbitrarily chosen)
+const FIRST_DAY_REF_YEAR = 4 # 1st Jan 2025 was on Wednesday
 
 # returns multiple of y that is >= x
 function getMultOfYGtEqX(x::Int, y::Int=DAYS_PER_WEEK)::Int
     @assert x > 0 && y > 0 "x and y must be > 0"
     @assert x >= y "x must be >= y"
-    q::Int, r::Int = divrem(x, y) # quotient, reminder
-    return r == 0 ? x : y*(q+1)
+    quotient::Int, reminder::Int = divrem(x, y)
+    return reminder == 0 ? x : y*(quotient+1)
 end
 
-# or
+# or more verbose
 
 # returns multiple of y that is >= x
 function getMultOfYGtEqX(x::Int, y::Int=DAYS_PER_WEEK)::Int
     @assert x > 0 && y > 0 "x and y must be > 0"
     @assert x >= y "x must be >= y"
-    q::Int, r::Int = divrem(x, y) # quotient, reminder
-    if r == 0
+    quotient::Int, reminder::Int = divrem(x, y)
+    if reminder == 0
         return x
     else
-        return (q + 1) * y
+        return (quotient + 1) * y
     end
 end
 
@@ -158,9 +166,9 @@ end
 function getMonthData(yr::Int, month::Int)::Tuple{Int, Int}
     @assert 1 <= yr <= 4000 "yr not in range [1-4000]"
     @assert 1 <= month <= 12 "month not in range [1-12]"
-    curDay::Int = 4 # 1st Jan 2025 (reference point) was Wednesday
-    start::Int = yr <= 2025 ? 2025-1 : 2025+1
-    step::Int = yr <= 2025 ? -1 : 1
+    curDay::Int = FIRST_DAY_REF_YEAR
+    start::Int = yr <= REF_YEAR ? REF_YEAR-1 : REF_YEAR+1
+    step::Int = yr <= REF_YEAR ? -1 : 1
     yrShift::Int = 0
     for y in start:step:yr
         yrShift = isLeap(y) ? SHIFT_YR_LEAP : SHIFT_YR

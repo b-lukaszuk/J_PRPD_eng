@@ -23,11 +23,11 @@ A reminder of how to deal with packages and \*.toml files can be found
 ## Problem {#sec:calendar_problem}
 
 A Gnu/Linux operating system comes with a bunch of
-[utilities](https://en.wikipedia.org/wiki/Util-linux) that help with an everyday
-life. One of them is [cal](https://en.wikipedia.org/wiki/Cal_(command)) command
-that displays a calendar. Let's try to mimic a fraction of its power.
-Write a program that prints a calendar for a given month that looks similarly
-to:
+[utilities](https://en.wikipedia.org/wiki/Util-linux) that help us with our
+everyday lives. One of them is
+[cal](https://en.wikipedia.org/wiki/Cal_(command)) command that displays a
+calendar. Let's try to mimic a fraction of its power.  Write a program that
+prints a calendar for a given month that looks similarly to:
 
 ```
 > cal Jun 2025 # shell command (output starts 1 line below)
@@ -92,6 +92,8 @@ MONTHS_NAME_2_NUM = Dict(
     "Apr" => 4, "May" => 5, "Jun" => 6, "Jul" => 7,
     "Aug" => 8, "Sep" => 9, "Oct" => 10,
     "Nov" => 11, "Dec" => 12)
+REF_YEAR = 2025 # reference year (arbitrarily chosen)
+FIRST_DAY_REF_YEAR = 4 # 1st Jan 2025 was on Wednesday
 """
 replace(sc(s), "DAYS_PER_WEEK =" => "const DAYS_PER_WEEK =",
 	"DAYS_PER_MONTH =" => "const DAYS_PER_MONTH =",
@@ -100,7 +102,9 @@ replace(sc(s), "DAYS_PER_WEEK =" => "const DAYS_PER_WEEK =",
 	"SHIFT_YR_LEAP =" => "const SHIFT_YR_LEAP =",
 	"WEEKDAYS_NAMES =" => "const WEEKDAYS_NAMES =",
 	"MONTHS_NUM_2_NAME =" => "const MONTHS_NUM_2_NAME =",
-	"MONTHS_NAME_2_NUM =" => "const MONTHS_NAME_2_NUM ="
+	"MONTHS_NAME_2_NUM =" => "const MONTHS_NAME_2_NUM =",
+	"REF_YEAR =" => "const REF_YEAR =",
+	"FIRST_DAY_REF_YEAR =" => "const FIRST_DAY_REF_YEAR ="
 )
 ```
 
@@ -122,8 +126,8 @@ s = """
 function getMultOfYGtEqX(x::Int, y::Int=DAYS_PER_WEEK)::Int
     @assert x > 0 && y > 0 "x and y must be > 0"
     @assert x >= y "x must be >= y"
-    q::Int, r::Int = divrem(x, y) # quotient, reminder
-    return r == 0 ? x : y*(q+1)
+    quotient::Int, reminder::Int = divrem(x, y)
+    return reminder == 0 ? x : y*(quotient+1)
 end
 """
 sc(s)
@@ -131,11 +135,11 @@ sc(s)
 
 To that end we wrote `getMultOfYGtEqX` that, as its name implies, returns the
 multiple of `y` that is greater than or equal to `x`. First, thanks to `divrem`
-function, we get the quotient (`q` - the number of 'full' `y`s is inside of `x`)
-and the reminder (`r` - the rest after the integer division) after dividing `x`
-by `y`. If `x` is evenly divisible by `y` (`r == 0 ?`) then our result is just
-`x` (`x` is the multiple of `y`). Otherwise, we multiply `y` by the quotient
-plus 1 (`y*(q+1)`).
+function, we get the `quotient ` (the number of 'full' `y`s is inside of `x`)
+and the `reminder` (the rest after the integer division) resultant from dividing
+`x` by `y`. If `x` is evenly divisible by `y` (`reminder == 0 ?`) then our
+result is just `x` (`x` is the multiple of `y`). Otherwise, we multiply `y` by
+the quotient plus 1 (`y*(quotient+1)`).
 
 We will use it (`getMultOfYGtEqX`) to get our days for a given month padded with
 zeros.
@@ -361,9 +365,9 @@ s2 = """
 function getMonthData(yr::Int, month::Int)::Tuple{Int, Int}
     @assert 1 <= yr <= 4000 "yr not in range [1-4000]"
     @assert 1 <= month <= 12 "month not in range [1-12]"
-    curDay::Int = 4 # 1st Jan 2025 (reference point) was Wednesday
-    start::Int = yr <= 2025 ? 2025-1 : 2025+1
-    step::Int = yr <= 2025 ? -1 : 1
+    curDay::Int = FIRST_DAY_REF_YEAR
+    start::Int = (yr <= REF_YEAR) ? REF_YEAR-1 : REF_YEAR+1
+    step::Int = (yr <= REF_YEAR) ? -1 : 1
     yrShift::Int = 0
     for y in start:step:yr
         yrShift = isLeap(y) ? SHIFT_YR_LEAP : SHIFT_YR
