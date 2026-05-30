@@ -17,8 +17,8 @@ A reminder of how to deal with packages and \*.toml files can be found
 
 In programming there are a few different types of naming conventions, the two
 most popular of them are:
-[smallCamelCase](https://en.wikipedia.org/wiki/Camel_case) and
-[snake_case](https://en.wikipedia.org/wiki/Snake_case).
+[smallCamelCase](https://en.wikipedia.org/wiki/Camel_case) (used in this book)
+and [snake_case](https://en.wikipedia.org/wiki/Snake_case).
 
 At times it is useful to quickly convert from one of them to the other (hence
 such a functionality is sometimes found in
@@ -72,10 +72,10 @@ sc(s)
 ```
 
 We begin with an empty `result`. Next, we travel through each character (`c`) of
-our `camelCasedWord` if a letter is uppercased (`isuppercase(c) ?`) we update
-our result (`*=`) by appending to it underscore (`'_'`) concatenated (`*`) with
-the lowercased character (`lowercase(c)`). Otherwise (`:`) we append the
-character unchanged (`c`). Finally, we `return` the `result`.
+our `camelCasedWord` if an examined letter is uppercased (`isuppercase(c) ?`) we
+update our result (`*=`) by appending to it underscore (`'_'`) concatenated
+(`*`) with the lowercased character (`lowercase(c)`). Otherwise (`:`) we append
+the character unchanged (`c`). Finally, we `return` the `result`.
 
 Let's see if it works.
 
@@ -97,7 +97,6 @@ function changeToCamelCase(snakeCasedWord::Str)::Str
     for c in snakeCasedWord
         if c == '_'
             prevUnderscore = true
-            continue
         else
             result *= prevUnderscore ? uppercase(c) : c
             prevUnderscore = false
@@ -114,12 +113,10 @@ we also declare an indicator that tells us whether the previously examined
 letter was an underscore (`prevUnderscore`). Next, we traverse the
 `snakeCasedWord` character by character (`for c in snakeCasedWord`) and build up
 the result. If the currently examined character is an underscore (`if c == '_'`)
-we set the indicator to true and skip rest of the code in the for loop (in this
-iteration only) with
-[continue](https://docs.julialang.org/en/v1/base/base/#continue). Otherwise
-(`else`), we append the character to the result (`result *=`) with the proper
-casing based on the value of `prevUnderscore` and set this last variable to
-`false`. Once we're done, we `return` the `result`.
+we set the indicator to `true` and call it a day until the current spin of the
+`for` loop ends. Otherwise (`else`), we append the character to the result
+(`result *=`) with the proper casing determined based on the value of
+`prevUnderscore` and set this last variable to `false`.
 
 Time for another test.
 

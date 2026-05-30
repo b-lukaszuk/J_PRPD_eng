@@ -19,7 +19,6 @@ function changeToCamelCase(snakeCasedWord::Str)::Str
     for c in snakeCasedWord
         if c == '_'
             prevUnderscore = true
-            continue
         else
             result *= prevUnderscore ? uppercase(c) : c
             prevUnderscore = false
