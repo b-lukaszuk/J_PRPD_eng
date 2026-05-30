@@ -36,7 +36,7 @@ nDroplets = [1, 4, 8, 12]
 totalVolumes = repeat([getVolume(referenceDroplet)], length(nDroplets))
 individualVolumes = totalVolumes ./ nDroplets
 droplets = getSphere.(individualVolumes)
-radii = map(s -> s.radius, droplets)
+radii = map(droplet -> droplet.radius, droplets)
 individualSurfaceAreas = getSurfaceArea.(droplets)
 totalSurfaceAreas = individualSurfaceAreas .* nDroplets
 

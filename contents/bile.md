@@ -136,7 +136,7 @@ $r^3 = v / (\frac{4}{3} * \pi)$, which is actually the same as @eq:sphere4 above
 [since e.g. 18 / 2 / 3 == 18 / (2 * 3)]. Ergo, we may be fairly certain we
 correctly solved @eq:sphere4 and therefore @eq:sphere5.
 
-Once, we confirmed the validity of the formula in @eq:sphere5, all that's left to
+Once we confirmed the validity of the formula in @eq:sphere5, all that's left to
 do is to translate it into Julia code.
 
 ```jl
@@ -165,7 +165,7 @@ nDroplets = [1, 4, 8, 12]
 totalVolumes = repeat([getVolume(referenceDroplet)], length(nDroplets))
 individualVolumes = totalVolumes ./ nDroplets
 droplets = getSphere.(individualVolumes)
-radii = map(s -> s.radius, droplets)
+radii = map(droplet -> droplet.radius, droplets)
 individualSurfaceAreas = getSurfaceArea.(droplets)
 totalSurfaceAreas = individualSurfaceAreas .* nDroplets
 """
@@ -180,8 +180,8 @@ get a volume of an individual droplet (`individualVolumes`). Based on the
 individual volumes we create the `droplets` with the appropriate radii
 (`getSphere.(individualVolumes)`). We also extract the `radii` for future use
 (the drawing function below). Now, we calculate `individualSurfaceAreas` of our
-small droplets (`getSurfaceArea.(droplets)`) and then their
-`totalSurfaceAreas`. We were able to achieve all that in only 7 lines of code.
+droplets (`getSurfaceArea.(droplets)`) and then their `totalSurfaceAreas`. To
+think we did all that in only 7 lines of code.
 
 Anyway, now, we can either examine the vectors (`totalSurfaceAreas`, `radii`,
 `nDroplets`, `individualVolumes`) one by one, or do one better and present them
