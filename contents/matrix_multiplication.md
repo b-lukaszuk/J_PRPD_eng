@@ -116,14 +116,14 @@ map(x -> x + 10, [1, 2, 3])
 sco(s)
 ```
 
-Here we used a vector (`[1, 2, 3]`) and applied an anonymous function
-(`x -> x + 10`) to each of its elements. The function accepts one argument
-(`x`), adds 10 to it (`x + 10`) and returns (`->`) that value. Since `x` will
-become every element of the vector `[1, 2, 3]` then in effect 10 will be added
-to the each component of the vector and the results will be collected into a new
-vector (the old vector is not changed). Interestingly, we may also use a
-function that accepts two arguments and apply this function to parallel elements
-of two vectors, like so:
+Here we used a vector (`[1, 2, 3]`) and applied an anonymous function (`x -> x +
+10`) to each of its elements. The function accepts one argument (`x`) and
+returns (`->`) that value plus 10 (`x + 10`) . Since `x` will become every
+element of the vector `[1, 2, 3]` then in effect 10 will be added to the each
+component of the vector and the results will be collected into a new vector (the
+old vector is not changed). Interestingly, we may also use a function that
+accepts two arguments and apply this function to parallel elements of two
+vectors, like so:
 
 ```jl
 s = """
