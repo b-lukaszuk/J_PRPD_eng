@@ -20,8 +20,8 @@ recSum([1, 2, 3])
 
 # solution section
 function recFactorial(n::Int)::Int
-    @assert 1 <= n <= 20 "n must be in range [1-20]"
-    if n == 1
+    @assert 0 <= n <= 20 "n must be in range [0-20]"
+    if n == 0
         return 1
     else
         return n * recFactorial(n-1)
@@ -30,14 +30,14 @@ end
 
 # redefinition
 function recFactorialV2(n::Int)::Int
-    @assert 1 <= n <= 20 "n must be in range [1-20]"
-    return n == 1 ? 1 : n * recFactorialV2(n-1)
+    @assert 0 <= n <= 20 "n must be in range [0-20]"
+    return n == 0 ? 1 : n * recFactorialV2(n-1)
 end
 
 # redefinition, tail recursion
 function recFactorialV3(n::Int, acc::Int=1)::Int
-    @assert 1 <= n <= 20 "n must be in range [1-20]"
-    return n == 1 ? acc : recFactorialV3(n-1, n * acc)
+    @assert 0 <= n <= 20 "n must be in range [0-20]"
+    return n == 0 ? acc : recFactorialV3(n-1, n * acc)
 end
 
 (

@@ -87,8 +87,8 @@ recSum([1, 2, 3]) # triggers else branch
 6
 ```
 
-It is difficult to imagine step by step, but `recSum` works equally well for a
-bit broader range of numbers.
+It is difficult to imagine it step by step, but `recSum` works equally well for
+a bit broader range of numbers.
 
 ```jl
 s = """
@@ -101,7 +101,7 @@ Believe it or not, but that last one you can calculate fairly easily yourself if
 you apply [the Gauss
 method](https://www.nctm.org/Publications/TCM-blog/Blog/The-Story-of-Gauss/).
 
-Anyway, usually recursion is not very effective and it can be rewritten with
+Anyway, usually recursion is not very effective and it can be replaced with
 loops. Moreover, too big input, e.g. `1:100_000`, will likely cause an error
 with `recSum`, but not with the built-in `sum`. Still, for some problems
 recursion is an easy to implement and elegant solution that gets the job
@@ -125,8 +125,8 @@ $$
 \begin{align*}
 n! = \left\{
     \begin {aligned}
-         & 1 \quad & \text{if } n = 1 \\
-         & n \times (n-1)! \quad & \text{otherwise}
+         & 1 \quad & \text{if } n = 0 \\
+         & n \times (n-1)! \quad & \text{if } n \geq 1
     \end{aligned}
 \right.
 \end{align*}
@@ -137,8 +137,8 @@ Which can be translated into Julia's:
 ```jl
 s = """
 function recFactorial(n::Int)::Int
-    @assert 1 <= n <= 20 "n must be in range [1-20]"
-    if n == 1
+    @assert 0 <= n <= 20 "n must be in range [0-20]"
+    if n == 0
         return 1
     else
         return n * recFactorial(n-1)
@@ -152,10 +152,10 @@ In general, a factorial is well defined for positive integers and it grows very
 quickly (n > 20 would produce
 [overflow](https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/#Overflow-behavior),
 to resolve it we could use `BigInt` instead of `Int`) hence the `@assert` line.
-Anyway, for `n` equal 1 we return 1 (our base case), otherwise we multiply `n`
-by `recFactorial(n-1)`. Go ahead, follow the execution of the program for small
-inputs like `recFactorial(3)` in your head (similarly to `recSum` from
-@sec:recursion_problem).
+Anyway, per the definition, for `n` equal 0 we return 1 (our base case),
+otherwise we multiply `n` by `recFactorial(n-1)`. Go ahead, follow the execution
+of the program for small inputs like `recFactorial(3)` in your head (similarly
+to `recSum` from @sec:recursion_problem).
 
 To get you a better feel for recursion in Julia, here are two other equivalent
 implementations of `recFactorial`.
@@ -163,8 +163,8 @@ implementations of `recFactorial`.
 ```jl
 s = """
 function recFactorialV2(n::Int)::Int
-    @assert 1 <= n <= 20 "n must be in range [1-20]"
-    return n == 1 ? 1 : n * recFactorialV2(n-1)
+    @assert 0 <= n <= 20 "n must be in range [0-20]"
+    return n == 0 ? 1 : n * recFactorialV2(n-1)
 end
 """
 sc(s)
@@ -174,8 +174,8 @@ and
 ```jl
 s = """
 function recFactorialV3(n::Int, acc::Int=1)::Int
-    @assert 1 <= n <= 20 "n must be in range [1-20]"
-    return n == 1 ? acc : recFactorialV3(n-1, n * acc)
+    @assert 0 <= n <= 20 "n must be in range [0-20]"
+    return n == 0 ? acc : recFactorialV3(n-1, n * acc)
 end
 """
 sc(s)
@@ -183,7 +183,7 @@ sc(s)
 
 The second version (`recFactorialV2`) uses [ternary
 operator](https://docs.julialang.org/en/v1/base/base/#?:) instead of more
-verbose `if else` statements. The third version (`recFactorialV3`) relies on a
+verbose `if-else` statements. The third version (`recFactorialV3`) relies on a
 so called accumulator (`acc`) that stores the result of a previous calculation
 (if any). `recFactorialV3` is a tail-recursive function that is recommended in
 some programming languages, like
@@ -229,7 +229,7 @@ sco(s)
 ```
 
 The numbers do not grow as fast as `factorial`s, but the algorithm, although
-simple, is very inefficient. For instance, for `recFib(3)` I have to calculate
+simple, is very inefficient. For instance, for `recFib(3)` it has to calculate
 `recFib(1) + recFib(2)`, but `recFib(2)` will calculate `recFib(1)` inside of it
 as well. For greater numbers (inputs) the duplicated operations threaten to
 throttle the processor. On my laptop the computation for `recFib(40)` takes
@@ -273,6 +273,6 @@ sco(s)
 takes only microseconds on its first execution (hundreds to thousand times
 faster). Interestingly, running `recFib!(40, fibs)` for the second time reduces
 the time to nanoseconds (million(s) times faster) since there are no
-calculations performed the second time, just reading the number from the
+calculations performed the second time (just reading the number from the
 previously modified `lookup`). Run `recFib(40)` twice to convince yourself that
 it takes roughly the same amount of time every time it runs with the same `n`.
