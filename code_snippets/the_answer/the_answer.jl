@@ -19,8 +19,8 @@ for base in MIN_BASE:MAX_BASE
         n2 = string(dec2, base=base)[1]
         sumOfNs = string(dec1 + dec2, base=base)
         prodOfNs = string(dec1 * dec2, base=base)
-        s1, s2 = lpad(sumOfNs, 2, '0')
-        p1, p2 = lpad(prodOfNs, 2, '0')
+        s1, s2 = lpad(sumOfNs, 2, '0') # s1, s2 = carried, running slot
+        p1, p2 = lpad(prodOfNs, 2, '0') # p1, p2 = carried, running slot
         ADD_TBL[base][(n1, n2)] = (s1, s2)
         MULT_TBL[base][(n1, n2)] = (p1, p2)
     end

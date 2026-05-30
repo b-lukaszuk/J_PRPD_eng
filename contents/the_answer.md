@@ -59,7 +59,7 @@ function dec2baseN(dec::Int, n::Int)::Str
     @assert 0 <= dec <= 1024 "dec must be in range [0-1024]"
     result::Str = ""
     while dec != 0
-		# (dec % n) - C-like indexing [0 - (n-1)]
+		# (dec % n) - C-like indexing [0 - n), hence +1 below
         result *= CHARS[(dec % n) + 1]
         dec = div(dec, n)
     end
@@ -69,7 +69,7 @@ end
 sc(s)
 ```
 
-Here, we used an algorithm that differs from to the one in @sec:binary_solution.
+Here, we used an algorithm that differs from the one in @sec:binary_solution.
 Basically, we divide a decimal number (`dec`) by the base `n` in which it is to
 be coded. Our algorithm comes from [the
 Wikipedia](https://en.wikipedia.org/wiki/Binary_number#Decimal_to_binary) and
@@ -83,7 +83,7 @@ other numerical systems. The page in the link states:
 
 Of course, instead of `2` we used a reminder of `n` and the quotient divided by
 `n` (`div(dec, n)`). Of note the modulo operator (`%`) returns the reminder in
-the range `[0 - (n-1)]`, e.g.
+the range `[0 - n)` (inclusive-exclusive), e.g.
 
 ```jl
 s = """
@@ -94,10 +94,11 @@ sco(s)
 
 Therefore, in order to convert it to Julia's indexing system we had to add `+1`.
 Moreover, during the turnovers of our `while` loop the least significant
-reminder was appended (`*=`) to the `result`, then the second least significant,
-then the third, etc. Due to this process the least significant slot was on the
-left side of the string (`result`), whereas the most important slot was on the
-right side of it. Hence, we `reverse`d the `result` in our last step.
+reminder was appended (`*=`) to the `result`, then the second least significant
+reminder was appended, then the third, etc. Due to this process the least
+significant slot ended up on the left side of the string (`result`), whereas the
+most important slot ended up on the right side of it. Hence, we `reverse`d the
+`result` in our last step.
 
 Let's compare its action against Julia's built-ins (the `string` function):
 
