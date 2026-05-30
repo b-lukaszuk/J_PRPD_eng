@@ -72,8 +72,8 @@ end
 sc(s)
 ```
 
-All we had to do was to `filter` out primes from the sequence of numbers within
-the desired range `2:upTo`. Time for a simple test.
+All we had to do was to fish out primes from the sequence of numbers (`2:upTo`)
+with `filter`. Time for a simple test.
 
 ```jl
 s = """
@@ -122,11 +122,11 @@ end
 sc(s)
 ```
 
-This time we begin by defining two vectors `nums` which contains all the
-examined integers from a given range and `isPrimeTests` that contains indication
-of whether a number in `nums` is prime. Initially, all the numbers are
-considered to be primes (`ones(Bool, upTo)`) except for 1 (`isPrimeTests[1] =
-false`). Then, we examine every number (`num`) out of the candidates (`nums`).
+This time we begin by defining two vectors: `nums` - which contains all the
+examined integers from a given range, and `isPrimeTests` - that contains
+indication of whether a number in `nums` is prime. Initially, all the numbers
+are considered to be primes (`ones(Bool, upTo)`) except for 1 (`isPrimeTests[1]
+= false`). Then, we examine every number (`num`) out of the candidates (`nums`).
 If a number is prime (`if isPrimeTests[num]`) we set all its multiples
 (`numMultiples`) as not primes (`false`) using broadcasting (`.`) with the
 assignment (`=`) operator. Once finished we return only the candidates that
@@ -152,4 +152,4 @@ getPrimesV1(1000) == getPrimesV2(1000)
 sco(s)
 ```
 
-Yes, they do.
+Yes they do.
