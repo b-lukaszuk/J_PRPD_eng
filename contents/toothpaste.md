@@ -30,7 +30,7 @@ see what would have happened if the customers tried to counteract this idea by
 squeezing less toothpaste (shorter strip) on the toothbrush.
 
 > **_Note:_** $100,000 may not sound like a tone of money today, but if you
-> update it for an inflation rate of let's say 3.6% you will get roughly
+> update it for an annual inflation rate of let's say 3.6% you will get roughly
 > $1,000,000. Example calculations: 100,000*(1.036^65) $\approx$ 996,000,000. In
 > that case 65 is the number of years between 1960 and 2025, whereas 1.036 is
 > how much more money you must spend every year on the same product due to the
@@ -48,9 +48,8 @@ const Flt = Float64
 
 Now, based on my own observations I would say that a
 [cylinder](https://en.wikipedia.org/wiki/Cylinder) is a good approximation of
-the toothpaste that is squezed out of the tube. Time to define some helper
-functions that will help us to evaluate the amount of a toothpaste on a
-toothbrush.
+the toothpaste that is squeezed out of the tube. Time to define some functions
+that will help us to evaluate the amount of a toothpaste on a toothbrush.
 
 ```jl
 s = """
@@ -67,13 +66,14 @@ sc(s)
 ```
 
 We will skip the detailed explanations, as the above are just translations of
-the Wikipedia's formulas into Julia's code.
+the Wikipedia's/mathematical formulas into Julia's code.
 
 There is a slight problem with the code above as one could argue that a cylinder
 mustn't have any of its dimensions equal to or smaller than 0 (`Int` allows for
 such numbers). So we can either use an [unsigned
 type](https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/)
-(like `UInt64`) or add a sanity check within a so called [inner
+(like `UInt64`, still it allows for 0s) or add a sanity check within a so called
+[inner
 constructor](https://docs.julialang.org/en/v1/manual/constructors/#man-inner-constructor-methods).
 
 ```jl
