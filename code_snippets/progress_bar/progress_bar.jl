@@ -1,3 +1,4 @@
+const Flt = Float64
 const Str = String
 const Vec = Vector
 
@@ -22,15 +23,14 @@ function clearPrintout()::Nothing
 end
 
 function animateProgressBar()::Nothing
-    delayMs::Int = 0
+    delaySec::Flt = 0.1
     fans::Vec{Str} = ["\\", "-", "/", "-"]
-    ind::Int = 1
+    lenFans::Int = length(fans)
     for p in 0:100
-        delayMs = rand(100:250)
-        println(getProgressBar(p), " ", fans[ind])
-        sleep(delayMs / 1000) # sleep accepts delay in seconds
+        delaySec = rand(0.1:0.01:0.25)
+        println(getProgressBar(p), " ", fans[(p % lenFans) + 1])
+        sleep(delaySec) # sleep accepts delay in seconds
         clearPrintout()
-        ind = (ind == length(fans)) ? 1 : ind + 1
     end
     println(getProgressBar(100))
     return nothing

@@ -41,15 +41,15 @@ progress bar.
 s2 = """
 function getProgressBar(perc::Int)::Str
     @assert 0 <= perc <= 100 "perc must be in range [0-100]"
-    return "|" ^ perc * "." ^ (100-perc) * string(" ", perc) * "%"
+    return "|" ^ perc * "." ^ (100-perc) * xxx
 end
 """
-replace(sc(s2), Regex("string.*") => "\"\$perc%\"")
+replace(sc(s2), "xxx" => "\" \$perc%\"")
 ```
 
 In order to understand the function we must remember the precedence of
 mathematical operations [exponentiation (`^`) before multiplication
-(`*`)]. Moreover, we must remember that in the context of strings `*` is a
+(`*`)]. Moreover, we must keep in mind that in the context of strings `*` is a
 [concatenation](https://docs.julialang.org/en/v1/manual/strings/#man-concatenation)
 operator (it glues two strings into a one longer string), whereas `^` multiplies
 a string to its left the number of times on its right (i.e. `"a"^3` gives us
@@ -71,14 +71,14 @@ function getProgressBar(perc::Int)::Str
     @assert 0 <= perc <= 100 "perc must be in range [0-100]"
     maxNumOfChars::Int = 50
     p::Int = round(Int, perc / (100 / maxNumOfChars))
-    return "|" ^ p * "." ^ (maxNumChars-p) * string(" ", perc) * "%"
+    return "|" ^ p * "." ^ (maxNumChars-p) * xxx
 end
 """
-replace(sc(s3), Regex("string.*") => "\"\$perc%\"")
+replace(sc(s3), "xxx" => "\" \$perc%\"")
 ```
 
 The above function looses some resolution in translation of `perc` to vertical
-bars (`|`). However, the percentage is displayed as a number anyway (`"$perc%"`)
+bars (`|`). However, the percentage is displayed as a number anyway (`" $perc%"`)
 so it is not such a big problem after all.
 
 Now, we are ready to write the first version of our `animateProgressBar`.
@@ -86,10 +86,9 @@ Now, we are ready to write the first version of our `animateProgressBar`.
 ```
 function animateProgressBar()::Nothing
     fans::Vec{Str} = ["\\", "-", "/", "-"]
-    ind::Int = 1
+    lenFans::Int = length(fans)
     for p in 0:100
-        println(getProgressBar(p), " ", fans[ind])
-        ind = (ind == length(fans)) ? 1 : ind + 1
+        println(getProgressBar(p), " ", fans[(p % lenFans) + 1])
     end
     println(getProgressBar(100))
     return nothing
@@ -105,8 +104,10 @@ impression of a fan). Note, the double
 designate that the next character(s) is/are special. For instance
 `println("and")` will just print the conjunction 'and'. On the other hand,
 `println("a\nd")` will print 'a' and 'd', one below the other, since in Julia
-`"\n"` stands for newline. To get rid of the special meaning of `"\"` we
-precede it with another backslash, hence `"\\"`.
+`"\n"` stands for newline. To get rid of the special meaning of `"\"` we precede
+it with another backslash, hence `"\\"`. As for the indices of `fans` we use the
+modulo operator and its property (`a % b` takes values in the range `[0-b)`,
+hence `(p % lenFans) + 1`) as explained e.g in @sec:the_answer_solution.
 
 OK, let's see what we got.
 
@@ -137,8 +138,7 @@ will be solved with
 the program wait for a specific number of seconds before executing the next line
 of code. The second problem will be solved with [ANSI escape
 codes](https://en.wikipedia.org/wiki/ANSI_escape_code) a sequence of characters
-with a special meaning [as found in the link (see this sentence) to the
-Wikipedia's page].
+with a special meaning [as found in the link to the Wikipedia's page].
 
 ```
 # the terminal must support ANSI escape codes
@@ -152,15 +152,14 @@ function clearPrintout()::Nothing
 end
 
 function animateProgressBar()::Nothing
-    delayMs::Int = 0
+    delaySec::Flt = 0.1
     fans::Vec{Str} = ["\\", "-", "/", "-"]
-    ind::Int = 1
+    lenFans::Int = length(fans)
     for p in 0:100
-        delayMs = rand(100:250)
-        println(getProgressBar(p), " ", fans[ind])
-        sleep(delayMs / 1000) # sleep accepts delay in seconds
+        delaySec = rand(0.1:0.01:0.25)
+        println(getProgressBar(p), " ", fans[(p % lenFans) + 1])
+        sleep(delaySec) # sleep accepts delay in seconds
         clearPrintout()
-        ind = (ind == length(fans)) ? 1 : ind + 1
     end
     println(getProgressBar(100))
     return nothing
