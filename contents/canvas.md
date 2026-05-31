@@ -111,9 +111,9 @@ Each `rectangle` is represented as a vector of positions (`Vec{Pos}`). It will
 start at the origin of our coordinate system (`COORD_ORIGIN` - top left corner
 of our matrix). It will spread through as many `row`s and `col`umns as there are
 needed. Their numbers will be calculated based on the `height` and `width` of
-the rectangle. Such a rectangle (the one that starts in the coordinate system
-origin point) is a good start, but to draw a picture we need to be able to place
-a shape in any location on the canvas.
+the rectangle. Such a rectangle (the one that is anchored in the coordinate
+system's origin point) is good at kick off, but to draw a picture we need to be
+able to place a shape in any location on the canvas.
 
 ```
 # moves a shape by (nRows, nCols)
@@ -187,7 +187,7 @@ end
 
 Our triangle's top starts with a pixel (`lCol` and `rCol` are initialized with
 the same value) in the origin of our coordinate system (`COORD_ORIGIN`). Then
-for each row (`for row in rowStart:height`) we dye each pixel between the left
+for each row (`for row in rowStart:height`) we take each pixel between the left
 (`lCol`) and right (`rCol`) columns (inclusive-inclusive). The basis of the
 triangle is increased by one pixel on each side (`lCol -= 1` and `rCol += 1`)
 with each row we move down. Of note, we could have shortened the above snippet,
@@ -221,10 +221,9 @@ end
 Here, we use a pattern similar to the one from the triangle. A circle is started
 in the top row (`rowStart`) with three columns (`collect((-1-r):(2+r))`). With
 every row down we increase the spread by 1 column in each direction (`r` changes
-by 1). Once, we are in half of our circle we decrease the number of colored
-columns. We achieve that by combining the previous `cols` with their `reverse`d
-version (`...` is a splat operator that, unpacks a vector by copying its
-elements).
+by 1). Once, we are in half of our circle we decrease the number of columns. We
+achieve that by combining the previous `cols` with their `reverse`d version
+(`...` is a splat operator that, unpacks a vector by copying its elements).
 
 Finally, we proceed to create our pixel-art graphics, e.g. by iteratively adding
 one element at a time with something like:
