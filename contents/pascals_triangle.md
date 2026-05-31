@@ -16,9 +16,9 @@ A reminder of how to deal with packages and \*.toml files can be found
 ## Problem {#sec:pascals_triangle_problem}
 
 Imagine that you are a basketball coach in a local school. A basketball team is
-composed of 5 players. Nine kids attends your classes. You would like the kids
-to play in every possible configuration so that you could choose the best team
-to represent the school next month. You wonder how many different teams of 5
+composed of 5 players. Nine kids attend your classes. You would like the kids to
+play in every possible configuration so that you could choose the best team to
+represent the school next month. You wonder how many different teams of 5
 players can you compose out of 9 candidates.
 
 Such a question could be answered with the
@@ -50,7 +50,7 @@ exact):
     ∆
 ```
 
-The above indicates how many pairs of 2 people out of 3 candidates can we get
+The above indicates how many pairs of people can we get out of 3 candidates
 (e.g. in order to play doubles in tennis).
 
 ## Solution {#sec:pascals_triangle_solution}
@@ -96,8 +96,8 @@ zip([1, 2, 3, 4], [2, 3, 4]) |> collect
 sco(s)
 ```
 
-Notice, that the second argument to `zip` is its first element (`[1, 2, 3, 4]`)
-with shift 1 (just like `prevRow[2:end]` in the body of `getSumOfPairs`) and the
+Notice, that the second argument to `zip` is almost the same as its first
+argument (just like `prevRow[2:end]` in the body of `getSumOfPairs`) and the
 parallel elements from both the vectors are `zip`ped together as long as there
 are pairs. Next, the numbers in a pair are added (`a + b` in the body of
 `getSumOfPairs`). Finally, `getRow` uses the `sumsOfPairs` and adds 1s on the
@@ -125,10 +125,10 @@ sc(s)
 
 We define our triangle with initial two rows. Next, we move downwards through
 the possible triangle rows (`for row in 2:n`) and build the next row based on
-the previous one `getRow(triangle[row-1])`. All that's left to do is to `return`
-the triangle as a vector of vectors (`Vec{Vec{Int}})`) which will give us a
-right triangle printed in the output by default. For instance, let's get the
-Pascal's triangle from @fig:pascalsTriangle.
+the previous one (`getRow(triangle[row-1])`). All that's left to do is to
+`return` the triangle as a vector of vectors (`Vec{Vec{Int}})`) which will give
+us a right triangle printed in the output by default. For instance, let's get
+the Pascal's triangle from @fig:pascalsTriangle.
 
 ```jl
 s = """
