@@ -10,7 +10,7 @@ const Path = Vector{Pos}
 const RIGHT = (1, 0)
 const DOWN = (0, -1)
 const MOVES = [RIGHT, DOWN]
-const STARTPOINT = (0, 0) # top left corner
+const START_POINT = (0, 0) # top left corner
 
 # the code in this file is meant to serve as a programming exercise only
 # it may not act correctly
@@ -31,7 +31,7 @@ end
 
 function getFinalPositions(nRows::Int)::Vec{Pos}
     @assert 0 < nRows < 5 "nRows must be in the range [1-4]"
-    finalPositions::Vec{Pos} = [STARTPOINT] # top left corner
+    finalPositions::Vec{Pos} = [START_POINT] # top left corner
     for _ in 1:(nRows*2) # - *2 - because of columns
         finalPositions = add(finalPositions, MOVES)
     end
@@ -61,7 +61,7 @@ end
 function getPaths(nRows::Int)::Vec{Path}
     @assert 0 < nRows < 5 "nRows must be in the range [1-4]"
     target::Pos = (nRows, -nRows) # bottom right corner
-    result::Vec{Path} = [[STARTPOINT]] # top left corner
+    result::Vec{Path} = [[START_POINT]] # top left corner
     for _ in 1:(nRows*2) # - *2 - because of columns
         result = makeOneStep(result, MOVES)
     end

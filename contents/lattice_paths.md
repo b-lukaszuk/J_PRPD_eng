@@ -22,7 +22,7 @@ A reminder of how to deal with packages and \*.toml files can be found
 
 ## Problem {#sec:lattice_paths_problem}
 
-This exercise was inspired by [the following Euler Project
+This exercise was inspired by [the following Project Euler's
 problem](https://projecteuler.net/problem=15), but it was modified by me.
 
 Take a look at @fig:latticePaths2x2 below. You will find a big square build of
@@ -86,7 +86,7 @@ const Mov = Tuple{Int, Int}
 const RIGHT = (1, 0)
 const DOWN = (0, -1)
 const MOVES = [RIGHT, DOWN]
-const STARTPOINT = (0, 0)
+const START_POINT = (0, 0)
 
 function add(position::Pos, move::Mov)::Pos
     return position .+ move
@@ -111,7 +111,7 @@ starts at the top left corner, `(0, 0)`, of a big square), which together form a
 vector of available `MOVES`.
 
 Next, we define the `add` function. Its first version, aka method, allows to add
-a position (like our `STARTPOINT`) to a move (like the move to the `RIGHT`). In
+a position (like our `START_POINT`) to a move (like the move to the `RIGHT`). In
 some programming languages we would have to type
 something like `return (position[1] + move[1], position[2] + move[2])` but in
 Julia we just use a broadcasting operator `.+` to add the tuples
@@ -126,7 +126,7 @@ Let's put the above functions to good use.
 ```
 function getFinalPositions(nRows::Int)::Vec{Pos}
     @assert 0 < nRows < 5 "nRows must be in the range [1-4]"
-    finalPositions::Vec{Pos} = [STARTPOINT] # top left corner
+    finalPositions::Vec{Pos} = [START_POINT] # top left corner
     for _ in 1:(nRows*2) # *2 - because of columns
         finalPositions = add(finalPositions, MOVES)
     end
@@ -149,7 +149,7 @@ getNumOfPaths(3) # the same result as: binomial(6, 3)
 
 `getFinalPositions` accepts `nRows` which is the number of small squares in a
 column of, e.g. @fig:latticePaths2x2wCoordinates. Next, it starts at the top
-left corner (`finalPositions::Vec{Pos} = [STARTPOINT]`) and `moves` away from
+left corner (`finalPositions::Vec{Pos} = [START_POINT]`) and `moves` away from
 it. The number of moves is equal to `nRows*2` and we always go in each of both
 the directions (`RIGHT` and `DOWN` which are in `moves`) thanks to the
 previously defined `add` function. Finally, we `return` the `finalPositions`
@@ -158,11 +158,17 @@ choose only those `positions` that land us in the bottom right corner (`target`)
 by using `filter`. The `length` of our vector is the number of paths we were
 looking for.
 
+Overall, the function does some redundant calculations, but we are OK with that
+since it was easy to write and its performance is acceptable for this small
+task. The same will be true for the remaining functions in this chapter.
+
 OK, now let's think how to draw it. For once, we could reuse the already written
 functions (`add` and `getFinalPositions`) like so (we will modify the functions
 a little bit):
 
 ```
+const Path = Vector{Pos} # Pos is Tuple{Int, Int}
+
 function makeOneStep(prevPaths::Vec{Path}, moves::Vec{Mov}=MOVES)::Vec{Path}
     @assert !isempty(prevPaths) "prevPaths cannot be empty"
     @assert !isempty(moves) "moves cannot be empty"
@@ -176,7 +182,7 @@ end
 function getPaths(nRows::Int)::Vec{Path}
     @assert 0 < nRows < 5 "nRows must be in the range [1-4]"
     target::Pos = (nRows, -nRows) # bottom right corner
-    result::Vec{Path} = [[STARTPOINT]] # top left corner
+    result::Vec{Path} = [[START_POINT]] # top left corner
     for _ in 1:(nRows*2) # *2 - because of columns
         result = makeOneStep(result, MOVES)
     end
@@ -306,8 +312,8 @@ is specified by `fig[r, c]`). A `path` is depicted with a set of arrows
 system (`Cmk.hidespines!` and `Cmk.hidedecorations!`) because in the end we
 don't care about it that much. Moreover, we narrowed the empty space between the
 sub-figures (`Cmk.rowgap!` and `Cmk.colgap!`). The rest of the code in this
-snippet is just the necessary, housekeeping that helps us achieve our goal,
-which is depicted below.
+snippet is just the necessary housekeeping that helps us achieve our goal, which
+is depicted below.
 
 ```
 paths = getPaths(3)
