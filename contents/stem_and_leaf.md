@@ -136,8 +136,8 @@ number of characters. Next, we proceed to obtain the `stem` which contains all
 the characters from `numStr`, except the last one (`end-1`). The `|> string`
 makes sure that the end result is `Str` (since, e.g. `stem` from `"21"` would be
 `'2'` which is of type `Char`). Similarly, we produce `leaf` by taking the last
-character of `numStr`. We could stop here, and it would likely work fine for a
-positive integer. However, handling broader range of inputs (`num` and
+character of `numStr`. We could stop here, and it would likely work fine for
+positive integers. However, handling broader range of inputs (`num` and
 `maxLenOfNum`) requires some further `stem` processing. Hence the lines
 designated with `#1-#3` that were added in later iterations of
 `getStemAndLeaf`.`#1` removes superfluous 0s from the left side of the string
@@ -247,10 +247,10 @@ sc(s)
 At the onset, we define a few variables. Some of them deserve a short
 explanation. `low` and `high` are the two `extrema` (minimum and maximum) of our
 numbers (`nums`). `testedStems` will contain the keys from `leafCounts`,
-i.e. the stems from our stem-leaf plot that rows has been already
+i.e. the stems from our stem-leaf plot whose rows have been already
 obtained. Next, we use `for` loop to travel through all the numbers in our range
 (`low` to `high`). For each tested number (`num`) we get its `stem`. If the
-`stem` was already obtained (`if haskey`) we `continue` to another `for` loop
+`stem` was already seen (`if haskey`) we `continue` to another `for` loop
 iteration. Otherwise, we add the row to our `result`
 (`result *= getStemLeafRow`) and insert the `stem` among the already visited
 (`testedStems[stem] = true`). When we finish we return the whole stem-leaf-plot
