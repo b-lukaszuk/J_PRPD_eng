@@ -61,7 +61,7 @@ end
 
 function printCatalogTree(path::Str)::Nothing
     if !isdir(path)
-        println("The path $path does not exist.")
+        println("The path $path/ does not exist.")
         return nothing
     end
     println(path, "/")
@@ -120,7 +120,7 @@ end
 
 function printCatalogTree(path::Str)::Nothing
     if !isdir(path)
-        println("The path $path does not exist.")
+        println("The path $path/ does not exist.")
         return nothing
     end
     println(path, "/")
@@ -131,10 +131,10 @@ end
 
 To that end we changed the `pad`s. We begin with the first column on the left
 that should start with the pipe character (`printCatalogTree(path, "|")`). Each
-line containing a file or directory should continue with hyphens "---"
+line containing a file or directory should continue with hyphens
 (`newPad::Str = pad * "---"`), whereas a nested directory and its contents
 should be indented and start with the pipe character as well
-(`printCatalogTree(newPath, pad * " |")`). Let's see did it work as intended.
+(`printCatalogTree(newPath, pad * " |")`). Let's see does it work as intended.
 
 ```
 printCatalogTree(joinpath(homedir(), "Desktop", "catalog_x"))
@@ -154,6 +154,8 @@ Not bad at all. Time to add a summary line.
 ```
 function printCatalogTree!(path::Str, pad::Str,
                            count::Dict{Str, Int})::Nothing
+    @assert haskey(count, "nDirs") "count must have a key nDirs"
+    @assert haskey(count, "nFiles") "count must have a key nFiles"
     newPad::Str = pad * "--- "
     for name in readdir(path)
         newPath::Str = joinpath(path, name)
@@ -171,7 +173,7 @@ end
 
 function printCatalogTree(path::Str)::Nothing
     if !isdir(path)
-        println("The path $path does not exist.")
+        println("The path $path/ does not exist.")
         return nothing
     end
     println(path, "/")

@@ -3,7 +3,11 @@ const Str = String
 # the code in this file is meant to serve as a programming exercise only
 # it may not act correctly
 
-function printCatalogTree!(path::Str, pad::Str, count::Dict{Str, Int})::Nothing
+# count must contain "nDirs" => 0 and "nFiles" => 0
+function printCatalogTree!(path::Str, pad::Str,
+                           count::Dict{Str, Int})::Nothing
+    @assert haskey(count, "nDirs") "count must have a key nDirs"
+    @assert haskey(count, "nFiles") "count must have a key nFiles"
     newPad::Str = pad * "--- "
     for name in readdir(path)
         newPath::Str = joinpath(path, name)
@@ -21,7 +25,7 @@ end
 
 function printCatalogTree(path::Str)::Nothing
     if !isdir(path)
-        println("The path $path does not exist.")
+        println("The path $path/ does not exist.")
         return nothing
     end
     println(path, "/")
