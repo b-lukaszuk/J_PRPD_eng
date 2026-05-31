@@ -39,13 +39,13 @@ switch? Use Julia to figure it out.
 
 ## Solution {#sec:the_doors_solution}
 
-One way to answer the question is to use the so called Bayes's Theorem, as
-explained by Allen B. Downey
-[here](https://allendowney.github.io/ThinkBayes2/chap02.html#the-monty-hall-problem).
+One way to answer the question is to use the so called [Bayes's
+Theorem](https://en.wikipedia.org/wiki/Bayes%27_theorem), as explained by Allen
+B. Downey in "Think Bayes".
 
 > **_Note:_** Below, you will find a shortened explanation. To understand the
 > topic more satisfactorily you will likely need to read the first two chapters
-> of [Think Bayes](https://allendowney.github.io/ThinkBayes2/index.html) by
+> of [Think Bayes](https://greenteapress.com/wp/think-bayes/) by
 > Allen B. Downey.
 
 First the theorem:
@@ -113,7 +113,7 @@ function bayesUpdate!(df::Dfs.DataFrame)::Nothing
 end
 
 bayesUpdate!(df)
-df # to see Rationals as floats: convert.(Flt, df.posterior)
+df
 Options(df, caption="The doors. Posteriors.", label="theDoorsPosterior")
 """
 replace(sco(s), Regex("Options.*") => "", "1//1" => "1", "2//1" => "2", "3//1" => 3)
@@ -124,7 +124,7 @@ Clearly, switching to Door 2 gives the trader a better chance of winning the car
 \frac{1}{3} \approx 0.33$).
 
 > **_Note:_** To see the posterior as floats you may use, e.g.
-> `convert.(Flt, df.posterior)`.
+> `convert.(Flt, df.posterior)` or even `convert.(Flt, df)`.
 
 If that doesn't convince you then let's do a computer simulation.
 
@@ -170,7 +170,7 @@ We start by defining a `Door` structure that has all the necessary fields so
 that we can simulate our game-show. Notice the `mutable` keyword, it will allow
 us to change a property of a `Door` in-place. Anyway, we follow the structure
 definition with a random generator of three doors (`get3RandDoors`), a door
-opener (`openEligibleDoor`) and `swapChoice`. All the above act per the game
+opener (`openEligibleDoor!`) and `swapChoice!`. All the above act per the game
 description.  Of note,
 [findfirst](https://docs.julialang.org/en/v1/base/arrays/#Base.findfirst-Tuple%7BFunction,%20Any%7D)
 accepts a predicate and a vector. The predicate is a function that is executed
@@ -189,7 +189,7 @@ s = """
 function didTraderWin(doors::Vec{Door})::Bool
     indWinner::Union{Nothing, Int} = findfirst(
         d -> d.isChosen && d.isCar, doors)
-    # or: return !isnoting(indwinner)
+    # or: return !isnothing(indWinner)
     return isnothing(indWinner) ? false : true
 end
 
@@ -260,7 +260,7 @@ sc(s)
 ```
 
 Now we change the `return` statements in our `openEligibleDoor!` and
-`swapChoice`.
+`swapChoice!`.
 
 ```jl
 s = """
@@ -306,5 +306,11 @@ sco(s)
 And that's it. Three methods, three similar results. Time to make that door
 swap.
 
-> Note, the code presented above may not work for other number of doors
-> scenarios.
+> Note. By default a Julia's function that modifies a collection usually also
+> returns the modified collection. Therefore, you may use it right away just
+> like we did in the snippet above. As an example, see the definition of
+> [push!](https://docs.julialang.org/en/v1/base/collections/#Base.push!) in the
+> docs.
+
+> Another note. The code presented above may not work right for other number of
+> doors scenarios.

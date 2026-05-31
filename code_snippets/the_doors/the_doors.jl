@@ -68,7 +68,7 @@ end
 function didTraderWin(doors::Vec{Door})::Bool
     indWinner::Union{Nothing, Int} = findfirst(
         d -> d.isChosen && d.isCar, doors)
-    # or: return !isnoting(indwinner)
+    # or: return !isnothing(indWinner)
     return isnothing(indWinner) ? false : true
 end
 
@@ -118,7 +118,7 @@ function openEligibleDoor!(doors::Vec{Door})::Vec{Door}
     indsEligible::Vec{Int} = findall(d -> !d.isCar && !d.isChosen, doors)
     ind2Open::Int = indsEligible[Rnd.rand(1:length(indsEligible))]
     doors[ind2Open].isOpen = true
-    return doors
+    return doors # instead of: return nothing
 end
 
 # swap to random non-chosen, non-open door
@@ -129,7 +129,7 @@ function swapChoice!(doors::Vec{Door})::Vec{Door}
     ind2Choose::Int = inds2Choose[Rnd.rand(1:length(inds2Choose))]
     doors[indCurChosen].isChosen = false
     doors[ind2Choose].isChosen = true
-    return doors
+    return doors # instead of: return nothing
 end
 
 map(didTraderWin ∘ openEligibleDoor!, getAllDoorSets(3)) |> getAvg,
