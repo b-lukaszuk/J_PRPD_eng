@@ -77,8 +77,8 @@ sc(s)
 
 Whenever a number (`n`) is below 20 (`if n < 20`) we just return its
 representation from the `UNITS_AND_TEENS` dictionary. Alternatively, for `n` in
-the `TENS`, first we obtain the tens (`t`) and units (`u`) part.
-[divrem](https://docs.julialang.org/en/v1/base/math/#Base.divrem) is a
+the `TENS`, first we obtain the tens (`t`) and units (`u`) part. The function
+[divrem](https://docs.julialang.org/en/v1/base/math/#Base.divrem) is just a
 combination of `div` (an integer division) and `rem` (a reminder after the
 division). We use it, to obtain the transcript for the TENS (`TENS[t]`). It
 becomes our `result` to which we attach the transcript for units separated by a
