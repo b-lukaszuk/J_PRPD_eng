@@ -112,7 +112,7 @@ end
 function getDoubleColumn(txt::Str, targetLineLen::Int=MAX_LINE_LEN)::Vec{Str}
     @assert 19 < targetLineLen < 61 "targetLineLen must be in range [20-60]"
     lines::Vec{Str} = getJustifiedLines(
-        txt, div(targetLineLen, 2) - div(length(COL_SEP), 2), ) # 2 - nCols
+        txt, div(targetLineLen, 2) - div(length(COL_SEP), 2)) # 2 - nCols
     midPoint::Int = ceil(Int, length(lines)/2)
     return connectColumns(lines[1:midPoint], lines[(midPoint+1):end])
 end

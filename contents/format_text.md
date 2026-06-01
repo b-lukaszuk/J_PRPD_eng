@@ -22,7 +22,7 @@ A reminder of how to deal with packages and \*.toml files can be found
 
 ## Problem {#sec:format_text_problem}
 
-[Word processing
+[Word processor
 programs](https://en.wikipedia.org/wiki/List_of_word_processor_programs) offer
 many text editing functionalities. In a pre-digital era, those tasks had to be
 done manually. Anyway, let's try to do some typesetting with Julia.
@@ -115,8 +115,8 @@ For simplicity, you may assume the text to be composed of [ASCII encoded
 symbols](https://en.wikipedia.org/wiki/ASCII) with the words composed of, let's
 say, up to 10-15 letters and separated by an unspecified number of [whitespace
 characters](https://en.wikipedia.org/wiki/Whitespace_character). Feel free to
-adjust the task to your programming experience and do as many tasks as you deem
-suitable.
+adjust the task to your programming experience and do as many assignments as you
+deem suitable.
 
 ## Solution {#sec:format_text_solution}
 
@@ -158,9 +158,9 @@ For that we break our text (`txt`) into `words` with the
 [split](https://docs.julialang.org/en/v1/base/strings/#Base.split)
 function. Then, `for` each `word` we calculate the `difference` between our
 desired line length (`targetLineLen`) and the current line length
-(`length(curLine)`) plus the length of the word (`length(word)`) we want to add
-to that line. If we still got room for one more word (`if difference >= 0`) then
-we just add it with a padding on the right side (`curLine *= word *
+(`length(curLine)`) plus the length of the word we want to add to that line
+(`length(word)`). If we still got room for one more word (`if difference >= 0`)
+then we just add it with a padding on the right side (`curLine *= word *
 PAD`). Otherwise (`else`), we add `curLine` to the vector of `lines` with
 `push!` and make our `word` the beginning of a new line (`curLine = word *
 PAD`). Notice, that before `push`ing the old line to the collection, first, we
@@ -180,8 +180,8 @@ precedence from mathematics). Alternatively, we could have used the built in
 (e.g. `@sprintf("%60s", "xxx")`/`@sprintf("%-60s", "xxx")` to get the `"xxx"`
 right/left justified for
 us). [Lpad](https://docs.julialang.org/en/v1/base/strings/#Base.lpad) and
-[rpad](https://docs.julialang.org/en/v1/base/strings/#Base.rpad) were also a
-viable option.
+[rpad](https://docs.julialang.org/en/v1/base/strings/#Base.rpad) were also
+the options on the table.
 
 ```
 function getLenDiffs(lines::Vec{Str},
@@ -214,9 +214,9 @@ applies a function (`padLine`) to every consecutive elements of `lines`,
 lPadsLens[1], rPadsLens[1])` and `padLine(lines[2], lPadsLens[2],
 rPadsLens[2])`, etc., and collects the results into a vector.
 
-Now, the formatting reduces down to obtaining the lines, and calculating the
+Now, the formatting reduces down to obtaining the lines and calculating the
 diffs, which we do on the fly with this code snippet (`div(x, y)` divides `x` by
-`y` and returns an integer by dropping fractional part when necessary).
+`y` and returns an integer by dropping fractional part).
 
 ```
 function getLeftAlignedLines(txt::Str,
@@ -337,9 +337,9 @@ end
 
 function getDoubleColumn(txt::Str,
                          targetLineLen::Int=MAX_LINE_LEN)::Vec{Str}
-    @assert 19 < targetLineLen < 61 "targetLineLen must be in range [20-60]"
+    @assert 19 < targetLineLen < 31 "targetLineLen must be in range [20-30]"
     lines::Vec{Str} = getJustifiedLines(
-        txt, div(targetLineLen, 2) - div(length(COL_SEP), 2), ) # 2 - nCols
+        txt, div(targetLineLen, 2) - div(length(COL_SEP), 2)) # 2 - nCols
     midPoint::Int = ceil(Int, length(lines)/2)
     return connectColumns(lines[1:midPoint], lines[(midPoint+1):end])
 end
@@ -348,7 +348,7 @@ end
 Of note, `connectColumns` walks through every index in `col1lines`
 (`eachindex(col1lines)`) and glues together the columns with the `string`
 function. The outcome of such string concatenation is put into
-`result[i]`. Splitting a long thin column in half may result in a columns of a
+`result[i]`. Splitting a long thin column in half may result in columns of
 slightly different lengths. Therefore, we cannot just use a regular indexing on
 `col2lines` (because if the element is not there we'll get an error). Instead,
 we use the `get` function that we [encountered while working with
