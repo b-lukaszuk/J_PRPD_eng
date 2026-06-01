@@ -3,6 +3,7 @@ import Symbolics as Sym
 
 const Flt = Float64
 
+# WARNING
 # the code in this file is meant to serve as a programming exercise only
 # it may not act correctly
 
