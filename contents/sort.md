@@ -76,17 +76,17 @@ sc(s)
 ```
 
 Here, we implemented the algorithm for a vector that contains the elements of
-type `A`. In this case it is just a sub-type (`<:`) of `Flt` (an alias for
-`Float64`) or `Int` (`Union{Flt, Int}`). We started by `copy`ing the original
-vector to `result` and setting a variable named `swapped`. We will stop our
-sorting algorithm once there was no swap during the previous traversal of the
-whole vector (`swapped` in `while` is initially `false`, but notice that it may
-be reset to `true` in the `for` loop). We search through the vector starting
-from its second element (`i in eachindex(result)[2:end]`). Every time we compare
-the two nearby elements (`result[i-1]` vs. `result[i]`). If the elements aren't
-in a desired order (`if result[i-1] > result[i]`) we just swap them with each
-other (`result[i-1], result[i] = result[i], result[i-1]`) and set the `swapped`
-flag to `true`. Once we finish we return the result.
+type `A`. In this case it is just a `Flt` (an alias for `Float64`) or `Int`
+(`Union{Flt, Int}`). We started by `copy`ing the original vector to `result` and
+initializing a variable named `swapped`. We will stop our sorting algorithm once
+there was no swap during the previous traversal of the whole vector (`swapped`
+in `while` is initially `false`, but notice that it may be reset to `true` in
+the `for` loop). We search through the vector starting from its second element
+(`i in eachindex(result)[2:end]`). Every time we compare the two nearby elements
+(`result[i-1]` vs. `result[i]`). If the elements aren't in a desired order (`if
+result[i-1] > result[i]`) we just swap them with each other (`result[i-1],
+result[i] = result[i], result[i-1]`) and set the `swapped` flag to `true`. Once
+we finish we return the result.
 
 Let's see how we did.
 
@@ -106,7 +106,7 @@ in a few places inside the function, e.g.
 function bs(v::Vec{A})::Vec{A} where A<:Union{Flt, Int}
     result::Vec{A} = copy(v)
     swapped::Bool = true
-    w::Int = 0
+    w::Int = 0 # count how many times you are in while loop
     while swapped
         w += 1
         @show w
@@ -135,6 +135,9 @@ w = 1
 w = 2
 (result, swapped) = ([0.25, 0.5, 0.75], false)
 (result, swapped) = ([0.25, 0.5, 0.75], false)
+
+# result
+[0.25, 0.5, 0.75]
 ```
 
 For our next try we will go with the

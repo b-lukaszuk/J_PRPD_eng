@@ -2,6 +2,7 @@ const Flt = Float64
 const Str = String
 const Vec = Vector
 
+# WARNING
 # the code in this file is meant to serve as a programming exercise only
 # it may not act correctly
 
@@ -11,7 +12,7 @@ const Vec = Vector
 function bs(v::Vec{A})::Vec{A} where A<:Union{Flt, Int}
     result::Vec{A} = copy(v)
     swapped::Bool = true
-    # w::Int = 0
+    # w::Int = 0 # count how many times you are in while loop
     while swapped
         # w += 1
         # @show w
