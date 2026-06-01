@@ -12,6 +12,7 @@ const DOWN = (0, -1)
 const MOVES = [RIGHT, DOWN]
 const START_POINT = (0, 0) # top left corner
 
+# WARNING
 # the code in this file is meant to serve as a programming exercise only
 # it may not act correctly
 
