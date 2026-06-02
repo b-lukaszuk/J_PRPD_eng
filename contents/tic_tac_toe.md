@@ -27,9 +27,9 @@ useful.
 
 ## Solution {#sec:tic_tac_toe_solution}
 
-The first decision we must make is the internal representation of our game
-board. Two candidate data types come to mind right away, a vector or a
-matrix. Here, I'll go with the first option.
+The first decision we must make is the one about the internal representation of
+our game board. Two candidate data types come to mind right away, a vector or a
+matrix. Here, we'll go with the first option.
 
 ```jl
 s = """
@@ -40,7 +40,7 @@ end
 sc(s)
 ```
 
-Next, we'll define a few constants that will be helpful later on.
+Next, let's define a few constants that will be helpful later on.
 
 ```jl
 s = """
@@ -109,7 +109,7 @@ We begin with the definition of `getGray` that will change the
 font color of the selected symbols from our game board. This should look nice on
 a standard, dark terminal display. Still, feel free to adjust the color to your
 needs (although if you use a terminal with a white background you may rather
-stop and get some help). Anyway, a field not taken by one of the players
+stop it and get some help). Anyway, a field not taken by one of the players
 (`isFree2Take`) will be colored by `colorFieldNumbers`.
 
 Personally, I would also opt to add the function for the triplets detection
@@ -223,7 +223,7 @@ sc(s)
 
 > Note. Using `while` loop always carries a risk of it being infinite, that's
 > why it is worth to know that you can always press
-> [Ctrl+C](https://en.wikipedia.org/wiki/Control-C) that should terminate the
+> [Ctrl+C](https://en.wikipedia.org/wiki/Control-C). It should terminate the
 > program execution.
 
 We begin with `getUserInput` a function that takes the `prompt` (its argument,
@@ -242,8 +242,8 @@ error that would normally terminate the program execution. We don't want that to
 happen, so we `catch` a possible error and instead of terminating the program,
 we just `return false`. If the `try` succeeds, we skip the `catch` part and go
 straight to the next statement after the `try`-`catch` block
-(`return (num in eachindex(board)) && isFree2Take(board[num])`) that we already
-discussed.
+(`return (num in eachindex(board)) && isFree2Take(board[num])` that we already
+discussed).
 
 Finally, we declare `getUserMove`, a function that asks the user for a move and
 is quite persistent about it. If the user gives a correct move the first time
