@@ -187,7 +187,7 @@ The algorithm is rather mundane. We start by initializing a few variables,
 `curNum` - that stores current number of atoms of a given element. Next, we
 traverse the `formula` one character at a time (`for c in formula`). If the
 examined character is a capital letter (`isuppercase(c)`) we calculate the mass
-of previously stored element (`curElt` multiplied by `curNum` ) and add it to
+of a previously stored element (`curElt` multiplied by `curNum` ) and add it to
 `mass` (`mass += etc.`). Of course, we remember to reset the `curElt` and
 `curNum` to their new values. If a character is a small letter (`elseif
 islowercase(c)`) or a digit (`elseif isdigit(c)`) we just append it to the
@@ -212,7 +212,7 @@ sco(s)
 
 For that we defined `isSameMass` using [single expression function
 syntax](https://en.wikibooks.org/wiki/Introducing_Julia/Functions#Single_expression_functions).
-Inside it relies on
+It relies on
 [isapprox](https://docs.julialang.org/en/v1/base/math/#Base.isapprox) with
 relative tolerance (`rtol`) set to `0.0001`. The function is used to account for
 any rounding errors in `ELTS_MASS_TBL` or `masses`. It considers two numbers
@@ -263,7 +263,7 @@ function getMolMass(formula::Str)::Flt
     return sum(getMolMassSimple.(groups) .* multipliers)
 end
 """
-sco(s)
+sc(s)
 ```
 
 Here, we decided to split a complicated `formula` into `group`s of simple
@@ -390,8 +390,8 @@ end
 sc(s)
 ```
 
-Here, we used an all lowercase name, since eventually we would like to test the
-performance of our solvers and we don't want to override `getMolMassSimple`.
+Here, we used an all-lower-cased name, since eventually we would like to test
+the performance of our solvers and we don't want to override `getMolMassSimple`.
 Anyway, we proceed in a series of a few logical steps (notice the `.` symbols
 that indicate when a function is used on a vector). First we subtract atoms and
 their numbers (`atomsAndNumbers`). Then, we use them (`atomsAndNumbers`) to
