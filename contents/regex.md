@@ -55,7 +55,7 @@ replace(sco(s), "./code_snippets/regex/loremJohnSmith.txt" => "./loremJohnSmith.
 
 This could be done, e.g. by replacing his last name with its first letter, but
 it's kind of tedious and boring to do this manually while reading the text. It
-may be sped up with a [word processing
+may be sped up with a [word processor
 program](https://en.wikipedia.org/wiki/List_of_word_processor_programs) in which
 `Ctrl+F` is usually a shortcut for a `find` command. In Julia this could be done
 with [eachmatch](https://docs.julialang.org/en/v1/base/strings/#Base.eachmatch)
@@ -73,7 +73,7 @@ sco(s)
 ```
 
 Here we defined a little function (`getAllMatches`), that will help us to
-extract the matches as a vector of strings, which is easier to read than the
+extract the matches to a vector of strings, which is easier to read than the
 default structure returned by `eachmatch`. Notice, the `r"John Smith"` argument
 in `eachmatch`. The `r` indicates that the following characters compose no
 ordinary string, but a special one that is called a [regular
@@ -213,12 +213,13 @@ eachmatch(r"\d.+\d", txt) |> getAllMatches
 ```
 
 Here `\d` means a digit, `.` is any character (except for newline), and `+`
-stands for one or more of the preceding tokens (so match a digit followed by one
-or more characters, followed by a digit). There is a small problem though, we
-caught more than we wanted. That's because by default, regexes are greedy
-(usually they match as much as they can until a line ends). If we want to make
-it more temperate we need to follow `.+` with `?` (one or more characters, but
-as few as you can to fulfill the condition).
+stands for one or more repetitions of the preceding token (so the whole regex
+says: match a digit followed by one or more characters, followed by a
+digit). There is a small problem though, we caught more than we wanted. That's
+because by default, regexes are greedy (usually they match as much as they can
+until a line ends). If we want to make it more temperate we need to follow `.+`
+with `?` (`+?` means: one or more repetitions of the preceding token, but as few
+as you can to fulfill the condition).
 
 ```
 eachmatch(r"\d.+?\d", txt) |> getAllMatches
@@ -285,14 +286,14 @@ eachmatch(r"$\d{1,}", txt) |> getAllMatches
 String[]
 ```
 
-Hmm, we wanted to extract a dollar symbol `$` with all the following digits.
-Oddly enough that seemed to have failed. That's because `$` is a meta-character
-that denotes end of a subject (usually end of a line or end of a string). So,
-actually what we said with `$\d{1,}` was: find digits after the end of a
-string. An impossible task, hence the empty vector as a result. If we want `$`
-to be interpreted as a regular dollar symbol we need to proceed it with `\` (`\`
-gives a special meaning to an ordinary character, like in `\d,` and strips it
-away from a special character like `$`).
+Hmm, we wanted to extract a dollar symbol (`$`) with all the following digits
+(`\d{1,}`).  Oddly enough that seemed to have failed. That's because `$` is a
+meta-character that denotes end of a subject (usually end of a line or end of a
+string). So, actually what we said with `$\d{1,}` was: find digits after the end
+of a string. An impossible task, hence the empty vector as a result. If we want
+`$` to be interpreted as a regular dollar symbol we need to proceed it with `\`
+(`\` gives a special meaning to an ordinary character, like in `\d,` and strips
+it away from a special character like `$`).
 
 ```
 eachmatch(r"\$\d{1,}", txt) |> getAllMatches
@@ -360,7 +361,7 @@ replace.(telNums, r"(\d{3})(\d{3})(\d{3})" => s"\1-\2-\3")
 The new elements here are `()` and `\1`, `\2`, `\3`. Those are capture groups
 and back-references, respectively. Therefore, `(\d{3})` in a regex (`r""`) means
 capture any three digits in a row and remember them, whereas `\1` in the
-substitution (`s""` - denotes a substitution string that may use
+substitution (`s""` - denotes a substitution string that may use some
 meta-characters) means: use the first captured and remembered group (by analogy
 `\2` is for the second captured group and `\3` is for the third).
 
@@ -612,7 +613,7 @@ replace(sco(s), "./code_snippets/regex/loremMail.txt" => "./loremMail.txt")
 Surprisingly, it seems that a proper regex for e-mail validation is pretty
 complex ([see
 here](https://stackoverflow.com/questions/201323/how-can-i-validate-an-email-address-using-a-regular-expression)).
-Still, we can go a far way with a much simpler one, which in our particular case
+Still, we can go a far way with a much simpler one. In our particular case, it
 should do the trick:
 
 ```
@@ -647,8 +648,8 @@ This positive character class must be repeated at least one time (`+`) before
 the `@`, symbol. On the other hand, the `@` symbol must be followed by at least
 one (`+`) character class that we already discussed (`[A-z0-9._\-]`). Notice,
 that there is no need to add `?`, after the `+` to make a non-greedy match. That
-is because the email addresses, are separated by one or more spaces and the
-positive character class, (`[A-z0-9._\-]`) does not include spaces.
+is because the email addresses, are separated by one or more spaces in the text
+and the positive character class (`[A-z0-9._\-]`) does not include spaces.
 
 ### Regex Solution 3 {#sec:regex_problem_solution3}
 
@@ -738,7 +739,7 @@ and a white-space character. Out of the whole match (`" ([A-Z])[a-z]+ "`) we
 captured (`()`) and remembered only the capital letter, which we used in the
 substitution string (`s""`) followed by a literal dot (`\1.`). Therefore, we
 replaced the whole match (`" ([A-Z])[a-z]+ "`) by its first capture group that
-we memorized and referred back to with (`\1`).
+we memorized and referred back to (`\1`).
 
 Now, time for the swap:
 
