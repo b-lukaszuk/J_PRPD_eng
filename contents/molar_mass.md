@@ -301,9 +301,11 @@ Apparently, we did just fine.
 
 The solution works, but may be considered inelegant and hard to follow (long
 functions, mostly [imperative programming
-style](https://en.wikipedia.org/wiki/Imperative_programming)).
-
-Let's try to change it using what we learned about regexes in @sec:regex.
+style](https://en.wikipedia.org/wiki/Imperative_programming)). For once, we we
+could try to combine it (`getMolMassSimple` and `getMolMass`) into a single
+function like we did in @sec:cheque_solution. Here, however, we will try to
+approach it from a different angle, i.e. by solving it with what we learned
+about regexes in @sec:regex.
 
 Again, we'll start with simple formulas, but first some helper functions.
 
