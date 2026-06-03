@@ -34,9 +34,9 @@ Write a Julia program that will tell you:
 
 1. How much money will you pay every month (installment) in both cases (assume
    fixed rate mortgage)?
-2. How much principal you will still owe to the bank at year 15 in each
+2. How much principal will you still owe to the bank at year 15 in each
    case?
-3. When will your debt be $\le$ $100'000?
+3. When will your debt (principal) be $\le$ $100'000?
 4. Which of the two mortgages is more worth it for you (the smaller total cost
    and total interest you pay to the bank)?
 
@@ -47,8 +47,10 @@ e.g. [here](https://en.wikipedia.org/wiki/Mortgage_calculator#).
 
 ## Solution {#sec:mortgage_solution}
 
-Before we begin a few short definitions that we will use here (so that we are on
-the same page).
+Before we begin a warning: the following is just a programming exercise and not
+a financial advice. All the calculations may be incorrect. Once we got this out
+of the way time for a few short definitions that we will use here (so that we
+are on the same page).
 
 - principal - the money you borrow form a bank
 - interest - the money you pay extra (except for the money you borrowed)
@@ -238,7 +240,7 @@ sco(s)
 ```
 
 In general, for quite some time the money we pay to the bank mostly pay off the
-interest and not the principal, so that it drops slowly at first (see
+interest and not the principal, so that the latter drops slowly at first (see
 @fig:mortgagePrincipalsYrByYr).
 
 ![Principal still owed to the bank year by year. Mortgage: $200,000 at 6.49% yearly for 20 years. The estimation may not be accurate.](./images/mortgagePrincipalsYrByYr.png){#fig:mortgagePrincipalsYrByYr}
@@ -282,7 +284,7 @@ circle (white color on a white background in the legend is basically invisible).
 We also used [string
 interpolation](https://docs.julialang.org/en/v1/manual/strings/#string-interpolation)
 where a simple interpolated value is placed after the dollar character (`$`) or
-in a more complicated case (a structure field, a calculation) it is put after
+in a more complicated case (a structure's field, a calculation) it is put after
 the dollar character and within parenthesis (e.g. `"$(2*3)"`).
 
 Time to draw a comparison
@@ -315,7 +317,7 @@ greater monthly payment (installment) then we may choose that one.
 Of course, all the above was just a programming exercise, not a financial
 advice. Moreover, the simulation is likely to be inaccurate (to a various
 extent) for many reasons. For instance, a bank may calculate the interest every
-day, and not every month, in that case you will pay more. Compare with the
+day, and not every month, in that case you will pay more. Compare this with the
 simple example below and the compound interest from
 @sec:compound_interest_problem_a1.
 
