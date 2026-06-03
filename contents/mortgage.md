@@ -48,9 +48,9 @@ e.g. [here](https://en.wikipedia.org/wiki/Mortgage_calculator#).
 ## Solution {#sec:mortgage_solution}
 
 Before we begin a warning: the following is just a programming exercise and not
-a financial advice. All the calculations may be incorrect. Once we got this out
-of the way time for a few short definitions that we will use here (so that we
-are on the same page).
+a financial advice. The discussion and all the calculations may be
+incorrect. Once we got this out of the way time for a few short definitions that
+we will use here (so that we are on the same page).
 
 - principal - the money you borrow form a bank
 - interest - the money you pay extra (except for the money you borrowed)
