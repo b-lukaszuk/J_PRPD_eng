@@ -224,6 +224,8 @@ function playGame()::Nothing
     return nothing
 end
 
+# by extension (at least in part) it may also eliminate the
+# terminals that do not handle other ANSI escape codes needed in the program
 function isAnsiColorSupport()::Bool
     try
         nColors::Int = parse(Int, read(`tput colors`, String))
