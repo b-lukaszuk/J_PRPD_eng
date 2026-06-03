@@ -52,8 +52,8 @@ Let's say that an average Polish male, aka Jan Kowalski, retires at the age of
 the age of 20 and earns $3,000 a month. However, since he had heard that the
 pension a person receives is equal to 50% of their last salary, he decided to
 save $200 monthly (a bit less than 7% of his earnings). Once he retires he'll
-take the missing 50% from the pile of money that he saved so that quality of his
-life will not change.
+take the missing 50% from the pile of money that he saved so that the quality of
+his life will not change.
 
 Assume that: 1) there is no inflation; 2) Jan's salary is constant throughout
 his lifetime; 3) he pays $2,400 into his savings account at the beginning of
@@ -101,7 +101,7 @@ digits (`for digit`) in the opposite direction (from right to left) thanks to
 the `reverse(amount)`. Every third digit (`if counter == 3`) we place our `sep`
 to the `result` and reset the counter (`counter = 0`). Besides, we prepend our
 `digit` to the `result` (`digit * result`) and increase the counter (`counter
-+=1`). In the end we return the formatted number (`result * " USD"`).
++= 1`). In the end we return the formatted number (`result * " USD"`).
 
 > **_Note:_** For another way to format a number to currency see
 > @sec:regex_problem_solution4.
@@ -139,14 +139,14 @@ often divide a percentage by one hundred. Now, let's say that I got $100 (this
 initial sum of money is called the **principal**) on a deposit that pays 5%
 interest yearly. That means that after one year I will get $105 or 105% of my
 initial principal (the 5% of \$100 is \$5, and it is the interest we get for
-giving our money to the bank). I can express this mathematically as
+giving our money to the bank). We can express this mathematically as
 `$100 * 105% = $105` or to
 make it easier to type with a calculator `100 * 1.05 = 105`. If the deposit
 lasted two years then I would have to repeat the process one more time for year
 number two, i.e. `$105 * 105% = $110.25` (105% of my new principal), also to be
 expressed as `105 * 1.05 = 110.25`. Since as we said the `$105` is
-actually `100 * 1.05` then I can rewrite it as `(100 * 1.05) * 1.05 = 110.25`.
-For year number three I got
+actually `100 * 1.05` then we can rewrite it as `(100 * 1.05) * 1.05 = 110.25`.
+For year number three we got
 `$110.25 * 105% = $115.7625` or `110.25 * 1.05 = 115.7625` or
 `((100 * 1.05) * 1.05) * 1.05 = 115.7625`. The parenthesis are there to signify
 boundaries of mathematical operations for a previous year. We can get rid of
@@ -192,12 +192,12 @@ frysMoney |> getFormattedMoney
 sco(s)
 ```
 
-And indeed he is (four billion two hundred eighty three million, etc.). Still,
-before you head towards cryogenic clinic to duplicate Fry's success be aware of
-all the issues with
+And indeed he is (four billion, two hundred eighty three million, etc.). Still,
+before you head towards a cryogenic clinic to duplicate Fry's success be aware
+of all the issues with
 [cryonics](https://en.wikipedia.org/wiki/Cryonics#History) and that most of the
-people frozen in 1960s' are not preserved today. Therefore, the profit seems to
-be purely theoretical.
+people/bodies frozen in 1960s' are not preserved today. Therefore, the profit
+seems to be purely theoretical.
 
 Anyway, as said the function could be used to estimate the nominal value that
 you would get from your deposit (with a stable yearly interest rate). You could
@@ -249,10 +249,10 @@ put a smile on my face.
 
 ### Answer 3 {#sec:compound_interest_problem_a3}
 
-As a final step let's think was it worth a while to open a 5 years long bank
-deposit (6% yearly interest rate) on January 1, 2020 given the inflation rates
-discussed in the previous section (@sec:compound_interest_problem_a2). Would I
-make any real profit on January 1, 2025?
+Now, let's think was it worth a while to open a 5 years long bank deposit (6%
+yearly interest rate) on January 1, 2020 given the inflation rates discussed in
+the previous section (@sec:compound_interest_problem_a2). Would I make any real
+profit on January 1, 2025?
 
 In order to figure that out we need to counterbalance two factors. The increase
 in the nominal value that we get due to the interest rate and a drop in the real
@@ -295,9 +295,9 @@ or
 
 $\frac{2}{10} = \frac{x}{5}$
 
-The above is basically just finding an equivalent fraction that we learned in
-our primary schools (how many 5ths is $\frac{2}{10}$?). Still, I like and
-remember the proportions example better.
+The above is basically just finding an equivalent fraction that we learned about
+in our primary schools (how many 5ths is equal to $\frac{2}{10}$?). Still, I
+like and remember the proportions example better.
 
 With that under our belts let's follow with a simple example. Imagine that in
 this year for $100 (`usd` below) we can buy 100 chocolate bars (`cb` below). Due
@@ -387,7 +387,7 @@ We will use it to answer our question.
 
 ```jl
 s = """
-interestDeposit = 6 # yrs: 2020-2025
+interestDeposit = 6 # yrs: 2020-2024
 numYrs = length(inflPoland)
 money2025deposit = getValue(money2019,
 	interestDeposit, numYrs)
@@ -411,8 +411,8 @@ banknotes on January 1, 2025 for which I can buy the same amount of goods that I
 could for $9,327 on January 1, 2020. So despite more money in my wallet
 (nominal increase) I actually lost some real value. Eh.
 
-OK, let's try to be optimists here. The glass is half full. By putting the money
-on the deposit (6% yearly) we lost some value. Still, if we left it on an
+OK, let's try to be optimistic here. The glass is half full. By putting the
+money on the deposit (6% yearly) we lost some value. Still, if we left it on an
 ordinary account with a lousy 0.5% interest rate the financial outcome would be
 even more unsatisfactory.
 
@@ -490,9 +490,9 @@ So over the period of 45 working years (`yrsWorking`) Jan Kowalski would have
 put aside roughly $108,000 which together with interests should give him
 $175,993.
 
-Now, remember, that the idea is to take $1,500 of this pile of money every month
-to fill the gap caused by his pension being equal to 50% of his final salary
-(which we said was $3,000). So let's see for how long will it last.
+Now, remember, that the idea is to take $1,500 from this pile of money every
+month to fill the gap caused by his pension being equal to 50% of his final
+salary (which we said was $3,000). So let's see for how long it would last.
 
 ```jl
 s = """
@@ -504,7 +504,7 @@ sco(s)
 
 He should be able to maintain his standard of living for roughly 10 years, which
 is his expected life expectancy on retirement (retires at 65, lives up to
-75). So, I guess that if Jan intends to beat the averages and spend more time on
+75). So, I guess that if Jan intends to beat the average and spend more time on
 the retirement, then he must save some more cash. The same seems to be true if
-the pension is less than 50% of his last salary. Anyway, it seems that to have
-some spare money on your retirement might be a prudent idea.
+the pension is less than 50% of his last salary. Anyway, it appears that to have
+some spare money for your retirement might be a prudent idea.
