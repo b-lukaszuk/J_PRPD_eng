@@ -16,9 +16,9 @@ A reminder of how to deal with packages and \*.toml files can be found
 ## Problem {#sec:touch_typing_problem}
 
 In this exercise your job is to write a
-[terminal](https://en.wikipedia.org/wiki/Terminal_emulator) based application,
-similar to the one presented in the GIF below, that measures your (touch) typing
-speed.
+[terminal](https://en.wikipedia.org/wiki/Terminal_emulator) based application
+that measures your (touch) typing speed. The end result should resemble the one
+presented in the GIF below.
 
 ![A terminal based application that measures typing speed (animation works only in an HTML document).](./images/touchTyping.gif){#fig:touchTyping}
 
@@ -29,8 +29,8 @@ Your program should:
 - display some basic summary of the speed (like WPM - words per minute)
 
 To make it easier, you may assume it to always operate on a short line of text
-(let's say 50 characters long) composed only of the characters from the standard
-Latin alphabet encoded by [ASCII](https://en.wikipedia.org/wiki/ASCII).
+(let's say up to 50 characters long) composed only of the characters from the
+standard Latin alphabet encoded by [ASCII](https://en.wikipedia.org/wiki/ASCII).
 
 ## Solution {#sec:touch_typing_solution}
 
@@ -41,6 +41,7 @@ of our input. To that end we will reuse some of the code (see `getRed` and
 
 ```
 # https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
+# the functions change foreground color
 function getRed(c::Char)::Str
     return "\x1b[31m" * s * "\x1b[0m"
 end
@@ -106,6 +107,7 @@ OK, let's play the game.
 # more info on stty, type in the terminal: man stty
 # display current stty settings with: stty -a (or: stty --all)
 function playTypingGame(text2beTyped::Str)::Str
+	@assert length(text2beTyped) <= 50 "text2beTyped is too long"
     c::Char = ' '
     typedTxt::Str = ""
     cursorCol::Int = 1
@@ -131,10 +133,10 @@ a letter to be typed. Next, we execute a proper terminal command with
 backticks). Now, for as long (`while`) as we haven't typed the whole
 `text2beTyped` (`length(text2beTyped) > length(typedTxt)`) we print the colored
 text (`\r` moves the cursor to the beginning of the line). Of course, we
-remember to set the cursor in the appropriate column (`"\x1b[", cursorCol,
-"G"`). Next we `read` a character typed by the player
-(`stdin` means [standard input](https://en.wikipedia.org/wiki/Standard_streams),
-it is a variable defined by
+remember to set the cursor in the appropriate column (`"\x1b[", cursorCol, "G"`,
+ANSI escape code). Next we `read` a character typed by the player (`stdin` means
+[standard input](https://en.wikipedia.org/wiki/Standard_streams), it is a
+variable defined by
 [Base](https://docs.julialang.org/en/v1/base/base/#Base)). Afterwords, we append
 the character (`c`) to the `typedTxt` and move the cursor by one column. Once we
 finish, we do some cleanup. We reprint the whole typed text and reset the
@@ -144,7 +146,7 @@ usage (by a summary function that will be defined soon).
 The above is a reasonable approach, but there is a small problem with our
 `playTypingGame`. The raw mode that we use will turn off special treatments of
 key-presses that we are accustomed to. For instance, currently there is no way
-to delete a character, nor terminate a program early with customary (Ctrl-C). I
+to delete a character, nor terminate a program early with customary (Ctrl-C). In
 order to get this behavior we need to either turn off the raw mode or fix the
 problem ourselves.
 
@@ -160,6 +162,7 @@ end
 # more info on stty, type in the terminal: man stty
 # display current stty settings with: stty -a (or: stty --all)
 function playTypingGame(text2beTyped::Str)::Str
+	@assert length(text2beTyped) <= 50 "text2beTyped is too long"
     c::Char = ' '
     typedTxt::Str = ""
     cursorCol::Int = 1

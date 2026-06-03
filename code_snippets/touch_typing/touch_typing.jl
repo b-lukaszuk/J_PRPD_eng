@@ -1,3 +1,4 @@
+# WARNING
 # the code in this file is meant to serve as a programming exercise only
 # it may not act correctly
 
@@ -53,7 +54,7 @@ function printColoredTxt(typedTxt::Str, referenceTxt::Str)::Nothing
             print(getGreenFG(referenceTxt[i]))
         elseif (typedTxt[i] != referenceTxt[i]) && (referenceTxt[i] == ' ')
             print(getRedBG(referenceTxt[i])) # typing error, space
-        else # typing error other character
+        else # typing error
             print(getRedFG(referenceTxt[i]))
         end
     end
@@ -68,7 +69,7 @@ function getCursRowCol(typedTxt::Str, referenceTxt::Str)::Tuple{Int, Int}
     len1::Int = length(typedTxt)
     for i in eachindex(referenceTxt)
         if i > len1
-            return (y, x)
+            return (y, x) # pos. along y-axis (row) and pos. along x-axis (col)
         elseif referenceTxt[i] == '\n'
             y += 1
             x = 1
@@ -76,7 +77,7 @@ function getCursRowCol(typedTxt::Str, referenceTxt::Str)::Tuple{Int, Int}
             x += 1
         end
     end
-    return (y, x)
+    return (y, x) # returns row (pos. along y-axis) and col (pos. along x-axis)
 end
 
 # more info on stty, type in the terminal: man stty
@@ -99,7 +100,7 @@ function playTypingGame(text2beTyped::Str)::Str
             typedTxt *= '\n'
         elseif isascii(c)
             typedTxt *= c
-        else
+        else # typing error or unsupported character
             nothing
         end
         setCursor()
@@ -163,7 +164,7 @@ function getTxtFromFile(filePath::Str)::Str
 end
 
 function getTxtFormatedForTyping(txt::Str, lineLen::Int=60)::Str
-    @assert 40 <= lineLen <= 60 "lineLen must be in range [40-$lineLen]"
+    @assert 40 <= lineLen <= 60 "lineLen must be in range [40-60]"
     words::Vec{Str} = split(txt)
     result::Str = ""
     curLineLen::Int = 0
@@ -181,6 +182,7 @@ function getTxtFormatedForTyping(txt::Str, lineLen::Int=60)::Str
     return result[2:end] # 1st char is ' '
 end
 
+# simplistic check for stty
 function isSttyPresent()::Bool
     try
         return success(`man stty`)
@@ -189,6 +191,8 @@ function isSttyPresent()::Bool
     end
 end
 
+# by extension (at least in part) it may also eliminate the
+# terminals that do not handle other ANSI escape codes needed in the program
 function isAnsiColorsSupport()::Bool
     try
         nColors::Int = parse(Int, read(`tput colors`, String))
