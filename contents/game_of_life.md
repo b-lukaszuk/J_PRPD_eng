@@ -65,7 +65,31 @@ is a synonym for a `Matrix` (`N_ROWS`x`N_COLS`) of `Bool`s. This is a natural
 choice since each cell can be either alive (with the probability of `0.25`) or
 dead.
 
-Next, time for printing.
+Notice that above we used `const`ants. For a small self-contained project like
+this it is OK as it simplifies the code. For more serious applications you may
+consider creating a config file/struct and use it like:
+
+```
+struct Config
+    nCols::Int
+    nRows::Int
+	# possibly some other fields
+end
+
+config = Config(80, 40) # or read config from a file into the struct
+
+function getEmptyUniverse(conf::Config = config)::Matrix{Bool}
+    return zeros(Bool, conf.nRows, conf.nCols)
+end
+```
+
+Anyway, for simplicity, here I go with the excessive? use of `const`s, which are
+placed 'when needed' in order to fit with the flow of the text. However, for
+readability and code maintenance I recommend all the `const`s to be defined at a
+top of a `*.jl` file (like in [the code
+snippets](https://github.com/b-lukaszuk/J_PRPD_eng/tree/main/code_snippets/game_of_life)).
+
+Enough for the detour, time for printing.
 
 ```jl
 s = """
@@ -127,8 +151,8 @@ function getNumLiveNeighbors(universe::Universe, row::Int, col::Int)::Int
     end
     nAlive::Int = 0
     neighborCol::Int, neighborRow::Int = 0, 0
-    for c in -1:1, r in -1:1
-        neighborRow, neighborCol = row+r, col+c
+    for colShift in -1:1, rowShift in -1:1
+        neighborRow, neighborCol = row+rowShift, col+colShift
         if !isCellWithinRange(neighborRow, neighborCol)
             continue
         end
@@ -148,16 +172,16 @@ sc(s)
 We assign this task to `getNumLiveNeighbors` that accepts our `universe` and the
 cell of interest coordinates (`row` and `col`) as its parameters. The neighbors
 of a cell are located in a row below, the same row as the cell, and a row above
-the cell's own row (`r in -1:1`). Similarly, we look at a column to the left,
-the same column as the cell, and a column to the right of the cell's own column
-(`c in -1:1`). Hence, a neighbor's coordinates are calculated as `neighborRow =
-row+r` (`row` is the cell's own row, `r` is the row shift) and `neighborCol =
-col+c` (`col` is the cell's own column, `c` is the column shift). We examine all
-the possible neighbor locations with the `for` loop. If the coordinates fall
-outside the grid (`!isCellWithinRange` - the cell does not exist in our
-`universe`) then we `continue` to the next iteration (we examine next
-coordinates). The same goes for examining the coordinates of the cell itself
-(since both `r` and `c` may be equal 0). Otherwise, if a neighbor is alive (`if
+the cell's own row (`rowShift in -1:1`). Similarly, we look at a column to the
+left, the same column as the cell, and a column to the right of the cell's own
+column (`colShift in -1:1`). Hence, a neighbor's coordinates are calculated as
+`neighborRow = row+rowShift` (`row` is the cell's own row) and `neighborCol =
+col+colShift` (`col` is the cell's own column). We examine all the possible
+neighbor locations with the `for` loop. If the coordinates fall outside the grid
+(`!isCellWithinRange` - the cell does not exist in our `universe`) then we
+`continue` to the next iteration (we examine the next coordinates). The same
+goes for examining the coordinates of the cell itself (since both `rowShift` and
+`colShift` may be equal to 0). Otherwise, if a neighbor is alive (`if
 universe[neighborRow, neighborCol]`) we add 1 to the count (`nAlive += 1`),
 which we eventually `return` from the function.
 
@@ -170,7 +194,9 @@ function shouldCellBeAlive(universe::Universe, row::Int, col::Int)::Bool
     if universe[row, col] && nLiveNeighbors in 2:3
         return true
     end
-    return nLiveNeighbors == 3
+    return !universe[row, col] && nLiveNeighbors == 3
+    # here the below is sufficient (unless you avoid too clever code)
+    # return nLiveNeighbors == 3
 end
 
 function getUniverseNextState(universe::Universe)::Universe
@@ -188,8 +214,8 @@ We start by figuring out if a cell should be alive in the next turn
 (`shouldCellBeAlive`). Per task specification, if a cell was previously alive
 (`if universe[row, col]`) and it got 2 or 3 live neighbors (`nLiveNeighbors in
 2:3`) then it should be alive (`return true`). Otherwise, it should live if it
-was previously dead and got exactly three live neighbors (`nLiveNeighbors ==
-3`).
+was previously dead (`!universe[row, col]`) and got exactly three live neighbors
+(`nLiveNeighbors == 3`).
 
 All that's left to do is to `getUniverseNextState` by examining each cell (`r`
 and `c`) in the `universe` and deciding its fate in the next turn

@@ -1,3 +1,4 @@
+# WARNING
 # the code in this file is meant to serve as a programming exercise only
 # it may not act correctly
 
@@ -60,8 +61,8 @@ function getNumLiveNeighbors(universe::Universe, row::Int, col::Int)::Int
     end
     nAlive::Int = 0
     neighborCol::Int, neighborRow::Int = 0, 0
-    for c in -1:1, r in -1:1
-        neighborRow, neighborCol = row+r, col+c
+    for colShift in -1:1, rowShift in -1:1
+        neighborRow, neighborCol = row+rowShift, col+colShift
         if !isCellWithinRange(neighborRow, neighborCol)
             continue
         end
@@ -80,7 +81,9 @@ function shouldCellBeAlive(universe::Universe, row::Int, col::Int)::Bool
     if universe[row, col] && nLiveNeighbors in 2:3
         return true
     end
-    return nLiveNeighbors == 3
+    return !universe[row, col] && nLiveNeighbors == 3
+    # here the below is sufficient (unless you avoid too clever code)
+    # return nLiveNeighbors == 3
 end
 
 function getUniverseNextState(universe::Universe)::Universe
