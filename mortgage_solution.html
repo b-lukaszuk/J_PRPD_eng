@@ -182,7 +182,7 @@ Mousetrap.bind('l', click_next);
 
 <div class="books-content">
 <h2 data-number="32.2" id="sec:mortgage_solution"><span class="header-section-number">32.2</span> Solution</h2>
-<p>Before we begin a few short definitions that we will use here (so that we are on the same page).</p>
+<p>Before we begin a warning: the following is just a programming exercise and not a financial advice. The discussion and all the calculations may be incorrect. Once we got this out of the way time for a few short definitions that we will use here (so that we are on the same page).</p>
 <ul>
 <li>principal - the money you borrow form a bank</li>
 <li>interest - the money you pay extra (except for the money you borrowed)</li>
@@ -294,7 +294,7 @@ principals2 = getPrincipalOwedEachYr(mortgage2)
     findfirst(p -&gt; p &lt;= 100_000, principals2)
 )</code></pre>
 <pre class="output"><code>(15, 22)</code></pre>
-<p>In general, for quite some time the money we pay to the bank mostly pay off the interest and not the principal, so that it drops slowly at first (see Figure <a href="#fig:mortgagePrincipalsYrByYr">15</a>).</p>
+<p>In general, for quite some time the money we pay to the bank mostly pay off the interest and not the principal, so that the latter drops slowly at first (see Figure <a href="#fig:mortgagePrincipalsYrByYr">15</a>).</p>
 <figure id="fig:mortgagePrincipalsYrByYr">
 <img src="./images/mortgagePrincipalsYrByYr.png" alt="Figure 15: Principal still owed to the bank year by year. Mortgage: $200,000 at 6.49% yearly for 20 years. The estimation may not be accurate." />
 <figcaption aria-hidden="true">Figure 15: Principal still owed to the bank year by year. Mortgage: $200,000 at 6.49% yearly for 20 years. The estimation may not be accurate.</figcaption>
@@ -323,7 +323,7 @@ function addPieChart!(m::Mortgage, fig::Cmk.Figure,
                framevisible=false)
     return nothing
 end</code></pre>
-<p>The function is rather simple. It adds a pie chart to an existing figure and axis. A point of notice, the colors used are <code>["coral1", "turquoise2", "white", "white", "white"]</code>. The first two will be used to paint the circle. But all of them, will be used in the legend (<code>Cmk.Legend</code>). Hence, we used <code>"white"</code> for the values that are not in the circle (white color on a white background in the legend is basically invisible). We also used <a href="https://docs.julialang.org/en/v1/manual/strings/#string-interpolation">string interpolation</a> where a simple interpolated value is placed after the dollar character (<code>$</code>) or in a more complicated case (a structure field, a calculation) it is put after the dollar character and within parenthesis (e.g. <code>"$(2*3)"</code>).</p>
+<p>The function is rather simple. It adds a pie chart to an existing figure and axis. A point of notice, the colors used are <code>["coral1", "turquoise2", "white", "white", "white"]</code>. The first two will be used to paint the circle. But all of them, will be used in the legend (<code>Cmk.Legend</code>). Hence, we used <code>"white"</code> for the values that are not in the circle (white color on a white background in the legend is basically invisible). We also used <a href="https://docs.julialang.org/en/v1/manual/strings/#string-interpolation">string interpolation</a> where a simple interpolated value is placed after the dollar character (<code>$</code>) or in a more complicated case (a structure’s field, a calculation) it is put after the dollar character and within parenthesis (e.g. <code>"$(2*3)"</code>).</p>
 <p>Time to draw a comparison</p>
 <pre><code>function drawComparison(m1::Mortgage, m2::Mortgage)::Cmk.Figure
     fig::Cmk.Figure = Cmk.Figure(fontsize=18)
@@ -346,7 +346,7 @@ drawComparison(mortgage1, mortgage2)</code></pre>
 <figcaption aria-hidden="true">Figure 16: Comparison of two mortgages (may not be accurate).</figcaption>
 </figure>
 <p>So it turns out that despite the higher interest rate of 6.49% overall we will pay less money to the bank for <code>mortgage1</code>. Therefore, if we are OK with the greater monthly payment (installment) then we may choose that one.</p>
-<p>Of course, all the above was just a programming exercise, not a financial advice. Moreover, the simulation is likely to be inaccurate (to a various extent) for many reasons. For instance, a bank may calculate the interest every day, and not every month, in that case you will pay more. Compare with the simple example below and the compound interest from Section <a href="./compound_interest_solution.html#sec:compound_interest_problem_a1">31.2.1</a>.</p>
+<p>Of course, all the above was just a programming exercise, not a financial advice. Moreover, the simulation is likely to be inaccurate (to a various extent) for many reasons. For instance, a bank may calculate the interest every day, and not every month, in that case you will pay more. Compare this with the simple example below and the compound interest from Section <a href="./compound_interest_solution.html#sec:compound_interest_problem_a1">31.2.1</a>.</p>
 <pre class="language-julia"><code># 6% yearly, after 1 year
 (
     200_000 * (1 + 0.06) |&gt; fmt, # capitalized yearly

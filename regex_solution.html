@@ -197,7 +197,7 @@ Mousetrap.bind('l', click_next);
 &quot;&lt;&lt;&lt; &quot; * txt[1:200] * &quot; ... &gt;&gt;&gt;&quot;</code></pre>
 <p>&lt;&lt;&lt; This is a lorem ipsum text from: https://en.wikipedia.org/wiki/Lorem_ipsum it contains a randomly placed fake e-mail addresses (kid of). It is used for educational purpose only.</p>
 <p>Lorem ipsum dolor sit … &gt;&gt;&gt;</p>
-<p>Surprisingly, it seems that a proper regex for e-mail validation is pretty complex (<a href="https://stackoverflow.com/questions/201323/how-can-i-validate-an-email-address-using-a-regular-expression">see here</a>). Still, we can go a far way with a much simpler one, which in our particular case should do the trick:</p>
+<p>Surprisingly, it seems that a proper regex for e-mail validation is pretty complex (<a href="https://stackoverflow.com/questions/201323/how-can-i-validate-an-email-address-using-a-regular-expression">see here</a>). Still, we can go a far way with a much simpler one. In our particular case, it should do the trick:</p>
 <pre><code>eachmatch(r&quot;[A-z0-9._\-]+@[A-z0-9._\-]+&quot;, txt) |&gt; getAllMatches |&gt; unique</code></pre>
 <pre><code>[
     &quot;tom@write2me.com&quot;,
@@ -215,7 +215,7 @@ Mousetrap.bind('l', click_next);
 <li>an underscore (<code>_</code>), or</li>
 <li>a literal hyphen (<code>\-</code>, likely we didn’t have to precede it with <code>\</code> since it wasn’t between other 2 characters).</li>
 </ol>
-<p>This positive character class must be repeated at least one time (<code>+</code>) before the <code>@</code>, symbol. On the other hand, the <code>@</code> symbol must be followed by at least one (<code>+</code>) character class that we already discussed (<code>[A-z0-9._\-]</code>). Notice, that there is no need to add <code>?</code>, after the <code>+</code> to make a non-greedy match. That is because the email addresses, are separated by one or more spaces and the positive character class, (<code>[A-z0-9._\-]</code>) does not include spaces.</p>
+<p>This positive character class must be repeated at least one time (<code>+</code>) before the <code>@</code>, symbol. On the other hand, the <code>@</code> symbol must be followed by at least one (<code>+</code>) character class that we already discussed (<code>[A-z0-9._\-]</code>). Notice, that there is no need to add <code>?</code>, after the <code>+</code> to make a non-greedy match. That is because the email addresses, are separated by one or more spaces in the text and the positive character class (<code>[A-z0-9._\-]</code>) does not include spaces.</p>
 <h3 data-number="27.2.3" id="sec:regex_problem_solution3"><span class="header-section-number">27.2.3</span> Regex Solution 3</h3>
 <p>Swapping the names is a piece of cake. We just use capture groups (<code>(...)</code>) that contain one or more (<code>+</code>) letters (<code>[A-z]</code>) per word and are separated by a white-space character. In the substitution string (<code>s""</code>) we use back-references in reversed order (<code>\2</code> and <code>\1</code>) and separate them with a comma (<code>","</code>):</p>
 <pre><code># random names
@@ -259,7 +259,7 @@ names = [
     &quot;Peter Smith&quot;,
     &quot;Adam T. Brown&quot;
 ]</code></pre>
-<p>For that we modified the previous regex. This time we looked for a white-space character, one capital letter (<code>[A-Z]</code>), at least one small letter (<code>[a-z]+</code>) and a white-space character. Out of the whole match (<code>" ([A-Z])[a-z]+ "</code>) we captured (<code>()</code>) and remembered only the capital letter, which we used in the substitution string (<code>s""</code>) followed by a literal dot (<code>\1.</code>). Therefore, we replaced the whole match (<code>" ([A-Z])[a-z]+ "</code>) by its first capture group that we memorized and referred back to with (<code>\1</code>).</p>
+<p>For that we modified the previous regex. This time we looked for a white-space character, one capital letter (<code>[A-Z]</code>), at least one small letter (<code>[a-z]+</code>) and a white-space character. Out of the whole match (<code>" ([A-Z])[a-z]+ "</code>) we captured (<code>()</code>) and remembered only the capital letter, which we used in the substitution string (<code>s""</code>) followed by a literal dot (<code>\1.</code>). Therefore, we replaced the whole match (<code>" ([A-Z])[a-z]+ "</code>) by its first capture group that we memorized and referred back to (<code>\1</code>).</p>
 <p>Now, time for the swap:</p>
 <pre><code>replace.(names, r&quot; ([A-Z])[a-z]+ &quot; =&gt; s&quot; \1. &quot;) |&gt;
 abbrevNames -&gt; replace.(abbrevNames, r&quot;([A-z .]+) ([A-z]+)&quot; =&gt; s&quot;\2, \1&quot;)</code></pre>

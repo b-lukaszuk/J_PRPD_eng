@@ -182,31 +182,32 @@ Mousetrap.bind('l', click_next);
 
 <div class="books-content">
 <h2 data-number="33.2" id="sec:overpayment_solution"><span class="header-section-number">33.2</span> Solution</h2>
-<p>There’s no need to (completely) reinvent the wheel so we will use <code>Mortgage</code>, <code>fmt</code> and <code>getInstallment</code> we developed earlier (see Section <a href="./mortgage_solution.html#sec:mortgage_solution">32.2</a>). Just in case be sure to also check the terminology we defined there. Anyway, the first function we’ll define in this chapter is <code>payOffMortgage</code></p>
+<p>We begin this section (just like the previous two) with a warning. The following is just a programming exercise and not a financial advice. The discussion and all the calculations may be incorrect.</p>
+<p>OK, now for the task. There’s no need to (completely) reinvent the wheel so we will use <code>Mortgage</code>, <code>fmt</code> and <code>getInstallment</code> that we developed earlier (see Section <a href="./mortgage_solution.html#sec:mortgage_solution">32.2</a>). Just in case, be sure to also check the terminology we defined there. Anyway, the first function we’ll define in this chapter is <code>payOffMortgage</code></p>
 <pre class="language-julia"><code># single month payment of mortgage, returns
 # (remainingPrincipal, pincipalPaid, interestPaid)
 function payOffMortgage(
-    m::Mortgage, curPrincipal::Real, installment::Real,
+    mortgage::Mortgage, curPrincipal::Real, installment::Real,
     overpayment::Real)::Tuple{Real, Real, Real}
-    interestDecimalMonth::Real = m.interestPercYr / 100 / 12
+    interestDecimalMonth::Real = mortgage.interestPercYr / 100 / 12
     interestPaid::Real = curPrincipal * interestDecimalMonth
     principalPaid::Real = installment - interestPaid
     newPrincipal::Real = curPrincipal - principalPaid
     return (newPrincipal - overpayment,
             principalPaid + overpayment, interestPaid)
 end</code></pre>
-<p>The function accepts (among others) <code>curPrincipal</code>, <code>installment</code> and <code>overpayment</code> and does a payment for a single month. To that end, first we calculate the monthly interest rate as a decimal (<code>interestDecimalMonth</code>) and use it to calculate the interest and principal paid this month (<code>interestPaid</code> and <code>principalPaid</code>). Afterwards we calculate our the new, lower principal (<code>newPrincipal</code>). Finally, we return a tuple with 3 values: 1) the remaining principal (after a month), 2) principal paid in a given month (from <code>installment</code> and <code>overpayment</code>), and 3) interest paid (from <code>installment</code>). The remaining principal is <code>newPrincipal - overpayment</code>. The principal that we paid off this month is <code>principalPaid</code> and <code>overpayment</code>. The interest paid this month is just <code>interestPaid</code>.</p>
+<p>The function accepts (among others) <code>curPrincipal</code>, <code>installment</code> and <code>overpayment</code> and does a payment for a single month. To that end, first we calculate the monthly interest rate as a decimal (<code>interestDecimalMonth</code>) and use it to calculate the interest and principal paid this month (<code>interestPaid</code> and <code>principalPaid</code>). Afterwards we calculate our new, lower principal (<code>newPrincipal</code>). Finally, we return a tuple with 3 values: 1) the remaining principal (after a month), 2) principal paid in a given month (from <code>installment</code> and <code>overpayment</code>), and 3) interest paid (from <code>installment</code>). The remaining principal is <code>newPrincipal - overpayment</code>. The principal that we paid off this month is <code>principalPaid</code> and <code>overpayment</code>. The interest paid this month is just <code>interestPaid</code>.</p>
 <p>Right away we see a reason or two why our function is likely not to be accurate. For once, we lack the rounding of money to 2 decimal points (as a bank would do). Secondly, a bank may charge a fee (or some money named otherwise) for every overpayment we make. Still, since all this section is just a programming exercise and not a financial advice then we will not be bothered by that fact.</p>
-<p>Still, we will improve our <code>payOffMortgage</code> a bit, by dealing with some edge cases: 1) when <code>curPrincipal</code> is 0 or negative (<code>if curPrincipal &lt;= 0.0</code> below), 2) when <code>curPrincipal</code> is equal to or smaller than the principal paid in installment (<code>if curPrincipal &lt;= principalPaid</code> below), and 3) when (<code>if newPrincipal &lt;= overpayment</code> below). Therefore, our <code>payOffMortgage</code> will look something like:</p>
+<p>Nonetheless, we will improve our <code>payOffMortgage</code> a bit, by dealing with some edge cases: 1) when <code>curPrincipal</code> is 0 or negative (<code>if curPrincipal &lt;= 0.0</code> below), 2) when <code>curPrincipal</code> is equal to or smaller than the principal paid in installment (<code>if curPrincipal &lt;= principalPaid</code> below), and 3) when the new principal is smaller than the overpayment (<code>if newPrincipal &lt;= overpayment</code> below). Therefore, our <code>payOffMortgage</code> will look something like:</p>
 <pre class="language-julia"><code># single month payment of mortgage
 # (remainingPrincipal, pincipalPaid, interestPaid)
 function payOffMortgage(
-    m::Mortgage, curPrincipal::Real, installment::Real,
+    mortgage::Mortgage, curPrincipal::Real, installment::Real,
     overpayment::Real)::Tuple{Real, Real, Real}
     if curPrincipal &lt;= 0.0
         return (curPrincipal, 0.0, 0.0)
     end
-    interestDecimalMonth::Real = m.interestPercYr / 100 / 12
+    interestDecimalMonth::Real = mortgage.interestPercYr / 100 / 12
     interestPaid::Real = curPrincipal * interestDecimalMonth
     principalPaid::Real = installment - interestPaid
     if curPrincipal &lt;= principalPaid
@@ -221,9 +222,9 @@ function payOffMortgage(
 end</code></pre>
 <p>Once we can pay it off for a month, we can pay it off completely and summarize it. First, summary:</p>
 <pre class="language-julia"><code>struct Summary
-    principal
-    interest
-    months
+    principal::Real
+    interest::Real
+    months::Int
 
     Summary(p::Real, i::Real, m::Int) = (
         p &lt; 1 || i &lt; 0 || m &lt; 12 || m &gt; 480) ?
@@ -232,22 +233,22 @@ end</code></pre>
 <p>Now, for the complete mortgage pay off.</p>
 <pre class="language-julia"><code># pay off mortgage fully, with overpayment
 function payOffMortgage(
-    m::Mortgage,
+    mortgage::Mortgage,
     overpayments::Dict{Int, &lt;:Real})::Summary
-    installment::Real = getInstallment(m) # monthly payment
-    princLeft::Real = m.principal
+    installment::Real = getInstallment(mortgage) # monthly payment
+    princLeft::Real = mortgage.principal
     princPaid::Real = 0.0
     interPaid::Real = 0.0
     totalPrincPaid::Real = 0.0
     totalInterestPaid::Real = 0.0
     months::Int = 0
-    for month in 1:m.numMonths
+    for month in 1:mortgage.numMonths
         if princLeft &lt;= 0
             break
         end
         months += 1
         princLeft, princPaid, interPaid = payOffMortgage(
-            m, princLeft, installment, get(overpayments, month, 0))
+            mortgage, princLeft, installment, get(overpayments, month, 0))
         totalPrincPaid += princPaid
         totalInterestPaid += interPaid
     end
@@ -255,14 +256,14 @@ function payOffMortgage(
 end
 
 # pay off mortgage according to the schedule, no overpayment
-function payOffMortgage(m::Mortgage)::Summary
-    return payOffMortgage(m, Dict{Int, Real}())
+function payOffMortgage(mortgage::Mortgage)::Summary
+    return payOffMortgage(mortgage, Dict{Int, Real}())
 end</code></pre>
 <p>We begin, by defining a few variables. For instance, <code>princLeft</code> will hold principal sill left to pay after a month, <code>princPaid</code> will contain the value of principal paid off in a given month, <code>intrPaid</code> will store the interest paid to a bank in a given month. The above will be used in the <code>for</code> loop and will change month by month. Next, the variables that will be used in the <code>Summary</code> struct returned by our function (<code>totalInterestPaid</code>, <code>totalInterestPaid</code>, <code>months</code>). In the <code>for</code> loop we pay off the mortgage month by month. If there is no principal to be paid off (<code>if princLeft &lt;= 0</code>) we <code>break</code> early. Otherwise, we update the number of <code>months</code>, <code>totalPrincPaid</code>, and <code>totalInterestPaid</code>. Notice, that we obtain the over-payment for a month from the <code>overpayments</code> dictionary, where the default over-payment (if the key doesn’t exist) is 0 (<code>get(overpayments, month, 0)</code>).</p>
 <p>Let’s do a quick sanity check. Previously (Section <a href="./mortgage_solution.html#sec:mortgage_solution">32.2</a>), we said that the regular payment off <code>mortgage1</code> ($200,000 at 6.49% for 20 years) will roughly yield the principal of $200,000 and the interest of $157,593. Let’s see if we get that.</p>
 <pre class="language-julia"><code>payOffMortgage(mortgage1)</code></pre>
 <pre class="output"><code>Summary(199999.99999999988, 157592.5713666817, 240)</code></pre>
-<p>OK, so finally, we are ready to answer our questions.</p>
+<p>OK, so finally we are ready to answer our questions.</p>
 <p>How much money can we potentially save in the case of <code>mortgage1</code> ($200,000, 6.49%, 20 years) (see Section <a href="./mortgage_solution.html#sec:mortgage_solution">32.2</a>) overpaid regularly every month with $200.</p>
 <pre class="language-julia"><code>function getTotalCost(s::Summary)::Real
     return s.principal + s.interest
@@ -306,7 +307,7 @@ end</code></pre>
 customOverpayments[13] = 20_000
 getTotalCostDiff(mortgage1, customOverpayments) |&gt; fmt</code></pre>
 <p>65,257 USD</p>
-<p>And now, the final question. Which one is better: to overpay <code>mortgage1</code> with $20,000 in month 13, or to put this $20,000 into a bank deposit that pays 5% yearly for the 19 years (roughly the remaining duration of the mortgage)?</p>
+<p>And now, the final question. Which one is better: to overpay <code>mortgage1</code> with $20,000 in month 13, or to put this $20,000 into a bank deposit that pays 5% yearly for the 19 years (roughly the remaining duration of the mortgage)? For simplicity, we assume there is no inflation.</p>
 <pre class="language-julia"><code>(
     getTotalCostDiff(mortgage1, Dict(13 =&gt; 20_000)) |&gt; fmt,
     # fn from chapter about compund interest

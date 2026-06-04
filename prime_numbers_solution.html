@@ -202,7 +202,7 @@ end</code></pre>
     @assert upTo &gt; 1 &quot;upTo must be &gt; 1&quot;
     return filter(isPrime, 2:upTo)
 end</code></pre>
-<p>All we had to do was to <code>filter</code> out primes from the sequence of numbers within the desired range <code>2:upTo</code>. Time for a simple test.</p>
+<p>All we had to do was to fish out primes from the sequence of numbers (<code>2:upTo</code>) with <code>filter</code>. Time for a simple test.</p>
 <pre class="language-julia"><code># prime numbers up to 100 from:
 # https://en.wikipedia.org/wiki/List_of_prime_numbers
 primesFromWiki = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31,
@@ -232,14 +232,14 @@ getPrimesV1(100) == primesFromWiki</code></pre>
     end
     return nums[isPrimeTests]
 end</code></pre>
-<p>This time we begin by defining two vectors <code>nums</code> which contains all the examined integers from a given range and <code>isPrimeTests</code> that contains indication of whether a number in <code>nums</code> is prime. Initially, all the numbers are considered to be primes (<code>ones(Bool, upTo)</code>) except for 1 (<code>isPrimeTests[1] = false</code>). Then, we examine every number (<code>num</code>) out of the candidates (<code>nums</code>). If a number is prime (<code>if isPrimeTests[num]</code>) we set all its multiples (<code>numMultiples</code>) as not primes (<code>false</code>) using broadcasting (<code>.</code>) with the assignment (<code>=</code>) operator. Once finished we return only the candidates that passed the test (<code>return nums[isPrimeTests]</code>) using boolean indexing of a vector.</p>
+<p>This time we begin by defining two vectors: <code>nums</code> - which contains all the examined integers from a given range, and <code>isPrimeTests</code> - that contains indication of whether a number in <code>nums</code> is prime. Initially, all the numbers are considered to be primes (<code>ones(Bool, upTo)</code>) except for 1 (<code>isPrimeTests[1] = false</code>). Then, we examine every number (<code>num</code>) out of the candidates (<code>nums</code>). If a number is prime (<code>if isPrimeTests[num]</code>) we set all its multiples (<code>numMultiples</code>) as not primes (<code>false</code>) using broadcasting (<code>.</code>) with the assignment (<code>=</code>) operator. Once finished we return only the candidates that passed the test (<code>return nums[isPrimeTests]</code>) using boolean indexing of a vector.</p>
 <p>Time for a simple test.</p>
 <pre class="language-julia"><code>getPrimesV2(100) == primesFromWiki</code></pre>
 <p>true</p>
 <p>The test passed. Before we close this chapter let’s see if the two functions give identical results.</p>
 <pre class="language-julia"><code>getPrimesV1(1000) == getPrimesV2(1000)</code></pre>
 <p>true</p>
-<p>Yes, they do.</p>
+<p>Yes they do.</p>
 
 
 <div class="bottom-nav">

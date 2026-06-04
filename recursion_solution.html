@@ -188,33 +188,33 @@ Mousetrap.bind('l', click_next);
 \begin{align*}
 n! = \left\{
     \begin {aligned}
-         &amp; 1 \quad &amp; \text{if } n = 1 \\
-         &amp; n \times (n-1)! \quad &amp; \text{otherwise}
+         &amp; 1 \quad &amp; \text{if } n = 0 \\
+         &amp; n \times (n-1)! \quad &amp; \text{if } n \geq 1
     \end{aligned}
 \right.
 \end{align*}
 \]</span></p>
 <p>Which can be translated into Julia’s:</p>
 <pre class="language-julia"><code>function recFactorial(n::Int)::Int
-    @assert 1 &lt;= n &lt;= 20 &quot;n must be in range [1-20]&quot;
-    if n == 1
+    @assert 0 &lt;= n &lt;= 20 &quot;n must be in range [0-20]&quot;
+    if n == 0
         return 1
     else
         return n * recFactorial(n-1)
     end
 end</code></pre>
-<p>In general, a factorial is well defined for positive integers and it grows very quickly (n &gt; 20 would produce <a href="https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/#Overflow-behavior">overflow</a>, to resolve it we could use <code>BigInt</code> instead of <code>Int</code>) hence the <code>@assert</code> line. Anyway, for <code>n</code> equal 1 we return 1 (our base case), otherwise we multiply <code>n</code> by <code>recFactorial(n-1)</code>. Go ahead, follow the execution of the program for small inputs like <code>recFactorial(3)</code> in your head (similarly to <code>recSum</code> from Section <a href="./recursion_problem.html#sec:recursion_problem">10.1</a>).</p>
+<p>In general, a factorial is well defined for positive integers and it grows very quickly (n &gt; 20 would produce <a href="https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/#Overflow-behavior">overflow</a>, to resolve it we could use <code>BigInt</code> instead of <code>Int</code>) hence the <code>@assert</code> line. Anyway, per the definition, for <code>n</code> equal 0 we return 1 (our base case), otherwise we multiply <code>n</code> by <code>recFactorial(n-1)</code>. Go ahead, follow the execution of the program for small inputs like <code>recFactorial(3)</code> in your head (similarly to <code>recSum</code> from Section <a href="./recursion_problem.html#sec:recursion_problem">10.1</a>).</p>
 <p>To get you a better feel for recursion in Julia, here are two other equivalent implementations of <code>recFactorial</code>.</p>
 <pre class="language-julia"><code>function recFactorialV2(n::Int)::Int
-    @assert 1 &lt;= n &lt;= 20 &quot;n must be in range [1-20]&quot;
-    return n == 1 ? 1 : n * recFactorialV2(n-1)
+    @assert 0 &lt;= n &lt;= 20 &quot;n must be in range [0-20]&quot;
+    return n == 0 ? 1 : n * recFactorialV2(n-1)
 end</code></pre>
 <p>and</p>
 <pre class="language-julia"><code>function recFactorialV3(n::Int, acc::Int=1)::Int
-    @assert 1 &lt;= n &lt;= 20 &quot;n must be in range [1-20]&quot;
-    return n == 1 ? acc : recFactorialV3(n-1, n * acc)
+    @assert 0 &lt;= n &lt;= 20 &quot;n must be in range [0-20]&quot;
+    return n == 0 ? acc : recFactorialV3(n-1, n * acc)
 end</code></pre>
-<p>The second version (<code>recFactorialV2</code>) uses <a href="https://docs.julialang.org/en/v1/base/base/#?:">ternary operator</a> instead of more verbose <code>if else</code> statements. The third version (<code>recFactorialV3</code>) relies on a so called accumulator (<code>acc</code>) that stores the result of a previous calculation (if any). <code>recFactorialV3</code> is a tail-recursive function that is recommended in some programming languages, like <a href="https://en.wikipedia.org/wiki/Haskell">Haskell</a> and <a href="https://en.wikipedia.org/wiki/Scala_(programming_language)">Scala</a>, that can take advantage of this kind of code to produce (internally) an effective function implementation.</p>
+<p>The second version (<code>recFactorialV2</code>) uses <a href="https://docs.julialang.org/en/v1/base/base/#?:">ternary operator</a> instead of more verbose <code>if-else</code> statements. The third version (<code>recFactorialV3</code>) relies on a so called accumulator (<code>acc</code>) that stores the result of a previous calculation (if any). <code>recFactorialV3</code> is a tail-recursive function that is recommended in some programming languages, like <a href="https://en.wikipedia.org/wiki/Haskell">Haskell</a> and <a href="https://en.wikipedia.org/wiki/Scala_(programming_language)">Scala</a>, that can take advantage of this kind of code to produce (internally) an effective function implementation.</p>
 <p>Let’s go to the Fibonacci sequence. When I was a student, they said that dinners in the student’s canteen are like Figonacci numbers, i.e. each dinner is the sum of the two previous ones. To put it more mathematically, we get</p>
 <p><span class="math display">\[
 \begin{align*}
@@ -241,7 +241,7 @@ end
 
 recFib(10)</code></pre>
 <p>55</p>
-<p>The numbers do not grow as fast as <code>factorial</code>s, but the algorithm, although simple, is very inefficient. For instance, for <code>recFib(3)</code> I have to calculate <code>recFib(1) + recFib(2)</code>, but <code>recFib(2)</code> will calculate <code>recFib(1)</code> inside of it as well. For greater numbers (inputs) the duplicated operations threaten to throttle the processor. On my laptop the computation for <code>recFib(40)</code> takes roughly 600-700 [ms], so more than half a second, a delay noticed even by a human.</p>
+<p>The numbers do not grow as fast as <code>factorial</code>s, but the algorithm, although simple, is very inefficient. For instance, for <code>recFib(3)</code> it has to calculate <code>recFib(1) + recFib(2)</code>, but <code>recFib(2)</code> will calculate <code>recFib(1)</code> inside of it as well. For greater numbers (inputs) the duplicated operations threaten to throttle the processor. On my laptop the computation for <code>recFib(40)</code> takes roughly 600-700 [ms], so more than half a second, a delay noticed even by a human.</p>
 <p>Therefore we may improve our last function by using lookup tables/dictionaries like so:</p>
 <pre class="language-julia"><code>function recFib!(n::Int, lookup::Dict{Int, Int})::Int
     @assert 0 &lt;= n &lt;= 40 &quot;n must be in range [0-40]&quot;
@@ -257,7 +257,7 @@ end</code></pre>
 <pre class="language-julia"><code>fibs = Dict(0 =&gt; 0, 1 =&gt; 1)
 recFib!(40, fibs)</code></pre>
 <p>102334155</p>
-<p>takes only microseconds on its first execution (hundreds to thousand times faster). Interestingly, running <code>recFib!(40, fibs)</code> for the second time reduces the time to nanoseconds (million(s) times faster) since there are no calculations performed the second time, just reading the number from the previously modified <code>lookup</code>). Run <code>recFib(40)</code> twice to convince yourself that it takes roughly the same amount of time every time it runs with the same <code>n</code>.</p>
+<p>takes only microseconds on its first execution (hundreds to thousand times faster). Interestingly, running <code>recFib!(40, fibs)</code> for the second time reduces the time to nanoseconds (million(s) times faster) since there are no calculations performed the second time (just reading the number from the previously modified <code>lookup</code>). Run <code>recFib(40)</code> twice to convince yourself that it takes roughly the same amount of time every time it runs with the same <code>n</code>.</p>
 
 
 <div class="bottom-nav">

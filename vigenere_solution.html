@@ -221,7 +221,7 @@ function codeMsg(msg::Str, passphrase::Str, decode::Bool=false)::Str
     end
     return result |&gt; join
 end</code></pre>
-<p>We begin with come preparatory code. First, we <code>lowercase</code> the <code>passphrase</code> and retain only ‘a’:‘z’ characters (<code>isAsciiLetter</code>). Next, we check how many times longer is the coded message (<code>length(msg)</code>) in comparison to the passphrase (<code>length(pass)</code>). The <code>ceil</code> function rounds the obtained float to the nearest whole number higher than or equal to it. Finally, we repeat <code>pass</code> the necessary number of times (<code>^ pwr</code>) to make sure it is at least as long as our <code>msg</code>. Next, we obtain the shifts by subtracting <code>'a'</code> from every character (<code>c</code>) in the passphrase (<code>pass</code>). For decoding (<code>if decode</code>) purposes we change the signs in <code>shifts</code> to the opposite (<code>.*= -1</code>, where <code>.*</code> multiplies every shift by <code>-1</code> and <code>=</code> re-assigns them to the <code>shifts</code> variable). We initialize an empty vector of chars of a given length (<code>Vec{Char}(undef, length(msg))</code>). Afterwards, we traverse (<code>for</code>) all characters (<code>char</code>) and their indices (<code>ind</code>) in <code>msg</code>. We code a <code>char</code> with the proper shift (<code>shiftsInd</code>). If the coded character was a letter (<code>isAsciiLetter(char)</code>) we update the <code>shiftsInd</code> (we use the next shift for coding of another letter). Finally, we concatenate the chars (<code>result</code>) into a string (<code>join</code>) that we return.</p>
+<p>We begin with some preparatory code. First, we <code>lowercase</code> the <code>passphrase</code> and retain only ‘a’:‘z’ characters (<code>isAsciiLetter</code>). Next, we check how many times longer is the coded message (<code>length(msg)</code>) in comparison to the passphrase (<code>length(pass)</code>). The <code>ceil</code> function rounds the obtained float to the nearest whole number higher than or equal to it. Finally, we repeat <code>pass</code> the necessary number of times (<code>^ pwr</code>) to make sure it is at least as long as our <code>msg</code>. Next, we obtain the shifts by subtracting <code>'a'</code> from every character (<code>c</code>) in the passphrase (<code>pass</code>). For decoding (<code>if decode</code>) purposes we change the signs in <code>shifts</code> to the opposite (<code>.*= -1</code>, where <code>.*</code> multiplies every shift by <code>-1</code> and <code>=</code> re-assigns them to the <code>shifts</code> variable). We initialize an empty vector of chars of a given length (<code>Vec{Char}(undef, length(msg))</code>). Afterwards, we traverse (<code>for</code>) all characters (<code>char</code>) and their indices (<code>ind</code>) in <code>msg</code>. We code a <code>char</code> with the proper shift (<code>shiftsInd</code>). If the coded character was a letter (<code>isAsciiLetter(char)</code>) we update the <code>shiftsInd</code> (we use the next shift for coding of another letter). Finally, we concatenate the chars (<code>result</code>) into a string (<code>join</code>) that we return.</p>
 <p>Time for our minimal test.</p>
 <pre class="language-julia"><code>(
     codeMsg(&quot;attacking tonight&quot;, &quot;oculorhinolaryngology&quot;),
@@ -278,18 +278,18 @@ function drawFreqComparison(txt1::Str, title1::Str,
     letFreqs1::Dict{Char, Flt} = getFreqs(txt1)
     letFreqs2::Dict{Char, Flt} = getFreqs(txt2)
     alphabet::Str = join(&#39;A&#39;:&#39;Z&#39;)
-    revAlphabet::Str = alphabet[end:-1:1]
+    reversedAlphabet::Str = alphabet[end:-1:1]
     len::Int = length(alphabet)
     freqs1::Vec{Flt} = [get(letFreqs1, c, 0) for c in alphabet]
     freqs2::Vec{Flt} = [get(letFreqs2, c, 0) for c in alphabet]
     fig::Cmk.Figure = Cmk.Figure(size=(600, 1200))
     ax1::Cmk.Axis = Cmk.Axis(fig[1, 1], title=title1,
                              xlabel=&quot;Frequency in text&quot;, ylabel=&quot;Letter&quot;,
-                             yticks=(1:len, split(revAlphabet, &quot;&quot;)),
+                             yticks=(1:len, split(reversedAlphabet, &quot;&quot;)),
                              ygridvisible=false)
     ax2::Cmk.Axis = Cmk.Axis(fig[2, 1], title=title2,
                              xlabel=&quot;Frequency in text&quot;, ylabel=&quot;Letter&quot;,
-                             yticks=(1:len, split(revAlphabet, &quot;&quot;)),
+                             yticks=(1:len, split(reversedAlphabet, &quot;&quot;)),
                              ygridvisible=false)
     Cmk.linkyaxes!(ax1, ax2)
     Cmk.linkxaxes!(ax1, ax2)
@@ -301,8 +301,8 @@ end
 drawFreqComparison(plainTxt, &quot;genesis.txt in plain text&quot;,
                    codedTxt, &quot;genesis.txt coded with a Vigenere cipher&quot;)</code></pre>
 <figure id="fig:genesisVigenere.png">
-<img src="./images/genesisVigenere.png" alt="Figure 24: Frequency analysis of plain and encrypted book of Genesis." />
-<figcaption aria-hidden="true">Figure 24: Frequency analysis of plain and encrypted book of Genesis.</figcaption>
+<img src="./images/genesisVigenere.png" alt="Figure 24: Frequency analysis of letters in plain and encrypted book of Genesis." />
+<figcaption aria-hidden="true">Figure 24: Frequency analysis of letters in plain and encrypted book of Genesis.</figcaption>
 </figure>
 <p>The letter distribution definetely got more <a href="https://en.wikipedia.org/wiki/Discrete_uniform_distribution">uniform</a>. This should make cracking the cipher more difficult, but still <a href="https://en.wikipedia.org/wiki/Vigen%C3%A8re_cipher#Cryptanalysis">possible</a>.</p>
 <p>The performance of our <code>codeMsg</code> should be comparable to its counterpart in Section <a href="./caesar_solution.html#sec:caesar_solution">39.2</a>. If you expect to work on long text messages you may improve it, e.g. by generating <code>encryptionMaps</code>. It would be a <code>Dict{Int, Dict{Char, Char}}</code> where the key (<code>Int</code>) is a possible shift (<code>0</code> to <code>25</code>) and the value (<code>Dict{Char, Char}</code>) is an <code>encryptionMap</code> (like the one produced by <code>getEncryptionMap</code> in Section <a href="./caesar_solution.html#sec:caesar_solution">39.2</a>) for that shift. You could generate the <code>encryptionMaps</code> only once and use them inside <code>codeMsg</code> based on the shift from <code>shifts::Vec{Int}</code>. I’ll leave this as an extra exercise for you.</p>

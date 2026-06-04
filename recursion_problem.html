@@ -216,11 +216,11 @@ end</code></pre>
             1 + 2 + 3 + recSum([]) # triggers if branch (stop)
                 1 + 2 + 3 + 0 # stop reached, time to return
 6</code></pre>
-<p>It is difficult to imagine step by step, but <code>recSum</code> works equally well for a bit broader range of numbers.</p>
+<p>It is difficult to imagine it step by step, but <code>recSum</code> works equally well for a bit broader range of numbers.</p>
 <pre class="language-julia"><code>1:100 |&gt; collect |&gt; recSum</code></pre>
 <p>5050</p>
 <p>Believe it or not, but that last one you can calculate fairly easily yourself if you apply <a href="https://www.nctm.org/Publications/TCM-blog/Blog/The-Story-of-Gauss/">the Gauss method</a>.</p>
-<p>Anyway, usually recursion is not very effective and it can be rewritten with loops. Moreover, too big input, e.g. <code>1:100_000</code>, will likely cause an error with <code>recSum</code>, but not with the built-in <code>sum</code>. Still, for some problems recursion is an easy to implement and elegant solution that gets the job done. Therefore, it is worth to have this technique in your programming toolbox.</p>
+<p>Anyway, usually recursion is not very effective and it can be replaced with loops. Moreover, too big input, e.g. <code>1:100_000</code>, will likely cause an error with <code>recSum</code>, but not with the built-in <code>sum</code>. Still, for some problems recursion is an easy to implement and elegant solution that gets the job done. Therefore, it is worth to have this technique in your programming toolbox.</p>
 <p>Classical examples of recursive process in action are the <a href="https://en.wikipedia.org/wiki/Factorial">factorial</a> and the <a href="https://en.wikipedia.org/wiki/Fibonacci_sequence">Fibonacci sequence</a> which are your tasks for this section.</p>
 
 

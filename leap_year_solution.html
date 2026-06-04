@@ -192,20 +192,20 @@ Mousetrap.bind('l', click_next);
     divisibleBy4::Bool = yr % 4 == 0
     gregorianException::Bool = (yr % 100 == 0) &amp;&amp; (yr % 400 != 0)
     if !divisibleBy4
-        return false
-    else
-        return !gregorianException
+        return false # a common year
+    else # evenly divisible by 4
+        return gregorianException ? false : true
     end
 end</code></pre>
-<p>The powerhouse of our function is <code>%</code> (modulo operator) that returns the reminder of the division. If a number <code>x</code> is evenly divided by a number <code>y</code> (<code>x % y</code>) the reminder is equal to zero (<code>== 0</code>). Otherwise (when <code>x % y != 0</code>) the <code>x</code> cannot be evenly divided by <code>y</code>. Although not strictly necessary, we added a mnemonic names for the tested conditions (<code>divisibleBy4</code> and <code>gregorianException</code>), which should make the code more readable. Anyway, if a year (<code>yr</code>) is not divisible by 4 (<code>!divisibleBy4</code>) then it is a common year. Otherwise (<code>else</code>) if the the year fulfills the exception rule (<code>gregorialException</code> is <code>true</code>) it is not a leap year (hence we negate <code>!</code> <code>gregorianException</code>, because <code>!true</code> is <code>false</code>). If a year (<code>yr</code>) does not meet the exception criteria (<code>gregorianException</code> is <code>false</code>) it is a common year (we negate <code>false</code>, so we get <code>true</code>).</p>
-<p>Actually, we can get rid of the <code>if</code>-<code>else</code> condition by using <code>&amp;&amp;</code> (logical and) and its short circuiting property.</p>
+<p>The powerhouse of our function is <code>%</code> (<a href="https://en.wikipedia.org/wiki/Modulo">modulo</a> operator) that returns the reminder of the division. If a number <code>x</code> is evenly divided by a number <code>y</code> (<code>x % y</code>) the reminder is equal to zero (<code>== 0</code>). Otherwise (when <code>x % y != 0</code>) the <code>x</code> cannot be evenly divided by <code>y</code>. Although not strictly necessary, we added a mnemonic names for the tested conditions (<code>divisibleBy4</code> and <code>gregorianException</code>), which should make the code more readable. Anyway, if a year (<code>yr</code>) is not divisible by 4 (<code>!divisibleBy4</code>), then it is a common year. Otherwise (<code>else</code>) if the year fulfills the exception rule (<code>gregorialException</code> is <code>true</code>), then it is not a leap year (<code>false</code>). For the last checkup we used a <a href="https://b-lukaszuk.github.io/RJ_BS_eng/julia_language_decision_making.html#sec:ternary_expression">ternary expression</a>.</p>
+<p>Actually, we could get rid of the <code>if</code>-<code>else</code> condition and shorten our function quite a bit, e.g. by using <code>&amp;&amp;</code> (logical and) and its short circuiting property.</p>
 <pre class="language-julia"><code>function isLeap(yr::Int)::Bool
     @assert 0 &lt; yr &lt; 4001 &quot;yr must be in range [1-4000]&quot;
     divisibleBy4::Bool = yr % 4 == 0
     gregorianException::Bool = (yr % 100 == 0) &amp;&amp; (yr % 400 != 0)
     return divisibleBy4 &amp;&amp; !gregorianException
 end</code></pre>
-<p>When <code>divisibleBy4</code> is <code>false</code> the and operator (<code>&amp;&amp;</code>) skips the evaluation of its second argument (short circuiting) and returns <code>false</code>. Otherwise, (<code>divisibleBy4</code> is <code>true</code>) <code>!gregorianException</code> is evaluated and it becomes the result of the function.</p>
+<p>When <code>divisibleBy4</code> is <code>false</code> the and operator (<code>&amp;&amp;</code>) skips the evaluation of its second argument (short circuiting) and returns <code>false</code>. Otherwise, (<code>divisibleBy4</code> is <code>true</code>) <code>!gregorianException</code> is evaluated and it becomes the result of the function. The functions should work the same, the latter version is shorter, but less straightforward to understand. Personally, I try to remember not to get too clever with my code and thank myself for that when I read it while I’m tired.</p>
 <p>Time for a simple test.</p>
 <pre class="language-julia"><code>yrs = [1792, 1859, 1900, 1918, 1974, 1985, 2000, 2012]
 filter(isLeap, yrs)</code></pre>

@@ -186,14 +186,14 @@ Mousetrap.bind('l', click_next);
 <ol type="1">
 <li>there are always exactly 365 days in a year (no leap years)</li>
 <li>a person is equally likely to have been born on any day of a year (no seasonal, yearly and other patterns, etc.)</li>
-<li>the birth date of one person does not influence the birth date of another person (not in twins, siblings, etc.)</li>
+<li>the birth date of one person does not influence the birth date of another person (not in the case of twins, siblings, etc.)</li>
 </ol>
 <p>None of the above is exactly true, still, those are some reasonable assumptions that will allow us to knack the problem.</p>
 <p>OK, let’s begin.</p>
 <pre class="language-julia"><code>import Random as Rnd
 
 function getBdaysAtParty(nPeople::Int)::Vec{Int}
-    @assert 4 &lt;= nPeople &lt;= 365 &quot;nPeople must be in range [4-365]&quot;
+    @assert 5 &lt;= nPeople &lt;= 365 &quot;nPeople must be in range [5-365]&quot;
     return Rnd.rand(1:365, nPeople)
 end
 
@@ -215,13 +215,13 @@ function anyMyBday(counts::Dict{Int, Int}, myBday::Int=1)::Bool
     @assert 1 &lt;= myBday &lt;= 365 &quot;myBDay must be in range [1-365]&quot;
     return haskey(counts, myBday)
 end</code></pre>
-<p>First, we check for <code>nSameBdays</code> with the build in <a href="https://docs.julialang.org/en/v1/base/arrays/#Base.findfirst-Tuple%7BFunction,%20Any%7D">findfirst</a>. That last function accepts a predicate and a collection (like a vector or a dictionary). The predicate is a function that takes an element of a collection (for a dictionary one of its values) as an input and returns a <code>Bool</code>. <code>findfirst</code> brings back the first index (for vectors) or the first key (for dictionaries) for which <code>predicate(vector's element)</code> or <code>predicate(dictionary's value)</code> is <code>true</code>, respectively. Often a predicate is just an <a href="https://docs.julialang.org/en/v1/manual/functions/#man-anonymous-functions">anonymous function</a>, which in our case could be <code>key -&gt; key &gt;= n</code>. Instead, here I used a <a href="https://bkamins.github.io/julialang/2024/02/23/fix.html">partial function application</a>. The <code>(&gt;=)(n)</code> is an equivalent of the <code>&gt;= n</code> mentioned in the previous sentence. It is just a function applied to one argument. The function still lacks an argument on its left site, just before the <code>&gt;</code>. This missing argument will be any element of our collection that is currently being tested. Anyway, one more point to notice, if <code>findfirst</code> finds no element for which the predicate is <code>true</code> then it returns <a href="https://docs.julialang.org/en/v1/base/constants/#Core.nothing">nothing</a>. Therefore, to get our final answer we send the possible result through <a href="https://docs.julialang.org/en/v1/base/base/#Base.isnothing">isnothing</a> and <a href="https://b-lukaszuk.github.io/RJ_BS_eng/julia_language_decision_making.html#sec:ternary_expression">a ternary expression</a> . Technically, we could have shorten the last line to <code>return !isnothing(firndfirst((&gt;=)(n), counts))</code> (or even without the return), but I thought that this might be too much condensation for a one line of code.</p>
+<p>First, we check for <code>nSameBdays</code> with the build in <a href="https://docs.julialang.org/en/v1/base/arrays/#Base.findfirst-Tuple%7BFunction,%20Any%7D">findfirst</a>. That function accepts a predicate and a collection (like a vector or a dictionary). The predicate is a function that takes an element of a collection (for a dictionary one of its values) as an input and returns a <code>Bool</code>. <code>findfirst</code> brings back the first index (for vectors) or the first key (for dictionaries) for which <code>predicate(vector's element)</code> or <code>predicate(dictionary's value)</code> is <code>true</code>, respectively. Often a predicate is just an <a href="https://docs.julialang.org/en/v1/manual/functions/#man-anonymous-functions">anonymous function</a>, which in our case could be <code>key -&gt; key &gt;= n</code>. Instead, here I used a <a href="https://bkamins.github.io/julialang/2024/02/23/fix.html">partial function application</a>. The <code>(&gt;=)(n)</code> is an equivalent of the <code>&gt;= n</code> mentioned in the previous sentence. It is just a function applied to one argument. The function still lacks an argument on its left site, just before the <code>&gt;</code>. This missing argument will be any element of our collection that is currently being tested. Anyway, one more point to notice, if <code>findfirst</code> finds no element for which the predicate is <code>true</code> then it returns <a href="https://docs.julialang.org/en/v1/base/constants/#Core.nothing">nothing</a>. Therefore, to get our final answer we send the possible result through <a href="https://docs.julialang.org/en/v1/base/base/#Base.isnothing">isnothing</a> and <a href="https://b-lukaszuk.github.io/RJ_BS_eng/julia_language_decision_making.html#sec:ternary_expression">a ternary expression</a> . Technically, we could have shorten the last line to <code>return !isnothing(firndfirst((&gt;=)(n), counts))</code> (or even without the return), but I thought that this might be too much condensation for a one line of code.</p>
 <p>Our second function, <code>anyMyBday</code>, is much simpler. It just uses <code>haskey</code> to check if our day of birth occurred in the birthdays of the guests at our party (<code>counts</code>). Fun, fact, under our assumptions, it does not matter whether you were born on the first or 365th day of the year. Go ahead, change the default value to your actual day of birth and compare the result with the one provided later in this chapter.</p>
 <p>OK, time to estimate the probability of success, i.e. the ratio between the number of times the event took place to the total trials (number of simulations).</p>
 <pre class="language-julia"><code># isEventFn(Dict{Int, Int}) -&gt; Bool
 function getProbSuccess(nPeople::Int, isEventFn::Function,
                         nSimulations::Int=100_000)::Flt
-    @assert 4 &lt;= nPeople &lt;= 366 &quot;nPeople must be in range [4-365]&quot;
+    @assert 5 &lt;= nPeople &lt;= 366 &quot;nPeople must be in range [5-365]&quot;
     @assert 1e4 &lt;= nSimulations &lt;= 1e6 &quot;nSimulations not in range [1e4-1e6]&quot;
     successes::Vec{Bool} = Vec{Bool}(undef, nSimulations)
     for i in 1:nSimulations

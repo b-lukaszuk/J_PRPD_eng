@@ -186,7 +186,7 @@ Mousetrap.bind('l', click_next);
 <p>First, let’s define all the possible values for players (i.e. monkeys) and moves (i.e. choices) by using Julia’s <a href="https://docs.julialang.org/en/v1/base/base/#Base.Enums.Enum">enums</a>.</p>
 <pre class="language-julia"><code>@enum Player naive gullible unforgiving paybacker unfriendly abusive egoist
 @enum Choice cooperate=0 betray=1</code></pre>
-<p>Now, whenever we use <code>Player</code> in our code (as a variable type) we will be able to use one of the seven informative and mnemonic names (<code>naive gullible unforgiving paybacker unfriendly abusive egoist</code>). The same goes for <code>Choice</code> our players will make (<code>cooperate</code> and <code>betray</code>). Note, however, that in this last case the <code>Choices</code> are followed by the number code. We didn’t have to do that since by default the enums are internally stored as consecutive integers that start at 0. Still, we did it to emphasize our plan to use this property of our new type in the near future. Namely, per problem description <code>unforgiving</code> monkey always betrays its partner when it was itself betrayed more than three times in the past. To that end we will need to count the betrayals.</p>
+<p>Now, whenever we use <code>Player</code> in our code (as a variable type) we will be able to use one of the seven informative and mnemonic names (<code>naive gullible unforgiving paybacker unfriendly abusive egoist</code>). The same goes for <code>Choice</code> our players will make (<code>cooperate</code> and <code>betray</code>). Note, however, that in this last case the <code>Choice</code>s are followed by the number code. We didn’t have to do that since by default the enums are internally stored as consecutive integers that start at 0. Still, we did it to emphasize our plan to use this property of our new type in the near future. Namely, per problem description <code>unforgiving</code> monkey always betrays its partner when it was itself betrayed more than three times in the past. To that end we will need to count the betrayals.</p>
 <pre class="language-julia"><code>import Base: +
 
 function +(c1::Choice, c2::Choice)::Int
@@ -198,7 +198,7 @@ function +(n::Int, c::Choice)::Int
 end</code></pre>
 <p>We start by importing the <code>+</code> function from <code>Base</code> package and make the versions of it (aka methods) that know how to handle our <code>Choice</code> enum. Simply, if we add two <code>Choices</code> (<code>c1</code> and <code>c2</code>) together, we add the underlying integers (<code>Int(c1) + Int(c2)</code>) and when we add an integer (<code>n</code>) to a <code>Choice</code> then again we add the integer to the <code>Choice</code>’s integer representation (<code>n + Int(c)</code>). Thanks to this little trick, we will be able to count the total of betrayals in a vector of <code>Choice</code>s with the built in <code>sum</code> function (it relies on <code>+</code>)</p>
 <blockquote>
-<p><strong><em>Note:</em></strong> Do not overuse this technique. In general, you should redefine the built in <code>Base</code> functions (like <code>+</code>) only on the types that you have defined yourself.</p>
+<p><strong><em>Note:</em></strong> Do not overuse this technique. In general, you should redefine the built in <code>Base</code> functions (like <code>+</code>) only for the types that you have defined yourself.</p>
 </blockquote>
 <p>Time to write a function that will return the Player’s move. According to the problem description all it needs know to do its job correctly is the <code>Player</code>’s type and its opponents previous moves.</p>
 <pre class="language-julia"><code>import Random as Rnd
@@ -222,7 +222,7 @@ function getMove(p::Player, opponentMoves::Vec{Choice})::Choice
         return betray
     end
 end</code></pre>
-<p>The function is a bit cumbersome to type because Julia does not have <a href="https://en.wikipedia.org/wiki/Switch_statement">a switch statement</a> known from other programming languages. If you really must have it, then consider using <a href="https://github.com/JuliaServices/Match.jl">Match.jl</a> as a replacement. Anyway, the code is pretty simple if you are familiar with <a href="https://b-lukaszuk.github.io/RJ_BS_eng/julia_language_decision_making.html">the decision making in Julia</a>. One point to notice is that here we used the <code>init=0</code> keyword argument in <code>sum</code>. This is a default value from which we start counting the total, and it makes sure that an empty vector (<code>opponentMoves</code>) returns <code>0</code> instead of an error when used with <code>sum</code>.</p>
+<p>The function is a bit cumbersome to type because Julia does not have <a href="https://en.wikipedia.org/wiki/Switch_statement">a switch statement</a> known from other programming languages. I’m OK with that, but if you really must have it, then consider using <a href="https://github.com/JuliaServices/Match.jl">Match.jl</a> as a replacement. Anyway, the code is pretty simple if you are familiar with <a href="https://b-lukaszuk.github.io/RJ_BS_eng/julia_language_decision_making.html">the decision making in Julia</a>. One point to notice is that here we used the <code>init=0</code> keyword argument in <code>sum</code>. This is a default value from which we start counting the total, and it makes sure that an empty vector (<code>opponentMoves</code>) returns <code>0</code> instead of an error when used with <code>sum</code>.</p>
 <p>Time to award our players with survival points per a round (interaction) and their choices.</p>
 <pre class="language-julia"><code>function getPts(c1::Choice, c2::Choice)::Tuple{Int, Int}
     if c1 == c2 == cooperate
@@ -235,7 +235,7 @@ end</code></pre>
         return (-1, -1)
     end
 end</code></pre>
-<p>Notice, that the <code>enum</code> defined by us (<code>Choice</code>) got a built in ordering that by default goes in an ascending order from left to right (<code>cooperate</code> &lt; <code>betray</code> per <code>@enum Choice cooperate betray</code>) which we used to our advantage here.</p>
+<p>Notice, that the <code>enum</code> defined by us (<code>Choice</code>) got a built in ordering that by default goes in an ascending order from left to right (<code>cooperate</code> &lt; <code>betray</code> per <code>@enum Choice cooperate betray</code>) which we used to our advantage here (actually, we defined the point values of <code>Choice</code>s explicitly, but the result is the same).</p>
 <p>Time to write a function that takes two players as an argument and runs a random number of games (50:300 interactions) between them. In the end it returns the survival points each player obtained.</p>
 <pre class="language-julia"><code>function playRoundsGetPts(p1::Player, p2::Player)::Tuple{Int, Int}
     pts1::Int, pts2::Int = 0, 0 # total pts

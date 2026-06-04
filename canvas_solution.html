@@ -240,7 +240,7 @@ function getRectangle(width::Int, height::Int)::Vec{Pos}
     end
     return rectangle
 end</code></pre>
-<p>Each <code>rectangle</code> is represented as a vector of positions (<code>Vec{Pos}</code>). It will start at the origin of our coordinate system (<code>COORD_ORIGIN</code> - top left corner of our matrix). It will spread through as many <code>row</code>s and <code>col</code>umns as there are needed. Their numbers will be calculated based on the <code>height</code> and <code>width</code> of the rectangle. Such a rectangle (the one that starts in the coordinate system origin point) is a good start, but to draw a picture we need to be able to place a shape in any location on the canvas.</p>
+<p>Each <code>rectangle</code> is represented as a vector of positions (<code>Vec{Pos}</code>). It will start at the origin of our coordinate system (<code>COORD_ORIGIN</code> - top left corner of our matrix). It will spread through as many <code>row</code>s and <code>col</code>umns as there are needed. Their numbers will be calculated based on the <code>height</code> and <code>width</code> of the rectangle. Such a rectangle (the one that is anchored in the coordinate system’s origin point) is good at kick off, but to draw a picture we need to be able to place a shape in any location on the canvas.</p>
 <pre><code># moves a shape by (nRows, nCols)
 function nudge(shape::Vec{Pos}, by::Pos)::Vec{Pos}
     return map(pos -&gt; pos .+ by, shape)
@@ -292,7 +292,7 @@ end
 function getTriangle(height::Int, apex::Pos)::Vec{Pos}
     return shift(getTriangle(height), apex)
 end</code></pre>
-<p>Our triangle’s top starts with a pixel (<code>lCol</code> and <code>rCol</code> are initialized with the same value) in the origin of our coordinate system (<code>COORD_ORIGIN</code>). Then for each row (<code>for row in rowStart:height</code>) we dye each pixel between the left (<code>lCol</code>) and right (<code>rCol</code>) columns (inclusive-inclusive). The basis of the triangle is increased by one pixel on each side (<code>lCol -= 1</code> and <code>rCol += 1</code>) with each row we move down. Of note, we could have shortened the above snippet, e.g. by using a <a href="https://en.wikipedia.org/wiki/C_(programming_language)">C</a>-like chained assignment (<code>lCol = rCol = colStart</code> instead of lines <code>#1</code> and <code>#2</code>). However, the longer version might be clearer and easier to follow in a head.</p>
+<p>Our triangle’s top starts with a pixel (<code>lCol</code> and <code>rCol</code> are initialized with the same value) in the origin of our coordinate system (<code>COORD_ORIGIN</code>). Then for each row (<code>for row in rowStart:height</code>) we take each pixel between the left (<code>lCol</code>) and right (<code>rCol</code>) columns (inclusive-inclusive). The basis of the triangle is increased by one pixel on each side (<code>lCol -= 1</code> and <code>rCol += 1</code>) with each row we move down. Of note, we could have shortened the above snippet, e.g. by using a <a href="https://en.wikipedia.org/wiki/C_(programming_language)">C</a>-like chained assignment (<code>lCol = rCol = colStart</code> instead of lines <code>#1</code> and <code>#2</code>). However, the longer version might be clearer and easier to follow in a head.</p>
 <p>There’s one more shape left, a circle.</p>
 <pre><code>function getCircle(radius::Int)::Vec{Pos}
     @assert 1 &lt; radius &lt; 6 &quot;radius must be in range [2-5]&quot;
@@ -311,7 +311,7 @@ end
 function getCircle(radius::Int, topCenter::Pos)::Vec{Pos}
     return shift(getCircle(radius), topCenter)
 end</code></pre>
-<p>Here, we use a pattern similar to the one from the triangle. A circle is started in the top row (<code>rowStart</code>) with three columns (<code>collect((-1-r):(2+r))</code>). With every row down we increase the spread by 1 column in each direction (<code>r</code> changes by 1). Once, we are in half of our circle we decrease the number of colored columns. We achieve that by combining the previous <code>cols</code> with their <code>reverse</code>d version (<code>...</code> is a splat operator that, unpacks a vector by copying its elements).</p>
+<p>Here, we use a pattern similar to the one from the triangle. A circle is started in the top row (<code>rowStart</code>) with three columns (<code>collect((-1-r):(2+r))</code>). With every row down we increase the spread by 1 column in each direction (<code>r</code> changes by 1). Once, we are in half of our circle we decrease the number of columns. We achieve that by combining the previous <code>cols</code> with their <code>reverse</code>d version (<code>...</code> is a splat operator that, unpacks a vector by copying its elements).</p>
 <p>Finally, we proceed to create our pixel-art graphics, e.g. by iteratively adding one element at a time with something like:</p>
 <pre><code>clearCanvas!()
 addPoints!(getSomeShape, :someColor)

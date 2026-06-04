@@ -222,8 +222,8 @@ function getFreqs(s::Str)::Dict{Char, Flt}
 end</code></pre>
 <p>The code is rather simple. Moreover it is quite similar to <code>getCounts</code> and <code>getProbs</code> that I discussed it in detail <a href="https://b-lukaszuk.github.io/RJ_BS_eng/statistics_prob_theor_practice.html">in my previous book</a> so give it a sneak peak if you need a more thorough explanation (I apply the DRY principle here).</p>
 <p>According to <a href="https://en.wikipedia.org/wiki/Letter_frequency">this Wikipedia’s page</a> the letter that occurs most often in English is <code>E</code> (frequency: 0.127 or 12.7%, compare with <a href="https://b-lukaszuk.github.io/RJ_BS_eng/statistics_intro_probability_definition.html">this discussion</a>). Time to see which letter is the most frequent in our encoded text.</p>
-<pre class="language-julia"><code>codedLetFreqs = getFreqs(codedTxt)
-[k =&gt; v for (k, v) in codedLetFreqs if v &gt; 0.12]</code></pre>
+<pre class="language-julia"><code>codedLettersFreqs = getFreqs(codedTxt)
+[k =&gt; v for (k, v) in codedLettersFreqs if v &gt; 0.12]</code></pre>
 <pre class="output"><code>&#39;R&#39; =&gt; 0.13374233128834356</code></pre>
 <p>And the winner is <code>R</code>. Interestingly, in the metal insides of a computer letters are represented as numbers (see Section <a href="./binary_problem.html#sec:binary_problem">14.1</a> and <a href="https://en.wikipedia.org/wiki/ASCII">ASCII</a>). We can use this to our advantage and quickly obtain the shift.</p>
 <pre class="language-julia"><code>&#39;R&#39; - &#39;E&#39; # ASCII: 82 - 69</code></pre>

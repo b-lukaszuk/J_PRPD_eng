@@ -182,9 +182,9 @@ Mousetrap.bind('l', click_next);
 
 <div class="books-content">
 <h2 data-number="16.2" id="sec:the_doors_solution"><span class="header-section-number">16.2</span> Solution</h2>
-<p>One way to answer the question is to use the so called Bayes’s Theorem, as explained by Allen B. Downey <a href="https://allendowney.github.io/ThinkBayes2/chap02.html#the-monty-hall-problem">here</a>.</p>
+<p>One way to answer the question is to use the so called <a href="https://en.wikipedia.org/wiki/Bayes%27_theorem">Bayes’s Theorem</a>, as explained by Allen B. Downey in “Think Bayes”.</p>
 <blockquote>
-<p><strong><em>Note:</em></strong> Below, you will find a shortened explanation. To understand the topic more satisfactorily you will likely need to read the first two chapters of <a href="https://allendowney.github.io/ThinkBayes2/index.html">Think Bayes</a> by Allen B. Downey.</p>
+<p><strong><em>Note:</em></strong> Below, you will find a shortened explanation. To understand the topic more satisfactorily you will likely need to read the first two chapters of <a href="https://greenteapress.com/wp/think-bayes/">Think Bayes</a> by Allen B. Downey.</p>
 </blockquote>
 <p>First the theorem:</p>
 <p><span class="math display">\[P(A|B) = \frac{P(A) * P(B|A)}{P(B)}\]</span></p>
@@ -271,7 +271,7 @@ df
 end
 
 bayesUpdate!(df)
-df # to see Rationals as floats: convert.(Flt, df.posterior)
+df
 </code></pre>
 <div id="tbl:theDoorsPosterior">
 <table>
@@ -309,7 +309,7 @@ df # to see Rationals as floats: convert.(Flt, df.posterior)
 <p>Clearly, switching to Door 2 gives the trader a better chance of winning the car (<span class="math inline">\(P = \frac{2}{3} \approx 0.66\)</span>) than remaining with the original choice (<span class="math inline">\(P =
 \frac{1}{3} \approx 0.33\)</span>).</p>
 <blockquote>
-<p><strong><em>Note:</em></strong> To see the posterior as floats you may use, e.g. <code>convert.(Flt, df.posterior)</code>.</p>
+<p><strong><em>Note:</em></strong> To see the posterior as floats you may use, e.g. <code>convert.(Flt, df.posterior)</code> or even <code>convert.(Flt, df)</code>.</p>
 </blockquote>
 <p>If that doesn’t convince you then let’s do a computer simulation.</p>
 <pre class="language-julia"><code>import Random as Rnd
@@ -344,12 +344,12 @@ function swapChoice!(doors::Vec{Door})::Nothing
     doors[ind2Choose].isChosen = true
     return nothing
 end</code></pre>
-<p>We start by defining a <code>Door</code> structure that has all the necessary fields so that we can simulate our game-show. Notice the <code>mutable</code> keyword, it will allow us to change a property of a <code>Door</code> in-place. Anyway, we follow the structure definition with a random generator of three doors (<code>get3RandDoors</code>), a door opener (<code>openEligibleDoor</code>) and <code>swapChoice</code>. All the above act per the game description. Of note, <a href="https://docs.julialang.org/en/v1/base/arrays/#Base.findfirst-Tuple%7BFunction,%20Any%7D">findfirst</a> accepts a predicate and a vector. The predicate is a function that is executed on consecutive elements of the vector (<code>doors</code>) and returns <code>true</code> or <code>false</code> for each of them. In the end <code>findfirst</code> returns the first index from the vector (<code>doors</code>) for which the predicate was <code>true</code> or <code>nothing</code> if no such thing happened. Normally, we should handle both the possible cases (<code>Int</code> if <code>true</code> and <code>nothing</code> if all the tests came negative). However, if we’re pretty sure to get the <code>Int</code> and actually we want to get the error if we’re mistaken, then we may leave it as in the code snippet above.</p>
+<p>We start by defining a <code>Door</code> structure that has all the necessary fields so that we can simulate our game-show. Notice the <code>mutable</code> keyword, it will allow us to change a property of a <code>Door</code> in-place. Anyway, we follow the structure definition with a random generator of three doors (<code>get3RandDoors</code>), a door opener (<code>openEligibleDoor!</code>) and <code>swapChoice!</code>. All the above act per the game description. Of note, <a href="https://docs.julialang.org/en/v1/base/arrays/#Base.findfirst-Tuple%7BFunction,%20Any%7D">findfirst</a> accepts a predicate and a vector. The predicate is a function that is executed on consecutive elements of the vector (<code>doors</code>) and returns <code>true</code> or <code>false</code> for each of them. In the end <code>findfirst</code> returns the first index from the vector (<code>doors</code>) for which the predicate was <code>true</code> or <code>nothing</code> if no such thing happened. Normally, we should handle both the possible cases (<code>Int</code> if <code>true</code> and <code>nothing</code> if all the tests came negative). However, if we’re pretty sure to get the <code>Int</code> and actually we want to get the error if we’re mistaken, then we may leave it as in the code snippet above.</p>
 <p>Now, we only need a way to determine did the player win.</p>
 <pre class="language-julia"><code>function didTraderWin(doors::Vec{Door})::Bool
     indWinner::Union{Nothing, Int} = findfirst(
         d -&gt; d.isChosen &amp;&amp; d.isCar, doors)
-    # or: return !isnoting(indwinner)
+    # or: return !isnothing(indWinner)
     return isnothing(indWinner) ? false : true
 end
 
@@ -391,7 +391,7 @@ function getAll3DoorSets()::Vec{Vec{Door}}
     end
     return allDoorSets
 end</code></pre>
-<p>Now we change the <code>return</code> statements in our <code>openEligibleDoor!</code> and <code>swapChoice</code>.</p>
+<p>Now we change the <code>return</code> statements in our <code>openEligibleDoor!</code> and <code>swapChoice!</code>.</p>
 <pre class="language-julia"><code># open first non-chosen, non-car door
 function openEligibleDoor!(doors::Vec{Door})::Vec{Door}
     @assert length(doors) == 3 &quot;need 3 doors&quot;
@@ -419,7 +419,10 @@ map(didTraderWin ∘ swapChoice! ∘ openEligibleDoor!,
 </blockquote>
 <p>And that’s it. Three methods, three similar results. Time to make that door swap.</p>
 <blockquote>
-<p>Note, the code presented above may not work for other number of doors scenarios.</p>
+<p>Note. By default a Julia’s function that modifies a collection usually also returns the modified collection. Therefore, you may use it right away just like we did in the snippet above. As an example, see the definition of <a href="https://docs.julialang.org/en/v1/base/collections/#Base.push!">push!</a> in the docs.</p>
+</blockquote>
+<blockquote>
+<p>Another note. The code presented above may not work right for other number of doors scenarios.</p>
 </blockquote>
 
 

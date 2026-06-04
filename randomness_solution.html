@@ -182,7 +182,7 @@ Mousetrap.bind('l', click_next);
 
 <div class="books-content">
 <h2 data-number="11.2" id="sec:randomness_solution"><span class="header-section-number">11.2</span> Solution</h2>
-<p>We start by defining a few global variables required by LCG as well as a a way to set our <code>seed</code> to a desired value.</p>
+<p>We start by defining a few global variables required by LCG as well as a way to set our <code>seed</code> to a desired value.</p>
 <pre class="language-julia"><code>import Dates as Dt
 
 a = 1664525
@@ -202,14 +202,14 @@ end</code></pre>
     return newSeed
 end</code></pre>
 <blockquote>
-<p><strong><em>Note:</em></strong> In general a function should not rely on nor change global variables. Instead it should only depend on the parameters that were send to it as its arguments. Relying on global variables although convenient and tempting could lead to bugs that are hard to pinpoint and eliminate. That’s why in the rest of this book I will try to avoid this style with the exception of global constant variables seen, e.g. in Section <a href="./calendar_solution.html#sec:calendar_solution">8.2</a>.</p>
+<p><strong><em>Note:</em></strong> In general a function should not rely on nor change global variables. Instead it should only depend on the parameters that were send to it as its arguments. Relying on global variables although convenient and tempting often leads to bugs that are hard to pinpoint and eliminate. That’s why in the rest of this book I will try to avoid this style with the exception of global constants seen, e.g. in Section <a href="./calendar_solution.html#sec:calendar_solution">8.2</a>.</p>
 </blockquote>
 <p>Let’s see how it works.</p>
 <pre class="language-julia"><code># your numbers will likely differ from mine
 [getRandFromLCG() for _ in 1:6]</code></pre>
-<pre class="output"><code>[3334780544, 2275620831, 2630001586, 3152818025, 2207396276, 87896451]</code></pre>
+<pre class="output"><code>[1404096037, 271132992, 2083883935, 2203018354, 1486780713, 3049418868]</code></pre>
 <p>A small victory. In result we got some integers that are very hard to predict for a human brain alone.</p>
-<p>Still, the numbers are unwieldy and look quite odd. How can we transform them into a function that returns <code>Float64</code> from the range <code>[0-1)</code>? The key is the modulo operator (<code>%</code> equivalent to <code>rem</code> function) in <code>getRandFromLCG</code>. All it is is just a reminder after a division. It has an interesting property, the remainder of <code>i</code> divided by <code>m</code> is always in the range 0 to <code>m-1</code>, see the example below.</p>
+<p>Still, the numbers are unwieldy and look quite odd. How can we transform them into a function that returns <code>Float64</code> from the range <code>[0-1)</code>? The key is the modulo operator (<code>%</code> equivalent to <code>rem</code> function) in <code>getRandFromLCG</code>. It is just a remainder after a division and it has an interesting property. The remainder of <code>i</code> divided by <code>m</code> (<code>i % m</code>) is always in the range 0 to <code>m-1</code>, see the example below.</p>
 <pre class="language-julia"><code>[i % 3 for i in 1:7]</code></pre>
 <pre class="output"><code>[1, 2, 0, 1, 2, 0, 1]</code></pre>
 <p>If so then all we have to do is to divide our <code>seed</code> (that takes values from 0 to <code>m</code>-1) by <code>m</code> to get the desired <code>Float64</code> value.</p>
@@ -219,7 +219,7 @@ end
 
 # your numbers will likely differ from mine
 [getRand() for _ in 1:3]</code></pre>
-<pre class="output"><code>[0.7189889564178884, 0.32874945853836834, 0.9285415504127741]</code></pre>
+<pre class="output"><code>[0.9196911610197276, 0.16586433490738273, 0.5681296840775758]</code></pre>
 <p>Much better, we reached the first checkpoint. OK, now how to convert it to a random integer generator. Let’s try one step at a time. The <code>getRand()</code> returns a <code>Float64</code> in the range <code>[0-1)</code>. So, if we were to multiply 1 (the upper limit) by let’s say 5 we would get 5, and 0 (the lower limit) times 5 would get us zero. Hence, the following code (<code>floor</code> returns the nearest integer smaller than or equal to a <code>Float64</code>).</p>
 <pre class="language-julia"><code>function getRand(upToExcl::Int)::Int
     @assert 0 &lt; upToExcl &quot;upToExcl must be greater than 0&quot;
@@ -285,6 +285,9 @@ getRand(100_000, 3, 7) |&gt; getCounts</code></pre>
     y::Flt = R * sin(theta)
     return (x, y)
 end</code></pre>
+<blockquote>
+<p><strong><em>Note:</em></strong> Julia allows you to use Greek symbols in your code. For instance, type: ‘\theta’ and press Tab to get θ, or ‘\pi’ and press Tab to get π (<code>pi</code> and <code>π</code> are math constants built into the language). It’s a really nice feature, I’m sure it’s loved by mathematicians (as you can write: <code>θ = 2 * π * getRand()</code> or even <code>θ = 2π * getRand()</code>). However, non-technical people like me (or programmers with background in a different programming language) may find it arcane and off-putting. For that reason I don’t use it in my code.</p>
+</blockquote>
 <p>And voila, the only difference is that instead of a vector we return a tuple with each element being a value from the normal distribution with the mean = 0 and the standard deviation = 1. However, we would prefer a function that returns any number of normally distributed values (and not only two in <code>Tuple{Flt, Flt}</code>), hence the following code.</p>
 <pre class="language-julia"><code>function flatten(randnNums::Vec{Tuple{Flt, Flt}})::Vec{Flt}
     len::Int = length(randnNums) * 2
@@ -313,7 +316,7 @@ x = getRandn(100)
 St.mean(x), St.std(x)</code></pre>
 <pre class="output"><code>(0.050968498407633414, 1.0266071355197548)</code></pre>
 <p>I would say we did a pretty good job.</p>
-<p>Time for the last step, let’s transform <code>getRandn</code> to a function that provides a normal distribution with a specified mean and standard deviation. That’s fairly simple. Since the ‘original’ deviation is 1, then if we multiply the numbers by let’s say 16, then we will get a distribution with the mean 0 and standard deviation equal to 16. So how do we make a mean equal, let’s say 100? It’s easy as well, we just add 100 to every number from a distribution.</p>
+<p>Time for the last step, let’s transform <code>getRandn</code> to a function that provides a normal distribution with a specified mean and standard deviation. That’s fairly simple. Since the ‘original’ mean is 0 and the deviation is 1, then if we multiply the numbers by let’s say 16, then we will get a distribution with the mean 0 and standard deviation equal to 16. So how do we make a mean equal, let’s say 100? It’s easy as well, we just add 100 to every number from a distribution.</p>
 <pre class="language-julia"><code>function getRandn(n::Int, mean::Flt, std::Flt)::Vec{Flt}
     return mean .+ std .* getRandn(n)
 end

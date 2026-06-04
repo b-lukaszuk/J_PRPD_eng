@@ -198,7 +198,20 @@ function getRandUniverse()::Universe
     return rand(Float64, N_ROWS, N_COLS) .&lt;= PROB_ALIVE
 end</code></pre>
 <p>For that we defined a few <code>const</code>ants and functions. The <code>Universe</code> data type, is a synonym for a <code>Matrix</code> (<code>N_ROWS</code>x<code>N_COLS</code>) of <code>Bool</code>s. This is a natural choice since each cell can be either alive (with the probability of <code>0.25</code>) or dead.</p>
-<p>Next, time for printing.</p>
+<p>Notice that above we used <code>const</code>ants. For a small self-contained project like this it is OK as it simplifies the code. For more serious applications you may consider creating a config file/struct and use it like:</p>
+<pre><code>struct Config
+    nCols::Int
+    nRows::Int
+    # possibly some other fields
+end
+
+config = Config(80, 40) # or read config from a file into the struct
+
+function getEmptyUniverse(conf::Config = config)::Matrix{Bool}
+    return zeros(Bool, conf.nRows, conf.nCols)
+end</code></pre>
+<p>Anyway, for simplicity, here I go with the excessive? use of <code>const</code>s, which are placed ‘when needed’ in order to fit with the flow of the text. However, for readability and code maintenance I recommend all the <code>const</code>s to be defined at a top of a <code>*.jl</code> file (like in <a href="https://github.com/b-lukaszuk/J_PRPD_eng/tree/main/code_snippets/game_of_life">the code snippets</a>).</p>
+<p>Enough for the detour, time for printing.</p>
 <pre class="language-julia"><code>const ALIVE_SYMBOL = &#39;O&#39;
 const DEAD_SYMBOL = &#39;.&#39;
 const N_GENERATIONS = 50
@@ -244,8 +257,8 @@ function getNumLiveNeighbors(universe::Universe, row::Int, col::Int)::Int
     end
     nAlive::Int = 0
     neighborCol::Int, neighborRow::Int = 0, 0
-    for c in -1:1, r in -1:1
-        neighborRow, neighborCol = row+r, col+c
+    for colShift in -1:1, rowShift in -1:1
+        neighborRow, neighborCol = row+rowShift, col+colShift
         if !isCellWithinRange(neighborRow, neighborCol)
             continue
         end
@@ -258,14 +271,16 @@ function getNumLiveNeighbors(universe::Universe, row::Int, col::Int)::Int
     end
     return nAlive
 end</code></pre>
-<p>We assign this task to <code>getNumLiveNeighbors</code> that accepts our <code>universe</code> and the cell of interest coordinates (<code>row</code> and <code>col</code>) as its parameters. The neighbors of a cell are located in a row below, the same row as the cell, and a row above the cell’s own row (<code>r in -1:1</code>). Similarly, we look at a column to the left, the same column as the cell, and a column to the right of the cell’s own column (<code>c in -1:1</code>). Hence, a neighbor’s coordinates are calculated as <code>neighborRow = row+r</code> (<code>row</code> is the cell’s own row, <code>r</code> is the row shift) and <code>neighborCol = col+c</code> (<code>col</code> is the cell’s own column, <code>c</code> is the column shift). We examine all the possible neighbor locations with the <code>for</code> loop. If the coordinates fall outside the grid (<code>!isCellWithinRange</code> - the cell does not exist in our <code>universe</code>) then we <code>continue</code> to the next iteration (we examine next coordinates). The same goes for examining the coordinates of the cell itself (since both <code>r</code> and <code>c</code> may be equal 0). Otherwise, if a neighbor is alive (<code>if universe[neighborRow, neighborCol]</code>) we add 1 to the count (<code>nAlive += 1</code>), which we eventually <code>return</code> from the function.</p>
+<p>We assign this task to <code>getNumLiveNeighbors</code> that accepts our <code>universe</code> and the cell of interest coordinates (<code>row</code> and <code>col</code>) as its parameters. The neighbors of a cell are located in a row below, the same row as the cell, and a row above the cell’s own row (<code>rowShift in -1:1</code>). Similarly, we look at a column to the left, the same column as the cell, and a column to the right of the cell’s own column (<code>colShift in -1:1</code>). Hence, a neighbor’s coordinates are calculated as <code>neighborRow = row+rowShift</code> (<code>row</code> is the cell’s own row) and <code>neighborCol = col+colShift</code> (<code>col</code> is the cell’s own column). We examine all the possible neighbor locations with the <code>for</code> loop. If the coordinates fall outside the grid (<code>!isCellWithinRange</code> - the cell does not exist in our <code>universe</code>) then we <code>continue</code> to the next iteration (we examine the next coordinates). The same goes for examining the coordinates of the cell itself (since both <code>rowShift</code> and <code>colShift</code> may be equal to 0). Otherwise, if a neighbor is alive (<code>if universe[neighborRow, neighborCol]</code>) we add 1 to the count (<code>nAlive += 1</code>), which we eventually <code>return</code> from the function.</p>
 <p>Now we are ready to calculate the next state of our <code>universe</code>.</p>
 <pre class="language-julia"><code>function shouldCellBeAlive(universe::Universe, row::Int, col::Int)::Bool
     nLiveNeighbors::Int = getNumLiveNeighbors(universe, row, col)
     if universe[row, col] &amp;&amp; nLiveNeighbors in 2:3
         return true
     end
-    return nLiveNeighbors == 3
+    return !universe[row, col] &amp;&amp; nLiveNeighbors == 3
+    # here the below is sufficient (unless you avoid too clever code)
+    # return nLiveNeighbors == 3
 end
 
 function getUniverseNextState(universe::Universe)::Universe
@@ -275,7 +290,7 @@ function getUniverseNextState(universe::Universe)::Universe
     end
     return newUniverse
 end</code></pre>
-<p>We start by figuring out if a cell should be alive in the next turn (<code>shouldCellBeAlive</code>). Per task specification, if a cell was previously alive (<code>if universe[row, col]</code>) and it got 2 or 3 live neighbors (<code>nLiveNeighbors in 2:3</code>) then it should be alive (<code>return true</code>). Otherwise, it should live if it was previously dead and got exactly three live neighbors (<code>nLiveNeighbors == 3</code>).</p>
+<p>We start by figuring out if a cell should be alive in the next turn (<code>shouldCellBeAlive</code>). Per task specification, if a cell was previously alive (<code>if universe[row, col]</code>) and it got 2 or 3 live neighbors (<code>nLiveNeighbors in 2:3</code>) then it should be alive (<code>return true</code>). Otherwise, it should live if it was previously dead (<code>!universe[row, col]</code>) and got exactly three live neighbors (<code>nLiveNeighbors == 3</code>).</p>
 <p>All that’s left to do is to <code>getUniverseNextState</code> by examining each cell (<code>r</code> and <code>c</code>) in the <code>universe</code> and deciding its fate in the next turn (<code>shouldCellBeAlive(universe, r, c)</code>).</p>
 <p>And now for the final touch.</p>
 <pre class="language-julia"><code>const DELAY_SEC = 0.5

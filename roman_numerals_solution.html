@@ -187,8 +187,9 @@ Mousetrap.bind('l', click_next);
                 (&quot;D&quot;, 500), (&quot;CD&quot;, 400),
                 (&quot;C&quot;, 100), (&quot;XC&quot;, 90),
                 (&quot;L&quot;, 50), (&quot;XL&quot;, 40),
-                (&quot;X&quot;, 10), (&quot;IX&quot;, 9), (&quot;V&quot;, 5),
-                (&quot;IV&quot;, 4), (&quot;I&quot;, 1)]</code></pre>
+                (&quot;X&quot;, 10), (&quot;IX&quot;, 9),
+                (&quot;V&quot;, 5), (&quot;IV&quot;, 4),
+                (&quot;I&quot;, 1)]</code></pre>
 <p>The mapping is defined with (<code>const</code>) keyword to signal that we do not wish to change it throughout the program execution. Moreover, we used a vector of tuples, not a dictionary, since we want to preserve the (descending) order of the pairs of values. Notice, that we incluced the key landmarks of subtractive notation (e.g. <code>("CM", 900)</code> or <code>("IV", 4)</code>).</p>
 <blockquote>
 <p>Note. Using <code>const</code> with mutable containers like vectors or dictionaries allows to change their contents later on, e.g., with <code>push!</code>. So the <code>const</code> used here is more like a convention, a signal that we do not plan to change the containers in the future. If we really wanted an immutable container then we should consider a(n) (immutable) tuple. Anyway, some programming languages suggest that <code>const</code> names should be declared using all uppercase characters to make them stand out. Here, I follow this convention.</p>
@@ -220,6 +221,8 @@ end</code></pre>
 <pre class="language-julia"><code>const ROMAN_TOKENS = map(first, ROMAN_2_ARABIC)
 # equivalent to
 # const ROMAN_TOKENS = map(tuple -&gt; tuple[1], ROMAN_2_ARABIC)
+# or
+# const ROMAN_TOKENS = first.(ROMAN_2_ARABIC)
 
 function getTokenAndRest(roman::Str)::Tuple{Str, Str}
     if length(roman) &lt;= 1

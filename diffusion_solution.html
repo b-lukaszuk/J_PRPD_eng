@@ -216,6 +216,21 @@ function clearDisplay(nLinesUp::Int)::Nothing
     return nothing
 end</code></pre>
 <p>The <code>container</code> is just a <code>Matrix</code> (a table) of characters (<code>Chars</code>) that’s constrained by the borders (<code>|</code> and <code>-</code>) and initially contains nothing inside (<code>fill(' ', N_ROWS, N_COLS)</code>).</p>
+<p>Notice that in this chapter we will use <code>const</code>ants quite a bit. For a small self-contained project like this it is OK as it simplifies the code. For more serious applications you may consider creating a config file/struct and use it like:</p>
+<pre><code>struct Config
+    nCols::Int
+    nRows::Int
+    # possibly some other fields
+end
+
+config = Config(80, 40) # or read config from a file into the struct
+
+function getEmptyContainer(conf::Config = config)::Matrix{Char}
+    container::Matrix{Char} = fill(&#39; &#39;, conf.nRows, conf.nCols);
+    addBorders!(container, conf)
+    return container
+end</code></pre>
+<p>Anyway, let’s leave the discussion on a program design and get to the program itself.</p>
 <p>Now we need our <code>molecules</code>. The above will be defined as a vector of positions denoting their locations (row and column) within the matrix (our <code>container</code>).</p>
 <pre class="language-julia"><code>const Pos = Tuple{Int, Int} # position (row, col) in 2D container
 
@@ -264,7 +279,7 @@ end</code></pre>
 <blockquote>
 <p>(quote from the Wiki link provided above)</p>
 </blockquote>
-<p>Here, we are OK with all the molecules being identical (and sharing identical properties). Moreover, for simplicity we’ll just assume that <code>D = 0.5</code> and <code>t = 1</code>, hence <code>2Dt = 1</code>. This last action will give us <a href="https://b-lukaszuk.github.io/RJ_BS_eng/statistics_normal_distribution.html">a normal distribution</a> with the mean <span class="math inline">\(\mu = 0\)</span> and variance <span class="math inline">\(\sigma^{2} = 1\)</span> (standard deviation <code>sd</code> is also 1, since <span class="math inline">\(sd = \sqrt{variance}\)</span>). Luckily, that is what the built-in <a href="https://docs.julialang.org/en/v1/stdlib/Random/#Base.randn">randn</a> function provides. Hence, we will calculate the new position of a molecule to be <code>new_position = old_position + shift</code> (<code>randn()</code> provides the shift) and implement it like so:</p>
+<p>Here, we are OK with all the molecules being identical (and sharing identical properties). Moreover, for simplicity we’ll just assume that <code>D = 0.5</code> and <code>t = 1</code> (for now, we don’t much care what they are), hence <code>2Dt = 1</code>. This last action will give us <a href="https://b-lukaszuk.github.io/RJ_BS_eng/statistics_normal_distribution.html">a normal distribution</a> with the mean <span class="math inline">\(\mu = 0\)</span> and variance <span class="math inline">\(\sigma^{2} = 1\)</span> (standard deviation <code>sd</code> is also 1, since <span class="math inline">\(sd = \sqrt{variance}\)</span>). Luckily, that is what the built-in <a href="https://docs.julialang.org/en/v1/stdlib/Random/#Base.randn">randn</a> function provides. Hence, we will calculate the new position of a molecule to be <code>new_position = old_position + shift</code> (<code>randn()</code> provides the shift) and implement it like so:</p>
 <pre class="language-julia"><code>round2int(f::Flt)::Int = round(Int, f)
 
 function getNewPosition(molecule::Pos)::Pos
@@ -290,8 +305,8 @@ function make1BrownianCycleShift!(molecules::Vec{Pos})::Nothing
     end
     return nothing
 end</code></pre>
-<p>The terminal display will require to give a shift in integers, hence <code>round2int</code> implemented as <a href="https://en.wikibooks.org/wiki/Introducing_Julia/Functions#Single_expression_functions">single expression function syntax</a>. Moreover, we cannot allow a particle to go outside the walls of the container, thus the <code>if isWithinContainer(newPos), etc.</code> statement. Together with the surrounding <code>while</code> block it makes sure that the molecule ‘falls back’ to the container. Effectively, it kind of simulates a reflection of a molecule from the walls of the vessel in a random direction.</p>
-<p>Now we are almost ready for running our simulation, but first two, rather self-explanatory, functions:</p>
+<p>Using a terminal display requires the shift to be an integer, hence <code>round2int</code> implemented with a <a href="https://en.wikibooks.org/wiki/Introducing_Julia/Functions#Single_expression_functions">single expression function syntax</a>. Moreover, we cannot allow a particle to go outside the walls of the container, thus the <code>if isWithinContainer(newPos), etc.</code> statement. Together with the surrounding <code>while</code> block it makes sure that the molecule ‘falls back’ to the container. Effectively, it kind of simulates a reflection of a molecule from the walls of the vessel in a random direction.</p>
+<p>Now we are almost ready for running our simulation, but first two rather self-explanatory functions:</p>
 <pre class="language-julia"><code>const N_CYCLES = 2_500
 
 getCol((_, c)::Pos)::Int = c

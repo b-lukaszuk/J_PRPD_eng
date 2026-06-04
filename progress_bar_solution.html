@@ -185,29 +185,28 @@ Mousetrap.bind('l', click_next);
 <p>Let’s begin with a function that will return a textual representation of a progress bar.</p>
 <pre class="language-julia"><code>function getProgressBar(perc::Int)::Str
     @assert 0 &lt;= perc &lt;= 100 &quot;perc must be in range [0-100]&quot;
-    return &quot;|&quot; ^ perc * &quot;.&quot; ^ (100-perc) * &quot;$perc%&quot;
+    return &quot;|&quot; ^ perc * &quot;.&quot; ^ (100-perc) * &quot; $perc%&quot;
 end</code></pre>
-<p>In order to understand the function we must remember the precedence of mathematical operations [exponentiation (<code>^</code>) before multiplication (<code>*</code>)]. Moreover, we must remember that in the context of strings <code>*</code> is a <a href="https://docs.julialang.org/en/v1/manual/strings/#man-concatenation">concatenation</a> operator (it glues two strings into a one longer string), whereas <code>^</code> multiplies a string to its left the number of times on its right (i.e. <code>"a"^3</code> gives us <code>"a" * "a" * "a"</code> so <code>"aaa"</code>). <code>getProgressBar</code> accepts percentage (<code>perc</code>) and draws as many vertical bars as <code>perc</code> tells us. The unused spots (<code>100-perc</code>) are filed with the placeholders (<code>"."</code>). We finish by appending the number itself and the <code>%</code> symbol by using <a href="https://docs.julialang.org/en/v1/manual/strings/#string-interpolation">string interpolation</a>.</p>
+<p>In order to understand the function we must remember the precedence of mathematical operations [exponentiation (<code>^</code>) before multiplication (<code>*</code>)]. Moreover, we must keep in mind that in the context of strings <code>*</code> is a <a href="https://docs.julialang.org/en/v1/manual/strings/#man-concatenation">concatenation</a> operator (it glues two strings into a one longer string), whereas <code>^</code> multiplies a string to its left the number of times on its right (i.e. <code>"a"^3</code> gives us <code>"a" * "a" * "a"</code> so <code>"aaa"</code>). <code>getProgressBar</code> accepts percentage (<code>perc</code>) and draws as many vertical bars as <code>perc</code> tells us. The unused spots (<code>100-perc</code>) are filed with the placeholders (<code>"."</code>). We finish by appending the number itself and the <code>%</code> symbol by using <a href="https://docs.julialang.org/en/v1/manual/strings/#string-interpolation">string interpolation</a>.</p>
 <p>Printing a string of 100 characters (actually a bit more) may not look good on some terminals (by default many terminals are 80 characters wide). That is why we may want to limit ourselves to a smaller value of characters (<code>maxNumOfChars</code>) for the progress bar and rescale the percentage (<code>perc</code>) accordingly (see below).</p>
 <pre class="language-julia"><code>function getProgressBar(perc::Int)::Str
     @assert 0 &lt;= perc &lt;= 100 &quot;perc must be in range [0-100]&quot;
     maxNumOfChars::Int = 50
     p::Int = round(Int, perc / (100 / maxNumOfChars))
-    return &quot;|&quot; ^ p * &quot;.&quot; ^ (maxNumChars-p) * &quot;$perc%&quot;
+    return &quot;|&quot; ^ p * &quot;.&quot; ^ (maxNumChars-p) * &quot; $perc%&quot;
 end</code></pre>
-<p>The above function looses some resolution in translation of <code>perc</code> to vertical bars (<code>|</code>). However, the percentage is displayed as a number anyway (<code>"$perc%"</code>) so it is not such a big problem after all.</p>
+<p>The above function looses some resolution in translation of <code>perc</code> to vertical bars (<code>|</code>). However, the percentage is displayed as a number anyway (<code>" $perc%"</code>) so it is not such a big problem after all.</p>
 <p>Now, we are ready to write the first version of our <code>animateProgressBar</code>.</p>
 <pre><code>function animateProgressBar()::Nothing
     fans::Vec{Str} = [&quot;\\&quot;, &quot;-&quot;, &quot;/&quot;, &quot;-&quot;]
-    ind::Int = 1
+    lenFans::Int = length(fans)
     for p in 0:100
-        println(getProgressBar(p), &quot; &quot;, fans[ind])
-        ind = (ind == length(fans)) ? 1 : ind + 1
+        println(getProgressBar(p), &quot; &quot;, fans[(p % lenFans) + 1])
     end
     println(getProgressBar(100))
     return nothing
 end</code></pre>
-<p>The function is rather simple. For every value of percentage (<code>for p in 0:100</code>) we draw the progress bar with a fan that changes into one of four positions (alternating <code>\</code>, <code>-</code>, <code>/</code>, <code>-</code> in one place a few times a second will give the impression of a fan). Note, the double <a href="https://en.wikipedia.org/wiki/Backslash">backslash</a> character (<code>"\\"</code>) in <code>fans</code>. The <code>\</code> symbol got a particular meaning in programming. It is used to designate that the next character(s) is/are special. For instance <code>println("and")</code> will just print the conjunction ‘and’. On the other hand, <code>println("a\nd")</code> will print ‘a’ and ‘d’, one below the other, since in Julia <code>"\n"</code> stands for newline. To get rid of the special meaning of <code>"\"</code> we precede it with another backslash, hence <code>"\\"</code>.</p>
+<p>The function is rather simple. For every value of percentage (<code>for p in 0:100</code>) we draw the progress bar with a fan that changes into one of four positions (alternating <code>\</code>, <code>-</code>, <code>/</code>, <code>-</code> in one place a few times a second will give the impression of a fan). Note, the double <a href="https://en.wikipedia.org/wiki/Backslash">backslash</a> character (<code>"\\"</code>) in <code>fans</code>. The <code>\</code> symbol got a particular meaning in programming. It is used to designate that the next character(s) is/are special. For instance <code>println("and")</code> will just print the conjunction ‘and’. On the other hand, <code>println("a\nd")</code> will print ‘a’ and ‘d’, one below the other, since in Julia <code>"\n"</code> stands for newline. To get rid of the special meaning of <code>"\"</code> we precede it with another backslash, hence <code>"\\"</code>. As for the indices of <code>fans</code> we use the modulo operator and its property (<code>a % b</code> takes values in the range <code>[0-b)</code>, hence <code>(p % lenFans) + 1</code>) as explained e.g in Section <a href="./the_answer_solution.html#sec:the_answer_solution">15.2</a>.</p>
 <p>OK, let’s see what we got.</p>
 <pre><code>animateProgressBar()</code></pre>
 <pre><code>.................................................. 0% \
@@ -223,7 +222,7 @@ end</code></pre>
 |||||||||||||||||||||||||||||||||||||||||||||||||| 99%-
 |||||||||||||||||||||||||||||||||||||||||||||||||| 100%\
 |||||||||||||||||||||||||||||||||||||||||||||||||| 100%</code></pre>
-<p>Pretty good. However, there is a small problem. Namely, the output is printed on the screen instantaneously with one line beneath the other. The first problem will be solved with <a href="https://docs.julialang.org/en/v1/base/parallel/#Base.sleep">sleep</a> that makes the program wait for a specific number of seconds before executing the next line of code. The second problem will be solved with <a href="https://en.wikipedia.org/wiki/ANSI_escape_code">ANSI escape codes</a> a sequence of characters with a special meaning [as found in the link (see this sentence) to the Wikipedia’s page].</p>
+<p>Pretty good. However, there is a small problem. Namely, the output is printed on the screen instantaneously with one line beneath the other. The first problem will be solved with <a href="https://docs.julialang.org/en/v1/base/parallel/#Base.sleep">sleep</a> that makes the program wait for a specific number of seconds before executing the next line of code. The second problem will be solved with <a href="https://en.wikipedia.org/wiki/ANSI_escape_code">ANSI escape codes</a> a sequence of characters with a special meaning [as found in the link to the Wikipedia’s page].</p>
 <pre><code># the terminal must support ANSI escape codes
 # https://en.wikipedia.org/wiki/ANSI_escape_code
 function clearPrintout()::Nothing
@@ -235,15 +234,14 @@ function clearPrintout()::Nothing
 end
 
 function animateProgressBar()::Nothing
-    delayMs::Int = 0
+    delaySec::Flt = 0.1
     fans::Vec{Str} = [&quot;\\&quot;, &quot;-&quot;, &quot;/&quot;, &quot;-&quot;]
-    ind::Int = 1
+    lenFans::Int = length(fans)
     for p in 0:100
-        delayMs = rand(100:250)
-        println(getProgressBar(p), &quot; &quot;, fans[ind])
-        sleep(delayMs / 1000) # sleep accepts delay in seconds
+        delaySec = rand(0.1:0.01:0.25)
+        println(getProgressBar(p), &quot; &quot;, fans[(p % lenFans) + 1])
+        sleep(delaySec) # sleep accepts delay in seconds
         clearPrintout()
-        ind = (ind == length(fans)) ? 1 : ind + 1
     end
     println(getProgressBar(100))
     return nothing

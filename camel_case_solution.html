@@ -191,7 +191,7 @@ Mousetrap.bind('l', click_next);
     end
     return result
 end</code></pre>
-<p>We begin with an empty <code>result</code>. Next, we travel through each character (<code>c</code>) of our <code>camelCasedWord</code> if a letter is uppercased (<code>isuppercase(c) ?</code>) we update our result (<code>*=</code>) by appending to it underscore (<code>'_'</code>) concatenated (<code>*</code>) with the lowercased character (<code>lowercase(c)</code>). Otherwise (<code>:</code>) we append the character unchanged (<code>c</code>). Finally, we <code>return</code> the <code>result</code>.</p>
+<p>We begin with an empty <code>result</code>. Next, we travel through each character (<code>c</code>) of our <code>camelCasedWord</code> if an examined letter is uppercased (<code>isuppercase(c) ?</code>) we update our result (<code>*=</code>) by appending to it underscore (<code>'_'</code>) concatenated (<code>*</code>) with the lowercased character (<code>lowercase(c)</code>). Otherwise (<code>:</code>) we append the character unchanged (<code>c</code>). Finally, we <code>return</code> the <code>result</code>.</p>
 <p>Let’s see if it works.</p>
 <pre class="language-julia"><code>map(changeToSnakeCase, [&quot;helloWorld&quot;,
     &quot;niceToMeetYou&quot;, &quot;translateToEnglish&quot;])</code></pre>
@@ -203,7 +203,6 @@ end</code></pre>
     for c in snakeCasedWord
         if c == &#39;_&#39;
             prevUnderscore = true
-            continue
         else
             result *= prevUnderscore ? uppercase(c) : c
             prevUnderscore = false
@@ -211,7 +210,7 @@ end</code></pre>
     end
     return result
 end</code></pre>
-<p>One more time, we begin with an empty result (<code>result::Str = ""</code>), but this time we also declare an indicator that tells us whether the previously examined letter was an underscore (<code>prevUnderscore</code>). Next, we traverse the <code>snakeCasedWord</code> character by character (<code>for c in snakeCasedWord</code>) and build up the result. If the currently examined character is an underscore (<code>if c == '_'</code>) we set the indicator to true and skip rest of the code in the for loop (in this iteration only) with <a href="https://docs.julialang.org/en/v1/base/base/#continue">continue</a>. Otherwise (<code>else</code>), we append the character to the result (<code>result *=</code>) with the proper casing based on the value of <code>prevUnderscore</code> and set this last variable to <code>false</code>. Once we’re done, we <code>return</code> the <code>result</code>.</p>
+<p>One more time, we begin with an empty result (<code>result::Str = ""</code>), but this time we also declare an indicator that tells us whether the previously examined letter was an underscore (<code>prevUnderscore</code>). Next, we traverse the <code>snakeCasedWord</code> character by character (<code>for c in snakeCasedWord</code>) and build up the result. If the currently examined character is an underscore (<code>if c == '_'</code>) we set the indicator to <code>true</code> and call it a day until the current spin of the <code>for</code> loop ends. Otherwise (<code>else</code>), we append the character to the result (<code>result *=</code>) with the proper casing determined based on the value of <code>prevUnderscore</code> and set this last variable to <code>false</code>.</p>
 <p>Time for another test.</p>
 <pre class="language-julia"><code>map(changeToCamelCase,
     [&quot;hello_world&quot;, &quot;nice_to_meet_you&quot;, &quot;translate_to_english&quot;])</code></pre>

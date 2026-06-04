@@ -184,6 +184,7 @@ Mousetrap.bind('l', click_next);
 <h2 data-number="30.2" id="sec:touch_typing_solution"><span class="header-section-number">30.2</span> Solution</h2>
 <p>Let’s approach the problem one step at a time. First, a formatting function <code>getColoredTxt</code>. The function will colorize the letters based on the correctness of our input. To that end we will reuse some of the code (see <code>getRed</code> and <code>getGreen</code> below) from the previous chapter (see Section <a href="./tic_tac_toe_solution.html#sec:tic_tac_toe_solution">29.2</a>).</p>
 <pre><code># https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
+# the functions change foreground color
 function getRed(c::Char)::Str
     return &quot;\x1b[31m&quot; * s * &quot;\x1b[0m&quot;
 end
@@ -217,6 +218,7 @@ end</code></pre>
 <pre><code># more info on stty, type in the terminal: man stty
 # display current stty settings with: stty -a (or: stty --all)
 function playTypingGame(text2beTyped::Str)::Str
+    @assert length(text2beTyped) &lt;= 50 &quot;text2beTyped is too long&quot;
     c::Char = &#39; &#39;
     typedTxt::Str = &quot;&quot;
     cursorCol::Int = 1
@@ -232,8 +234,8 @@ function playTypingGame(text2beTyped::Str)::Str
     run(`stty cooked echo`) # reset to default behavior
     return typedTxt
 end</code></pre>
-<p>First, we declare and initialize a couple of variables that we will use later on: <code>c</code> to hold the character typed by the user, <code>typedTxt</code> to contain everything that the player typed and <code>cursorCol</code> which is a cursor position over a letter to be typed. Next, we execute a proper terminal command with <a href="https://docs.julialang.org/en/v1/base/base/#Base.run">run</a> (notice the backticks). Now, for as long (<code>while</code>) as we haven’t typed the whole <code>text2beTyped</code> (<code>length(text2beTyped) &gt; length(typedTxt)</code>) we print the colored text (<code>\r</code> moves the cursor to the beginning of the line). Of course, we remember to set the cursor in the appropriate column (<code>"\x1b[", cursorCol, "G"</code>). Next we <code>read</code> a character typed by the player (<code>stdin</code> means <a href="https://en.wikipedia.org/wiki/Standard_streams">standard input</a>, it is a variable defined by <a href="https://docs.julialang.org/en/v1/base/base/#Base">Base</a>). Afterwords, we append the character (<code>c</code>) to the <code>typedTxt</code> and move the cursor by one column. Once we finish, we do some cleanup. We reprint the whole typed text and reset the terminal to its default values with <code>run</code>. We return <code>typedTxt</code> for further usage (by a summary function that will be defined soon).</p>
-<p>The above is a reasonable approach, but there is a small problem with our <code>playTypingGame</code>. The raw mode that we use will turn off special treatments of key-presses that we are accustomed to. For instance, currently there is no way to delete a character, nor terminate a program early with customary (Ctrl-C). I order to get this behavior we need to either turn off the raw mode or fix the problem ourselves.</p>
+<p>First, we declare and initialize a couple of variables that we will use later on: <code>c</code> to hold the character typed by the user, <code>typedTxt</code> to contain everything that the player typed and <code>cursorCol</code> which is a cursor position over a letter to be typed. Next, we execute a proper terminal command with <a href="https://docs.julialang.org/en/v1/base/base/#Base.run">run</a> (notice the backticks). Now, for as long (<code>while</code>) as we haven’t typed the whole <code>text2beTyped</code> (<code>length(text2beTyped) &gt; length(typedTxt)</code>) we print the colored text (<code>\r</code> moves the cursor to the beginning of the line). Of course, we remember to set the cursor in the appropriate column (<code>"\x1b[", cursorCol, "G"</code>, ANSI escape code). Next we <code>read</code> a character typed by the player (<code>stdin</code> means <a href="https://en.wikipedia.org/wiki/Standard_streams">standard input</a>, it is a variable defined by <a href="https://docs.julialang.org/en/v1/base/base/#Base">Base</a>). Afterwords, we append the character (<code>c</code>) to the <code>typedTxt</code> and move the cursor by one column. Once we finish, we do some cleanup. We reprint the whole typed text and reset the terminal to its default values with <code>run</code>. We return <code>typedTxt</code> for further usage (by a summary function that will be defined soon).</p>
+<p>The above is a reasonable approach, but there is a small problem with our <code>playTypingGame</code>. The raw mode that we use will turn off special treatments of key-presses that we are accustomed to. For instance, currently there is no way to delete a character, nor terminate a program early with customary (Ctrl-C). In order to get this behavior we need to either turn off the raw mode or fix the problem ourselves.</p>
 <pre><code>function isDelete(c::Char)::Bool
     return c == &#39;\x08&#39; || c == &#39;\x7F&#39; # bacspace or delete
 end
@@ -245,6 +247,7 @@ end
 # more info on stty, type in the terminal: man stty
 # display current stty settings with: stty -a (or: stty --all)
 function playTypingGame(text2beTyped::Str)::Str
+    @assert length(text2beTyped) &lt;= 50 &quot;text2beTyped is too long&quot;
     c::Char = &#39; &#39;
     typedTxt::Str = &quot;&quot;
     cursorCol::Int = 1

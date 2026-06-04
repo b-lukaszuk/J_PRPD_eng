@@ -198,7 +198,7 @@ function bs(v::Vec{A})::Vec{A} where A&lt;:Union{Flt, Int}
     end
     return result
 end</code></pre>
-<p>Here, we implemented the algorithm for a vector that contains the elements of type <code>A</code>. In this case it is just a sub-type (<code>&lt;:</code>) of <code>Flt</code> (an alias for <code>Float64</code>) or <code>Int</code> (<code>Union{Flt, Int}</code>). We started by <code>copy</code>ing the original vector to <code>result</code> and setting a variable named <code>swapped</code>. We will stop our sorting algorithm once there was no swap during the previous traversal of the whole vector (<code>swapped</code> in <code>while</code> is initially <code>false</code>, but notice that it may be reset to <code>true</code> in the <code>for</code> loop). We search through the vector starting from its second element (<code>i in eachindex(result)[2:end]</code>). Every time we compare the two nearby elements (<code>result[i-1]</code> vs. <code>result[i]</code>). If the elements aren’t in a desired order (<code>if result[i-1] &gt; result[i]</code>) we just swap them with each other (<code>result[i-1], result[i] = result[i], result[i-1]</code>) and set the <code>swapped</code> flag to <code>true</code>. Once we finish we return the result.</p>
+<p>Here, we implemented the algorithm for a vector that contains the elements of type <code>A</code>. In this case it is just a <code>Flt</code> (an alias for <code>Float64</code>) or <code>Int</code> (<code>Union{Flt, Int}</code>). We started by <code>copy</code>ing the original vector to <code>result</code> and initializing a variable named <code>swapped</code>. We will stop our sorting algorithm once there was no swap during the previous traversal of the whole vector (<code>swapped</code> in <code>while</code> is initially <code>false</code>, but notice that it may be reset to <code>true</code> in the <code>for</code> loop). We search through the vector starting from its second element (<code>i in eachindex(result)[2:end]</code>). Every time we compare the two nearby elements (<code>result[i-1]</code> vs. <code>result[i]</code>). If the elements aren’t in a desired order (<code>if result[i-1] &gt; result[i]</code>) we just swap them with each other (<code>result[i-1], result[i] = result[i], result[i-1]</code>) and set the <code>swapped</code> flag to <code>true</code>. Once we finish we return the result.</p>
 <p>Let’s see how we did.</p>
 <pre class="language-julia"><code>[47, 15, 23, 99, 4] |&gt; bs,
 [47.3, 23.2, 47.2] |&gt; bs</code></pre>
@@ -207,7 +207,7 @@ end</code></pre>
 <pre><code>function bs(v::Vec{A})::Vec{A} where A&lt;:Union{Flt, Int}
     result::Vec{A} = copy(v)
     swapped::Bool = true
-    w::Int = 0
+    w::Int = 0 # count how many times you are in while loop
     while swapped
         w += 1
         @show w
@@ -231,7 +231,10 @@ w = 1
 (result, swapped) = ([0.25, 0.5, 0.75], true)
 w = 2
 (result, swapped) = ([0.25, 0.5, 0.75], false)
-(result, swapped) = ([0.25, 0.5, 0.75], false)</code></pre>
+(result, swapped) = ([0.25, 0.5, 0.75], false)
+
+# result
+[0.25, 0.5, 0.75]</code></pre>
 <p>For our next try we will go with the <a href="https://en.wikipedia.org/wiki/Quicksort">quicksort</a> algorithm. Here, I’ll try to implement it from memory based on the algorithm I once saw in “Learn You a Haskell for Great Good!” by Miran Lipovača. Of course, I’ll try to adjust it for Julia syntax.</p>
 <pre class="language-julia"><code># sorts in ascending order
 function qs(v::Vec{Int})::Vec{Int}

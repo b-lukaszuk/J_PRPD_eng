@@ -203,21 +203,21 @@ txt = getTxtFromFile(&quot;./loremJohnSmith.txt&quot;)
 &quot;&lt;&lt;&lt; &quot; * txt[1:200] * &quot; ... &gt;&gt;&gt;&quot;</code></pre>
 <p>&lt;&lt;&lt; This is a lorem ipsum text from: https://en.wikipedia.org/wiki/Lorem_ipsum it contains a randomly placed name John Smith. It is used for educational purpose only.</p>
 <p>Lorem ipsum dolor sit John Smith ame … &gt;&gt;&gt;</p>
-<p>This could be done, e.g. by replacing his last name with its first letter, but it’s kind of tedious and boring to do this manually while reading the text. It may be sped up with a <a href="https://en.wikipedia.org/wiki/List_of_word_processor_programs">word processing program</a> in which <code>Ctrl+F</code> is usually a shortcut for a <code>find</code> command. In Julia this could be done with <a href="https://docs.julialang.org/en/v1/base/strings/#Base.eachmatch">eachmatch</a> like so:</p>
+<p>This could be done, e.g. by replacing his last name with its first letter, but it’s kind of tedious and boring to do this manually while reading the text. It may be sped up with a <a href="https://en.wikipedia.org/wiki/List_of_word_processor_programs">word processor program</a> in which <code>Ctrl+F</code> is usually a shortcut for a <code>find</code> command. In Julia this could be done with <a href="https://docs.julialang.org/en/v1/base/strings/#Base.eachmatch">eachmatch</a> like so:</p>
 <pre class="language-julia"><code>function getAllMatches(rmi::Base.RegexMatchIterator)::Vec{Str}
     return [regMatch.match for regMatch in rmi]
 end
 
 getAllMatches(eachmatch(r&quot;John Smith&quot;, txt))[1:2]</code></pre>
 <pre class="output"><code>[&quot;John Smith&quot;, &quot;John Smith&quot;]</code></pre>
-<p>Here we defined a little function (<code>getAllMatches</code>), that will help us to extract the matches as a vector of strings, which is easier to read than the default structure returned by <code>eachmatch</code>. Notice, the <code>r"John Smith"</code> argument in <code>eachmatch</code>. The <code>r</code> indicates that the following characters compose no ordinary string, but a special one that is called a <a href="https://en.wikipedia.org/wiki/Regular_expression">regular expression</a> (or regex). It may not seem like much right now, but we’ll see its potential in a moment.</p>
+<p>Here we defined a little function (<code>getAllMatches</code>), that will help us to extract the matches to a vector of strings, which is easier to read than the default structure returned by <code>eachmatch</code>. Notice, the <code>r"John Smith"</code> argument in <code>eachmatch</code>. The <code>r</code> indicates that the following characters compose no ordinary string, but a special one that is called a <a href="https://en.wikipedia.org/wiki/Regular_expression">regular expression</a> (or regex). It may not seem like much right now, but we’ll see its potential in a moment.</p>
 <p>Once we confirmed the phrase existence we may wish to obfuscate it. Again, in a word processing program this could be done with <code>Ctrl+H</code> that usually stands for <code>find and replace</code> command. In Julia, we would do it with something like:</p>
 <pre><code># in Julia strings are immutable
 # to make changes permament write it to `txt` and/or to a file
 txt = replace(txt, r&quot;John Smith&quot; =&gt; &quot;John S&quot;)
 eachmatch(r&quot;John Smith&quot;, txt) |&gt; getAllMatches</code></pre>
 <pre><code>String[]</code></pre>
-<p>There, we did our job, the identity of an accused person is protected. We may write the file on a disk and send the press report. I imagine now you’re wondering what’s the big deal with those regexes anyway. For a person with basic computer literacy what we’ve done doesn’t seem particularly advanced. Well, you’re right. It it not. That’s because in order <strong>to have a regex we need to use some meta-characters, i.e. special symbols that are interpreted beyond their literal meaning. On the other hand, as a general rule, any letter or digit in regex (like <code>r"John Smith"</code>) stands for itself</strong>. Overall, the list of meta-characters is rather long, but as stated in <a href="https://docs.julialang.org/en/v1/manual/strings/#man-regex-literals">the docs</a> it may be found at <a href="https://www.pcre.org/current/doc/html/pcre2syntax.html">the PCRE2 syntax manpage</a>.</p>
+<p>There, we did our job, the identity of an accused person is protected. We may write the file on a disk and send the press report. I imagine now you’re wondering what’s the big deal with those regexes anyway. For a person with basic computer literacy what we’ve done doesn’t seem particularly advanced. Well, you’re right. It is not. That’s because in order <strong>to have a regex we need to use some meta-characters, i.e. special symbols that are interpreted beyond their literal meaning. On the other hand, as a general rule, any letter or digit in regex (like <code>r"John Smith"</code>) stands for itself</strong>. Overall, the list of meta-characters is rather long, but as stated in <a href="https://docs.julialang.org/en/v1/manual/strings/#man-regex-literals">the docs</a> it may be found at <a href="https://www.pcre.org/current/doc/html/pcre2syntax.html">the PCRE2 syntax manpage</a>.</p>
 <p>Instead of going through all the meta-characters (admittedly an impossible task for a short book chapter) let me just demonstrate a few of the more important ones with some illustrative examples.</p>
 <h4 data-number="27.1.1.1" id="example-1"><span class="header-section-number">27.1.1.1</span> Example 1</h4>
 <pre class="language-julia"><code>txt = getTxtFromFile(&quot;./loremDates.txt&quot;)
@@ -254,7 +254,7 @@ eachmatch(r&quot;John Smith&quot;, txt) |&gt; getAllMatches</code></pre>
 &quot;444 sint occaecat cupidatat non $212&quot;,
 &quot;534&quot;
 ]</code></pre>
-<p>Here <code>\d</code> means a digit, <code>.</code> is any character (except for newline), and <code>+</code> stands for one or more of the preceding tokens (so match a digit followed by one or more characters, followed by a digit). There is a small problem though, we caught more than we wanted. That’s because by default, regexes are greedy (usually they match as much as they can until a line ends). If we want to make it more temperate we need to follow <code>.+</code> with <code>?</code> (one or more characters, but as few as you can to fulfill the condition).</p>
+<p>Here <code>\d</code> means a digit, <code>.</code> is any character (except for newline), and <code>+</code> stands for one or more repetitions of the preceding token (so the whole regex says: match a digit followed by one or more characters, followed by a digit). There is a small problem though, we caught more than we wanted. That’s because by default, regexes are greedy (usually they match as much as they can until a line ends). If we want to make it more temperate we need to follow <code>.+</code> with <code>?</code> (<code>+?</code> means: one or more repetitions of the preceding token, but as few as you can to fulfill the condition).</p>
 <pre><code>eachmatch(r&quot;\d.+?\d&quot;, txt) |&gt; getAllMatches</code></pre>
 <pre><code>[
 &quot;112&quot;,
@@ -293,7 +293,7 @@ eachmatch(r&quot;John Smith&quot;, txt) |&gt; getAllMatches</code></pre>
 <p>Let’s try to change our regex a bit to extract only dollars.</p>
 <pre><code>eachmatch(r&quot;$\d{1,}&quot;, txt) |&gt; getAllMatches</code></pre>
 <pre><code>String[]</code></pre>
-<p>Hmm, we wanted to extract a dollar symbol <code>$</code> with all the following digits. Oddly enough that seemed to have failed. That’s because <code>$</code> is a meta-character that denotes end of a subject (usually end of a line or end of a string). So, actually what we said with <code>$\d{1,}</code> was: find digits after the end of a string. An impossible task, hence the empty vector as a result. If we want <code>$</code> to be interpreted as a regular dollar symbol we need to proceed it with <code>\</code> (<code>\</code> gives a special meaning to an ordinary character, like in <code>\d,</code> and strips it away from a special character like <code>$</code>).</p>
+<p>Hmm, we wanted to extract a dollar symbol (<code>$</code>) with all the following digits (<code>\d{1,}</code>). Oddly enough that seemed to have failed. That’s because <code>$</code> is a meta-character that denotes end of a subject (usually end of a line or end of a string). So, actually what we said with <code>$\d{1,}</code> was: find digits after the end of a string. An impossible task, hence the empty vector as a result. If we want <code>$</code> to be interpreted as a regular dollar symbol we need to proceed it with <code>\</code> (<code>\</code> gives a special meaning to an ordinary character, like in <code>\d,</code> and strips it away from a special character like <code>$</code>).</p>
 <pre><code>eachmatch(r&quot;\$\d{1,}&quot;, txt) |&gt; getAllMatches</code></pre>
 <pre><code>[
 &quot;$112&quot;,
@@ -313,7 +313,7 @@ vecStrDollars -&gt; replace.(vecStrDollars, &quot;\$&quot; =&gt; &quot;&quot;) |
 vecStrNumbers -&gt; parse.(Int, vecStrNumbers) |&gt;
 sum</code></pre>
 <pre><code>6423</code></pre>
-<p>And voila, we’re done. Notice, however, that the regex isn’t perfect. For example, it doesn’t handle correctly the amounts of money that contain floating point values (or negative quotas). If that were the requirement, we would would have to improve upon it.</p>
+<p>And voila, we’re done. Notice, however, that the regex isn’t perfect. For example, it doesn’t handle correctly the amounts of money that contain floating point values (or negative quotas). If that were the requirement, we would have to improve upon it.</p>
 <h4 data-number="27.1.1.3" id="example-3"><span class="header-section-number">27.1.1.3</span> Example 3</h4>
 <p>This time we got a few random telephone numbers.</p>
 <pre class="language-julia"><code>Rnd.seed!(9)
@@ -326,7 +326,7 @@ telNums = [join(Rnd.rand(string.(0:9), 9)) for _ in 1:3]</code></pre>
     &quot;545-946-090&quot;,
     &quot;818-309-467&quot;
 ]</code></pre>
-<p>The new elements here are <code>()</code> and <code>\1</code>, <code>\2</code>, <code>\3</code>. Those are capture groups and back-references, respectively. Therefore, <code>(\d{3})</code> in a regex (<code>r""</code>) means capture any three digits in a row and remember them, whereas <code>\1</code> in the substitution (<code>s""</code> - denotes a substitution string that may use meta-characters) means: use the first captured and remembered group (by analogy <code>\2</code> is for the second captured group and <code>\3</code> is for the third).</p>
+<p>The new elements here are <code>()</code> and <code>\1</code>, <code>\2</code>, <code>\3</code>. Those are capture groups and back-references, respectively. Therefore, <code>(\d{3})</code> in a regex (<code>r""</code>) means capture any three digits in a row and remember them, whereas <code>\1</code> in the substitution (<code>s""</code> - denotes a substitution string that may use some meta-characters) means: use the first captured and remembered group (by analogy <code>\2</code> is for the second captured group and <code>\3</code> is for the third).</p>
 <h4 data-number="27.1.1.4" id="example-4"><span class="header-section-number">27.1.1.4</span> Example 4</h4>
 <p>In Section <a href="./camel_case.html#sec:camel_case">4</a> we dealt with two-way text transformations between camelCase and snake_case.</p>
 <p>Let’s do this with regexes. We’ll start with <code>camelCasedWords</code>:</p>

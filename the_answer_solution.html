@@ -193,20 +193,20 @@ const MAX_BASE = 16</code></pre>
     @assert 0 &lt;= dec &lt;= 1024 &quot;dec must be in range [0-1024]&quot;
     result::Str = &quot;&quot;
     while dec != 0
-        # (dec % n) - C-like indexing [0 - (n-1)]
+        # (dec % n) - C-like indexing [0 - n), hence +1 below
         result *= CHARS[(dec % n) + 1]
         dec = div(dec, n)
     end
     return isempty(result) ? &quot;0&quot; : reverse(result)
 end</code></pre>
-<p>Here, we used an algorithm that differs from to the one in Section <a href="./binary_solution.html#sec:binary_solution">14.2</a>. Basically, we divide a decimal number (<code>dec</code>) by the base <code>n</code> in which it is to be coded. Our algorithm comes from <a href="https://en.wikipedia.org/wiki/Binary_number#Decimal_to_binary">the Wikipedia</a> and although it was designed for a decimal to binary conversion it works also for other numerical systems. The page in the link states:</p>
+<p>Here, we used an algorithm that differs from the one in Section <a href="./binary_solution.html#sec:binary_solution">14.2</a>. Basically, we divide a decimal number (<code>dec</code>) by the base <code>n</code> in which it is to be coded. Our algorithm comes from <a href="https://en.wikipedia.org/wiki/Binary_number#Decimal_to_binary">the Wikipedia</a> and although it was designed for a decimal to binary conversion it works also for other numerical systems. The page in the link states:</p>
 <blockquote>
 <p>To convert from a base-10 integer to its base-2 (binary) equivalent, the number is divided by two. The remainder is the least-significant bit. The quotient is again divided by two; its remainder becomes the next least significant bit.</p>
 </blockquote>
-<p>Of course, instead of <code>2</code> we used a reminder of <code>n</code> and the quotient divided by <code>n</code> (<code>div(dec, n)</code>). Of note the modulo operator (<code>%</code>) returns the reminder in the range <code>[0 - (n-1)]</code>, e.g.</p>
+<p>Of course, instead of <code>2</code> we used a reminder of <code>n</code> and the quotient divided by <code>n</code> (<code>div(dec, n)</code>). Of note the modulo operator (<code>%</code>) returns the reminder in the range <code>[0 - n)</code> (inclusive-exclusive), e.g.</p>
 <pre class="language-julia"><code>[i % 3 for i in 0:6]</code></pre>
 <pre class="output"><code>[0, 1, 2, 0, 1, 2, 0]</code></pre>
-<p>Therefore, in order to convert it to Julia’s indexing system we had to add <code>+1</code>. Moreover, during the turnovers of our <code>while</code> loop the least significant reminder was appended (<code>*=</code>) to the <code>result</code>, then the second least significant, then the third, etc. Due to this process the least significant slot was on the left side of the string (<code>result</code>), whereas the most important slot was on the right side of it. Hence, we <code>reverse</code>d the <code>result</code> in our last step.</p>
+<p>Therefore, in order to convert it to Julia’s indexing system we had to add <code>+1</code>. Moreover, during the turnovers of our <code>while</code> loop the least significant reminder was appended (<code>*=</code>) to the <code>result</code>, then the second least significant reminder was appended, then the third, etc. Due to this process the least significant slot ended up on the left side of the string (<code>result</code>), whereas the most important slot ended up on the right side of it. Hence, we <code>reverse</code>d the <code>result</code> in our last step.</p>
 <p>Let’s compare its action against Julia’s built-ins (the <code>string</code> function):</p>
 <pre class="language-julia"><code>[dec2baseN(i, b) == string(i, base=b)
     for b in MIN_BASE:MAX_BASE for i in 0:1024] |&gt; all</code></pre>

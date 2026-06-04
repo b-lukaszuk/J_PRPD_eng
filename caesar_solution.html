@@ -182,10 +182,10 @@ Mousetrap.bind('l', click_next);
 
 <div class="books-content">
 <h2 data-number="39.2" id="sec:caesar_solution"><span class="header-section-number">39.2</span> Solution</h2>
-<p>Let’s start by writing a function that will create alphabets for the outer and inner rings of the discs from Figure <a href="#fig:codingDiscs2">23</a>.</p>
+<p>Let’s start by writing a function that will create alphabets for the outer and inner rings of the discs in Figure <a href="#fig:codingDiscs2">23</a>.</p>
 <figure id="fig:codingDiscs2">
-<img src="./images/codingDiscs.png" alt="Figure 23: Coding Discs. The outer disc contains the original alphabet. The inner disc contains the alphabet shifted by 2 characters" />
-<figcaption aria-hidden="true">Figure 23: Coding Discs. The outer disc contains the original alphabet. The inner disc contains the alphabet shifted by 2 characters</figcaption>
+<img src="./images/codingDiscs.png" alt="Figure 23: Coding Discs. The outer disc contains the original alphabet. The inner disc contains the alphabet shifted by 2 characters." />
+<figcaption aria-hidden="true">Figure 23: Coding Discs. The outer disc contains the original alphabet. The inner disc contains the alphabet shifted by 2 characters.</figcaption>
 </figure>
 <pre class="language-julia"><code>function getAlphabets(rotBy::Int, upper::Bool)::Tuple{Str, Str}
     alphabet::Str = upper ? join(&#39;A&#39;:&#39;Z&#39;) : join(&#39;a&#39;:&#39;z&#39;)
@@ -193,7 +193,7 @@ Mousetrap.bind('l', click_next);
     rotAlphabet::Str = alphabet[(rot+1):end] * alphabet[1:rot]
     return rotBy &lt; 0 ? (rotAlphabet, alphabet) : (alphabet, rotAlphabet)
 end</code></pre>
-<p>First we create an alphabet made of <code>'a'</code> to <code>'z'</code> letters with the desired casing (<code>upper</code>) using a <a href="https://docs.julialang.org/en/v1/base/collections/#Base.StepRange">StepRange</a> (<code>'a':'z'</code> or <code>'A':'Z'</code>) that we <code>join</code> into a string. Next, we use <a href="https://docs.julialang.org/en/v1/base/math/#Base.rem">modulo operator</a> (<code>%</code> - returns reminder of a division) to get the desired rotation (<code>rot</code>). This allows us to gracefully handle the overflow of <code>rotBy</code> [e.g. when <code>rotBy</code> is 28 and <code>length(alphabet)</code> is 26 we get <code>28 % 26</code>i.e. <code>2</code> (full circle turn + shift by 2 fields)]. Then we create the rotated alphabet (<code>rotAlphabet</code>) starting at <code>(rot+1)</code> and appending (<code>*</code>) the beginning of the normal <code>alphabet</code>. Finally, if <code>rotBy</code> is negative (<code>rotBy &lt; 0</code>, decrypting the message) we return <code>rotAlphabet</code> and <code>alphabet</code> to be used as outer and inner disc in Figure <a href="#fig:codingDiscs2">23</a>, respectively. Otherwise <code>alphabet</code> lands in the outer ring and ‘rotAlphabet’ in the inner one (encrypting a message).</p>
+<p>First we create an alphabet made of <code>'a'</code> to <code>'z'</code> letters with the desired casing (<code>upper</code>) using a <a href="https://docs.julialang.org/en/v1/base/collections/#Base.StepRange">StepRange</a> (<code>'a':'z'</code> or <code>'A':'Z'</code>) that we <code>join</code> into a string. Next, we use <a href="https://docs.julialang.org/en/v1/base/math/#Base.rem">modulo operator</a> (<code>%</code> - returns reminder after a division) to get the desired rotation (<code>rot</code>). This allows us to gracefully handle the overflow of <code>rotBy</code> [e.g. when <code>rotBy</code> is 28 and <code>length(alphabet)</code> is 26 we get <code>28 % 26</code>i.e. <code>2</code> (full circle turn + shift by 2 fields)]. Then we create the rotated alphabet (<code>rotAlphabet</code>) starting at <code>(rot+1)</code> and appending (<code>*</code>) the beginning of the normal <code>alphabet</code>. Finally, if <code>rotBy</code> is negative (<code>rotBy &lt; 0</code>, decrypting the message) we return <code>rotAlphabet</code> and <code>alphabet</code> to be used as outer and inner disc in Figure <a href="#fig:codingDiscs2">23</a>, respectively. Otherwise <code>alphabet</code> lands in the outer ring and <code>rotAlphabet</code> in the inner one (encrypting a message).</p>
 <p>Time for a simple test.</p>
 <pre class="language-julia"><code>Dict(i =&gt; getAlphabets(i, true) for i in -1:1:1)</code></pre>
 <pre class="output"><code>Dict{Int64, Tuple{String, String}} with 3 entries:
@@ -206,7 +206,7 @@ end</code></pre>
     ind::Union{Int, Nothing} = findfirst(c, outerDisc)
     return isnothing(ind) ? c : innerDisc[ind]
 end</code></pre>
-<p>We begin by obtaining <code>outerDisc</code> and <code>innerDisc</code> with <code>getAlphabets</code> that we just created. Next, we search for the index (<code>ind</code>) of the character to encode (<code>c</code>) in the <code>outerDisc</code>. The search may fail (e.g. no <code>,</code> in an alphabet) so <code>ind</code> can be either <code>nothing</code> (value <code>nothing</code> of type <code>Nothing</code> indicates a failure) or an integer hence the type of <code>ind</code> is <code>Union{Int, Nothing}</code> to depict just that. Finally, if the search failed (<code>isnothing(ind)</code>) we just return <code>c</code> as it was, otherwise we return the encoded letter read from the inner ring (<code>innerDisc[ind]</code>). Observe.</p>
+<p>We begin by obtaining <code>outerDisc</code> and <code>innerDisc</code> with <code>getAlphabets</code> that we just created. Next, we search for the index (<code>ind</code>) of the character to encode (<code>c</code>) in the <code>outerDisc</code>. The search may fail (e.g. no <code>,</code> in <code>alphabet</code>) so <code>ind</code> can be either <code>nothing</code> (value <code>nothing</code> of type <code>Nothing</code> indicates a failure) or an integer, hence the type of <code>ind</code> is <code>Union{Int, Nothing}</code> to depict just that. Finally, if the search failed (<code>isnothing(ind)</code>) we just return <code>c</code> as it was, otherwise we return the encoded letter read from the inner ring (<code>innerDisc[ind]</code>). Observe.</p>
 <pre class="language-julia"><code>(
     codeChar(&#39;a&#39;, 1),
     codeChar(&#39;A&#39;, 2),
@@ -220,7 +220,7 @@ function codeMsg(msg::Str, rotBy::Int)::Str
     return map(coderFn, msg)
 end</code></pre>
 <p>And voila. Notice, that first we created <code>coderFn</code>, which is a function (<a href="https://en.wikibooks.org/wiki/Introducing_Julia/Functions#Single_expression_functions">single expression function</a>) inside of a function (<code>codeMsg</code>). Now we can neatly use it with <code>map</code>.</p>
-<p>OK, time to decipher our enigmatic message (remember that in Section <a href="./shift_solution.html#sec:shift_solution">38.2</a> we figured out that the shift is equal 13).</p>
+<p>OK, time to decipher our enigmatic message (remember that in Section <a href="./shift_solution.html#sec:shift_solution">38.2</a> we figured out that the shift is equal to 13).</p>
 <pre class="language-julia"><code># be sure to adjust the path
 # the file&#39;s size is roughly 31 KiB
 codedTxt = open(&quot;./code_snippets/shift/trarfvf.txt&quot;) do file
@@ -267,7 +267,7 @@ end</code></pre>
 <p>Time for a test.</p>
 <pre class="language-julia"><code>codeMsg(codedTxt, -13) == code(codedTxt, -13)</code></pre>
 <p>true</p>
-<p>Works the same, still in the above case <code>codeMsg(codedTxt, -13)</code> takes tens of milliseconds to execute, whereas <code>code(codedTxt, -13)</code> only hundreds of microseconds (on my laptop). The human may not tell the difference, but we obtained some 50x speedup thanks to the faster lookups in dictionaries (sometimes called hash maps in other programming languages) and the fact that we do not generate our discs anew for every letter we code.</p>
+<p>Works the same, still in the above case <code>codeMsg(codedTxt, -13)</code> takes tens of milliseconds to execute, whereas <code>code(codedTxt, -13)</code> only hundreds of microseconds (on my laptop). The human may not tell the difference, but we obtained some 50x speedup thanks to the fact that we do not generate our discs anew for every letter we code. Also the lookup in a dictionary (sometimes called a hash map in other programming languages) is probably faster than a lookup in a vector/string (although this is might be true only for large dictionaries/vectors).</p>
 
 
 <div class="bottom-nav">

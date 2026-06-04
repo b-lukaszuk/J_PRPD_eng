@@ -182,11 +182,11 @@ Mousetrap.bind('l', click_next);
 
 <div class="books-content">
 <h2 data-number="29.2" id="sec:tic_tac_toe_solution"><span class="header-section-number">29.2</span> Solution</h2>
-<p>The first decision we must make is the internal representation of our game board. Two candidate data types come to mind right away, a vector or a matrix. Here, I’ll go with the first option.</p>
+<p>The first decision we must make is the one about the internal representation of our game board. Two candidate data types come to mind right away, a vector or a matrix. Here, we’ll go with the first option.</p>
 <pre class="language-julia"><code>function getNewGameBoard()::Vec{Str}
     return string.(1:9)
 end</code></pre>
-<p>Next, we’ll define a few constants that will be helpful later on.</p>
+<p>Next, let’s define a few constants that will be helpful later on.</p>
 <pre class="language-julia"><code>const PLAYERS = [&quot;X&quot;, &quot;O&quot;]
 # LINES[1:3] - rows, LINES[4:6] - columns, LINES[7:8] - diagonals
 const LINES= [
@@ -224,7 +224,7 @@ function colorFieldNumbers(board::Vec{Str})::Vec{Str}
     end
     return result
 end</code></pre>
-<p>We begin with the definition of <code>getGray</code> that will change the font color of the selected symbols from our game board. This should look nice on a standard, dark terminal display. Still, feel free to adjust the color to your needs (although if you use a terminal with a white background you may rather stop and get some help). Anyway, a field not taken by one of the players (<code>isFree2Take</code>) will be colored by <code>colorFieldNumbers</code>.</p>
+<p>We begin with the definition of <code>getGray</code> that will change the font color of the selected symbols from our game board. This should look nice on a standard, dark terminal display. Still, feel free to adjust the color to your needs (although if you use a terminal with a white background you may rather stop it and get some help). Anyway, a field not taken by one of the players (<code>isFree2Take</code>) will be colored by <code>colorFieldNumbers</code>.</p>
 <p>Personally, I would also opt to add the function for the triplets detection (<code>isTriplet</code>), which we will use to color them (first one we find based on <code>LINES</code>) with <code>colorFirstTriplet</code>. This should allow us for easier visual determination when the game is over (later on we will also use it in <code>isGameWon</code>).</p>
 <pre class="language-julia"><code># https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
 function getRed(s::Str)::Str
@@ -297,10 +297,10 @@ function getUserMove(gameBoard::Vec{Str})::Int
     return parse(Int, input)
 end</code></pre>
 <blockquote>
-<p>Note. Using <code>while</code> loop always carries a risk of it being infinite, that’s why it is worth to know that you can always press <a href="https://en.wikipedia.org/wiki/Control-C">Ctrl+C</a> that should terminate the program execution.</p>
+<p>Note. Using <code>while</code> loop always carries a risk of it being infinite, that’s why it is worth to know that you can always press <a href="https://en.wikipedia.org/wiki/Control-C">Ctrl+C</a>. It should terminate the program execution.</p>
 </blockquote>
 <p>We begin with <code>getUserInput</code> a function that takes the <code>prompt</code> (its argument, it tells the user what to do), prints it, and accepts the user’s input (<code>readline</code>) that is returned as a result (after <code>strip</code>ing it from space/tab/new line characters that may be on the edges).</p>
-<p>Next, we make sure that the move made by the user is legal (<code>isMoveLegal</code>), i.e. it can be correctly converted to an integer (<code>parse(Int, move)</code>), it is in the acceptable range (<code>num in eachindex(board)</code>) and is the field free to place the player’s mark (<code>isFree2Take(board[num])</code>). Notice, the use of <code>try</code> and <code>catch</code> construct. First we <code>try</code> to make an integer out of the string obtained from the user (<code>parse(Int, move)</code>). This may fail (e.g., because we got the letter <code>"a"</code> instead of the number <code>"2"</code>). Such a failure, will result in an error that would normally terminate the program execution. We don’t want that to happen, so we <code>catch</code> a possible error and instead of terminating the program, we just <code>return false</code>. If the <code>try</code> succeeds, we skip the <code>catch</code> part and go straight to the next statement after the <code>try</code>-<code>catch</code> block (<code>return (num in eachindex(board)) &amp;&amp; isFree2Take(board[num])</code>) that we already discussed.</p>
+<p>Next, we make sure that the move made by the user is legal (<code>isMoveLegal</code>), i.e. it can be correctly converted to an integer (<code>parse(Int, move)</code>), it is in the acceptable range (<code>num in eachindex(board)</code>) and is the field free to place the player’s mark (<code>isFree2Take(board[num])</code>). Notice, the use of <code>try</code> and <code>catch</code> construct. First we <code>try</code> to make an integer out of the string obtained from the user (<code>parse(Int, move)</code>). This may fail (e.g., because we got the letter <code>"a"</code> instead of the number <code>"2"</code>). Such a failure, will result in an error that would normally terminate the program execution. We don’t want that to happen, so we <code>catch</code> a possible error and instead of terminating the program, we just <code>return false</code>. If the <code>try</code> succeeds, we skip the <code>catch</code> part and go straight to the next statement after the <code>try</code>-<code>catch</code> block (<code>return (num in eachindex(board)) &amp;&amp; isFree2Take(board[num])</code> that we already discussed).</p>
 <p>Finally, we declare <code>getUserMove</code>, a function that asks the user for a move and is quite persistent about it. If the user gives a correct move the first time (<code>input::Str = getUserInput("Enter your move: ")</code>) then the while loop condition (<code>!isMoveLegal(input, gameBoard)</code>) is false and the loop isn’t executed at all (we move to the return statement). However, if the user plays tricks on us and wants to smuggle an illegal move (or maybe they just did it absent-mindedly) then the condition (<code>!isMoveLegal(input, gameBoard)</code>) is true and <code>while</code> it is we nag the user for a correct move (<code>"Illegal move. Try again. Enter your move: "</code>).</p>
 <p>OK, and how about a computer move.</p>
 <pre class="language-julia"><code>function getComputerMove(board::Vec{Str})::Int

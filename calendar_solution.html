@@ -198,7 +198,9 @@ const MONTHS_NAME_2_NUM = Dict(
     &quot;Jan&quot; =&gt; 1, &quot;Feb&quot; =&gt; 2, &quot;Mar&quot; =&gt; 3,
     &quot;Apr&quot; =&gt; 4, &quot;May&quot; =&gt; 5, &quot;Jun&quot; =&gt; 6, &quot;Jul&quot; =&gt; 7,
     &quot;Aug&quot; =&gt; 8, &quot;Sep&quot; =&gt; 9, &quot;Oct&quot; =&gt; 10,
-    &quot;Nov&quot; =&gt; 11, &quot;Dec&quot; =&gt; 12)</code></pre>
+    &quot;Nov&quot; =&gt; 11, &quot;Dec&quot; =&gt; 12)
+const REF_YEAR = 2025 # reference year (arbitrarily chosen)
+const FIRST_DAY_REF_YEAR = 4 # 1st Jan 2025 was on Wednesday</code></pre>
 <blockquote>
 <p>Note. Using <code>const</code> with mutable containers like vectors or dictionaries allows to change their contents later on, e.g., with <code>push!</code>. So the <code>const</code> used here is more like a convention, a signal that we do not plan to change the containers in the future. If we really wanted an immutable container then we should consider a(n) (immutable) tuple. Anyway, some programming languages suggest that <code>const</code> names should be declared using all uppercase characters to make them stand out. Here, I follow this convention.</p>
 </blockquote>
@@ -206,10 +208,10 @@ const MONTHS_NAME_2_NUM = Dict(
 <pre class="language-julia"><code>function getMultOfYGtEqX(x::Int, y::Int=DAYS_PER_WEEK)::Int
     @assert x &gt; 0 &amp;&amp; y &gt; 0 &quot;x and y must be &gt; 0&quot;
     @assert x &gt;= y &quot;x must be &gt;= y&quot;
-    q::Int, r::Int = divrem(x, y) # quotient, reminder
-    return r == 0 ? x : y*(q+1)
+    quotient::Int, reminder::Int = divrem(x, y)
+    return reminder == 0 ? x : y*(quotient+1)
 end</code></pre>
-<p>To that end we wrote <code>getMultOfYGtEqX</code> that, as its name implies, returns the multiple of <code>y</code> that is greater than or equal to <code>x</code>. First, thanks to <code>divrem</code> function, we get the quotient (<code>q</code> - the number of ‘full’ <code>y</code>s is inside of <code>x</code>) and the reminder (<code>r</code> - the rest after the integer division) after dividing <code>x</code> by <code>y</code>. If <code>x</code> is evenly divisible by <code>y</code> (<code>r == 0 ?</code>) then our result is just <code>x</code> (<code>x</code> is the multiple of <code>y</code>). Otherwise, we multiply <code>y</code> by the quotient plus 1 (<code>y*(q+1)</code>).</p>
+<p>To that end we wrote <code>getMultOfYGtEqX</code> that, as its name implies, returns the multiple of <code>y</code> that is greater than or equal to <code>x</code>. First, thanks to <code>divrem</code> function, we get the <code>quotient</code> (the number of ‘full’ <code>y</code>s is inside of <code>x</code>) and the <code>reminder</code> (the rest after the integer division) resultant from dividing <code>x</code> by <code>y</code>. If <code>x</code> is evenly divisible by <code>y</code> (<code>reminder == 0 ?</code>) then our result is just <code>x</code> (<code>x</code> is the multiple of <code>y</code>). Otherwise, we multiply <code>y</code> by the quotient plus 1 (<code>y*(quotient+1)</code>).</p>
 <p>We will use it (<code>getMultOfYGtEqX</code>) to get our days for a given month padded with zeros.</p>
 <pre class="language-julia"><code># 1 - Sunday, 7 - Saturday
 function getPaddedDays(nDays::Int, fstDay::Int)::Vec{Int}
@@ -340,9 +342,9 @@ end</code></pre>
 function getMonthData(yr::Int, month::Int)::Tuple{Int, Int}
     @assert 1 &lt;= yr &lt;= 4000 &quot;yr not in range [1-4000]&quot;
     @assert 1 &lt;= month &lt;= 12 &quot;month not in range [1-12]&quot;
-    curDay::Int = 4 # 1st Jan 2025 (reference point) was Wednesday
-    start::Int = yr &lt;= 2025 ? 2025-1 : 2025+1
-    step::Int = yr &lt;= 2025 ? -1 : 1
+    curDay::Int = FIRST_DAY_REF_YEAR
+    start::Int = (yr &lt;= REF_YEAR) ? REF_YEAR-1 : REF_YEAR+1
+    step::Int = (yr &lt;= REF_YEAR) ? -1 : 1
     yrShift::Int = 0
     for y in start:step:yr
         yrShift = isLeap(y) ? SHIFT_YR_LEAP : SHIFT_YR

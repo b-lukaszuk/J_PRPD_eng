@@ -199,7 +199,7 @@ end
 
 function printCatalogTree(path::Str)::Nothing
     if !isdir(path)
-        println(&quot;The path $path does not exist.&quot;)
+        println(&quot;The path $path/ does not exist.&quot;)
         return nothing
     end
     println(path, &quot;/&quot;)
@@ -233,14 +233,14 @@ end
 
 function printCatalogTree(path::Str)::Nothing
     if !isdir(path)
-        println(&quot;The path $path does not exist.&quot;)
+        println(&quot;The path $path/ does not exist.&quot;)
         return nothing
     end
     println(path, &quot;/&quot;)
     printCatalogTree(path, &quot;|&quot;)
     return nothing
 end</code></pre>
-<p>To that end we changed the <code>pad</code>s. We begin with the first column on the left that should start with the pipe character (<code>printCatalogTree(path, "|")</code>). Each line containing a file or directory should continue with hyphens “—” (<code>newPad::Str = pad * "---"</code>), whereas a nested directory and its contents should be indented and start with the pipe character as well (<code>printCatalogTree(newPath, pad * " |")</code>). Let’s see did it work as intended.</p>
+<p>To that end we changed the <code>pad</code>s. We begin with the first column on the left that should start with the pipe character (<code>printCatalogTree(path, "|")</code>). Each line containing a file or directory should continue with hyphens (<code>newPad::Str = pad * "---"</code>), whereas a nested directory and its contents should be indented and start with the pipe character as well (<code>printCatalogTree(newPath, pad * " |")</code>). Let’s see does it work as intended.</p>
 <pre><code>printCatalogTree(joinpath(homedir(), &quot;Desktop&quot;, &quot;catalog_x&quot;))</code></pre>
 <pre><code>/home/user_name/Desktop/catalog_x/
 |--- catalog_y/
@@ -251,6 +251,8 @@ end</code></pre>
 <p>Not bad at all. Time to add a summary line.</p>
 <pre><code>function printCatalogTree!(path::Str, pad::Str,
                            count::Dict{Str, Int})::Nothing
+    @assert haskey(count, &quot;nDirs&quot;) &quot;count must have a key nDirs&quot;
+    @assert haskey(count, &quot;nFiles&quot;) &quot;count must have a key nFiles&quot;
     newPad::Str = pad * &quot;--- &quot;
     for name in readdir(path)
         newPath::Str = joinpath(path, name)
@@ -268,7 +270,7 @@ end
 
 function printCatalogTree(path::Str)::Nothing
     if !isdir(path)
-        println(&quot;The path $path does not exist.&quot;)
+        println(&quot;The path $path/ does not exist.&quot;)
         return nothing
     end
     println(path, &quot;/&quot;)

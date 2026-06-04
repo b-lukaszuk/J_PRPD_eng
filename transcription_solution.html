@@ -203,6 +203,9 @@ dna[1:75]</code></pre>
 <p>gagctccccggatctgtaacgggaggtctctctcgtgggttgtgggaggtccgaactggccggtcccacagggga</p>
 <p>This couldn’t be simpler, we just use <code>replace</code> and <code>itIs =&gt; shouldBe</code> syntax. The spaces (<code>" "</code>) are replaced with nothing (<code>""</code>, empty string) and newlines (<code>"\n"</code>) with nothing (<code>""</code>, empty string) as well. Effectively this removed them from our <code>dna</code> string.</p>
 <p>String splicing is easily done with indexing (if we got only <a href="https://en.wikipedia.org/wiki/ASCII">ASCII</a> characters) and string concatenation operator (<code>*</code>) like so.</p>
+<pre class="language-julia"><code>isascii(dna)</code></pre>
+<p>true</p>
+<p>and</p>
 <pre class="language-julia"><code>dnaExonsOnly = dna[2424:2610] * dna[3397:3542]
 dnaExonsOnly[1:75]</code></pre>
 <p>taccgggacacctacgcggaggacggggacgaccgcgacgaccgggagacccctggactgggtcggcgtcggaaa</p>
@@ -248,7 +251,7 @@ mRna = transcribe(dnaExonsOnly)
 <pre class="output"><code>(&quot;taccgggaca&quot;
  &quot;auggcccugu&quot;)</code></pre>
 <p>with the same result, but I felt that the longer version was clearer.</p>
-<p>Finally, let’s just check if the transcription produced no artifacts (<code>'?'</code> defined before).</p>
+<p>Finally, let’s just make sure that the transcription produced no artifacts (<code>'?'</code> defined before).</p>
 <pre class="language-julia"><code>findfirst(base -&gt; base == &#39;?&#39;, mRna) |&gt; isnothing</code></pre>
 <p>true</p>
 <p>Everything seems to be in order.</p>

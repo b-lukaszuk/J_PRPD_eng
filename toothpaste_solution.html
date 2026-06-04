@@ -185,7 +185,7 @@ Mousetrap.bind('l', click_next);
 <p>First, let me define some abbreviations to use in the code later on.</p>
 <pre><code>const Vec = Vector
 const Flt = Float64</code></pre>
-<p>Now, based on my own observations I would say that a <a href="https://en.wikipedia.org/wiki/Cylinder">cylinder</a> is a good approximation of the toothpaste that is squezed out of the tube. Time to define some helper functions that will help us to evaluate the amount of a toothpaste on a toothbrush.</p>
+<p>Now, based on my own observations I would say that a <a href="https://en.wikipedia.org/wiki/Cylinder">cylinder</a> is a good approximation of the toothpaste that is squeezed out of the tube. Time to define some functions that will help us to evaluate the amount of a toothpaste on a toothbrush.</p>
 <pre class="language-julia"><code>struct Cylinder
     radius::Int
     height::Int
@@ -194,8 +194,8 @@ end
 function getVolume(c::Cylinder)::Flt
     return c.height * pi * c.radius^2
 end</code></pre>
-<p>We will skip the detailed explanations, as the above are just translations of the Wikipedia’s formulas into Julia’s code.</p>
-<p>There is a slight problem with the code above as one could argue that a cylinder mustn’t have any of its dimensions equal to or smaller than 0 (<code>Int</code> allows for such numbers). So we can either use an <a href="https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/">unsigned type</a> (like <code>UInt64</code>) or add a sanity check within a so called <a href="https://docs.julialang.org/en/v1/manual/constructors/#man-inner-constructor-methods">inner constructor</a>.</p>
+<p>We will skip the detailed explanations, as the above are just translations of the Wikipedia’s/mathematical formulas into Julia’s code.</p>
+<p>There is a slight problem with the code above as one could argue that a cylinder mustn’t have any of its dimensions equal to or smaller than 0 (<code>Int</code> allows for such numbers). So we can either use an <a href="https://docs.julialang.org/en/v1/manual/integers-and-floating-point-numbers/">unsigned type</a> (like <code>UInt64</code>, still it allows for 0s) or add a sanity check within a so called <a href="https://docs.julialang.org/en/v1/manual/constructors/#man-inner-constructor-methods">inner constructor</a>.</p>
 <pre class="language-julia"><code>struct Cylinder
     radius::Int
     height::Int
