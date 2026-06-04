@@ -94,7 +94,7 @@ end
 sc(s1)
 ```
 
-We begin with come preparatory code. First, we `lowercase` the `passphrase` and
+We begin with some preparatory code. First, we `lowercase` the `passphrase` and
 retain only 'a':'z' characters (`isAsciiLetter`). Next, we check how many times
 longer is the coded message (`length(msg)`) in comparison to the passphrase
 (`length(pass)`). The `ceil` function rounds the obtained float to the nearest
@@ -197,18 +197,18 @@ function drawFreqComparison(txt1::Str, title1::Str,
     letFreqs1::Dict{Char, Flt} = getFreqs(txt1)
     letFreqs2::Dict{Char, Flt} = getFreqs(txt2)
     alphabet::Str = join('A':'Z')
-    revAlphabet::Str = alphabet[end:-1:1]
+    reversedAlphabet::Str = alphabet[end:-1:1]
     len::Int = length(alphabet)
     freqs1::Vec{Flt} = [get(letFreqs1, c, 0) for c in alphabet]
     freqs2::Vec{Flt} = [get(letFreqs2, c, 0) for c in alphabet]
     fig::Cmk.Figure = Cmk.Figure(size=(600, 1200))
     ax1::Cmk.Axis = Cmk.Axis(fig[1, 1], title=title1,
                              xlabel="Frequency in text", ylabel="Letter",
-                             yticks=(1:len, split(revAlphabet, "")),
+                             yticks=(1:len, split(reversedAlphabet, "")),
                              ygridvisible=false)
     ax2::Cmk.Axis = Cmk.Axis(fig[2, 1], title=title2,
                              xlabel="Frequency in text", ylabel="Letter",
-                             yticks=(1:len, split(revAlphabet, "")),
+                             yticks=(1:len, split(reversedAlphabet, "")),
                              ygridvisible=false)
     Cmk.linkyaxes!(ax1, ax2)
     Cmk.linkxaxes!(ax1, ax2)
@@ -221,7 +221,7 @@ drawFreqComparison(plainTxt, "genesis.txt in plain text",
                    codedTxt, "genesis.txt coded with a Vigenere cipher")
 ```
 
-![Frequency analysis of plain and encrypted book of Genesis.](./images/genesisVigenere.png){#fig:genesisVigenere.png}
+![Frequency analysis of letters in plain and encrypted book of Genesis.](./images/genesisVigenere.png){#fig:genesisVigenere.png}
 
 The letter distribution definetely got more
 [uniform](https://en.wikipedia.org/wiki/Discrete_uniform_distribution). This

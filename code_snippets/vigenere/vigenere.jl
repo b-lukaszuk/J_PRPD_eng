@@ -4,6 +4,7 @@ const Flt = Float64
 const Str = String
 const Vec = Vector
 
+# WARNING
 # the code in this file is meant to serve as a programming exercise only
 # it may not act correctly
 
@@ -93,18 +94,18 @@ function drawFreqComparison(txt1::Str, title1::Str,
     letFreqs1::Dict{Char, Flt} = getFreqs(txt1)
     letFreqs2::Dict{Char, Flt} = getFreqs(txt2)
     alphabet::Str = join('A':'Z')
-    revAlphabet::Str = alphabet[end:-1:1]
+    reversedAlphabet::Str = alphabet[end:-1:1]
     len::Int = length(alphabet)
     freqs1::Vec{Flt} = [get(letFreqs1, c, 0) for c in alphabet]
     freqs2::Vec{Flt} = [get(letFreqs2, c, 0) for c in alphabet]
     fig::Cmk.Figure = Cmk.Figure(size=(600, 1200))
     ax1::Cmk.Axis = Cmk.Axis(fig[1, 1], title=title1,
                              xlabel="Frequency in text", ylabel="Letter",
-                             yticks=(1:len, split(revAlphabet, "")),
+                             yticks=(1:len, split(reversedAlphabet, "")),
                              ygridvisible=false)
     ax2::Cmk.Axis = Cmk.Axis(fig[2, 1], title=title2,
                              xlabel="Frequency in text", ylabel="Letter",
-                             yticks=(1:len, split(revAlphabet, "")),
+                             yticks=(1:len, split(reversedAlphabet, "")),
                              ygridvisible=false)
     Cmk.linkyaxes!(ax1, ax2)
     Cmk.linkxaxes!(ax1, ax2)
