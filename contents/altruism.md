@@ -29,9 +29,9 @@ if I mess things up, the fault is mine.
 
 Anyway, there is this interesting game theory problem called [the prisoner's
 dilemma](https://en.wikipedia.org/wiki/Prisoner%27s_dilemma). Imagine two
-accomplices being interrogated by the police for the crime they committed. The
-investigators separate the suspects and try to convince them to testify against
-each other (good cop, bad cop, isn't it?):
+accomplices are being interrogated by the police for the crime they
+committed. The investigators separate the suspects and try to convince them to
+testify against each other (good cop, bad cop, isn't it?):
 
 - if both of them remain silent, there is enough evidence to sentence them for
   one year each
@@ -40,7 +40,7 @@ each other (good cop, bad cop, isn't it?):
 - if one of them tells on the other (but the other remains silent), then the
   informer is free to go and the other person serves three years sentence
 
-Imagine, that you are one of the two. Pause for a moment and think which is the
+Imagine that you are one of the two. Pause for a moment and think which is the
 best option for you (use pure logic, not emotions, it is guaranteed that nobody
 will know what you did).
 
@@ -52,7 +52,7 @@ You could say that was a no-brainer, but the problem is deeper than you may
 think. Imagine there are two monkeys and each got a
 [tick](https://en.wikipedia.org/wiki/Tick) on their back that they cannot
 remove themselves. A tick decreases survival of an animal (it spreads diseases),
-so does the removal of the tick (less time to find food). Therefore assume that,
+so does the removal of the tick (less time to find food). Therefore assume that
 when:
 
 - one monkey betrays the other, the winner gets 3 survival points, the looser
@@ -110,7 +110,7 @@ Now, whenever we use `Player` in our code (as a variable type) we will be able
 to use one of the seven informative and mnemonic names (`naive gullible
 unforgiving paybacker unfriendly abusive egoist`). The same goes for `Choice`
 our players will make (`cooperate` and `betray`). Note, however, that in this
-last case the `Choices` are followed by the number code. We didn't have to do
+last case the `Choice`s are followed by the number code. We didn't have to do
 that since by default the enums are internally stored as consecutive integers
 that start at 0. Still, we did it to emphasize our plan to use this property of
 our new type in the near future. Namely, per problem description `unforgiving`
@@ -142,7 +142,7 @@ betrayals in a vector of `Choice`s with the built in `sum` function (it relies
 on `+`)
 
 > **_Note:_** Do not overuse this technique. In general, you should redefine the
-> built in `Base` functions (like `+`) only on the types that you have defined
+> built in `Base` functions (like `+`) only for the types that you have defined
 > yourself.
 
 Time to write a function that will return the Player's move. According to the
@@ -178,9 +178,10 @@ sc(s)
 
 The function is a bit cumbersome to type because Julia does not have [a switch
 statement](https://en.wikipedia.org/wiki/Switch_statement) known from other
-programming languages. If you really must have it, then consider using
-[Match.jl](https://github.com/JuliaServices/Match.jl) as a replacement. Anyway,
-the code is pretty simple if you are familiar with [the decision making in
+programming languages. I'm OK with that, but if you really must have it, then
+consider using [Match.jl](https://github.com/JuliaServices/Match.jl) as a
+replacement. Anyway, the code is pretty simple if you are familiar with [the
+decision making in
 Julia](https://b-lukaszuk.github.io/RJ_BS_eng/julia_language_decision_making.html).
 One point to notice is that here we used the `init=0` keyword argument in `sum`.
 This is a default value from which we start counting the total, and it makes
@@ -209,7 +210,9 @@ sc(s)
 
 Notice, that the `enum` defined by us (`Choice`) got a built in ordering that by
 default goes in an ascending order from left to right (`cooperate` < `betray`
-per `@enum Choice cooperate betray`) which we used to our advantage here.
+per `@enum Choice cooperate betray`) which we used to our advantage here
+(actually, we defined the point values of `Choice`s explicitly, but the result
+is the same).
 
 Time to write a function that takes two players as an argument and runs a random
 number of games (50:300 interactions) between them. In the end it returns the
