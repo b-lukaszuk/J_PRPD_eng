@@ -80,6 +80,30 @@ The `container` is just a `Matrix` (a table) of characters (`Chars`) that's
 constrained by the borders (`|` and `-`) and initially contains nothing inside
 (`fill(' ', N_ROWS, N_COLS)`).
 
+Notice that in this chapter we will use `const`ants quite a bit. For a small
+self-contained project like this it is OK as it simplifies the code. For more
+serious applications you may consider creating a config file/struct and use it
+like:
+
+```
+struct Config
+    nCols::Int
+    nRows::Int
+	# possibly some other fields
+end
+
+config = Config(80, 40) # or read config from a file into the struct
+
+function getEmptyContainer(conf::Config = config)::Matrix{Char}
+	container::Matrix{Char} = fill(' ', conf.nRows, conf.nCols);
+    addBorders!(container, conf)
+    return container
+end
+```
+
+Anyway, let's leave the discussion on a program design and get to the program
+itself.
+
 Now we need our `molecules`. The above will be defined as a vector of positions
 denoting their locations (row and column) within the matrix (our `container`).
 
@@ -158,7 +182,8 @@ motion](https://en.wikipedia.org/wiki/Brownian_motion) or:
 
 Here, we are OK with all the molecules being identical (and sharing identical
 properties). Moreover, for simplicity we'll just assume that `D = 0.5` and `t =
-1`, hence `2Dt = 1`. This last action will give us [a normal
+1` (for now, we don't much care what they are), hence `2Dt = 1`. This last
+action will give us [a normal
 distribution](https://b-lukaszuk.github.io/RJ_BS_eng/statistics_normal_distribution.html)
 with the mean $\mu = 0$ and variance $\sigma^{2} = 1$ (standard deviation `sd`
 is also 1, since $sd = \sqrt{variance}$). Luckily, that is what the built-in
@@ -198,8 +223,8 @@ end
 replace(sc(s), "N_MOLECULES =" => "const N_MOLECULES =")
 ```
 
-The terminal display will require to give a shift in integers, hence `round2int`
-implemented as [single expression function
+Using a terminal display requires the shift to be an integer, hence `round2int`
+implemented with a [single expression function
 syntax](https://en.wikibooks.org/wiki/Introducing_Julia/Functions#Single_expression_functions).
 Moreover, we cannot allow a particle to go outside the walls of the container,
 thus the `if isWithinContainer(newPos), etc.` statement. Together with the
@@ -207,8 +232,8 @@ surrounding `while` block it makes sure that the molecule 'falls back' to the
 container. Effectively, it kind of simulates a reflection of a molecule from the
 walls of the vessel in a random direction.
 
-Now we are almost ready for running our simulation, but first two, rather
-self-explanatory, functions:
+Now we are almost ready for running our simulation, but first two rather
+self-explanatory functions:
 
 ```jl
 s = """

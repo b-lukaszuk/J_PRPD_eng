@@ -1,7 +1,8 @@
+# WARNING
 # the code in this file is meant to serve as a programming exercise only
 # it may not act correctly
 
-# custom data types
+# custom data types (type synonyms)
 const Flt = Float64
 const Pos = Tuple{Int, Int} # position (row, col) in 2D container
 const Str = String
