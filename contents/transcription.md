@@ -114,6 +114,15 @@ concatenation operator (`*`) like so.
 
 ```jl
 s = """
+isascii(dna)
+"""
+sco(s)
+```
+
+and
+
+```jl
+s = """
 dnaExonsOnly = dna[2424:2610] * dna[3397:3542]
 dnaExonsOnly[1:75]
 """
@@ -196,8 +205,8 @@ replace(sco(s), Regex(", \"") => "\n \"")
 
 with the same result, but I felt that the longer version was clearer.
 
-Finally, let's just check if the transcription produced no artifacts (`'?'`
-defined before).
+Finally, let's just make sure that the transcription produced no artifacts
+(`'?'` defined before).
 
 ```jl
 s = """

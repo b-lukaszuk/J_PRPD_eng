@@ -1,5 +1,6 @@
 const Str = String
 
+# WARNING
 # the code in this file is meant to serve as a programming exercise only
 # it may not act correctly
 
@@ -13,6 +14,8 @@ dna[1:75]
 
 dna = replace(dna, " " => "", "\n" => "")
 dna[1:75]
+
+isascii(dna)
 
 dnaExonsOnly = dna[2424:2610] * dna[3397:3542]
 dnaExonsOnly[1:75]
@@ -55,4 +58,4 @@ mRna = map(base -> get(dna2mrna, base, base), dnaExonsOnly)
 )
 
 # are there any unknown bases '?'' (artifacts)
-findfirst(base -> base == '?', mRna) |> isnothing
+findfirst(base -> base == '?', mRna) |> isnothing # if true, then it is OK
