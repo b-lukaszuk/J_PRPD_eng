@@ -16,11 +16,12 @@ A reminder of how to deal with packages and \*.toml files can be found
 ## Problem {#sec:caesar_problem}
 
 We finished the previous chapter (see @sec:shift_solution) by stating that the
-file `trarfvf.txt` contains a text coded with a substitution cipher
-with the shift (rotation) of 13 characters. This turns out to be the
-[Caesar cipher](https://en.wikipedia.org/wiki/Caesar_cipher) used by the famous
-Roman emperor in antiquity (breaking the cipher without a computer program and
-sufficient amount of text is not an easy task).
+file `trarfvf.txt` contains a text coded with a substitution cipher with the
+shift (rotation) of 13 characters. This turns out to be a [Caesar
+cipher](https://en.wikipedia.org/wiki/Caesar_cipher) used by the famous Roman
+emperor in antiquity (although the ruler used a shift of 3). Breaking the
+cipher without a computer program and sufficient amount of text is not an easy
+task.
 
 So here is an exercise for you, write a computer program that can code and
 decode a textual message with a substitution cipher of any shift. Use it to
@@ -30,11 +31,11 @@ the file name (`trarfvf`) itself as well.
 ## Solution {#sec:caesar_solution}
 
 Let's start by writing a function that will create alphabets for the outer and
-inner rings of the discs from @fig:codingDiscs2.
+inner rings of the discs in @fig:codingDiscs2.
 
 ![Coding Discs. The outer disc contains the original alphabet. The inner disc
 contains the alphabet shifted by 2
-characters](./images/codingDiscs.png){#fig:codingDiscs2}
+characters.](./images/codingDiscs.png){#fig:codingDiscs2}
 
 ```jl
 s = """
@@ -53,15 +54,15 @@ casing (`upper`) using a
 [StepRange](https://docs.julialang.org/en/v1/base/collections/#Base.StepRange)
 (`'a':'z'` or `'A':'Z'`) that we `join` into a string. Next, we use [modulo
 operator](https://docs.julialang.org/en/v1/base/math/#Base.rem) (`%` - returns
-reminder of a division) to get the desired rotation (`rot`). This allows us to
-gracefully handle the overflow of `rotBy` [e.g. when `rotBy` is 28 and
+reminder after a division) to get the desired rotation (`rot`). This allows us
+to gracefully handle the overflow of `rotBy` [e.g. when `rotBy` is 28 and
 `length(alphabet)` is 26 we get `28 % 26`i.e. `2` (full circle turn + shift by 2
 fields)]. Then we create the rotated alphabet (`rotAlphabet`) starting at
 `(rot+1)` and appending (`*`) the beginning of the normal `alphabet`. Finally,
 if `rotBy` is negative (`rotBy < 0`, decrypting the message) we return
 `rotAlphabet` and `alphabet` to be used as outer and inner disc in
 @fig:codingDiscs2, respectively. Otherwise `alphabet` lands in the outer ring
-and 'rotAlphabet' in the inner one (encrypting a message).
+and `rotAlphabet` in the inner one (encrypting a message).
 
 Time for a simple test.
 
@@ -90,9 +91,9 @@ sc(s)
 
 We begin by obtaining `outerDisc` and `innerDisc` with `getAlphabets` that we
 just created. Next, we search for the index (`ind`) of the character to encode
-(`c`) in the `outerDisc`. The search may fail (e.g. no `,` in an alphabet) so
+(`c`) in the `outerDisc`. The search may fail (e.g. no `,` in `alphabet`) so
 `ind` can be either `nothing` (value `nothing` of type `Nothing` indicates a
-failure) or an integer hence the type of `ind` is `Union{Int, Nothing}` to
+failure) or an integer, hence the type of `ind` is `Union{Int, Nothing}` to
 depict just that. Finally, if the search failed (`isnothing(ind)`) we just
 return `c` as it was, otherwise we return the encoded letter read from the inner
 ring (`innerDisc[ind]`). Observe.
@@ -127,7 +128,7 @@ function](https://en.wikibooks.org/wiki/Introducing_Julia/Functions#Single_expre
 inside of a function (`codeMsg`). Now we can neatly use it with `map`.
 
 OK, time to decipher our enigmatic message (remember that in @sec:shift_solution
-we figured out that the shift is equal 13).
+we figured out that the shift is equal to 13).
 
 ```jl
 s = """
@@ -230,6 +231,8 @@ sco(s)
 Works the same, still in the above case `codeMsg(codedTxt, -13)` takes tens of
 milliseconds to execute, whereas `code(codedTxt, -13)` only hundreds of
 microseconds (on my laptop). The human may not tell the difference, but we
-obtained some 50x speedup thanks to the faster lookups in dictionaries
-(sometimes called hash maps in other programming languages) and the fact that we
-do not generate our discs anew for every letter we code.
+obtained some 50x speedup thanks to the fact that we do not generate our discs
+anew for every letter we code. Also the lookup in a dictionary (sometimes called
+a hash map in other programming languages) is probably faster than a lookup in a
+vector/string (although this is might be true only for large
+dictionaries/vectors).
