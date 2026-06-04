@@ -15,8 +15,8 @@ A reminder of how to deal with packages and \*.toml files can be found
 
 ## Problem {#sec:shift_problem}
 
-Imagine that one day you received a mysterious e-mail to your inbox. At first
-you thought it was a spam, but it just looks like a complete gibberish. Upon
+Imagine that one day you found a mysterious e-mail in your inbox. At first
+you thought it was a spam. Moreover, it looks like a complete gibberish. Upon
 more detailed inspection it turned out that the text got some regularity to it.
 So it might be a coded message. Just in case you saved it as `trarfvf.txt` ([see
 the code
@@ -28,7 +28,7 @@ Now, a simple method to code something is to use a shift cipher (see
 
 ![Coding Discs. The outer disc contains the original alphabet. The inner disc
 contains the alphabet shifted by 2
-characters](./images/codingDiscs.png){#fig:codingDiscs}
+characters.](./images/codingDiscs.png){#fig:codingDiscs}
 
 To that end you cut two discs out of paper with all the characters from the
 alphabet on them. You shift the inner disk by a certain number of fields (+2 in
@@ -115,8 +115,8 @@ Time to see which letter is the most frequent in our encoded text.
 
 ```jl
 s = """
-codedLetFreqs = getFreqs(codedTxt)
-[k => v for (k, v) in codedLetFreqs if v > 0.12]
+codedLettersFreqs = getFreqs(codedTxt)
+[k => v for (k, v) in codedLettersFreqs if v > 0.12]
 """
 sco(s)
 ```
