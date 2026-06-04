@@ -4,6 +4,7 @@ import BenchmarkTools as Bt # external library
 const Str = String
 const Vec = Vector
 
+# WARNING
 # the code in this file is meant to serve as a programming exercise only
 # it may not act correctly
 
@@ -63,9 +64,11 @@ mRna = uppercase(mRna)
 mRna[1:5]
 
 # translates codon/triplet to amino acid IUPAC
-function getAA(codon::Str)::Str
-    aaAbbrev::Str = get(codon2aa, codon, "???")
-    aaIUPAC::Str = get(aa2iupac, aaAbbrev, "?")
+function getAA(codon::Str,
+               codonAaMap::Dict{Str, Str}=codon2aa,
+               aaAbrevMap::Dict{Str, Str}=aa2iupac)::Str
+    aaAbbrev::Str = get(codonAaMap, codon, "???")
+    aaIUPAC::Str = get(aaAbrevMap, aaAbbrev, "?")
     return aaIUPAC
 end
 
@@ -109,5 +112,5 @@ Bt.@benchmark translate($mRna)
 Bt.@benchmark translate2($mRna)
 
 # benchmark (may take some time)
-Bt.@benchmark translate($(mRna^20))
-Bt.@benchmark translate2($(mRna^20))
+Bt.@benchmark translate($mRna^20)
+Bt.@benchmark translate2($mRna^20)

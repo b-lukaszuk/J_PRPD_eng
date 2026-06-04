@@ -33,10 +33,10 @@ contains the mRNA sequence we obtained previously (see
 Your task is to translate the language of nucleic acids to the language of
 proteins. To do that you will operate on triplets of nucleotide bases (also
 called codons). You start with the `AUG` triplet (the sequence starts with it)
-and replace it with a proper amino acid (proteins are build of amino acids like
-`String`s are build of `Char`s), in this case it is methionine. Then you move to
-another triplet (there are no 'commas' in the genetic code) and assign the
-proper amino acid according to the [standard genetic
+and replace it with a proper amino acid (proteins are build from amino acids
+like `String`s are build from `Char`s), in this case it is methionine. Then you
+move to another triplet (there are no 'commas' in the genetic code) and assign
+the proper amino acid according to the [standard genetic
 code](https://en.wikipedia.org/wiki/DNA_and_RNA_codon_tables#Translation_table_1). You
 finish the protein synthesis once you encounter a stop codon (`UAA`, `UAG`,
 `UGA`).
@@ -150,10 +150,11 @@ bases (aka codon) to an amino acid.
 ```jl
 s = """
 # translates codon/triplet to amino acid IUPAC
-function getAA(codon::Str)::Str
-    @assert length(codon) == 3 "codon must contain 3 nucleotide bases"
-    aaAbbrev::Str = get(codon2aa, codon, "???")
-    aaIUPAC::Str = get(aa2iupac, aaAbbrev, "?")
+function getAA(codon::Str,
+               codonAaMap::Dict{Str, Str}=codon2aa,
+               aaAbrevMap::Dict{Str, Str}=aa2iupac)::Str
+    aaAbbrev::Str = get(codonAaMap, codon, "???")
+    aaIUPAC::Str = get(aaAbrevMap, aaAbbrev, "?")
     return aaIUPAC
 end
 """
@@ -161,7 +162,7 @@ sc(s)
 ```
 
 The function is rather simple. It accepts a codon (like `"AUG"`), next it
-translates a codon to an amino acid (abbreviated with 3 letters) using
+translates a codon to an amino acid (abbreviated with 3 letters) using the
 previously defined `codon2aa` dictionary. Then the 3-letter abbreviation is
 coded with a single letter recommended by IUPAC (using `aa2iupac` dictionary).
 If at any point no translation was found `"?"` is returned.
@@ -191,24 +192,24 @@ end
 sc(s)
 ```
 
-We begin with some checks for the sequence. Then, we define the vector `aas`
-(`aas` - amino acids) holding our result. We initialize it with empty strings
-using `fill` function. We will assign the appropriate amino acids to `aas` based
-on the `aaInd` (`aaInd` - amino acid index) which we increase with every
-iteration (`aaInd += 1`). In `for` loop we iterate over each consecutive index
-with which a triple begins (`1:3:len` will return numbers as `[1, 4, 7, 10, 13,
-...]`). Every consecutive `codon` (3 nucleotic bases) is obtained from
-`mRNASeq` using indexing by adding `+2` to the index that starts a triple (e.g.
-for i = 1, the three bases are at positions 1:3, for i = 4, those are 4:6,
-etc.). The `codon` is used to obtain the corresponding amino acid (`aa`) with
-`getAA`. If the `aa` is a so-called stop codon, then we immediately `break` free
-of the loop. Otherwise, we insert the `aa` to the appropriate place [`aaInd`] in
-`aas`. In the end we collapse the vector of strings into one long string with
-`join`. It is as if we used the string concatenation operator `*` on each
-element of `aas` like so `aas[1] * aas[2] * aas[3] * ...`. Notice, that e.g.
-`"A" * ""` or `"A" * "" * ""` is still `"A"`. This effectively gets rid of any
-empty `aas` elements that remained after reaching `aa == "Stop"` and `break`
-early.
+We begin with some checks for the sequence (`assert`). Then, we define the
+vector `aas` (`aas` - amino acids) holding our result. We initialize it with
+empty strings using `fill` function. We will assign the appropriate amino acids
+to `aas` based on the `aaInd` (`aaInd` - amino acid index) which we increase
+with every iteration (`aaInd += 1`). In `for` loop we iterate over each
+consecutive index with which a triple begins (`1:3:len` will return numbers as
+`[1, 4, 7, 10, 13, ...]`). Every consecutive `codon` (3 nucleotic bases) is
+obtained from `mRNASeq` using indexing by adding `+2` to the index that starts a
+triple (e.g. for i = 1, the three bases are at positions 1:3, for i = 4, those
+are 4:6, etc.). The `codon` is used to obtain the corresponding amino acid
+(`aa`) with `getAA`. If the `aa` is a so-called stop codon, then we immediately
+`break` free of the loop. Otherwise, we insert the `aa` to the appropriate place
+[`aaInd`] in `aas`. In the end we collapse the vector of strings into one long
+string with `join`. It is as if we used the string concatenation operator `*` on
+each element of `aas` like so `aas[1] * aas[2] * aas[3] * ...`. Notice, that
+e.g. `"A" * ""` or `"A" * "" * ""` is still `"A"`. This effectively gets rid of
+any empty `aas` elements that remained after reaching `aa == "Stop"` and
+`break`ing early.
 
 Let's see does it work.
 
@@ -246,12 +247,12 @@ sc(s)
 ```
 
 We start by defining `ranges` that will help us get particular `codons` in
-the next step. For that purpose you take two sequences for start and end of a
+the next step. For that purpose we take two sequences for start and end of a
 codon and glue them together with `:`. For instance `map(:, 1:3:9, 3:3:9)`
 roughly translates into `map(:, [1, 4, 7], [3, 6, 9])` which yields
 `[1:3, 4:6, 7:9]`, i.e. a vector of `UnitRange{Int}`. A `UnitRange{Int}` is a
 range composed of `Int`s separated by one unit, so by 1, like in `4:6` (`[4, 5,
-6]` after expansion) mentioned above. Next, we map over those ranges and use
+6]` after the expansion) mentioned above. Next, we map over those ranges and use
 each one of them (`r`) to get (`->`) a respective codon (`mRnaSeq[r]`). Then, we
 map over the `codons` to get respective amino acids (`getAA`). Finally, we move
 from left to right through the amiono acids (`aas`) vector and take its elements
@@ -284,7 +285,7 @@ REPL (type it after `julia>` prompt)].
 > `translate2(mRna^20)` receive a strand of RNA 20 times longer than `mRna` they
 > still return the same amino acid sequence as before. Test yourself and explain
 > why. This will also help you realize why `translate2` is slower than its
-> counterpart.
+> counterpart in this particular case.
 
 In the said case (with `mRna^20`) the difference between $\approx 27\ [\mu s]$
 and $\approx 140\ [\mu s]$ (on my laptop) shouldn't be noticeable by a human
