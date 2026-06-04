@@ -29,10 +29,10 @@ going to apply similar conventions without delving too much into the previously
 mentioned topics).
 
 For instance, here I'll go with my favorite
-[smallCamelCase](https://en.wikipedia.org/wiki/Camel_case) naming style for
-functions and variables.  Moreover, just like in the previous book, I will also
-use the [assert](https://docs.julialang.org/en/v1/base/base/#Base.@assert) macro
-to test a function's assumptions and print error messages. The construct is not
+[smallCamelCase](https://en.wikipedia.org/wiki/Camel_case) naming style type
+declarations. Moreover, just like in the previous book, I will use the
+[assert](https://docs.julialang.org/en/v1/base/base/#Base.@assert) macro to test
+a function's assumptions and print error messages. The construct is not
 recommended in a serious program (see the warning in the docs), but for the
 purpose of this book it should do the trick.
 
