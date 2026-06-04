@@ -288,7 +288,8 @@ sco(s)
 
 And now, the final question. Which one is better: to overpay `mortgage1` with
 \$20,000 in month 13, or to put this \$20,000 into a bank deposit that pays 5%
-yearly for the 19 years (roughly the remaining duration of the mortgage)?
+yearly for the 19 years (roughly the remaining duration of the mortgage)? For
+simplicity, we assume there is no inflation.
 
 ```jl
 s = """

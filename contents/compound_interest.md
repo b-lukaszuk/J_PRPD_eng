@@ -62,9 +62,9 @@ money last on the retirement?
 
 ## Solution {#sec:compound_interest_solution}
 
-Before we begin a warning. The following section, calculations, etc. may or may
-not be accurate and are only meant as a programming exercise, not a financial
-advice.
+Before we begin a warning. The following section: the discussion, calculations,
+etc. may or may not be accurate and are only meant as a programming exercise,
+not a financial advice.
 
 As a prelude let's write a helper function that will nicely display the amount
 of money we get and improve the readability of our results.
