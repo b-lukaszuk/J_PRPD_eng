@@ -25,7 +25,7 @@ Recreational Programmer's Drawer".
 This book was generated using [Books.jl](https://github.com/JuliaBooks/Books.jl)
 starting with [BookTemplate](https://github.com/JuliaBooks/BookTemplate).
 
-The book is also available as [**PDF**](/J_PRPD_eng_29_04_2026.pdf).
+The book is also available as [**PDF**](/J_PRPD_eng_04_06_2026.pdf).
 
 The template for this book can be found
 [here](https://github.com/b-lukaszuk/J_PRPD_eng) and the code snippets for the
