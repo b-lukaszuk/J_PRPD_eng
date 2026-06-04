@@ -3,6 +3,7 @@ import CairoMakie as Cmk
 const Str = String
 const Vec = Vector
 
+# WARNING
 # the code is meant to serve as a programming exercise, not a financial advice
 # all the calculations may be incorrect
 
@@ -53,12 +54,12 @@ end
 # single month payment of mortgage
 # (remainingPrincipal, pincipalPaid, interestPaid)
 function payOffMortgage(
-    m::Mortgage, curPrincipal::Real, installment::Real,
+    mortgage::Mortgage, curPrincipal::Real, installment::Real,
     overpayment::Real)::Tuple{Real, Real, Real}
     if curPrincipal <= 0.0
         return (curPrincipal, 0.0, 0.0)
     end
-    interestDecimalMonth::Real = m.interestPercYr / 100 / 12
+    interestDecimalMonth::Real = mortgage.interestPercYr / 100 / 12
     interestPaid::Real = curPrincipal * interestDecimalMonth
     principalPaid::Real = installment - interestPaid
     if curPrincipal <= principalPaid
@@ -73,9 +74,9 @@ function payOffMortgage(
 end
 
 struct Summary
-    principal
-    interest
-    months
+    principal::Real
+    interest::Real
+    months::Int
 
     Summary(p::Real, i::Real, m::Int) = (p < 1 || i < 0 || m < 12 || m > 480) ?
         error("incorrect field values") : new(p, i, m)
@@ -83,22 +84,22 @@ end
 
 # pay off mortgage fully, with overpayment
 function payOffMortgage(
-    m::Mortgage,
+    mortgage::Mortgage,
     overpayments::Dict{Int, <:Real})::Summary
-    installment::Real = getInstallment(m) # monthly payment
-    princLeft::Real = m.principal
+    installment::Real = getInstallment(mortgage) # monthly payment
+    princLeft::Real = mortgage.principal
     princPaid::Real = 0.0
     interPaid::Real = 0.0
     totalPrincPaid::Real = 0.0
     totalInterestPaid::Real = 0.0
     months::Int = 0
-    for month in 1:m.numMonths
+    for month in 1:mortgage.numMonths
         if princLeft <= 0
             break
         end
         months += 1
         princLeft, princPaid, interPaid = payOffMortgage(
-            m, princLeft, installment, get(overpayments, month, 0))
+            mortgage, princLeft, installment, get(overpayments, month, 0))
         totalPrincPaid += princPaid
         totalInterestPaid += interPaid
     end
@@ -106,8 +107,8 @@ function payOffMortgage(
 end
 
 # pay off mortgage according to the schedule, no overpayment
-function payOffMortgage(m::Mortgage)::Summary
-    return payOffMortgage(m, Dict{Int, Real}())
+function payOffMortgage(mortgage::Mortgage)::Summary
+    return payOffMortgage(mortgage, Dict{Int, Real}())
 end
 
 # quick sanity check

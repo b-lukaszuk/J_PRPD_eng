@@ -35,23 +35,28 @@ For `mortgage1` which one is more worth it: to overpay it every month with
 Which scenario would you expect to give you more profit (in nominal value): to
 overpay `mortgage1` with \$20,000 in month 13, or to put this \$20,000 into a
 bank deposit that pays 5% yearly for the 19 years (roughly the remaining
-duration of the mortgage)?
+duration of the mortgage)? For simplicity, assume there is no inflation.
 
 ## Solution {#sec:overpayment_solution}
 
-There's no need to (completely) reinvent the wheel so we will use `Mortgage`,
-`fmt` and `getInstallment` we developed earlier (see @sec:mortgage_solution).
-Just in case be sure to also check the terminology we defined there. Anyway, the
-first function we'll define in this chapter is `payOffMortgage`
+We begin this section (just like the previous two) with a warning. The following
+is just a programming exercise and not a financial advice. The discussion and
+all the calculations may be incorrect.
+
+OK, now for the task. There's no need to (completely) reinvent the wheel so we
+will use `Mortgage`, `fmt` and `getInstallment` that we developed earlier (see
+@sec:mortgage_solution).  Just in case, be sure to also check the terminology we
+defined there. Anyway, the first function we'll define in this chapter is
+`payOffMortgage`
 
 ```jl
 s = """
 # single month payment of mortgage, returns
 # (remainingPrincipal, pincipalPaid, interestPaid)
 function payOffMortgage(
-    m::Mortgage, curPrincipal::Real, installment::Real,
+    mortgage::Mortgage, curPrincipal::Real, installment::Real,
     overpayment::Real)::Tuple{Real, Real, Real}
-    interestDecimalMonth::Real = m.interestPercYr / 100 / 12
+    interestDecimalMonth::Real = mortgage.interestPercYr / 100 / 12
     interestPaid::Real = curPrincipal * interestDecimalMonth
     principalPaid::Real = installment - interestPaid
     newPrincipal::Real = curPrincipal - principalPaid
@@ -66,7 +71,7 @@ The function accepts (among others) `curPrincipal`, `installment` and
 `overpayment` and does a payment for a single month. To that end, first we
 calculate the monthly interest rate as a decimal (`interestDecimalMonth`) and
 use it to calculate the interest and principal paid this month (`interestPaid`
-and `principalPaid`). Afterwards we calculate our the new, lower principal
+and `principalPaid`). Afterwards we calculate our new, lower principal
 (`newPrincipal`). Finally, we return a tuple with 3 values: 1) the remaining
 principal (after a month), 2) principal paid in a given month (from
 `installment` and `overpayment`), and 3) interest paid (from `installment`). The
@@ -80,24 +85,24 @@ do). Secondly, a bank may charge a fee (or some money named otherwise) for every
 overpayment we make. Still, since all this section is just a programming
 exercise and not a financial advice then we will not be bothered by that fact.
 
-Still, we will improve our `payOffMortgage` a bit, by dealing with some edge
-cases: 1) when `curPrincipal` is 0 or negative (`if curPrincipal <= 0.0` below),
-2) when `curPrincipal` is equal to or smaller than the principal paid in
-installment (`if curPrincipal <= principalPaid` below), and 3) when (`if
-newPrincipal <= overpayment` below). Therefore, our `payOffMortgage` will look
-something like:
+Nonetheless, we will improve our `payOffMortgage` a bit, by dealing with some
+edge cases: 1) when `curPrincipal` is 0 or negative (`if curPrincipal <= 0.0`
+below), 2) when `curPrincipal` is equal to or smaller than the principal paid in
+installment (`if curPrincipal <= principalPaid` below), and 3) when the new
+principal is smaller than the overpayment (`if newPrincipal <= overpayment`
+below). Therefore, our `payOffMortgage` will look something like:
 
 ```jl
 s = """
 # single month payment of mortgage
 # (remainingPrincipal, pincipalPaid, interestPaid)
 function payOffMortgage(
-    m::Mortgage, curPrincipal::Real, installment::Real,
+    mortgage::Mortgage, curPrincipal::Real, installment::Real,
     overpayment::Real)::Tuple{Real, Real, Real}
     if curPrincipal <= 0.0
         return (curPrincipal, 0.0, 0.0)
     end
-    interestDecimalMonth::Real = m.interestPercYr / 100 / 12
+    interestDecimalMonth::Real = mortgage.interestPercYr / 100 / 12
     interestPaid::Real = curPrincipal * interestDecimalMonth
     principalPaid::Real = installment - interestPaid
     if curPrincipal <= principalPaid
@@ -120,9 +125,9 @@ it. First, summary:
 ```jl
 s = """
 struct Summary
-    principal
-    interest
-    months
+    principal::Real
+    interest::Real
+    months::Int
 
     Summary(p::Real, i::Real, m::Int) = (
 		p < 1 || i < 0 || m < 12 || m > 480) ?
@@ -138,22 +143,22 @@ Now, for the complete mortgage pay off.
 s = """
 # pay off mortgage fully, with overpayment
 function payOffMortgage(
-    m::Mortgage,
+    mortgage::Mortgage,
     overpayments::Dict{Int, <:Real})::Summary
-    installment::Real = getInstallment(m) # monthly payment
-    princLeft::Real = m.principal
+    installment::Real = getInstallment(mortgage) # monthly payment
+    princLeft::Real = mortgage.principal
     princPaid::Real = 0.0
     interPaid::Real = 0.0
     totalPrincPaid::Real = 0.0
     totalInterestPaid::Real = 0.0
     months::Int = 0
-    for month in 1:m.numMonths
+    for month in 1:mortgage.numMonths
         if princLeft <= 0
             break
         end
         months += 1
         princLeft, princPaid, interPaid = payOffMortgage(
-            m, princLeft, installment, get(overpayments, month, 0))
+            mortgage, princLeft, installment, get(overpayments, month, 0))
         totalPrincPaid += princPaid
         totalInterestPaid += interPaid
     end
@@ -161,8 +166,8 @@ function payOffMortgage(
 end
 
 # pay off mortgage according to the schedule, no overpayment
-function payOffMortgage(m::Mortgage)::Summary
-    return payOffMortgage(m, Dict{Int, Real}())
+function payOffMortgage(mortgage::Mortgage)::Summary
+    return payOffMortgage(mortgage, Dict{Int, Real}())
 end
 """
 sc(s)
@@ -193,7 +198,7 @@ payOffMortgage(mortgage1)
 sco(s)
 ```
 
-OK, so finally, we are ready to answer our questions.
+OK, so finally we are ready to answer our questions.
 
 How much money can we potentially save in the case of `mortgage1` (\$200,000,
 6.49%, 20 years) (see @sec:mortgage_solution) overpaid regularly every month
