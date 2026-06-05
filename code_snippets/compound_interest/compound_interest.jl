@@ -70,7 +70,7 @@ function getValue(principal::Real,
     return principal
 end
 
-interestDeposit = 6 # yrs: 2020-2025
+interestDeposit = 6 # yrs: 2020-2024
 numYrs = length(inflPoland)
 money2025deposit = getValue(money2019, interestDeposit, numYrs)
 money2025depositInflation = getValue(
