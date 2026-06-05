@@ -29,7 +29,7 @@ going to apply similar conventions without delving too much into the previously
 mentioned topics).
 
 For instance, here I'll go with my favorite
-[smallCamelCase](https://en.wikipedia.org/wiki/Camel_case) naming style type
+[smallCamelCase](https://en.wikipedia.org/wiki/Camel_case) naming style and type
 declarations. Moreover, just like in the previous book, I will use the
 [assert](https://docs.julialang.org/en/v1/base/base/#Base.@assert) macro to test
 a function's assumptions and print error messages. The construct is not
