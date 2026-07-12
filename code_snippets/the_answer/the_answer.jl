@@ -2,19 +2,24 @@
 # the code in this file is meant to serve as a programming exercise only
 # it may not act correctly
 
+# first key in Lookup is the base of a numerical system
+# keys of the inner Dict are tuples with num1 and num2 (they are added or multiplied)
+# values of the inner Dict are tuples with carried and running slot (after
+# addition or multiplication of num1 and num2 from the key)
+const Lookup = Dict{Int, Dict{Tuple{Char, Char}, Tuple{Char, Char}}}
 const Str = String
 
 const CHARS = vcat('0':'9', 'a':'f')
 const MIN_BASE = 2
 const MAX_BASE = 16
-const ADD_TBL = Dict{Int, Dict{Tuple{Char, Char}, Tuple{Char, Char}}}()
-const MULT_TBL = Dict{Int, Dict{Tuple{Char, Char}, Tuple{Char, Char}}}()
 
-# unfortunately, we need to fill our `const`s, but we'll do this only once
-# and not touch (modify) ADD_TBL and MULT_TBL later on
+add_tbl = Lookup() # addition table
+mult_tbl = Lookup() # multiplication table
+
+# filling the multiplication and addition tables with necessary base cases
 for base in MIN_BASE:MAX_BASE
-    ADD_TBL[base] = Dict()
-    MULT_TBL[base] = Dict()
+    add_tbl[base] = Dict()
+    mult_tbl[base] = Dict()
     for dec1 in 0:(base-1), dec2 in 0:(base-1) # 1 digit nums only
         n1 = string(dec1, base=base)[1]
         n2 = string(dec2, base=base)[1]
@@ -22,12 +27,12 @@ for base in MIN_BASE:MAX_BASE
         prodOfNs = string(dec1 * dec2, base=base)
         s1, s2 = lpad(sumOfNs, 2, '0') # s1, s2 = carried, running slot
         p1, p2 = lpad(prodOfNs, 2, '0') # p1, p2 = carried, running slot
-        ADD_TBL[base][(n1, n2)] = (s1, s2)
-        MULT_TBL[base][(n1, n2)] = (p1, p2)
+        add_tbl[base][(n1, n2)] = (s1, s2)
+        mult_tbl[base][(n1, n2)] = (p1, p2)
     end
 end
 
-# MULT_TBL alone is already sufficient to answer the question, i.e.
+# mult_tbl alone is already sufficient to answer the question, i.e.
 # 6*9 in different base num systems
 # nevertheless, we'll modify the functions from ../binary/binary.jl
 # just for extra practice
@@ -42,10 +47,11 @@ function isBaseN(num::Str, n::Int)::Bool
 end
 
 # returns (carried num, running num)
-function add(num1::Char, num2::Char, base::Int)::Tuple{Char, Char}
+function add(num1::Char, num2::Char, base::Int,
+             lookup::Lookup=add_tbl)::Tuple{Char, Char}
     @assert isBaseN(num1, base) "$num1 is not a num of base $base"
     @assert isBaseN(num2, base) "$num2 is not a num of base $base"
-    return ADD_TBL[base][(num1, num2)]
+    return lookup[base][(num1, num2)]
 end
 
 function getEqlLenNums(num1::Str, num2::Str)::Tuple{Str, Str}
@@ -64,20 +70,20 @@ function isZero(num::Str)::Bool
     return isZero.(collect(num)) |> all
 end
 
-function add(num1::Str, num2::Str, baseNums::Int)::Str
+function add(num1::Str, num2::Str, baseNums::Int, lookup::Lookup=add_tbl)::Str
     num1, num2 = getEqlLenNums(num1, num2)
     carriedSlot::Char, runningSlot::Char = ('0', '0')
     runningSlots::Str = ""
     carriedSlots::Str = "0"
     for (n1, n2) in zip(reverse(num1), reverse(num2))
-        carriedSlot, runningSlot = add(n1, n2, baseNums)
+        carriedSlot, runningSlot = add(n1, n2, baseNums, lookup)
         runningSlots = runningSlot * runningSlots
         carriedSlots = carriedSlot * carriedSlots
     end
     if isZero(carriedSlots)
         return isZero(runningSlots) ? "0" : lstrip(isZero, runningSlots)
     else
-        return add(runningSlots, carriedSlots, baseNums)
+        return add(runningSlots, carriedSlots, baseNums, lookup)
     end
 end
 
@@ -98,30 +104,31 @@ for base in MIN_BASE:MAX_BASE
 end
 
 # returns (crried num, running num)
-function multiply(num1::Char, num2::Char, base::Int)::Tuple{Char, Char}
+function multiply(num1::Char, num2::Char, base::Int,
+                  lookup::Lookup=mult_tbl)::Tuple{Char, Char}
     @assert isBaseN(num1, base) "$num1 is not a num of base $base"
     @assert isBaseN(num2, base) "$num2 is not a num of base $base"
-    return MULT_TBL[base][(num1, num2)]
+    return lookup[base][(num1, num2)]
 end
 
-function multiply(num1::Char, num2::Str, base::Int)::Str
+function multiply(num1::Char, num2::Str, base::Int, lookup::Lookup=mult_tbl)::Str
     carriedSlot::Char, runningSlot::Char = ('0', '0')
     carriedSlots::Str = "0"
     runningSlots::Str = ""
     for n in reverse(num2)
-        carriedSlot, runningSlot = multiply(n, num1, base)
+        carriedSlot, runningSlot = multiply(n, num1, base, lookup)
         runningSlots = runningSlot * runningSlots
         carriedSlots = carriedSlot * carriedSlots
     end
     return add(carriedSlots, runningSlots, base)
 end
 
-function multiply(num1::Str, num2::Str, base::Int)::Str
+function multiply(num1::Str, num2::Str, base::Int, lookup::Lookup=mult_tbl)::Str
     total::Str = "0"
     curProd::Str = ""
     nZerosToPad::Int = 0
     for n in reverse(num1)
-        curProd = multiply(n, num2, base) * ('0' ^ nZerosToPad)
+        curProd = multiply(n, num2, base, lookup) * ('0' ^ nZerosToPad)
         total = add(total, curProd, base)
         nZerosToPad += 1
     end
@@ -135,7 +142,7 @@ for base in MIN_BASE:MAX_BASE
 end
 
 # check 6*9 (the question) in different base num systems
-# alternatively you could just do the lookup in MULT_TBL
+# alternatively you could just do the lookup in mult_tbl
 for base in 10:MAX_BASE # 9 can be coded with 1 digit in base 10:16
     println("base $base: 6 * 9 = $(multiply('6', '9', base) |> join)")
 end
