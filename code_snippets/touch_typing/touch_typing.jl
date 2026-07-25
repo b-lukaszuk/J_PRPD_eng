@@ -208,7 +208,7 @@ function areRequirementsMet(txtForTyping::Str, verbose::Bool=true)::Bool
     if !isAnsiColorsSupport()
         requirementsMet &= false
         verbose ?
-            println(getRedFG("No suport for ANSI colors found.")) :
+            println(getRedFG("Insufficient support for ANSI colors.")) :
             nothing
     end
     if !isSttyPresent()
@@ -241,7 +241,7 @@ function printInfo(text2TypeFilePath::Str)::Nothing
     return nothing
 end
 
-function promptForStartReturnChoice()::Str
+function promptForStartAndReturnChoice()::Str
     println("Press Enter (or any key and Enter) and start typing")
     println("(While typing you may quit by pressing Ctrl+C or Ctrl+D).")
     println("Press q and Enter to quit now.")
@@ -267,7 +267,7 @@ function main()::Nothing
         return nothing
     end
 
-    choice = promptForStartReturnChoice()
+    choice = promptForStartAndReturnChoice()
 
     if lowercase(strip(choice)) != "q"
         txt2type = getTxtFormatedForTyping(txt2type)
