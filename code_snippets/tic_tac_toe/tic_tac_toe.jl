@@ -241,7 +241,7 @@ function areRequirementsMet(verbose::Bool=true)::Bool
     if !isAnsiColorSupport()
         requirementsMet &= false
         verbose ?
-            println(getRed("No suport for ANSI colors found.")) :
+            println(getRed("Insufficient support for ANSI colors.")) :
             nothing
     end
     (requirementsMet && verbose) ?
