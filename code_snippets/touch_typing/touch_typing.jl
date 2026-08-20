@@ -220,7 +220,7 @@ function areRequirementsMet(txtForTyping::Str, verbose::Bool=true)::Bool
     if !isascii(txtForTyping)
         requirementsMet &= false
         verbose ?
-            println(getGreenFG("Found non-ASCII characters.")) :
+            println(getRedFG("Found non-ASCII characters.")) :
             nothing
     end
     (requirementsMet && verbose) ?
