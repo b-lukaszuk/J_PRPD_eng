@@ -99,7 +99,7 @@ function areAllCellsDead(universe::Universe)::Bool
     return sum(universe) == 0
 end
 
-function runGameOfLife()
+function runGameOfLife()::Nothing
     universe::Universe = getRandUniverse()
     printUniverse(universe, 0)
     for nGeneration in 1:N_GENERATIONS
@@ -111,6 +111,7 @@ function runGameOfLife()
             break
         end
     end
+    return nothing
 end
 
 # make sure your terminal supports ANSI escape codes
