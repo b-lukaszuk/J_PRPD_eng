@@ -89,7 +89,7 @@ let's start with that.
 
 ```jl
 s = """
-function getDotProduct(row::Vec{Int}, col::Vec{Int})
+function getDotProduct(row::Vec{Int}, col::Vec{Int})::Int
     @assert length(row) == length(col) "row & col must be of equal length"
     return map(*, row, col) |> sum
 end

@@ -18,13 +18,13 @@ b = [7 8; 9 10; 11 12]
 c = [-1 3 5; 5 5 2]
 d = [3 4; 3 -2; 4 -2]
 
-function getDotProduct(row::Vec{Int}, col::Vec{Int})
+function getDotProduct(row::Vec{Int}, col::Vec{Int})::Int
     @assert length(row) == length(col) "row & col must be of equal length"
     return map(*, row, col) |> sum
 end
 
 # alternative version of getDotProduct
-function getDotProduct(row::Vec{Int}, col::Vec{Int})
+function getDotProduct(row::Vec{Int}, col::Vec{Int})::Int
     @assert length(row) == length(col) "row & col must be of equal length"
     return sum(row .* col)
 end
