@@ -112,8 +112,9 @@ function getFmtMonth(fstDayMonth::Int, nDaysMonth::Int,
     days = replace(days, "0" => " ")
     m::Matrix{Str} = vec2matrix(
         days, Int(length(days)/DAYS_PER_WEEK), DAYS_PER_WEEK, true)
-    fmtDay(day) = lpad(day, 2)
-    fmtRow(row) = join(map(fmtDay, row), " ")
+    fmtDay(day::Str)::Str = lpad(day, 2)
+    fmtRow(row::AbstractVector{Str})::Str = join(map(fmtDay, row), " ")
+    println("test")
     result::Str = ""
     for r in eachrow(m)
         result *= fmtRow(r) * "\n"
