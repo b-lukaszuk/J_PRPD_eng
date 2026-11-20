@@ -164,8 +164,8 @@ OK, time for the multiplication itself.
 ```jl
 s = """
 function multiply(m1::Matrix{Int}, m2::Matrix{Int})::Matrix{Int}
-    nRowsMat1, nColsMat1 = size(m1)
-    nRowsMat2, nColsMat2 = size(m2)
+    nRowsMat1::Int, nColsMat1::Int = size(m1)
+    nRowsMat2::Int, nColsMat2::Int = size(m2)
     @assert  nColsMat1 == nRowsMat2 "the matrices are incompatible"
     result::Matrix{Int} = zeros(nRowsMat1, nColsMat2)
     for r in 1:nRowsMat1
@@ -193,8 +193,8 @@ nested for loop syntax. It works the same as the previous code snippet.
 ```jl
 s1 = """
 function multiply(m1::Matrix{Int}, m2::Matrix{Int})::Matrix{Int}
-    nRowsMat1, nColsMat1 = size(m1)
-    nRowsMat2, nColsMat2 = size(m2)
+    nRowsMat1::Int, nColsMat1::Int = size(m1)
+    nRowsMat2::Int, nColsMat2::Int = size(m2)
     @assert  nColsMat1 == nRowsMat2 "the matrices are incompatible"
     result::Matrix{Int} = zeros(nRowsMat1, nColsMat2)
     for r in 1:nRowsMat1, c in 1:nColsMat2

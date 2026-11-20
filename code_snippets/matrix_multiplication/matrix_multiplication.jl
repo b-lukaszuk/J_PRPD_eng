@@ -30,8 +30,8 @@ function getDotProduct(row::Vec{Int}, col::Vec{Int})::Int
 end
 
 function multiply(m1::Matrix{Int}, m2::Matrix{Int})::Matrix{Int}
-    nRowsMat1, nColsMat1 = size(m1)
-    nRowsMat2, nColsMat2 = size(m2)
+    nRowsMat1::Int, nColsMat1::Int = size(m1)
+    nRowsMat2::Int, nColsMat2::Int = size(m2)
     @assert  nColsMat1 == nRowsMat2 "the matrices are incompatible"
     result::Matrix{Int} = zeros(nRowsMat1, nColsMat2)
     for r in 1:nRowsMat1
@@ -44,8 +44,8 @@ end
 
 # alternative version of multiply
 function multiply(m1::Matrix{Int}, m2::Matrix{Int})::Matrix{Int}
-    nRowsMat1, nColsMat1 = size(m1)
-    nRowsMat2, nColsMat2 = size(m2)
+    nRowsMat1::Int, nColsMat1::Int = size(m1)
+    nRowsMat2::Int, nColsMat2::Int = size(m2)
     @assert  nColsMat1 == nRowsMat2 "the matrices are incompatible"
     result::Matrix{Int} = zeros(nRowsMat1, nColsMat2)
     for r in 1:nRowsMat1, c in 1:nColsMat2
