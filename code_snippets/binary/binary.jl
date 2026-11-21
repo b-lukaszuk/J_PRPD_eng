@@ -93,7 +93,7 @@ end
 
 function add(bin1::Str, bin2::Str)::Str
     @assert isBin(bin1) && isBin(bin2) "both inputs must be binary numbers"
-    bin1, bin2 = getEqlLenBins(bin1, bin2)
+    bin1::Str, bin2::Str = getEqlLenBins(bin1, bin2)
     carriedBit::Char = '0'
     runningBit::Char = '0'
     runningBits::Str = ""
