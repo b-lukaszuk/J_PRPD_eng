@@ -71,7 +71,7 @@ function isZero(num::Str)::Bool
 end
 
 function add(num1::Str, num2::Str, baseNums::Int, lookup::Lookup=add_tbl)::Str
-    num1, num2 = getEqlLenNums(num1, num2)
+    num1::Str, num2::Str = getEqlLenNums(num1, num2)
     carriedSlot::Char, runningSlot::Char = ('0', '0')
     runningSlots::Str = ""
     carriedSlots::Str = "0"
