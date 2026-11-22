@@ -64,7 +64,8 @@ function getFmtPascTriangle(n::Int, k::Int)::Str
     lastRow::Vec{Int} = triangle[end]
     maxNumWidth::Int = getMaxNumLen(lastRow) + 1
     lastRowWidth::Int = (n+1) * maxNumWidth + n
-    fmtRow(row) = getFmtRow(row, maxNumWidth, lastRowWidth)
+    fmtRow(row::Vec{<:Union{Int, Str}})::Str = getFmtRow(
+        row, maxNumWidth, lastRowWidth)
     formattedTriangle::Str = join(map(fmtRow, triangle), "\n")
     indicators::Vec{Str} = fill(" ", n+1)
     indicators[k+1] = "∆"
