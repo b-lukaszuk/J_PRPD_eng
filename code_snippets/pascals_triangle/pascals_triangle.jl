@@ -51,7 +51,7 @@ end
 
 function getFmtRow(
     row::Vec{A}, numLen::Int, rowLen::Int)::Str where A<:Union{Int, Str}
-    fmt(num) = center(num, numLen)
+    fmt(num::A)::Str = center(num, numLen)
     formattedRow::Str = join(map(fmt, row), " ")
     return center(formattedRow, rowLen)
 end
