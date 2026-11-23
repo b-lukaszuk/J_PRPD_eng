@@ -34,7 +34,7 @@ end
 canvas = fill(getBgColor(:gray), 30, 60);
 
 function printCanvas(cvs::Matrix{Str}=canvas)::Nothing
-    nRows, _ = size(cvs)
+    nRows::Int, _ = size(cvs)
     for r in 1:nRows
         println(cvs[r, :] |> join)
     end
@@ -75,7 +75,7 @@ function getRectangle(width::Int, height::Int, topLeftCorner::Pos)::Vec{Pos}
 end
 
 function isWithinCanvas(point::Pos, cvs::Matrix{Str}=canvas)::Bool
-    nRows, nCols = size(cvs)
+    nRows::Int, nCols::Int = size(cvs)
     row, col = point
     return (0 < row <= nRows) && (0 < col <= nCols)
 end
