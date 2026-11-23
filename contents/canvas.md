@@ -69,7 +69,7 @@ and try again and again if we need to.
 
 ```
 function printCanvas(cvs::Matrix{Str}=canvas)::Nothing
-    nRows, _ = size(cvs)
+    nRows::Int, _ = size(cvs)
     for r in 1:nRows
         println(cvs[r, :] |> join)
     end
@@ -137,8 +137,8 @@ canvas (notice, that we only add the points that are inside of our canvas).
 
 ```
 function isWithinCanvas(point::Pos, cvs::Matrix{Str}=canvas)::Bool
-    nRows, nCols = size(cvs)
-    row, col = point
+    nRows::Int, nCols::Int = size(cvs)
+    row::Int, col::Int = point
     return (0 < row <= nRows) && (0 < col <= nCols)
 end
 

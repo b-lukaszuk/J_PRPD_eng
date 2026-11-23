@@ -76,7 +76,7 @@ end
 
 function isWithinCanvas(point::Pos, cvs::Matrix{Str}=canvas)::Bool
     nRows::Int, nCols::Int = size(cvs)
-    row, col = point
+    row::Int, col::Int = point
     return (0 < row <= nRows) && (0 < col <= nCols)
 end
 
