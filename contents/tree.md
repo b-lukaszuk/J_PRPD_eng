@@ -47,8 +47,9 @@ Let's start small with an initial definition of `printCatalogTree`.
 ```
 function printCatalogTree(path::Str, pad::Str)::Nothing
     newPad::Str = pad * "    "
+    newPath::Str = ""
     for name in readdir(path)
-        newPath::Str = joinpath(path, name)
+        newPath = joinpath(path, name)
         if isfile(newPath)
             println(newPad, name)
         else
@@ -106,8 +107,9 @@ guideways that we may follow with our eyes.
 ```
 function printCatalogTree(path::Str, pad::Str)::Nothing
     newPad::Str = pad * "--- "
+    newPath::Str = ""
     for name in readdir(path)
-        newPath::Str = joinpath(path, name)
+        newPath = joinpath(path, name)
         if isfile(newPath)
             println(newPad, name)
         else
@@ -157,8 +159,9 @@ function printCatalogTree!(path::Str, pad::Str,
     @assert haskey(count, "nDirs") "count must have a key nDirs"
     @assert haskey(count, "nFiles") "count must have a key nFiles"
     newPad::Str = pad * "--- "
+    newPath::Str = ""
     for name in readdir(path)
-        newPath::Str = joinpath(path, name)
+        newPath = joinpath(path, name)
         if isfile(newPath)
             println(newPad, name)
             count["nFiles"] += 1
