@@ -10,8 +10,9 @@ function printCatalogTree!(path::Str, pad::Str,
     @assert haskey(count, "nDirs") "count must have a key nDirs"
     @assert haskey(count, "nFiles") "count must have a key nFiles"
     newPad::Str = pad * "--- "
+    newPath::Str = ""
     for name in readdir(path)
-        newPath::Str = joinpath(path, name)
+        newPath = joinpath(path, name)
         if isfile(newPath)
             println(newPad, name)
             count["nFiles"] += 1
