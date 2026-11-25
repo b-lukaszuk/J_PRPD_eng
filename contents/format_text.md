@@ -327,7 +327,7 @@ function connectColumns(col1lines::Vec{Str}, col2lines::Vec{Str})::Vec{Str}
     @assert(length(col1lines) >= length(col2lines),
             "col1lines must have >= elements than col2lines")
     result::Vec{Str} = fill("", length(col1lines))
-    emptyColPad = padLine("", 0, length(col1lines[1]))
+    emptyColPad::Str = padLine("", 0, length(col1lines[1]))
     for i in eachindex(col1lines)
         result[i] = string(col1lines[i], COL_SEP,
                            get(col2lines, i, emptyColPad))
